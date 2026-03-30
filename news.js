@@ -14,7 +14,7 @@ const News = {
     // Use real API if key available
     if (key) {
       try {
-        const url = `https://newsapi.org/v2/top-headlines?language=en&pageSize=40&apiKey=${key}`;
+        const url = `https://gnews.io/api/v4/top-headlines?category=general&lang=en&max=10&apikey=${key}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error('NewsAPI error');
         const data = await res.json();
@@ -160,9 +160,10 @@ const News = {
     div.className = 'news-card';
     div.style.animationDelay = `${index * 0.04}s`;
 
-    const imgHtml = article.urlToImage
-      ? `<img class="news-img" src="${article.urlToImage}" alt="" onerror="this.style.display='none'" loading="lazy" />`
-      : '';
+    const imageUrl = article.image || article.urlToImage;
+const imgHtml = imageUrl
+  ? `<img class="news-img" src="${imageUrl}" alt="" onerror="this.style.display='none'" loading="lazy" />`
+  : '';
 
     div.innerHTML = `
       <div class="news-card-top">
