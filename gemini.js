@@ -1,7 +1,7 @@
 // gemini.js — All Gemini Flash API calls
 
 const Gemini = {
-  MODEL: 'gemini-1.5-flash-latest',
+  MODEL: 'gemini-1.5-flash',
   BASE:  'https://generativelanguage.googleapis.com/v1beta/models',
 
   async ask(prompt, options = {}) {
