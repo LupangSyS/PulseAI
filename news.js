@@ -10,15 +10,28 @@ const News = {
   // Fetch from NewsAPI (or mock if key not set)
   async fetch() {
     const key = Config.newsKey;
-
-    // Use real API if key available
+// Use real API if key available
     if (key) {
       try {
-        const url = `https://corsproxy.io/?https://gnews.io/api/v4/top-headlines?category=general&lang=en&max=10&apikey=${key}`;
+        // แปะ corsproxy กันเหนียวไว้ก่อน เผื่อโดนบล็อก CORS
+        const url = `https://corsproxy.io/?https://newsdata.io/api/1/latest?apikey=${key}&language=en&size=50`;
         const res = await fetch(url);
-        if (!res.ok) throw new Error('NewsAPI error');
+        if (!res.ok) throw new Error('NewsData API error');
         const data = await res.json();
-        return data.articles || [];
+        
+        // แปลงร่าง (Map) Data ของ NewsData ให้หน้าตาเหมือน NewsAPI
+        // โค้ดส่วนอื่นของมึงอย่าง renderCard() จะได้ทำงานต่อได้เลยโดยไม่ต้องแก้!
+        const results = data.results || [];
+        return results.map(item => ({
+          title: item.title,
+          description: item.description,
+          source: { name: item.source_id || 'News' }, // ค่ายนี้ใช้ source_id
+          publishedAt: item.pubDate,                  // ค่ายนี้ใช้ pubDate
+          url: item.link,                             // ค่ายนี้ใช้ link
+          urlToImage: item.image_url,                 // ค่ายนี้ใช้ image_url
+          _topic: null 
+        }));
+
       } catch (e) {
         console.warn('NewsAPI failed, using fallback:', e.message);
       }
