@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Environment files (NEVER commit API keys)
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build outputs
+dist/
+build/
