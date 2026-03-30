@@ -14,7 +14,7 @@ const News = {
     // Use real API if key available
     if (key) {
       try {
-        const url = `https://gnews.io/api/v4/top-headlines?category=general&lang=en&max=10&apikey=${key}`;
+        const url = `https://corsproxy.io/?https://gnews.io/api/v4/top-headlines?category=general&lang=en&max=10&apikey=${key}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error('NewsAPI error');
         const data = await res.json();
