@@ -14,7 +14,7 @@ const News = {
     if (key) {
       try {
         // แปะ corsproxy กันเหนียวไว้ก่อน เผื่อโดนบล็อก CORS
-        const url = `https://corsproxy.io/?https://newsdata.io/api/1/latest?apikey=${key}&language=en&size=50`;
+        const url = `https://corsproxy.io/?https://newsdata.io/api/1/latest?apikey=${key}&language=en`;
         const res = await fetch(url);
         if (!res.ok) throw new Error('NewsData API error');
         const data = await res.json();
