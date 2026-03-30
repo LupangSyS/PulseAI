@@ -137,21 +137,27 @@ const News = {
     ];
   },
 
-  async classifyArticles(articles) {
+async classifyArticles(articles) {
     // If Gemini key available, classify in batches
     if (Config.geminiKey) {
       const unclassified = articles.filter(a => !a._topic);
-      // Classify first 15 to avoid rate limits
-      const batch = unclassified.slice(0, 15);
-      await Promise.allSettled(batch.map(async (article) => {
+      // ลดจำนวนลงมาเหลือแค่ 5 ข่าวแรกก่อน เพื่อเซฟโควต้า (15 ข่าวมันเสี่ยงชนเพดานไวไป)
+      const batch = unclassified.slice(0, 5);
+      
+      // ใช้ for...of เพื่อบังคับให้มันทำงานทีละคิว (รออันแรกเสร็จค่อยไปอันต่อไป)
+      for (const article of batch) {
         try {
           article._topic = await Gemini.classifyTopic(article.title, article.description);
-        } catch {
-          article._topic = 'world';
+          // ดีเลย์ 1.5 วินาที ให้ API ได้พักหายใจ
+          await new Promise(resolve => setTimeout(resolve, 1500));
+        } catch (e) {
+          console.warn('Gemini API limit hit:', e.message);
+          article._topic = 'world'; // ถ้าพังก็ยัดลงหมวด world ขัดตาทัพไปก่อน
         }
-      }));
-      // Rest get 'world' as fallback
-      unclassified.slice(15).forEach(a => { a._topic = a._topic || 'world'; });
+      }
+      
+      // ข่าวที่เหลือให้เหมาเป็น 'world' ไปก่อน จะได้ไม่เปลือง API คุ้มกว่า
+      unclassified.slice(5).forEach(a => { a._topic = a._topic || 'world'; });
     } else {
       articles.forEach(a => { a._topic = a._topic || 'world'; });
     }
