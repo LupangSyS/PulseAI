@@ -19,12 +19,16 @@ Early prototype. What currently exists:
 
 - A data-driven class/card system (`data/classes.json`, `data/cards.json`)
   loaded at runtime by the `GameData` autoload.
+- **30 classes** (15 base + 15 evolutions) fully defined with lore,
+  stats, and decks — see GDD.md's roster table for the full list.
 - A main menu that lists every class as "???" (all classes start hidden
   by design) with a developer shortcut into a test battle.
 - A single playable combat encounter demonstrating the deck/hand/discard
-  loop, the Action/Spell/Power card system, and the combo mechanic.
-- No art yet, no unlock/evolution engine yet — see GDD.md's roadmap
-  section.
+  loop, the Action/Spell/Power card system, and the combo mechanic. It's
+  hardcoded to start as the Apprentice Mage; there's no class-picker UI
+  yet.
+- No art yet, no unlock/evolution engine yet, no class-selection UI yet
+  — see GDD.md's roadmap section.
 
 ## Opening the project
 
@@ -34,9 +38,11 @@ Early prototype. What currently exists:
 3. Run the project (F5). It opens on the main menu; the "[DEV] Enter the
    Flood" button starts a test battle as the Apprentice Mage.
 
-This project was scaffolded without access to the Godot editor, so it
-hasn't been opened/verified in-editor yet — if anything fails to load,
-that's the first thing to check.
+This project was scaffolded without access to the Godot editor, so a
+headless Godot 4.3 binary was used to verify it (`--import` to catch
+parse errors, then a scripted run that plays out a full battle for all
+30 classes). It has not been opened in the graphical editor — if
+anything looks off visually, that's the first thing to check.
 
 ## Project structure
 

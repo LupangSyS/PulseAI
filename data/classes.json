@@ -10,9 +10,17 @@
     "max_hp": 20,
     "max_resource": 3,
     "resource_name": "Mana",
-    "deck": ["mage_firebolt", "mage_firebolt", "mage_frost_needle", "mage_arcane_ward", "mage_focus"],
+    "deck": [
+      "mage_firebolt",
+      "mage_firebolt",
+      "mage_frost_needle",
+      "mage_arcane_ward",
+      "mage_focus"
+    ],
     "evolves_from": "",
-    "evolves_to": ["naga_mage_e"],
+    "evolves_to": [
+      "naga_mage_e"
+    ],
     "evolution_hint": "The river remembers those who fall into it with intent left unspoken.",
     "unlock_type": "hidden_event"
   },
@@ -27,7 +35,12 @@
     "max_hp": 26,
     "max_resource": 4,
     "resource_name": "Tide",
-    "deck": ["naga_tide_strike", "naga_tide_strike", "naga_venom_bite", "naga_scale_ward"],
+    "deck": [
+      "naga_tide_strike",
+      "naga_tide_strike",
+      "naga_venom_bite",
+      "naga_scale_ward"
+    ],
     "evolves_from": "mage_f",
     "evolves_to": [],
     "evolution_hint": "",
@@ -44,10 +57,17 @@
     "max_hp": 24,
     "max_resource": 3,
     "resource_name": "Stamina",
-    "deck": ["hunter_slash", "hunter_slash", "hunter_piercing_shot", "hunter_guard_stance"],
+    "deck": [
+      "hunter_slash",
+      "hunter_slash",
+      "hunter_piercing_shot",
+      "hunter_guard_stance"
+    ],
     "evolves_from": "",
-    "evolves_to": [],
-    "evolution_hint": "",
+    "evolves_to": [
+      "crocodile_warden_e"
+    ],
+    "evolution_hint": "The canals near Klong Toey have started answering back to those who hunt too deep.",
     "unlock_type": "hidden_event"
   },
   {
@@ -61,8 +81,637 @@
     "max_hp": 22,
     "max_resource": 3,
     "resource_name": "Faith",
-    "deck": ["healer_mend", "healer_ward_light", "healer_ward_light", "healer_smite"],
+    "deck": [
+      "healer_mend",
+      "healer_ward_light",
+      "healer_ward_light",
+      "healer_smite"
+    ],
     "evolves_from": "",
+    "evolves_to": [
+      "ancestral_medium_e"
+    ],
+    "evolution_hint": "Some say the dead in the refugee towers speak clearest to whoever tends the sickest of the living.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "crocodile_warden_e",
+    "display_name": "Crocodile Warden",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The crocodile that should have killed you in the Klong Toey canal didn't. It just wanted to know you'd survive being it.",
+    "playstyle": "Action-chain brawler evolved: consecutive Action cards stack rising damage, backed by tougher hide and an ambush setup.",
+    "max_hp": 28,
+    "max_resource": 3,
+    "resource_name": "Bite",
+    "deck": [
+      "croc_tail_sweep",
+      "croc_tail_sweep",
+      "croc_death_roll",
+      "croc_hide_plating",
+      "croc_ambush_stillness"
+    ],
+    "evolves_from": "hunter_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "ancestral_medium_e",
+    "display_name": "Ancestral Medium",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The ancestors you prayed to for the sick started praying back. Now they lend you their hands when yours aren't enough.",
+    "playstyle": "Power-chain support evolved: Power cards build stronger shields and unlock a heavier heal.",
+    "max_hp": 25,
+    "max_resource": 4,
+    "resource_name": "Ancestral Faith",
+    "deck": [
+      "medium_channel_ward",
+      "medium_channel_ward",
+      "medium_offering_flame",
+      "medium_healing_rite",
+      "medium_banishing_strike"
+    ],
+    "evolves_from": "healer_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "necromancer_f",
+    "display_name": "Grave-Diver",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Someone's been diving the flooded basements of Wat Hualamphong for salvage, and the drowned don't seem to mind them passing.",
+    "unlocked_description": "The dead down there stopped fighting the current a long time ago. You didn't ask them to follow you back up. They just did.",
+    "playstyle": "Spell-chain drainer: consecutive Spell cards stack rising damage, paid for by borrowing strength from the dead.",
+    "max_hp": 19,
+    "max_resource": 3,
+    "resource_name": "Bonebind",
+    "deck": [
+      "necro_grave_call",
+      "necro_grave_call",
+      "necro_wither_touch",
+      "necro_borrowed_vigor",
+      "necro_grasping_shroud"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "bone_tide_e"
+    ],
+    "evolution_hint": "The flood outside Wat Hualamphong doesn't take the dead anymore. Some say it's waiting to give them back to the right person.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "bone_tide_e",
+    "display_name": "Bone Tide Necromancer",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The current outside Wat Hualamphong doesn't take the dead anymore. It gives them back, and they answer to you now.",
+    "playstyle": "Command a tide of the drowned dead: Spell chains hit harder and Power cards raise temporary thralls as block.",
+    "max_hp": 24,
+    "max_resource": 4,
+    "resource_name": "Tide of Bones",
+    "deck": [
+      "bone_flood_grasp",
+      "bone_flood_grasp",
+      "bone_chill_curse",
+      "bone_rising_thrall",
+      "bone_deathless_focus"
+    ],
+    "evolves_from": "necromancer_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "assassin_f",
+    "display_name": "Alley Ghost",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Nobody's seen their face. The debt collectors who go looking for them in Bang Rak don't come back with a good story.",
+    "unlocked_description": "You learned to move like the city forgot you were there. Sometimes it still does.",
+    "playstyle": "Action-chain burst: low-cost strikes chain fast, trading survivability for tempo.",
+    "max_hp": 17,
+    "max_resource": 3,
+    "resource_name": "Focus",
+    "deck": [
+      "assassin_quickstrike",
+      "assassin_quickstrike",
+      "assassin_throat_cut",
+      "assassin_shadowstep",
+      "assassin_read_the_room"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "yaksha_blade_e"
+    ],
+    "evolution_hint": "The guardian statue at the drowned temple in Thonburi has been missing an arm since the flood. It's looking for one.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "yaksha_blade_e",
+    "display_name": "Yaksha Blade",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The temple guardian statue in the drowned wat didn't fall on you by accident. Something in it decided you'd make a better vessel than a ruin.",
+    "playstyle": "Demon-guardian burst: Action chains hit harder and a Power card grants a brief, fearsome counter-stance.",
+    "max_hp": 22,
+    "max_resource": 4,
+    "resource_name": "Yaksha's Rage",
+    "deck": [
+      "yaksha_club_strike",
+      "yaksha_club_strike",
+      "yaksha_fang_flurry",
+      "yaksha_temple_stance",
+      "yaksha_wrath_focus"
+    ],
+    "evolves_from": "assassin_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "tank_f",
+    "display_name": "Riot Warden",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Ex-flood-relief riot police, still carrying a service shield nobody issued anymore. Stands between people and whatever's coming, every time.",
+    "unlocked_description": "Nobody told you to keep the line after the department stopped existing. You just did. Somebody has to.",
+    "playstyle": "Power-chain wall: Power cards build heavy, stacking block; damage output is modest but reliable.",
+    "max_hp": 32,
+    "max_resource": 3,
+    "resource_name": "Resolve",
+    "deck": [
+      "warden_brace",
+      "warden_brace",
+      "warden_reinforce",
+      "warden_shield_slam",
+      "warden_rally_cry"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "erawan_guardian_e"
+    ],
+    "evolution_hint": "The shrine at the flooded intersection on Ratchaprasong never quite washed away. It's still waiting for someone stubborn enough to guard it.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "erawan_guardian_e",
+    "display_name": "Erawan Guardian",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The shrine at the flooded intersection didn't wash away. It waited for someone stubborn enough to keep standing in front of it, and gave them three heads' worth of will.",
+    "playstyle": "Fortress evolved: Power chains stack very high block, and the guardian is far harder to wear down.",
+    "max_hp": 38,
+    "max_resource": 4,
+    "resource_name": "Threefold Resolve",
+    "deck": [
+      "erawan_bulwark",
+      "erawan_bulwark",
+      "erawan_sacred_stance",
+      "erawan_trunk_slam",
+      "erawan_unbroken_will"
+    ],
+    "evolves_from": "tank_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "berserker_f",
+    "display_name": "Scrap Brawler",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Fights bare-knuckle in the flooded fight pits under the old expressway for whatever the crowd throws. Hasn't lost yet. Hasn't really tried not to get hurt, either.",
+    "unlocked_description": "You stopped feeling the punches somewhere around fight forty. That should probably worry you more than it does.",
+    "playstyle": "Action-chain glass cannon: consecutive Action cards stack fast and hit hard, with little defense to fall back on.",
+    "max_hp": 26,
+    "max_resource": 3,
+    "resource_name": "Adrenaline",
+    "deck": [
+      "brawler_haymaker",
+      "brawler_haymaker",
+      "brawler_gut_punch",
+      "brawler_shrug_it_off",
+      "brawler_second_wind"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "rakshasa_fury_e"
+    ],
+    "evolution_hint": "You wore a demon-king mask into the pit once, as a joke. The crowd swears your fights got harder to watch after that.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "rakshasa_fury_e",
+    "display_name": "Rakshasa Fury",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The demon-king mask you wore into the pit as a joke stopped being a costume around fight sixty. Now you're not entirely sure where you end and the mask begins.",
+    "playstyle": "Demon-king rage evolved: Action chains hit much harder, at the cost of thinner defenses.",
+    "max_hp": 30,
+    "max_resource": 4,
+    "resource_name": "Demon's Fury",
+    "deck": [
+      "rakshasa_tenfold_strike",
+      "rakshasa_tenfold_strike",
+      "rakshasa_ruin_blow",
+      "rakshasa_demon_hide",
+      "rakshasa_kings_focus"
+    ],
+    "evolves_from": "berserker_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "summoner_f",
+    "display_name": "Spirit-House Keeper",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Somebody's still tending a little spirit house on a rooftop garden in Thonburi, offering rice to something that started offering things back.",
+    "unlocked_description": "You just wanted the san phra phum to stop looking so lonely up there. You didn't expect it to start listening.",
+    "playstyle": "Power-chain summoner: Power cards call small spirits that soak hits and set up a Spell finisher.",
+    "max_hp": 20,
+    "max_resource": 3,
+    "resource_name": "Offerings",
+    "deck": [
+      "keeper_call_spirit",
+      "keeper_call_spirit",
+      "keeper_tend_the_house",
+      "keeper_spirit_lash",
+      "keeper_blessing"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "kuman_thong_e"
+    ],
+    "evolution_hint": "The spirit house has been getting fuller offerings than you've been leaving it. Something's been helping out.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "kuman_thong_e",
+    "display_name": "Kuman Thong Warden",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The spirit house is empty now. What was in it doesn't need it anymore; it just needs you to keep calling it 'little brother.'",
+    "playstyle": "Bonded child-spirit evolved: Power chains grant strong block and unlock a devastating shared strike.",
+    "max_hp": 24,
+    "max_resource": 4,
+    "resource_name": "Bond",
+    "deck": [
+      "kuman_shield_of_brothers",
+      "kuman_shield_of_brothers",
+      "kuman_playful_curse",
+      "kuman_twin_strike",
+      "kuman_shared_breath"
+    ],
+    "evolves_from": "summoner_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "pyromancer_f",
+    "display_name": "Ember Diver",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Dives the flooded fuel depots off Rama IV for scavenge. Came up from one with burns that healed wrong, and a lighter that never runs out of flame.",
+    "unlocked_description": "The depot fire that should have killed you left something behind instead. It's been waiting under your skin ever since.",
+    "playstyle": "Spell-chain burst caster: consecutive Spell cards stack rising fire damage, hard-hitting but fragile.",
+    "max_hp": 18,
+    "max_resource": 3,
+    "resource_name": "Ember",
+    "deck": [
+      "ember_flare_bolt",
+      "ember_flare_bolt",
+      "ember_cinder_wave",
+      "ember_heatshield",
+      "ember_kindle"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "garuda_ember_e"
+    ],
+    "evolution_hint": "The mural of Garuda on the old palace wall spent six years underwater. Divers say it isn't faded at all.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "garuda_ember_e",
+    "display_name": "Garuda Ember Knight",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The mural of Garuda on the old palace wall was underwater for six years. It isn't anymore, not on you. Your fire flies now.",
+    "playstyle": "Sun-eagle caster evolved: Spell chains hit much harder, channeling a national myth's fire.",
+    "max_hp": 22,
+    "max_resource": 4,
+    "resource_name": "Sunfire",
+    "deck": [
+      "garuda_solar_bolt",
+      "garuda_solar_bolt",
+      "garuda_wing_of_flame",
+      "garuda_sundisc_guard",
+      "garuda_royal_focus"
+    ],
+    "evolves_from": "pyromancer_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "ranger_f",
+    "display_name": "Skybridge Scout",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Someone's running the skybridges between towers at speeds that shouldn't be possible on foot, picking off monsters from ranges nobody else can hit.",
+    "unlocked_description": "You learned every skybridge in the district by the time you were sure you'd never see the ground again. Turns out that's a survival skill now.",
+    "playstyle": "Action-chain skirmisher: fast, low-cost strikes chain easily, favoring tempo over raw power.",
+    "max_hp": 21,
+    "max_resource": 3,
+    "resource_name": "Momentum",
+    "deck": [
+      "scout_bolt_shot",
+      "scout_bolt_shot",
+      "scout_precision_shot",
+      "scout_evasive_run",
+      "scout_mark_target"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "hanuman_ranger_e"
+    ],
+    "evolution_hint": "You made a jump between towers once that no scout should survive. Something caught you the rest of the way.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "hanuman_ranger_e",
+    "display_name": "Hanuman-Blessed Ranger",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You made a jump between towers that no living scout should have survived. Something with a very old, very fond memory of impossible leaps carried you the rest of the way.",
+    "playstyle": "Monkey-god speed evolved: Action chains hit faster and harder than almost any other class.",
+    "max_hp": 25,
+    "max_resource": 4,
+    "resource_name": "Leaping Wind",
+    "deck": [
+      "hanuman_flying_strike",
+      "hanuman_flying_strike",
+      "hanuman_relentless_volley",
+      "hanuman_windstep",
+      "hanuman_monkeys_grin"
+    ],
+    "evolves_from": "ranger_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "monk_f",
+    "display_name": "Klong-side Boxer",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Trains at dawn on a half-sunk boxing platform by the klong, throwing elbows at nothing anyone else can see. The nothing usually loses.",
+    "unlocked_description": "Your kru always said the ring teaches you things you can't explain to people who've never stood in one. He didn't mean it literally. You're pretty sure he didn't.",
+    "playstyle": "Action-chain striker: cheap, rapid strikes chain into a defensive Power card, classic Muay Thai rhythm.",
+    "max_hp": 24,
+    "max_resource": 3,
+    "resource_name": "Breath",
+    "deck": [
+      "boxer_elbow_strike",
+      "boxer_elbow_strike",
+      "boxer_knee_rush",
+      "boxer_clinch_guard",
+      "boxer_ram_muay"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "sak_yant_e"
+    ],
+    "evolution_hint": "The tattooist in the flooded shophouse said the sacred ink wouldn't take on someone who'd broken as many bones as you had. She was wrong.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "sak_yant_e",
+    "display_name": "Sak Yant Adept",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The old tattooist in the flooded shophouse said the ink wouldn't take on someone who'd already broken as many bones as you had. She was wrong, and so were you, about a lot of things.",
+    "playstyle": "Sacred-tattoo striker evolved: Action chains hit harder, empowered by yantra wards.",
+    "max_hp": 27,
+    "max_resource": 4,
+    "resource_name": "Yantra",
+    "deck": [
+      "yant_tiger_strike",
+      "yant_tiger_strike",
+      "yant_five_row_combo",
+      "yant_sacred_ward",
+      "yant_invocation"
+    ],
+    "evolves_from": "monk_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "alchemist_f",
+    "display_name": "Salvage Chemist",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Runs a stall in the flooded market selling concoctions that shouldn't work as well as they do, mixed from things scavenged out of old pharmacies and worse places.",
+    "unlocked_description": "Turns out pre-flood chemistry plus whatever's in the water now makes something new. You've just been the only one desperate enough to keep drinking your own experiments.",
+    "playstyle": "Volatile spell-and-power mixer: Power cards prime a volatile brew that the next Spell cashes in big.",
+    "max_hp": 19,
+    "max_resource": 3,
+    "resource_name": "Reagents",
+    "deck": [
+      "chemist_volatile_mix",
+      "chemist_volatile_mix",
+      "chemist_acid_flask",
+      "chemist_field_dose",
+      "chemist_stabilizing_brew"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "mutagen_alchemist_e"
+    ],
+    "evolution_hint": "One batch went wrong in a way that didn't kill you. It just... stayed.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "mutagen_alchemist_e",
+    "display_name": "Mutagen Alchemist",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "One batch went wrong in a way that didn't kill you. It just stayed. You can taste the mystic current in the water now, and you can bottle a little of it.",
+    "playstyle": "Mystic-infused mixer evolved: Power setups pay off in much larger Spell bursts or heals.",
+    "max_hp": 23,
+    "max_resource": 4,
+    "resource_name": "Catalyst",
+    "deck": [
+      "mutagen_unstable_catalyst",
+      "mutagen_unstable_catalyst",
+      "mutagen_current_flask",
+      "mutagen_restorative_draft",
+      "mutagen_hardening_dose"
+    ],
+    "evolves_from": "alchemist_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "psychic_f",
+    "display_name": "Static Touched",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Got struck by something during the Release that wasn't lightning. People in the tower call them 'static head' and mostly keep their distance.",
+    "unlocked_description": "You can hear the city thinking now, sometimes. Mostly it's just noise. Sometimes it's useful.",
+    "playstyle": "Spell-chain telekinetic: consecutive Spell cards stack, with a Power card to brace against feedback.",
+    "max_hp": 18,
+    "max_resource": 3,
+    "resource_name": "Static",
+    "deck": [
+      "static_mind_lash",
+      "static_mind_lash",
+      "static_pressure_wave",
+      "static_mental_ward",
+      "static_focus_the_noise"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "resonant_e"
+    ],
+    "evolution_hint": "The noise in your head hasn't been noise for a while now. Something in the current under the city is starting to answer back.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "resonant_e",
+    "display_name": "Resonant",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The noise stopped being noise. Somewhere between the flood and now, you started resonating with whatever the Release actually was, and it started listening back.",
+    "playstyle": "Full telekinetic evolved: Spell chains scale hard, and the Resonant can shield through sheer force of will.",
+    "max_hp": 22,
+    "max_resource": 4,
+    "resource_name": "Resonance",
+    "deck": [
+      "resonant_crush",
+      "resonant_crush",
+      "resonant_fracture_wave",
+      "resonant_will_barrier",
+      "resonant_perfect_clarity"
+    ],
+    "evolves_from": "psychic_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "exorcist_f",
+    "display_name": "Novice Exorcist",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Never finished temple training before the flood hit. Still goes where the vengeful spirits gather anyway, chanting half-remembered sutras and hoping they're enough.",
+    "unlocked_description": "You never got your full ordination. The spirits you banish don't seem to care about the paperwork.",
+    "playstyle": "Spell-chain purifier: consecutive Spell cards stack, paired with self-healing and a warding Power card.",
+    "max_hp": 20,
+    "max_resource": 3,
+    "resource_name": "Merit",
+    "deck": [
+      "exorcist_sutra_strike",
+      "exorcist_sutra_strike",
+      "exorcist_purifying_flame",
+      "exorcist_self_blessing",
+      "exorcist_ward_circle"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "drowned_khru_e"
+    ],
+    "evolution_hint": "The old teacher who never finished training you didn't survive the flood. Somehow, the training kept going anyway.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "drowned_khru_e",
+    "display_name": "Khru of the Drowned",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The old teacher who never finished training you didn't survive the flood. You finished it yourself, apparently, in the nine years since, without quite noticing.",
+    "playstyle": "Full exorcist evolved: Spell chains scale up considerably, with a stronger self-heal and ward.",
+    "max_hp": 25,
+    "max_resource": 4,
+    "resource_name": "Merit",
+    "deck": [
+      "khru_full_sutra",
+      "khru_full_sutra",
+      "khru_pyre_wave",
+      "khru_deep_blessing",
+      "khru_sealed_circle"
+    ],
+    "evolves_from": "exorcist_f",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "bard_f",
+    "display_name": "Signal Ghost",
+    "rank": "F",
+    "is_hidden": true,
+    "locked_description": "Broadcasts something on the old emergency radio band at 3 a.m. from a tower nobody's supposed to still have power in. People who listen say it changes how they fight, after.",
+    "unlocked_description": "The station went dead in 2026 along with everyone who ran it. You just plugged the mic back in one night and started talking. Something started talking back through you.",
+    "playstyle": "Power-chain enabler: heavy on setup cards that empower a single big Spell finisher each turn.",
+    "max_hp": 19,
+    "max_resource": 3,
+    "resource_name": "Signal",
+    "deck": [
+      "signal_broadcast_boost",
+      "signal_broadcast_boost",
+      "signal_static_burst",
+      "signal_dead_air",
+      "signal_calming_frequency"
+    ],
+    "evolves_from": "",
+    "evolves_to": [
+      "broadcast_wraith_e"
+    ],
+    "evolution_hint": "You haven't needed the transmitter for a few broadcasts now. You just aren't sure anyone's noticed that yet, including you.",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "broadcast_wraith_e",
+    "display_name": "Broadcast Wraith",
+    "rank": "E",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't need the transmitter anymore. You are the signal now, and half the towers in range can still hear you, whether they want to or not.",
+    "playstyle": "Signal incarnate evolved: Power setups pay off in a devastating amplified Spell finisher.",
+    "max_hp": 23,
+    "max_resource": 4,
+    "resource_name": "Broadcast",
+    "deck": [
+      "wraith_amplify",
+      "wraith_amplify",
+      "wraith_feedback_scream",
+      "wraith_jam_signal",
+      "wraith_lullaby_frequency"
+    ],
+    "evolves_from": "bard_f",
     "evolves_to": [],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
