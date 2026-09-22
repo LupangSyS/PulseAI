@@ -1,0 +1,145 @@
+[
+  {
+    "id": "mage_firebolt",
+    "display_name": "Firebolt",
+    "type": "spell",
+    "class_id": "mage_f",
+    "cost": 1,
+    "description": "Hurl a mote of flame.",
+    "effect": "damage",
+    "base_value": 4,
+    "combo_tag": "spell"
+  },
+  {
+    "id": "mage_frost_needle",
+    "display_name": "Frost Needle",
+    "type": "spell",
+    "class_id": "mage_f",
+    "cost": 1,
+    "description": "A shard of ice finds the gap in the enemy's guard.",
+    "effect": "damage",
+    "base_value": 3,
+    "combo_tag": "spell"
+  },
+  {
+    "id": "mage_arcane_ward",
+    "display_name": "Arcane Ward",
+    "type": "power",
+    "class_id": "mage_f",
+    "cost": 1,
+    "description": "Weave a shimmering barrier.",
+    "effect": "block",
+    "base_value": 5,
+    "combo_tag": "power"
+  },
+  {
+    "id": "mage_focus",
+    "display_name": "Focus",
+    "type": "power",
+    "class_id": "mage_f",
+    "cost": 0,
+    "description": "Gather mana, empowering the next card played.",
+    "effect": "empower_next",
+    "base_value": 3,
+    "combo_tag": "power"
+  },
+  {
+    "id": "naga_tide_strike",
+    "display_name": "Tide Strike",
+    "type": "spell",
+    "class_id": "naga_mage_e",
+    "cost": 1,
+    "description": "The river answers your call, crashing into the enemy.",
+    "effect": "damage",
+    "base_value": 6,
+    "combo_tag": "spell"
+  },
+  {
+    "id": "naga_venom_bite",
+    "display_name": "Venom Bite",
+    "type": "action",
+    "class_id": "naga_mage_e",
+    "cost": 1,
+    "description": "Fangs that were not there yesterday.",
+    "effect": "damage",
+    "base_value": 5,
+    "combo_tag": "action"
+  },
+  {
+    "id": "naga_scale_ward",
+    "display_name": "Scale Ward",
+    "type": "power",
+    "class_id": "naga_mage_e",
+    "cost": 1,
+    "description": "Scales harden like temple stone.",
+    "effect": "block",
+    "base_value": 6,
+    "combo_tag": "power"
+  },
+  {
+    "id": "hunter_slash",
+    "display_name": "Slash",
+    "type": "action",
+    "class_id": "hunter_f",
+    "cost": 1,
+    "description": "A quick blade strike.",
+    "effect": "damage",
+    "base_value": 5,
+    "combo_tag": "action"
+  },
+  {
+    "id": "hunter_piercing_shot",
+    "display_name": "Piercing Shot",
+    "type": "action",
+    "class_id": "hunter_f",
+    "cost": 1,
+    "description": "An arrow finds the gap in the armor.",
+    "effect": "damage",
+    "base_value": 4,
+    "combo_tag": "action"
+  },
+  {
+    "id": "hunter_guard_stance",
+    "display_name": "Guard Stance",
+    "type": "power",
+    "class_id": "hunter_f",
+    "cost": 1,
+    "description": "Brace for the counterattack.",
+    "effect": "block",
+    "base_value": 4,
+    "combo_tag": "power"
+  },
+  {
+    "id": "healer_mend",
+    "display_name": "Mend",
+    "type": "spell",
+    "class_id": "healer_f",
+    "cost": 1,
+    "description": "Threads of light knit the wound.",
+    "effect": "heal",
+    "base_value": 6,
+    "combo_tag": "spell"
+  },
+  {
+    "id": "healer_ward_light",
+    "display_name": "Ward of Light",
+    "type": "power",
+    "class_id": "healer_f",
+    "cost": 1,
+    "description": "A shield of radiance.",
+    "effect": "block",
+    "base_value": 5,
+    "combo_tag": "power"
+  },
+  {
+    "id": "healer_smite",
+    "display_name": "Smite",
+    "type": "action",
+    "class_id": "healer_f",
+    "cost": 1,
+    "description": "A radiant strike.",
+    "effect": "damage",
+    "base_value": 3,
+    "combo_tag": "action"
+  }
+]
