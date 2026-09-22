@@ -1,9 +1,16 @@
 """Generates in-game character sprites (idle + bob frame each) as true
-32x32-native pixel art PNGs, using region-fill generators (same principle
+64x64-native pixel art PNGs, using region-fill generators (same principle
 as the Pixel Studio artifact - https://claude.ai/artifact/KW9UfmerkrK3gckV5ypriH)
 rather than any AI image model: every pixel is an explicit color choice,
 so hard edges / limited palette / real alpha transparency are guaranteed,
 not hoped for.
+
+Native resolution was bumped from an original 32x32 to 64x64 (real added
+detail - eye highlights, fabric-fold shading, finer weapon/shield shapes -
+not just the old shapes blown up 2x with nearest-neighbor scaling, which
+would look identical, just blockier) because 32x32 was reading as too low-
+fidelity/"eyesore" once rendered at the sizes players actually see it at.
+See combat.gd/status_menu.gd's portrait box sizes, which grew to match.
 
 Run from anywhere: `python3 tools/gen_sprites.py`. Writes straight into
 assets/sprites/{characters,monsters}/, plus a contact-sheet PNG (all
@@ -19,7 +26,7 @@ re-run this script.
 from PIL import Image
 import os
 
-N = 32
+N = 64
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(SCRIPT_DIR)
 OUT_DIR = SCRIPT_DIR
@@ -34,6 +41,16 @@ def fill(grid, r0, r1, c0, c1, color):
     for r in range(max(r0, 0), min(r1, N - 1) + 1):
         for c in range(max(c0, 0), min(c1, N - 1) + 1):
             grid[r][c] = color
+
+
+def lighten(hex_color, amt=0.45):
+    """Blends a hex color toward white - used for eye glints/highlights
+    without requiring every character config to define an extra color."""
+    r, g, b = (int(hex_color[i:i + 2], 16) for i in (1, 3, 5))
+    r = int(r + (255 - r) * amt)
+    g = int(g + (255 - g) * amt)
+    b = int(b + (255 - b) * amt)
+    return "#%02x%02x%02x" % (r, g, b)
 
 
 def to_image(grid, scale=1):
@@ -53,9 +70,9 @@ def to_image(grid, scale=1):
 
 def bob(grid):
     g = blank()
-    for r in range(N - 1):
+    for r in range(N - 2):
         for c in range(N):
-            g[r][c] = grid[r + 1][c]
+            g[r][c] = grid[r + 2][c]
     return g
 
 
@@ -64,42 +81,74 @@ def bob(grid):
 # ---------------------------------------------------------------------------
 def humanoid(colors, hood=False, robed=False, weapon=None, weapon_glow=False, weapon_side="right"):
     g = blank()
+    skin = colors["skin"]
+    primary = colors["primary"]
+    secondary = colors["secondary"]
+    shadow = colors["shadow"]
+    trim = colors["trim"]
+    boot = colors["boot"]
+    eye = colors.get("eye", "#2a1f18")
+    eye_glint = lighten(eye)
+
+    # --- Head ---
     if hood:
-        fill(g, 3, 6, 11, 20, colors["primary"])
-        fill(g, 6, 10, 13, 18, colors["skin"])
+        fill(g, 8, 8, 24, 40, primary)
+        fill(g, 9, 17, 20, 44, primary)
+        fill(g, 17, 26, 23, 41, skin)
     else:
-        fill(g, 4, 10, 13, 18, colors["skin"])
+        fill(g, 9, 9, 24, 40, skin)
+        fill(g, 10, 26, 21, 43, skin)
 
-    eye_color = colors.get("eye", "#2a1f18")
-    fill(g, 8, 8, 14, 14, eye_color)
-    fill(g, 8, 8, 17, 17, eye_color)
+    # Eyes: base color + a small lighter glint for a less "dead" look.
+    fill(g, 19, 22, 27, 30, eye)
+    fill(g, 19, 20, 27, 28, eye_glint)
+    fill(g, 19, 22, 36, 39, eye)
+    fill(g, 19, 20, 36, 37, eye_glint)
 
-    fill(g, 11, 20, 11, 20, colors["primary"])
-    fill(g, 11, 19, 8, 10, colors["secondary"])
-    fill(g, 18, 19, 8, 10, colors["skin"])
-    fill(g, 11, 19, 21, 23, colors["secondary"])
-    fill(g, 18, 19, 21, 23, colors["skin"])
-    fill(g, 20, 20, 11, 20, colors["trim"])
+    # --- Neck / torso ---
+    fill(g, 26, 28, 29, 35, skin)
+    fill(g, 28, 52, 16, 48, primary)
+
+    # Sleeves + hands
+    fill(g, 28, 46, 8, 15, secondary)
+    fill(g, 28, 46, 49, 56, secondary)
+    fill(g, 42, 48, 8, 15, skin)
+    fill(g, 42, 48, 49, 56, skin)
+
+    # Fabric-fold shading (diagonal accents) for a less flat-block torso.
+    for i in range(6):
+        fill(g, 32 + i, 32 + i, 18 + i, 19 + i, shadow)
+        fill(g, 32 + i, 32 + i, 45 - i, 46 - i, shadow)
+
+    fill(g, 52, 52, 16, 48, trim)
 
     if robed:
-        fill(g, 21, 28, 10, 21, colors["primary"])
-        fill(g, 29, 29, 10, 21, colors["shadow"])
-        fill(g, 30, 30, 14, 17, colors["boot"])
+        fill(g, 53, 60, 14, 50, primary)
+        fill(g, 53, 60, 31, 32, shadow)
+        fill(g, 61, 61, 14, 50, shadow)
+        fill(g, 62, 63, 22, 28, boot)
+        fill(g, 62, 63, 36, 42, boot)
     else:
-        fill(g, 21, 29, 11, 15, colors["secondary"])
-        fill(g, 21, 29, 16, 20, colors["secondary"])
-        fill(g, 30, 30, 11, 15, colors["boot"])
-        fill(g, 30, 30, 16, 20, colors["boot"])
+        fill(g, 53, 60, 16, 29, secondary)
+        fill(g, 53, 60, 35, 48, secondary)
+        fill(g, 61, 63, 16, 29, boot)
+        fill(g, 61, 63, 35, 48, boot)
 
     if weapon == "staff":
-        wc = 24 if weapon_side == "right" else 7
-        fill(g, 9, 23, wc, wc, colors["weapon"])
+        weapon_light = lighten(colors.get("weapon", "#8a7a63"), 0.3)
+        wc = 47 if weapon_side == "right" else 14
+        fill(g, 18, 50, wc, wc + 2, colors["weapon"])
+        fill(g, 18, 50, wc, wc, weapon_light)
         if weapon_glow:
-            fill(g, 6, 8, wc - 1, wc + 1, colors["glow"])
+            glow = colors["glow"]
+            fill(g, 10, 17, wc - 3, wc + 5, glow)
+            fill(g, 11, 14, wc - 1, wc + 3, lighten(glow, 0.35))
     elif weapon == "shield":
-        wc0 = 6 if weapon_side == "left" else 22
-        fill(g, 12, 23, wc0, wc0 + 3, colors["weapon"])
-        fill(g, 12, 12, wc0, wc0 + 3, colors["trim"])
+        wc0 = 9 if weapon_side == "left" else 45
+        fill(g, 24, 48, wc0, wc0 + 8, colors["weapon"])
+        fill(g, 24, 25, wc0, wc0 + 8, trim)
+        fill(g, 47, 48, wc0, wc0 + 8, trim)
+        fill(g, 33, 39, wc0 + 2, wc0 + 6, trim)
     return g
 
 
@@ -108,38 +157,44 @@ def humanoid(colors, hood=False, robed=False, weapon=None, weapon_glow=False, we
 # ---------------------------------------------------------------------------
 def quadruped(colors, size="small", ridged=False, eye_color="#1a1a1a"):
     g = blank()
+    body = colors["body"]
+    accent = colors["accent"]
+    glint = lighten(eye_color)
     if size == "small":
-        fill(g, 15, 20, 10, 21, colors["body"])
-        fill(g, 13, 18, 20, 26, colors["body"])
-        fill(g, 12, 13, 21, 22, colors["accent"])
-        fill(g, 12, 13, 24, 25, colors["accent"])
-        fill(g, 16, 17, 5, 10, colors["accent"])
-        fill(g, 20, 23, 12, 14, colors["accent"])
-        fill(g, 20, 23, 18, 20, colors["accent"])
-        fill(g, 15, 15, 24, 24, eye_color)
+        fill(g, 30, 40, 20, 42, body)
+        fill(g, 26, 36, 40, 52, body)
+        fill(g, 24, 26, 42, 44, accent)
+        fill(g, 24, 26, 48, 50, accent)
+        fill(g, 32, 34, 10, 20, accent)
+        fill(g, 40, 46, 24, 28, accent)
+        fill(g, 40, 46, 36, 40, accent)
+        fill(g, 30, 31, 48, 49, eye_color)
+        fill(g, 30, 30, 48, 48, glint)
     elif size == "medium":
-        fill(g, 13, 21, 8, 23, colors["body"])
-        fill(g, 11, 18, 22, 29, colors["body"])
-        fill(g, 10, 12, 23, 24, colors["accent"])
-        fill(g, 10, 12, 27, 28, colors["accent"])
-        fill(g, 14, 16, 3, 8, colors["accent"])
-        fill(g, 21, 26, 10, 13, colors["accent"])
-        fill(g, 21, 26, 18, 21, colors["accent"])
-        fill(g, 14, 14, 26, 27, eye_color)
+        fill(g, 26, 42, 16, 46, body)
+        fill(g, 22, 36, 44, 58, body)
+        fill(g, 20, 24, 46, 48, accent)
+        fill(g, 20, 24, 54, 56, accent)
+        fill(g, 28, 32, 6, 16, accent)
+        fill(g, 42, 52, 20, 26, accent)
+        fill(g, 42, 52, 36, 42, accent)
+        fill(g, 28, 29, 52, 53, eye_color)
+        fill(g, 28, 28, 52, 52, glint)
         if ridged:
-            for cc in range(10, 22, 3):
-                fill(g, 10, 11, cc, cc + 1, colors["accent"])
+            for cc in range(20, 44, 6):
+                fill(g, 20, 22, cc, cc + 2, accent)
     else:  # large (mini-boss scale)
-        fill(g, 13, 22, 6, 26, colors["body"])
-        fill(g, 10, 16, 24, 31, colors["body"])
-        fill(g, 9, 9, 25, 30, colors["accent"])
-        fill(g, 12, 15, 0, 6, colors["accent"])
-        fill(g, 22, 27, 8, 12, colors["accent"])
-        fill(g, 22, 27, 20, 24, colors["accent"])
-        fill(g, 13, 13, 28, 30, eye_color)
+        fill(g, 26, 44, 12, 52, body)
+        fill(g, 20, 32, 48, 62, body)
+        fill(g, 18, 18, 50, 60, accent)
+        fill(g, 24, 30, 0, 12, accent)
+        fill(g, 44, 54, 16, 24, accent)
+        fill(g, 44, 54, 40, 48, accent)
+        fill(g, 26, 27, 56, 58, eye_color)
+        fill(g, 26, 26, 56, 56, glint)
         if ridged:
-            for cc in range(8, 24, 3):
-                fill(g, 11, 12, cc, cc + 1, colors["accent"])
+            for cc in range(16, 48, 6):
+                fill(g, 22, 24, cc, cc + 2, accent)
     return g
 
 
@@ -148,17 +203,24 @@ def quadruped(colors, size="small", ridged=False, eye_color="#1a1a1a"):
 # ---------------------------------------------------------------------------
 def blob(colors, shape="oval", eye=False):
     g = blank()
+    primary = colors["primary"]
+    secondary = colors["secondary"]
+    shadow = colors["shadow"]
     if shape == "oval":
-        fill(g, 15, 20, 6, 25, colors["primary"])
-        fill(g, 13, 22, 9, 22, colors["primary"])
-        fill(g, 16, 19, 8, 23, colors["secondary"])
-        fill(g, 17, 18, 5, 8, colors["shadow"])
+        fill(g, 30, 40, 12, 50, primary)
+        fill(g, 26, 44, 18, 44, primary)
+        fill(g, 32, 38, 16, 46, secondary)
+        fill(g, 34, 36, 10, 16, shadow)
+        fill(g, 33, 34, 20, 40, lighten(secondary, 0.25))
     else:  # round wisp
-        fill(g, 11, 20, 11, 20, colors["primary"])
-        fill(g, 9, 21, 13, 18, colors["primary"])
-        fill(g, 13, 18, 13, 18, colors["secondary"])
+        fill(g, 22, 40, 22, 40, primary)
+        fill(g, 18, 42, 26, 36, primary)
+        fill(g, 26, 36, 26, 36, secondary)
+        fill(g, 27, 30, 28, 32, lighten(secondary, 0.3))
     if eye:
-        fill(g, 16, 17, 20, 21, colors.get("eye", "#1a1a1a"))
+        eye_color = colors.get("eye", "#1a1a1a")
+        fill(g, 32, 34, 40, 42, eye_color)
+        fill(g, 32, 32, 40, 40, lighten(eye_color))
     return g
 
 
@@ -167,14 +229,20 @@ def blob(colors, shape="oval", eye=False):
 # ---------------------------------------------------------------------------
 def squat(colors):
     g = blank()
-    fill(g, 18, 27, 7, 24, colors["body"])
-    fill(g, 21, 25, 9, 22, colors["belly"])
-    fill(g, 13, 17, 10, 14, colors["body"])
-    fill(g, 13, 17, 17, 21, colors["body"])
-    fill(g, 14, 15, 11, 13, colors["eye"])
-    fill(g, 14, 15, 18, 20, colors["eye"])
-    fill(g, 27, 29, 9, 12, colors["body"])
-    fill(g, 27, 29, 19, 22, colors["body"])
+    body = colors["body"]
+    belly = colors["belly"]
+    eye = colors["eye"]
+    fill(g, 36, 54, 14, 48, body)
+    fill(g, 42, 50, 18, 44, belly)
+    fill(g, 26, 34, 20, 28, body)
+    fill(g, 26, 34, 34, 42, body)
+    fill(g, 28, 30, 22, 26, eye)
+    fill(g, 28, 28, 22, 24, lighten(eye))
+    fill(g, 28, 30, 36, 40, eye)
+    fill(g, 28, 28, 36, 38, lighten(eye))
+    fill(g, 54, 58, 18, 24, body)
+    fill(g, 54, 58, 38, 44, body)
+    fill(g, 44, 46, 16, 46, lighten(belly, 0.2))
     return g
 
 
@@ -183,17 +251,24 @@ def squat(colors):
 # ---------------------------------------------------------------------------
 def boss_mass(colors):
     g = blank()
-    fill(g, 8, 25, 9, 23, colors["primary"])
-    fill(g, 6, 27, 12, 20, colors["primary"])
-    fill(g, 11, 20, 12, 20, colors["secondary"])
-    for tx, ty in [(3, 12), (28, 10), (2, 22), (29, 24)]:
-        if tx < 16:
-            fill(g, ty, ty + 1, tx, 11, colors["tendril"])
+    primary = colors["primary"]
+    secondary = colors["secondary"]
+    shadow = colors["shadow"]
+    tendril = colors["tendril"]
+    glow = colors["glow"]
+    fill(g, 16, 50, 18, 46, primary)
+    fill(g, 12, 54, 24, 40, primary)
+    fill(g, 22, 40, 24, 40, secondary)
+    for tx, ty in [(6, 24), (56, 20), (4, 44), (58, 48)]:
+        if tx < 32:
+            fill(g, ty, ty + 2, tx, 22, tendril)
         else:
-            fill(g, ty, ty + 1, 21, tx, colors["tendril"])
-    fill(g, 13, 14, 13, 14, colors["glow"])
-    fill(g, 13, 14, 18, 19, colors["glow"])
-    fill(g, 27, 28, 14, 18, colors["shadow"])
+            fill(g, ty, ty + 2, 42, tx, tendril)
+    fill(g, 26, 28, 26, 28, glow)
+    fill(g, 26, 28, 36, 38, glow)
+    fill(g, 26, 26, 26, 26, lighten(glow, 0.3))
+    fill(g, 26, 26, 36, 36, lighten(glow, 0.3))
+    fill(g, 54, 56, 28, 36, shadow)
     return g
 
 
@@ -341,17 +416,17 @@ CHARACTERS["shallow_tide_mother"] = boss_mass(
 names = list(CHARACTERS.keys())
 cols = 4
 rows = (len(names) + cols - 1) // cols
-cell_px = 32 * 6 + 16
+cell_px = N * 3 + 16
 sheet = Image.new("RGBA", (cols * cell_px, rows * cell_px), (18, 20, 26, 255))
 for i, name in enumerate(names):
     r, c = divmod(i, cols)
-    img = to_image(CHARACTERS[name], scale=6)
+    img = to_image(CHARACTERS[name], scale=3)
     sheet.paste(img, (c * cell_px + 8, r * cell_px + 8), img)
 sheet.save(os.path.join(OUT_DIR, "_contact_sheet.png"))
 print("wrote contact sheet with", len(names), "characters")
 
 # ---------------------------------------------------------------------------
-# Final export: native 32x32 idle1 + idle2 (bob) frames per character
+# Final export: native 64x64 idle1 + idle2 (bob) frames per character
 # ---------------------------------------------------------------------------
 CHARACTER_KIND = {
     "mage_f": "characters",
@@ -389,4 +464,4 @@ for name, grid in CHARACTERS.items():
     to_image(bob(grid), scale=1).save(os.path.join(out_dir, f"{name}_idle2.png"))
     print(f"  {name}: {kind}/{name}_idle1.png, {kind}/{name}_idle2.png")
 
-print("done: native 32x32 PNGs written to", GODOT_ASSET_ROOT)
+print("done: native 64x64 PNGs written to", GODOT_ASSET_ROOT)

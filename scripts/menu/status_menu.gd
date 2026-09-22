@@ -76,11 +76,11 @@ func _build_ui() -> void:
 
 	var header := HBoxContainer.new()
 	header.add_theme_constant_override("separation", 12)
-	header.custom_minimum_size = Vector2(0, 64)
+	header.custom_minimum_size = Vector2(0, 88)
 	root_box.add_child(header)
 
 	portrait = TextureRect.new()
-	portrait.custom_minimum_size = Vector2(56, 56)
+	portrait.custom_minimum_size = Vector2(80, 80)
 	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	header.add_child(portrait)

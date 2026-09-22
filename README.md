@@ -42,11 +42,12 @@ currently exists:
   combat-only shortcut for balance testing.
 - **Real pixel art for everything currently in the game**: all 15
   F-rank starting classes (one per family) and all 8 monsters that
-  actually appear (`assets/sprites/`), true 32×32 RGBA with 2-frame
-  idle animation, rendered in both the overworld and combat with an
-  automatic fallback to the original placeholder look for the other 90
-  classes (E through S rank) and every other monster that doesn't have
-  art yet.
+  actually appear (`assets/sprites/`), true 64×64 RGBA (bumped up from
+  an original 32×32 with real added detail, not just an upscale) with
+  2-frame idle animation, rendered in both the overworld and combat
+  with an automatic fallback to the original placeholder look for the
+  other 90 classes (E through S rank) and every other monster that
+  doesn't have art yet.
 - **Sukhumvit Shallows now renders as a real tile-based map**, not a
   flat colored grid: an original 40×40 tileset (`tools/gen_tiles.py`,
   `assets/tiles/`) themed to our own flooded-Bangkok setting, plus a
@@ -105,7 +106,7 @@ data/
   districts.json             # District/dungeon/dimension grid layouts + spawn tables
 assets/
   sprites/
-    characters/           # mage_f_idle1/2.png - real 32x32 RGBA pixel art
+    characters/           # mage_f_idle1/2.png - real 64x64 RGBA pixel art
     monsters/               # the 8 Sukhumvit Shallows monsters, same convention
 scenes/
   main_menu.tscn

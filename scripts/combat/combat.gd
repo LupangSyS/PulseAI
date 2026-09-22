@@ -128,7 +128,7 @@ func _build_ui() -> void:
 	var arena_row := HBoxContainer.new()
 	arena_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	arena_row.add_theme_constant_override("separation", 28)
-	arena_row.custom_minimum_size = Vector2(0, 120)
+	arena_row.custom_minimum_size = Vector2(0, 150)
 	root_box.add_child(arena_row)
 
 	var player_panel := VBoxContainer.new()
@@ -215,7 +215,7 @@ func _build_ui() -> void:
 
 func _make_portrait() -> TextureRect:
 	var rect := TextureRect.new()
-	rect.custom_minimum_size = Vector2(56, 56)
+	rect.custom_minimum_size = Vector2(80, 80)
 	rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	rect.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	rect.size_flags_horizontal = Control.SIZE_SHRINK_CENTER

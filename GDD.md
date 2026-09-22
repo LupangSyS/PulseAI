@@ -398,11 +398,20 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   (Flooded Ghoul plus the district's 5 mobs, mini-boss, and boss) and
   all 15 F-rank classes (one per family — the only ones actually
   reachable without a real evolution-unlock engine yet, see below) have
-  true 32×32 RGBA sprites in `assets/sprites/` — every pixel is an
+  true 64×64 RGBA sprites in `assets/sprites/` — every pixel is an
   explicit color choice (region-fill generation, not an AI image
   model), so hard edges and real alpha transparency are guaranteed, not
-  hoped for. Humanoid faces have explicit eye pixels, not blank
-  skin-colored ovals. Each has a 2-frame idle animation.
+  hoped for. Native resolution was bumped from an original 32×32 (real
+  added detail per `tools/gen_sprites.py` — eye highlights, fabric-fold
+  shading, finer weapon/shield shapes — not the old shapes just scaled
+  up 2x, which would look identical, only blockier) once 32×32 started
+  reading as too low-fidelity at the sizes players actually see it.
+  Combat and the status menu grew their portrait boxes (56px → 80px) to
+  show the extra detail off; the overworld's on-screen sprite size was
+  deliberately kept the same (its `_SCALE` constants shrank to
+  compensate for the bigger source), since growing it would overflow
+  the viewport without the camera/scroll system already flagged as a
+  follow-up. Each has a 2-frame idle animation.
   `scripts/util/sprite_loader.gd` renders them as `AnimatedSprite2D` in
   the overworld and as animated portraits in combat, and **falls back
   to the original colored-rectangle/text-only look for any id without
@@ -417,7 +426,11 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   (`assets/tiles/flood_tileset.png`: shallow water, deep water, wet
   pavement, rubble — same region-fill/real-alpha principle as the
   character generator, themed to *our* flooded Bangkok, not copied from
-  any reference game's tile graphics) that `scripts/util/tile_loader.gd`
+  any reference game's tile graphics; the design grid is fully
+  addressable at the native 40×40 — not a chunky 20×20-at-2x-scale
+  upscale — so there's room for finer ripple/crack/debris texture
+  without changing the on-screen tile size, which stays fixed to
+  `overworld.gd`'s `CELL_SIZE`) that `scripts/util/tile_loader.gd`
   turns into a real Godot `TileSet`/`TileMap`. A district opts in with a
   new `terrain` field (`DistrictData.terrain` — one legend string per
   row, purely cosmetic; collision always comes from `blocked_cells`

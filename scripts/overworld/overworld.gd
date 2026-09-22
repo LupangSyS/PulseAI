@@ -37,8 +37,8 @@ const VIEWPORT_WIDTH := 480
 const VIEWPORT_HEIGHT := 460
 const DEFAULT_DISTRICT_ID := "sukhumvit_shallows"
 const DEFAULT_CLASS_ID := "mage_f"
-const PLAYER_SPRITE_SCALE := 1.1 # native sprites are 32px; ~35px in a 40px cell
-const MONSTER_SPRITE_SCALE := 1.05
+const PLAYER_SPRITE_SCALE := 0.55 # native sprites are 64px; ~35px on-screen in a 40px cell
+const MONSTER_SPRITE_SCALE := 0.53
 
 ## Purely cosmetic terrain legend -> TileLoader tile name. Any character
 ## not in this map (or a district with no `terrain` at all) falls back to
