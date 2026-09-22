@@ -1,0 +1,34 @@
+[
+  {
+    "id": "silt_filtered_water",
+    "display_name": "Silt-Filtered Water",
+    "description": "Cloudy, but drinkable, if you're desperate enough.",
+    "rarity": "common",
+    "effect": "heal",
+    "value": 6
+  },
+  {
+    "id": "rat_bone_charm",
+    "display_name": "Rat-Bone Charm",
+    "description": "Threaded bones on a cord. Sells for a little, means nothing on its own.",
+    "rarity": "common",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "stalker_fang",
+    "display_name": "Stalker Fang",
+    "description": "A trophy, if you want to call it that.",
+    "rarity": "uncommon",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "tide_mothers_scale",
+    "display_name": "Tide Mother's Scale",
+    "description": "Warm, even out of the water. Something about it feels like it's still listening.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
+  }
+]

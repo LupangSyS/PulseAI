@@ -9,6 +9,17 @@ var resource: int
 var resource_name: String
 var block: int = 0
 var dot_stacks: int = 0
+var pending_empower: int = 0
+
+## Monster-only fields (unused for the player). moves is the active,
+## currently-in-effect weighted move list; stages is the queue of
+## not-yet-triggered phase transitions, ordered descending by
+## trigger_hp_pct (see MonsterData / combat.gd's _check_stage_transitions).
+var moves: Array = []
+var stages: Array = []
+var drop_table: Array = []
+var is_boss: bool = false
+var is_miniboss: bool = false
 
 func _init(p_name: String, p_hp: int, p_resource: int, p_resource_name: String = "Mana") -> void:
 	display_name = p_name

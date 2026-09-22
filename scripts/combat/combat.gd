@@ -1,30 +1,40 @@
 extends Control
 
-## Turn-based combat prototype: deck -> hand -> discard, Action/Spell/Power
-## cards, and a combo system where playing cards with the same combo_tag
+## Turn-based combat: deck -> hand -> discard, Action/Spell/Power cards,
+## and a combo system where playing cards with the same combo_tag
 ## back-to-back stacks a scaling bonus. Which tag a class's deck leans on
 ## (mostly Spell for the Mage, mostly Action for the Hunter, etc.) is what
 ## gives each class a distinct feel without any per-class special-case code.
 ##
-## Card effects: damage, heal, block, empower_next (base kit, all ranks),
-## plus three rank-gated mechanics introduced by content at D/B/S rank:
-## dot (lingering damage that bypasses block, ticks down each enemy turn),
-## aoe_damage (hits every living enemy), and execute (bonus damage against
-## a target below half HP). The encounter itself still only ever spawns one
-## enemy by default - enemies is an Array so aoe_damage has real multiple
-## targets to hit once multi-enemy encounters exist, but that's an
-## architectural readiness, not a shipped feature yet (see GDD.md roadmap).
+## Card/move effects: damage, heal, block, empower_next (base kit),
+## dot (lingering damage that bypasses block, ticks each turn), aoe_damage
+## (hits every living enemy), execute (bonus damage below 50% HP). The
+## same six effects resolve for BOTH the player's cards (_apply_card_effect)
+## and monster moves (_apply_monster_move) - monsters pick from a weighted
+## move list (MonsterData.moves) each turn instead of clicking a card, and
+## mini-bosses/bosses can carry `stages` that swap their active move list
+## (and optionally display_name) once their HP crosses a threshold - see
+## _check_stage_transitions.
+##
+## Player state (HP, resource, etc) persists across encounters via the
+## RunState autoload: when entered from the Overworld, RunState.player and
+## RunState.pending_monster_id drive the fight, and results are written
+## back to RunState before returning. With no pending state (the
+## "[DEV] Enter the Flood" menu shortcut), it falls back to a fresh
+## Apprentice Mage vs. the placeholder Flooded Ghoul for standalone testing.
 ##
 ## UI is built entirely in code (no hand-authored .tscn layout) so this
 ## scene is safe to review as plain text and swap for real pixel-art
 ## widgets later without touching the combat logic below.
 
 const STARTING_HAND_SIZE := 4
-const ENEMY_ATTACK_DAMAGE := 6
+const DEFAULT_CLASS_ID := "mage_f"
+const DEFAULT_MONSTER_ID := "flooded_ghoul"
 
 var player: Combatant
 var enemies: Array[Combatant] = []
 var player_class: CharacterClass
+var from_overworld: bool = false
 
 var draw_pile: Array[String] = []
 var hand: Array[String] = []
@@ -32,17 +42,22 @@ var discard_pile: Array[String] = []
 
 var combo_tag: String = ""
 var combo_count: int = 0
-var empower_bonus: int = 0
 
 var status_label: Label
 var enemy_label: Label
 var log_label: RichTextLabel
 var hand_container: HBoxContainer
 var end_turn_button: Button
+var continue_button: Button
 
 func _ready() -> void:
 	_build_ui()
-	_start_battle("mage_f")
+	if RunState.pending_monster_id != "":
+		from_overworld = true
+		_start_battle(RunState.player_class_id, RunState.pending_monster_id, RunState.player)
+	else:
+		from_overworld = false
+		_start_battle(DEFAULT_CLASS_ID, DEFAULT_MONSTER_ID, null)
 
 func _build_ui() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -73,10 +88,24 @@ func _build_ui() -> void:
 	end_turn_button.pressed.connect(_on_end_turn_pressed)
 	root_box.add_child(end_turn_button)
 
-func _start_battle(class_id: String) -> void:
+	continue_button = Button.new()
+	continue_button.text = "Continue"
+	continue_button.visible = false
+	continue_button.pressed.connect(_on_continue_pressed)
+	root_box.add_child(continue_button)
+
+func _start_battle(class_id: String, monster_id: String, existing_player: Combatant) -> void:
 	player_class = GameData.get_class_by_id(class_id)
-	player = Combatant.new(player_class.display_name, player_class.max_hp, player_class.max_resource, player_class.resource_name)
-	enemies = [Combatant.new("Flooded Ghoul", 25, 0, "")]
+	if existing_player != null:
+		player = existing_player
+	else:
+		player = Combatant.new(player_class.display_name, player_class.max_hp, player_class.max_resource, player_class.resource_name)
+	player.block = 0
+	player.dot_stacks = 0
+	player.pending_empower = 0
+	player.refill_resource()
+
+	enemies = [_make_monster_combatant(monster_id)]
 
 	draw_pile = player_class.deck.duplicate()
 	draw_pile.shuffle()
@@ -84,11 +113,23 @@ func _start_battle(class_id: String) -> void:
 	discard_pile.clear()
 	combo_tag = ""
 	combo_count = 0
-	empower_bonus = 0
+	continue_button.visible = false
 
-	_log("[b]%s[/b] surfaces in the drowned ruins. Something lurches from the water." % player.display_name)
+	_log("[b]%s[/b] squares off against [b]%s[/b]." % [player.display_name, enemies[0].display_name])
 	_draw_cards(STARTING_HAND_SIZE)
 	_refresh_ui()
+
+func _make_monster_combatant(monster_id: String) -> Combatant:
+	var data := GameData.get_monster(monster_id)
+	if data == null:
+		return Combatant.new("Unknown Threat", 20, 0, "")
+	var c := Combatant.new(data.display_name, data.max_hp, 0, "")
+	c.moves = data.moves.duplicate(true)
+	c.stages = data.stages.duplicate(true)
+	c.drop_table = data.drop_table.duplicate(true)
+	c.is_boss = data.is_boss
+	c.is_miniboss = data.is_miniboss
+	return c
 
 func _first_alive_enemy() -> Combatant:
 	for e in enemies:
@@ -142,8 +183,8 @@ func _combo_multiplier() -> float:
 	return 1.0 + 0.2 * float(combo_count - 1)
 
 func _apply_card_effect(card: CardData) -> void:
-	var value: int = card.base_value + empower_bonus
-	empower_bonus = 0
+	var value: int = card.base_value + player.pending_empower
+	player.pending_empower = 0
 	var multiplier: float = _combo_multiplier()
 
 	match card.effect:
@@ -191,7 +232,7 @@ func _apply_card_effect(card: CardData) -> void:
 			player.add_block(value)
 			_log("%s raises [i]%s[/i], gaining %d block." % [player.display_name, card.display_name, value])
 		"empower_next":
-			empower_bonus = value
+			player.pending_empower = value
 			_log("%s focuses with [i]%s[/i], empowering the next card by %d." % [player.display_name, card.display_name, value])
 		_:
 			_log("%s plays [i]%s[/i]." % [player.display_name, card.display_name])
@@ -210,6 +251,8 @@ func _on_end_turn_pressed() -> void:
 
 func _enemy_turn() -> void:
 	for e in enemies:
+		if not player.is_alive():
+			break
 		if not e.is_alive():
 			continue
 		if e.dot_stacks > 0:
@@ -218,12 +261,98 @@ func _enemy_turn() -> void:
 			if not e.is_alive():
 				_log("[color=gold]%s succumbs to the lingering damage.[/color]" % e.display_name)
 				continue
-		var dealt: int = player.take_damage(ENEMY_ATTACK_DAMAGE)
-		_log("The %s claws at %s for %d damage." % [e.display_name, player.display_name, dealt])
+		_check_stage_transitions(e)
+		if not e.is_alive():
+			continue
+		_resolve_monster_turn(e)
 	if not player.is_alive():
 		_log("[color=red]%s is dragged beneath the flood. Defeat.[/color]" % player.display_name)
 
+## Pops and applies every stage whose trigger_hp_pct the monster's current
+## HP fraction has crossed (a loop, not a single check, so a monster can't
+## skip a phase by taking a huge hit in one turn). Requires e.stages to be
+## sorted descending by trigger_hp_pct - see MonsterData's doc comment.
+func _check_stage_transitions(e: Combatant) -> void:
+	while not e.stages.is_empty():
+		var hp_pct: float = float(e.hp) / float(e.max_hp)
+		var stage: Dictionary = e.stages[0]
+		var threshold: float = stage.get("trigger_hp_pct", 0.5)
+		if hp_pct > threshold:
+			break
+		e.stages.pop_front()
+		if stage.has("moves"):
+			e.moves = stage["moves"]
+		var new_name: String = stage.get("display_name", "")
+		if new_name != "":
+			e.display_name = new_name
+		var transition_text: String = stage.get("transition_text", "")
+		if transition_text == "":
+			transition_text = "%s enters a new phase!" % e.display_name
+		_log("[color=orange]%s[/color]" % transition_text)
+
+func _resolve_monster_turn(e: Combatant) -> void:
+	if e.moves.is_empty():
+		return
+	var move: Dictionary = _pick_weighted_move(e.moves)
+	_apply_monster_move(e, move)
+
+func _pick_weighted_move(moves: Array) -> Dictionary:
+	var total_weight: float = 0.0
+	for m in moves:
+		total_weight += float(m.get("weight", 1))
+	if total_weight <= 0.0:
+		return moves[0]
+	var roll: float = randf() * total_weight
+	var cumulative: float = 0.0
+	for m in moves:
+		cumulative += float(m.get("weight", 1))
+		if roll <= cumulative:
+			return m
+	return moves[-1]
+
+func _apply_monster_move(e: Combatant, move: Dictionary) -> void:
+	var value: int = int(move.get("value", 0)) + e.pending_empower
+	e.pending_empower = 0
+	var effect: String = move.get("effect", "damage")
+	var move_name: String = move.get("name", "Attack")
+
+	match effect:
+		"damage":
+			var dealt: int = player.take_damage(value)
+			_log("%s uses [i]%s[/i] for %d damage." % [e.display_name, move_name, dealt])
+		"dot":
+			player.apply_dot(value)
+			_log("%s uses [i]%s[/i], a lingering harm now dealing %d damage a turn." % [e.display_name, move_name, player.dot_stacks])
+		"execute":
+			var total: int = value
+			var executed := false
+			if player.hp <= int(player.max_hp / 2.0):
+				total *= 2
+				executed = true
+			var dealt: int = player.take_damage(total)
+			if executed:
+				_log("[color=red]%s uses [i]%s[/i] on you, weakened, for %d devastating damage![/color]" % [e.display_name, move_name, dealt])
+			else:
+				_log("%s uses [i]%s[/i] for %d damage." % [e.display_name, move_name, dealt])
+		"heal":
+			e.heal(value)
+			_log("%s uses [i]%s[/i], recovering %d HP." % [e.display_name, move_name, value])
+		"block":
+			e.add_block(value)
+			_log("%s uses [i]%s[/i], gaining %d block." % [e.display_name, move_name, value])
+		"empower_next":
+			e.pending_empower = value
+			_log("%s uses [i]%s[/i], readying a stronger blow." % [e.display_name, move_name])
+		_:
+			_log("%s uses [i]%s[/i]." % [e.display_name, move_name])
+
 func _start_player_turn() -> void:
+	if player.dot_stacks > 0:
+		var dot_damage: int = player.tick_dot()
+		_log("The lingering harm on %s deals %d damage." % [player.display_name, dot_damage])
+		if not player.is_alive():
+			_log("[color=red]%s succumbs to the lingering harm. Defeat.[/color]" % player.display_name)
+			return
 	player.block = 0
 	player.refill_resource()
 	combo_tag = ""
@@ -258,6 +387,31 @@ func _refresh_ui() -> void:
 		hand_container.add_child(button)
 
 	end_turn_button.disabled = battle_over
+	end_turn_button.visible = not battle_over
+	continue_button.visible = battle_over
+
+func _on_continue_pressed() -> void:
+	RunState.player = player
+	if _all_enemies_dead():
+		RunState.last_battle_outcome = "victory"
+		RunState.last_battle_loot = _roll_loot(enemies[0])
+	else:
+		RunState.last_battle_outcome = "defeat"
+		RunState.last_battle_loot = []
+		player.hp = max(int(player.max_hp * 0.5), 1)
+
+	if from_overworld:
+		get_tree().change_scene_to_file("res://scenes/overworld.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func _roll_loot(monster: Combatant) -> Array:
+	var loot: Array = []
+	for drop in monster.drop_table:
+		var chance: float = float(drop.get("chance", 0))
+		if randf() <= chance:
+			loot.append(String(drop.get("item_id", "")))
+	return loot
 
 func _log(message: String) -> void:
 	log_label.append_text(message + "\n")

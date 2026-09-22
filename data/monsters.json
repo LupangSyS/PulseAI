@@ -1,0 +1,159 @@
+[
+  {
+    "id": "flooded_ghoul",
+    "display_name": "Flooded Ghoul",
+    "description": "The same waterlogged threat from the original combat prototype, now data-driven instead of hardcoded.",
+    "rank": "F",
+    "max_hp": 25,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Claw", "description": "Claws at whatever's closest.", "effect": "damage", "value": 6, "weight": 1}
+    ],
+    "stages": [],
+    "drop_table": []
+  },
+  {
+    "id": "silt_rat",
+    "display_name": "Silt Rat",
+    "description": "A rat the size of a housecat, grown fat on whatever the flood left behind.",
+    "rank": "F",
+    "max_hp": 12,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Bite", "description": "A quick, opportunistic bite.", "effect": "damage", "value": 3, "weight": 3},
+      {"name": "Scurry", "description": "Darts out of easy reach.", "effect": "block", "value": 2, "weight": 1}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "silt_filtered_water", "chance": 0.3}]
+  },
+  {
+    "id": "flood_leech",
+    "display_name": "Flood Leech",
+    "description": "It doesn't so much attack as attach.",
+    "rank": "F",
+    "max_hp": 15,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Latch", "description": "Fastens onto the nearest warm thing.", "effect": "damage", "value": 3, "weight": 2},
+      {"name": "Drain", "description": "A slow, patient draw of blood.", "effect": "dot", "value": 2, "weight": 2}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "silt_filtered_water", "chance": 0.2}]
+  },
+  {
+    "id": "drowned_stray",
+    "display_name": "Drowned Stray",
+    "description": "Something that used to be someone's dog, before the water got into everything.",
+    "rank": "F",
+    "max_hp": 16,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Snap", "description": "A fast, snapping bite.", "effect": "damage", "value": 5, "weight": 3},
+      {"name": "Snarl", "description": "A growl that promises the next bite will be worse.", "effect": "empower_next", "value": 2, "weight": 1}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "rat_bone_charm", "chance": 0.15}]
+  },
+  {
+    "id": "bloated_toad",
+    "display_name": "Bloated Toad",
+    "description": "Slow, heavy, and strong enough to knock you flat if it connects.",
+    "rank": "F",
+    "max_hp": 22,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Croak Slam", "description": "Its whole bulk, thrown forward.", "effect": "damage", "value": 4, "weight": 2},
+      {"name": "Puff Up", "description": "Swells to twice its size.", "effect": "block", "value": 5, "weight": 2}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "silt_filtered_water", "chance": 0.25}]
+  },
+  {
+    "id": "waterlogged_wisp",
+    "display_name": "Waterlogged Wisp",
+    "description": "A dim light that shouldn't be able to survive underwater, and shouldn't want to follow you.",
+    "rank": "F",
+    "max_hp": 10,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Clinging Damp", "description": "A cold that settles in and doesn't leave.", "effect": "dot", "value": 3, "weight": 3},
+      {"name": "Flicker", "description": "Dims to almost nothing.", "effect": "block", "value": 3, "weight": 1}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "rat_bone_charm", "chance": 0.1}]
+  },
+  {
+    "id": "sukhumvit_stalker",
+    "display_name": "Sukhumvit Stalker",
+    "description": "Bigger than the strays that run from it, and smarter than anything down here has any right to be.",
+    "rank": "E",
+    "max_hp": 45,
+    "is_miniboss": true,
+    "is_boss": false,
+    "moves": [
+      {"name": "Ambush Bite", "description": "Strikes from wherever you weren't looking.", "effect": "damage", "value": 7, "weight": 3},
+      {"name": "Circle", "description": "Doesn't retreat so much as reposition.", "effect": "block", "value": 4, "weight": 2}
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.5,
+        "display_name": "Sukhumvit Stalker (Wounded)",
+        "transition_text": "Wounded and cornered, the Stalker stops circling and starts committing.",
+        "moves": [
+          {"name": "Frenzied Bite", "description": "No more patience left for circling.", "effect": "damage", "value": 9, "weight": 3},
+          {"name": "Desperate Snarl", "description": "A warning that isn't one anymore.", "effect": "empower_next", "value": 4, "weight": 2},
+          {"name": "Cornered Lunge", "description": "Nothing left to lose.", "effect": "damage", "value": 6, "weight": 2}
+        ]
+      }
+    ],
+    "drop_table": [
+      {"item_id": "rat_bone_charm", "chance": 0.6},
+      {"item_id": "stalker_fang", "chance": 0.4}
+    ]
+  },
+  {
+    "id": "shallow_tide_mother",
+    "display_name": "The Shallow Tide Mother",
+    "description": "Everything else down here came from somewhere. This is where.",
+    "rank": "E",
+    "max_hp": 70,
+    "is_miniboss": false,
+    "is_boss": true,
+    "moves": [
+      {"name": "Spawnwave Lash", "description": "A lash that carries the current with it.", "effect": "damage", "value": 8, "weight": 3},
+      {"name": "Brooding Shell", "description": "Hardens around what she's still growing.", "effect": "block", "value": 6, "weight": 2}
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.66,
+        "display_name": "The Shallow Tide Mother (Roused)",
+        "transition_text": "The water around her churns. She's stopped tolerating you.",
+        "moves": [
+          {"name": "Roused Lash", "description": "The current itself seems to aim this one.", "effect": "damage", "value": 10, "weight": 3},
+          {"name": "Summon Echo", "description": "Calls something that isn't fully there yet.", "effect": "dot", "value": 4, "weight": 2},
+          {"name": "Shell Regrowth", "description": "What cracks, she regrows.", "effect": "block", "value": 8, "weight": 1}
+        ]
+      },
+      {
+        "trigger_hp_pct": 0.33,
+        "display_name": "The Shallow Tide Mother (Final Brood)",
+        "transition_text": "This is the last of her strength, and she means to spend all of it.",
+        "moves": [
+          {"name": "Final Brood Lash", "description": "Everything she has left, in one motion.", "effect": "damage", "value": 13, "weight": 3},
+          {"name": "Drowning Grasp", "description": "She doesn't need much strength left to finish something already drowning.", "effect": "execute", "value": 9, "weight": 2},
+          {"name": "Last Shell", "description": "One final hardening, more instinct than strategy now.", "effect": "block", "value": 10, "weight": 1}
+        ]
+      }
+    ],
+    "drop_table": [
+      {"item_id": "tide_mothers_scale", "chance": 1.0},
+      {"item_id": "stalker_fang", "chance": 0.5}
+    ]
+  }
+]

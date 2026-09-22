@@ -1,0 +1,38 @@
+[
+  {
+    "id": "sukhumvit_shallows",
+    "display_name": "Sukhumvit Shallows",
+    "description": "Knee-deep water over what used to be a downtown shopping street. The first foothold most survivors find - shallow enough to wade, populated by whatever bred fastest after the flood.",
+    "danger_tier": "F",
+    "kind": "district",
+    "grid_width": 10,
+    "grid_height": 8,
+    "entrance_cell": [0, 4],
+    "blocked_cells": [
+      [3, 1], [3, 2], [3, 3],
+      [6, 5], [6, 6], [7, 6],
+      [5, 0]
+    ],
+    "monster_spawns": [
+      {"monster_id": "silt_rat", "cell": [2, 2], "respawn_seconds": 20},
+      {"monster_id": "silt_rat", "cell": [4, 5], "respawn_seconds": 20},
+      {"monster_id": "flood_leech", "cell": [1, 6], "respawn_seconds": 25},
+      {"monster_id": "drowned_stray", "cell": [5, 2], "respawn_seconds": 30},
+      {"monster_id": "bloated_toad", "cell": [7, 3], "respawn_seconds": 35},
+      {"monster_id": "waterlogged_wisp", "cell": [8, 1], "respawn_seconds": 25}
+    ],
+    "miniboss_spawn": {"monster_id": "sukhumvit_stalker", "cell": [8, 6]},
+    "boss_spawn": {"monster_id": "shallow_tide_mother", "cell": [9, 7]},
+    "item_spawns": [
+      {"item_id": "silt_filtered_water", "cell": [3, 5]},
+      {"item_id": "rat_bone_charm", "cell": [6, 1]}
+    ],
+    "events": [
+      {
+        "cell": [0, 0],
+        "text": "A message is scratched into a half-submerged wall: \"THE SCHOOL FLOATS. FOLLOW THE BELLS.\" You don't know what that means yet.",
+        "repeatable": false
+      }
+    ]
+  }
+]

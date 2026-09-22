@@ -29,12 +29,86 @@ to wield what came out.
 - **Tone touchstone**: recent hunter/awakening manhwa (Solo Leveling-style
   power fantasy) crossed with climate-collapse sci-fi. Mystery and
   discovery are a core feeling, not just flavor text.
-- **District hooks (seed ideas, not committed)**: flooded districts could
-  each lean into a class family — a drowned temple district for
-  water/naga magic, a collapsed BTS transit line for hunters, a refugee
-  tower cluster for healers/faith classes, a submerged university for
-  arcane mages. Useful for tying class discovery locations to the map
-  later.
+- **The goal**: this is a save-the-world RPG, not an endless roguelike
+  grind — see World Map below for how districts, dungeons, and the ten
+  "extra dimensions" (unlocked step by step) build toward a literal
+  climax at the source of the 2026 catastrophe.
+
+## World Map
+
+Three tiers of location, roughly escalating in danger and strangeness:
+
+- **12 districts** — the flooded city itself. Grounded, explorable,
+  low-to-mid danger, each with its own small monster ecosystem. This is
+  where most class-evolution hooks live (see the Roster table above —
+  Klong Toey Canals *is* where the Hunter finds the crocodile that makes
+  them a Crocodile Warden, etc.), so districts double as both
+  exploration content and the "environmental accident" discovery sites
+  the class system needs.
+- **10 dungeons** — harder, optional, better rewards. Instanced,
+  thematically tied to a specific class family's mythology rather than
+  to city geography, and a few are explicitly where a family's *later*
+  evolutions (B rank and up) get proven or unlocked.
+- **10 dimensions** — "beyond human sense," unlocked one at a time as
+  the story progresses. Not places on the map so much as concepts made
+  physical (time, debt, memory, sound, identity...). Even an S-rank
+  avatar is meant to struggle here without real preparation — this is
+  endgame content, and the tenth dimension is the literal source of the
+  Release: the game's actual final destination.
+
+Only **Sukhumvit Shallows** (district 1) is fully built right now — real
+grid, real monsters, real mini-boss/boss with stage transitions, real
+items and an event (see Exploration & Encounter System and Prototype
+status below). Everything else in this section is a content *plan*,
+following the exact same data shape (`DistrictData`/`MonsterData`), not
+yet written to `data/districts.json`.
+
+### Districts (1 built, 11 designed)
+
+| # | District | Tier | Ecosystem / hook |
+|---|---|---|---|
+| 1 | **Sukhumvit Shallows** *(built)* | F | Flood rats, leeches, drowned strays, toads, wisps; mini-boss/boss are the "source" that bred the rest — see Prototype status |
+| 2 | Chatuchak Ruins | F-E | Collapsed weekend market turned scavenger maze — market-dogs, stall-wraiths, trickster spirits |
+| 3 | Klong Toey Canals | E | The Hunter's territory — crocodilians, canal eels, drowned dockworkers (Crocodile Warden's discovery site) |
+| 4 | Wat Hualamphong Depths | E | The Necromancer's flooded temple basement — restless dead, bone-creatures, drowned monks (Bone Tide Necromancer's site) |
+| 5 | Ratchaprasong Intersection | E-D | The Tank's shrine — stone-guardian remnants, riot-echo constructs, crowd-crush phantoms (Erawan Guardian's site) |
+| 6 | Thonburi Drowned Temples | D | Guardian statues and spirit houses — temple spirits, vengeful stonework, Kuman Thong (Yaksha Blade + Kuman Thong Warden's shared site) |
+| 7 | Rama IV Fuel Depots | D | The Pyromancer's origin — fire-touched mutants, combustion elementals (Garuda Ember Knight's site) |
+| 8 | Skybridge Network | D-C | The Ranger's vertical territory — aerial predators, wind spirits, rooftop nomads (Hanuman-Blessed Ranger's site) |
+| 9 | Bang Rak Underlevels | C | The Berserker's fight pits — pit-bred monsters, demon-touched brawlers (Rakshasa Fury's site) |
+| 10 | The Drowned University | C-B | The Mage's original school — arcane escapees, naga broodlings, flooded-library horrors (Naga Mage's site, the very first lore hook) |
+| 11 | Refugee Tower Cluster | C | The Healer's territory — plague-wraiths, survivors turned monstrous, ancestor-guardians; morally messier than the others, since it's inhabited, not just infested |
+| 12 | The Grand Palace Shallows | B | Highest-tier district; royal/Garuda-adjacent mythic remnants — the first real sign that "something ancient is waking up," and the gateway toward dungeons |
+
+### Dungeons (0 built, 10 designed)
+
+| # | Dungeon | Tier | Hook |
+|---|---|---|---|
+| 1 | The Flooded Subway Line | D | Linear, claustrophobic collapsed BTS tunnels — blind cave-mutants, echo-hunters |
+| 2 | The Sunken Cinema | D-C | A preserved theater; illusion-weaving spirits replay old films as traps |
+| 3 | The Vertical Vault | C | A bank tower's vault floors — greed-touched guardian constructs, lock-puzzle mini-bosses |
+| 4 | The Coiling Temple | C | A naga-worship temple — proving ground for the Mage → Naga Avatar chain |
+| 5 | The Rakshasa's Arena | C-B | A literal demon-king's arena, gauntlet structure — Berserker chain's proving ground |
+| 6 | The Garuda Spire | B | A half-collapsed skyscraper climbed floor by floor, fire/wind themed — Pyromancer/Ranger chains |
+| 7 | The Hanging Gardens of Kuman Thong | B | A rooftop garden full of bonded child-spirits; heavier, grief-themed tone |
+| 8 | The Court of the Drowned King | B-A | Necromancer endgame — a literal underworld court, Drowned King Avatar's proving ground |
+| 9 | The Yaksha Vault | A | A sealed treasury guarded by a sequence of yaksha guardians; the game's best gear |
+| 10 | The Erawan Bastion | A | The hardest dungeon: a three-headed fortress (architecture mirrors the myth), last proving ground before the dimensions |
+
+### Dimensions (0 built, 10 designed, unlocked in order)
+
+| # | Dimension | Concept | Hook |
+|---|---|---|---|
+| 1 | The Static Between Seconds | Time | Frozen/glitching moments; Psychic/Resonant chain's true test |
+| 2 | The Weight of What's Owed | Gravity ↔ guilt | Gravity responds to karmic debt |
+| 3 | The Unheard Frequency | Sound/signal | Pure broadcast-space; Bard/Signal chain's true test |
+| 4 | The Space Between Names | Identity | Existential, disorienting — you can lose track of which class you are |
+| 5 | The Undertow of Memory | Collective memory | Built from the flood's drowned recollections |
+| 6 | The Marrow Depths | Structure | Literally beneath reality's "skeleton" — Necromancer-adjacent |
+| 7 | The Mirror Current | Alternate choice | Reflects evolution paths *not* taken — a look at who you could have become |
+| 8 | The Yantra Lattice | Sacred geometry | Reality organized as living sak yant ink — Monk chain's true test |
+| 9 | The Court Beyond Court | Myth-above-myth | Where Naga/Garuda/Yaksha/etc. avatars answer to something bigger than themselves |
+| 10 | The Source of the Release | Origin | The literal origin point of the 2026 catastrophe — the game's ending |
 
 ## Class System
 
@@ -174,6 +248,65 @@ Card-based, turn-based, one player character vs. one or more enemies.
     card per class, cost 2.
   All three respect the same combo multiplier as `damage`/`heal`.
 
+## Exploration & Encounter System
+
+How districts/dungeons/dimensions actually work, built alongside
+Sukhumvit Shallows as the vertical slice.
+
+- **Grid overworld, not free movement.** Each location is a fixed-size
+  grid (`DistrictData.grid_width/height`) with per-cell blocked/walkable
+  state, walked one cell at a time (arrow keys). There's no hand-authored
+  Godot TileMap/TileSet resource — that format is intricate enough that
+  writing it by hand without the editor's visual tool would be a real
+  correctness risk, so the grid is plain `ColorRect` cells positioned by
+  a script instead. Functionally identical for a prototype; swapping in
+  real tile art later doesn't touch the movement/collision logic.
+- **RunState autoload bridges Overworld ↔ Combat.** Godot's
+  `change_scene_to_file()` destroys the old scene tree, so anything that
+  must survive a fight — the player's `Combatant` (HP carries between
+  encounters; only resource/block/combo reset per battle, same as
+  always), which district/spawn triggered it, and all per-district
+  exploration progress (which spawns are dead-and-respawning vs.
+  permanently gone, which items are collected, which events have fired)
+  — lives on `RunState` instead of as a direct object reference.
+- **Monsters are data now, not hardcoded.** `MonsterData` (loaded from
+  `data/monsters.json`) replaces the old hardcoded "Flooded Ghoul": each
+  monster has a weighted move list (AI picks one per turn) using the
+  *exact same six effects* as player cards — a monster's "dot" or
+  "execute" move resolves through the same code path, just with
+  attacker/target swapped (`combat.gd`'s `_apply_monster_move`).
+- **Multi-stage mini-bosses/bosses.** `MonsterData.stages` is an ordered
+  list of `{trigger_hp_pct, display_name, moves, transition_text}`.
+  Crossing a threshold swaps the active move list (and name) and logs
+  the transition — checked in a loop each enemy turn, so a huge hit can't
+  let a boss skip a phase. This is how "boss/mini-boss can have many
+  stages" from the brief is implemented; Sukhumvit Shallows' boss has 3,
+  its mini-boss has 2, and there's no cap on adding more per monster.
+  Only bosses/mini-bosses use `aoe_damage`/`execute` in the district-1
+  moveset design, kept as their "phase 2/3 feels different" tool.
+- **Fixed spawns, real respawn timers, permanent bosses.** Regular
+  monster spawn points respawn `respawn_seconds` after being cleared
+  (`RunState`'s per-district `defeated_spawns` map stores an absolute
+  respawn timestamp, checked both on scene load and every frame via
+  `_check_respawns` so it fires even if the player just stands around).
+  Mini-bosses and bosses are flagged permanently dead (`-1`) instead —
+  this is the "number of monsters is fixed... except mini and boss"
+  requirement from the brief. A *lost* fight doesn't clear or respawn
+  anything; the player just recovers to 50% HP back at the overworld
+  (no permadeath — consistent with the still-open roguelike-vs-persistent
+  question below).
+- **Items are simple by design** (`ItemData`): a rarity, a description,
+  and an optional `effect` (`heal` or `restore_resource`) + `value`. No
+  equipment/inventory-slots system yet — just a collected-count per item
+  id on `RunState.inventory`, with a "Use" button in the overworld UI for
+  anything with an effect. Monsters roll drops from their
+  `drop_table` on death; districts can also place items directly on the
+  map as pickups.
+- **Events** are just a cell + text (+ `repeatable` flag) that logs a
+  line when stepped on — no dialogue system, just environmental
+  storytelling for now (Sukhumvit Shallows has one: a wall message
+  hinting at the mage school).
+
 ## Prototype status (current build)
 
 What exists right now, in `scenes/`, `scripts/`, and `data/`:
@@ -181,16 +314,29 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
 - A **data-driven** class/card pipeline: `data/classes.json` and
   `data/cards.json` are loaded at runtime by the `GameData` autoload —
   add a class or card by editing JSON, no code changes required.
-- A **main menu** (`scenes/main_menu.tscn`) that lists every class as
-  "???" (since all are `is_hidden`) and has a developer-only button
-  straight into a test battle.
-- A **playable one-encounter combat prototype**
-  (`scenes/combat.tscn` / `scripts/combat/combat.gd`): vs. a placeholder
-  "Flooded Ghoul," demonstrating the deck/hand/discard loop, resource
-  costs, block, healing, the empower-next Power card, and the combo
-  multiplier. Hardcoded to start as the Apprentice Mage; swapping the
-  class id in `_start_battle()` (or wiring up a class picker) is the
-  natural next step.
+- A **main menu** (`scenes/main_menu.tscn`) with two entry points: "Start
+  Exploring" begins a real run (`RunState.begin_run`) as the Apprentice
+  Mage and drops into Sukhumvit Shallows; "[DEV] Enter the Flood" is the
+  original isolated-combat shortcut, kept for quick balance testing. The
+  class codex now shows a count ("X of 105 known classes are still
+  unresolved rumors") rather than one "???" line per class, since one
+  line each stopped being readable at this roster size.
+- A **fully playable district** (`scenes/overworld.tscn` /
+  `scripts/overworld/overworld.gd`): Sukhumvit Shallows, grid movement,
+  6 regular monster spawns (5 species) that respawn on a timer, a
+  2-stage mini-boss and a 3-stage boss that are permanently removed once
+  beaten, 2 item pickups + monster loot drops feeding a simple inventory
+  with a usable healing item, and one environmental event. Walking into
+  a live monster transitions into...
+- **Combat** (`scenes/combat.tscn` / `scripts/combat/combat.gd`): the
+  deck/hand/discard loop, resource costs, block, healing, empower-next,
+  combo multiplier, plus monster AI (weighted move lists) and multi-stage
+  boss transitions (see Exploration & Encounter System above). When
+  entered from the overworld, the player's HP/state persists via
+  `RunState` rather than resetting each fight; the standalone "[DEV]"
+  shortcut still works too, defaulting to a fresh Apprentice Mage vs. the
+  placeholder Flooded Ghoul (now itself a `MonsterData` entry, not
+  hardcoded).
 - **105 classes fully defined and battle-tested** (15 families × F
   through S rank, see Roster below) — every one was run through a full
   headless combat simulation with zero errors and reaches victory. Turn
@@ -199,8 +345,17 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   scale with the player — expected given there's only one enemy in the
   game right now (see below), not a balance claim about rank power
   relative to *real* future encounters. No class-selection UI exists yet
-  to pick between them in a real playthrough — the prototype scene still
-  only starts as the F-rank Apprentice Mage.
+  to pick between them in a real playthrough — a run always starts as
+  the F-rank Apprentice Mage.
+- **All of Exploration & Encounter System above is real and headlessly
+  validated**, not just designed: targeted tests proved grid
+  bounds/wall collision, item pickup (and no double-pickup), non-repeatable
+  event firing, consumable use, victory vs. defeat handling (respawn
+  timer vs. permanent boss removal vs. "nothing happens on a loss"), and
+  mid-session respawn ticking, on top of a genuine end-to-end run through
+  real `change_scene_to_file` transitions (menu-style start → overworld →
+  walk into a monster → real scene change to combat → win → real scene
+  change back → the fresh overworld correctly shows the spawn on cooldown).
 - **No art yet** — pixel art was chosen as the target style, but the UI
   is currently built from plain Godot `Label`/`Button`/`RichTextLabel`
   nodes with no sprites, so the logic can be reviewed and iterated on
@@ -215,27 +370,39 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
 
 ## Roadmap / Phase 2 ideas (not built)
 
-- Overworld exploration scene(s) so class discovery can actually happen
-  by walking somewhere, rather than only by ID in code.
+- **The other 31 zones.** Only Sukhumvit Shallows is real; the other 11
+  districts, all 10 dungeons, and all 10 dimensions are designed (World
+  Map above) but have zero entries in `data/districts.json` /
+  `data/monsters.json`. Filling these in is now mostly content work,
+  following the exact pattern Sukhumvit Shallows already proved out.
+- **Inter-zone progression/gating.** Right now the overworld only knows
+  about one district; there's no world-map screen to travel between
+  districts, no unlock gate stopping an F-rank player from walking into
+  a B-rank district, and no logic tying dimension access to "unlocked
+  step by step" story progress (per the brief). This is the main
+  structural piece standing between "one working district" and "an
+  actual game you play through."
 - A data-driven "unlock condition" system (quest flag, item found,
   location + trigger) that reads `unlock_type` / `evolution_hint` and
-  flips `is_hidden` / performs the evolution.
+  flips `is_hidden` / performs the class evolution — the *class* side of
+  this is still unbuilt even though the *district* side (RunState's
+  per-district event/item/spawn state) now has a working pattern it
+  could plausibly reuse.
 - NPC dialogue system for quest-given unlocks.
-- A class-selection scene (pick from unlocked classes rather than the
-  combat prototype hardcoding "mage_f").
-- Multi-enemy encounters and enemy variety/AI patterns beyond a fixed
-  attack — this is now the main thing making the `aoe_damage` effect and
-  the rank-vs-turn-count numbers above look more dramatic than they'll
-  actually be once there's a real bestiary to fight (a single scaling
-  enemy roster, or several enemies at once, would make high-rank battles
-  meaningfully harder again, not just faster).
+- A class-selection scene (pick from unlocked classes rather than every
+  run hardcoding "mage_f").
+- Enemy variety *within* a district beyond what Sukhumvit Shallows
+  already has, and multi-enemy encounters (`aoe_damage` currently only
+  ever hits one enemy in practice, since every encounter in the built
+  content is 1-monster).
 - A second evolution *branch* per family (right now each of the 15 chains
   is fully linear, one path F straight through to S; the original brief's
   "don't know how, maybe multiple paths" idea for branching evolutions
   isn't built).
-- Real pixel art: character/portrait sprites, card art, backgrounds, UI
-  skin.
-- Meta-progression / save system between runs.
+- Real pixel art: character/portrait sprites, monster/item icons, a real
+  tileset for the overworld (currently plain `ColorRect`s), UI skin.
+- Meta-progression / save system between runs — right now all state
+  (`RunState`) lives in memory only and is lost when the game closes.
 - Class-specific mechanical hooks beyond the shared combo system (e.g. the
   Naga Mage paying costs in HP instead of Tide, per its original pitch).
 
@@ -249,3 +416,7 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
 - Which of the 15 classes (if any) should be the *actual* guaranteed
   starting class vs. purely accident-discovered, and whether the roster
   should grow further or this is enough for a first playable slice.
+- How should players travel *between* districts — a literal world map
+  screen, unlocked bridges/routes on the districts themselves, or
+  something else? And what actually gates access to higher-tier
+  districts/dungeons/dimensions (player rank? a story flag? both)?
