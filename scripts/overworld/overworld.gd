@@ -23,6 +23,8 @@ const CELL_SIZE := 24
 const GRID_OFFSET := Vector2(8, 8)
 const DEFAULT_DISTRICT_ID := "sukhumvit_shallows"
 const DEFAULT_CLASS_ID := "mage_f"
+const PLAYER_SPRITE_SCALE := 0.875 # native sprites are 32px; displays ~28px
+const MONSTER_SPRITE_SCALE := 0.75 # ~24px, matches CELL_SIZE
 
 var district_id: String
 var district: DistrictData
@@ -36,7 +38,7 @@ var item_visuals: Dictionary = {} # spawn_key -> Node
 var event_visuals: Dictionary = {} # spawn_key -> Node
 
 var grid_root: Node2D
-var player_visual: ColorRect
+var player_visual: Node
 var status_label: Label
 var log_label: RichTextLabel
 var inventory_container: HBoxContainer
@@ -100,9 +102,7 @@ func _build_grid() -> void:
 			rect.color = Color(0.15, 0.2, 0.3) if _is_blocked(cell) else Color(0.2, 0.35, 0.45)
 			grid_root.add_child(rect)
 
-	player_visual = ColorRect.new()
-	player_visual.size = Vector2(CELL_SIZE - 6, CELL_SIZE - 6)
-	player_visual.color = Color(1, 1, 1)
+	player_visual = SpriteLoader.build_sprite(RunState.player_class_id, "character", Color(1, 1, 1), Vector2(CELL_SIZE - 6, CELL_SIZE - 6), PLAYER_SPRITE_SCALE)
 	grid_root.add_child(player_visual)
 
 func _cell_key(cell) -> String:
@@ -174,18 +174,27 @@ func _spawn_is_dead(state: Dictionary, key: String) -> bool:
 	return Time.get_ticks_msec() < respawn_at
 
 func _create_monster_visual(key: String, entry: Dictionary) -> void:
-	var rect := ColorRect.new()
-	rect.size = Vector2(CELL_SIZE - 8, CELL_SIZE - 8)
 	var monster := GameData.get_monster(entry["monster_id"])
+	var fallback_color := Color(0.8, 0.2, 0.2)
 	if monster != null and monster.is_boss:
-		rect.color = Color(0.6, 0.1, 0.5)
+		fallback_color = Color(0.6, 0.1, 0.5)
 	elif monster != null and monster.is_miniboss:
-		rect.color = Color(0.9, 0.5, 0.1)
+		fallback_color = Color(0.9, 0.5, 0.1)
+	var visual := SpriteLoader.build_sprite(entry["monster_id"], "monster", fallback_color, Vector2(CELL_SIZE - 8, CELL_SIZE - 8), MONSTER_SPRITE_SCALE)
+	grid_root.add_child(visual)
+	_position_visual_at_cell(visual, Vector2i(entry["cell"][0], entry["cell"][1]))
+	monster_visuals[key] = visual
+
+## Positions either node type this scene ever creates at the given cell:
+## AnimatedSprite2D draws centered on its position, ColorRect draws from
+## its position as a top-left corner - this normalizes both to "centered
+## in the cell" so callers don't need to care which one a spawn resolved to.
+func _position_visual_at_cell(visual: Node, cell: Vector2i) -> void:
+	var cell_center: Vector2 = _cell_to_pixel(cell) + Vector2(CELL_SIZE, CELL_SIZE) / 2.0
+	if visual is Node2D:
+		visual.position = cell_center
 	else:
-		rect.color = Color(0.8, 0.2, 0.2)
-	rect.position = _cell_to_pixel(Vector2i(entry["cell"][0], entry["cell"][1])) + Vector2(4, 4)
-	grid_root.add_child(rect)
-	monster_visuals[key] = rect
+		visual.position = cell_center - visual.size / 2.0
 
 func _create_item_visual(key: String, spawn: Dictionary) -> void:
 	var rect := ColorRect.new()
@@ -205,7 +214,7 @@ func _create_event_visual(key: String, event: Dictionary) -> void:
 
 func _update_player_visual() -> void:
 	if player_visual != null:
-		player_visual.position = _cell_to_pixel(player_cell) + Vector2(3, 3)
+		_position_visual_at_cell(player_visual, player_cell)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_up"):

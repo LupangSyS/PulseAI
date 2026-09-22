@@ -23,9 +23,11 @@ extends Control
 ## "[DEV] Enter the Flood" menu shortcut), it falls back to a fresh
 ## Apprentice Mage vs. the placeholder Flooded Ghoul for standalone testing.
 ##
-## UI is built entirely in code (no hand-authored .tscn layout) so this
-## scene is safe to review as plain text and swap for real pixel-art
-## widgets later without touching the combat logic below.
+## UI is built entirely in code (no hand-authored .tscn layout). Player and
+## enemy portraits (SpriteLoader.load_frames, a simple 2-frame idle flip
+## driven by _process) render when generated art exists for that class/
+## monster id; otherwise the TextureRect just stays hidden - most ids don't
+## have art yet (see GDD.md), so that fallback is the common case.
 
 const STARTING_HAND_SIZE := 4
 const DEFAULT_CLASS_ID := "mage_f"
@@ -50,6 +52,13 @@ var hand_container: HBoxContainer
 var end_turn_button: Button
 var continue_button: Button
 
+var player_portrait: TextureRect
+var enemy_portrait: TextureRect
+var player_portrait_frames: Array = []
+var enemy_portrait_frames: Array = []
+var portrait_anim_timer: float = 0.0
+var portrait_anim_frame: int = 0
+
 func _ready() -> void:
 	_build_ui()
 	if RunState.pending_monster_id != "":
@@ -71,6 +80,23 @@ func _build_ui() -> void:
 	enemy_label = Label.new()
 	root_box.add_child(status_label)
 	root_box.add_child(enemy_label)
+
+	var portrait_row := HBoxContainer.new()
+	portrait_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	portrait_row.add_theme_constant_override("separation", 20)
+	root_box.add_child(portrait_row)
+
+	player_portrait = TextureRect.new()
+	player_portrait.custom_minimum_size = Vector2(64, 64)
+	player_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	player_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	portrait_row.add_child(player_portrait)
+
+	enemy_portrait = TextureRect.new()
+	enemy_portrait.custom_minimum_size = Vector2(64, 64)
+	enemy_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	enemy_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	portrait_row.add_child(enemy_portrait)
 
 	log_label = RichTextLabel.new()
 	log_label.custom_minimum_size = Vector2(0, 140)
@@ -94,6 +120,31 @@ func _build_ui() -> void:
 	continue_button.pressed.connect(_on_continue_pressed)
 	root_box.add_child(continue_button)
 
+func _process(delta: float) -> void:
+	portrait_anim_timer += delta
+	if portrait_anim_timer < 0.5:
+		return
+	portrait_anim_timer = 0.0
+	portrait_anim_frame = 1 - portrait_anim_frame
+	if player_portrait_frames.size() == 2:
+		player_portrait.texture = player_portrait_frames[portrait_anim_frame]
+	if enemy_portrait_frames.size() == 2:
+		enemy_portrait.texture = enemy_portrait_frames[portrait_anim_frame]
+
+func _load_portraits(class_id: String, monster_id: String) -> void:
+	player_portrait_frames = SpriteLoader.load_frames(class_id, "character")
+	enemy_portrait_frames = SpriteLoader.load_frames(monster_id, "monster")
+	portrait_anim_frame = 0
+	portrait_anim_timer = 0.0
+
+	player_portrait.visible = not player_portrait_frames.is_empty()
+	if not player_portrait_frames.is_empty():
+		player_portrait.texture = player_portrait_frames[0]
+
+	enemy_portrait.visible = not enemy_portrait_frames.is_empty()
+	if not enemy_portrait_frames.is_empty():
+		enemy_portrait.texture = enemy_portrait_frames[0]
+
 func _start_battle(class_id: String, monster_id: String, existing_player: Combatant) -> void:
 	player_class = GameData.get_class_by_id(class_id)
 	if existing_player != null:
@@ -106,6 +157,7 @@ func _start_battle(class_id: String, monster_id: String, existing_player: Combat
 	player.refill_resource()
 
 	enemies = [_make_monster_combatant(monster_id)]
+	_load_portraits(class_id, monster_id)
 
 	draw_pile = player_class.deck.duplicate()
 	draw_pile.shuffle()

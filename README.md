@@ -40,9 +40,14 @@ currently exists:
 - Main menu has two entry points: "Start Exploring" begins a real run and
   drops into Sukhumvit Shallows; "[DEV] Enter the Flood" is an isolated
   combat-only shortcut for balance testing.
-- No art yet, no class-selection UI, no inter-district travel/gating, no
-  evolution-unlock engine yet — see GDD.md's roadmap section for the
-  full, honest list.
+- **Real pixel art for everything currently in the game**: the Apprentice
+  Mage and all 8 monsters that actually appear (`assets/sprites/`), true
+  32×32 RGBA with 2-frame idle animation, rendered in both the overworld
+  and combat with an automatic fallback to the original placeholder look
+  for the 96+ classes and every other monster that doesn't have art yet.
+- No class-selection UI, no inter-district travel/gating, no
+  evolution-unlock engine yet, no art beyond Sukhumvit Shallows' 9
+  sprites — see GDD.md's roadmap section for the full, honest list.
 
 ## Opening the project
 
@@ -73,6 +78,10 @@ data/
   monsters.json           # Monster definitions (moves, stages, drop tables)
   items.json               # Item definitions (rarity, usable effect)
   districts.json             # District/dungeon/dimension grid layouts + spawn tables
+assets/
+  sprites/
+    characters/           # mage_f_idle1/2.png - real 32x32 RGBA pixel art
+    monsters/               # the 8 Sukhumvit Shallows monsters, same convention
 scenes/
   main_menu.tscn
   overworld.tscn
@@ -94,6 +103,8 @@ scripts/
   combat/
     combat.gd                # Turn/combo engine + monster AI + UI (built in code)
     combatant.gd               # HP/resource/block/dot/moves/stages state
+  util/
+    sprite_loader.gd          # Loads generated art if it exists, else a colored-rect fallback
 tools/
   gen_ranks.py            # Generator used to produce the D-S rank content (reference, not rerunnable as-is)
 GDD.md                  # Design doc: world map, classes, combat, exploration system, roadmap

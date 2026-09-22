@@ -356,10 +356,18 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   real `change_scene_to_file` transitions (menu-style start → overworld →
   walk into a monster → real scene change to combat → win → real scene
   change back → the fresh overworld correctly shows the spawn on cooldown).
-- **No art yet** — pixel art was chosen as the target style, but the UI
-  is currently built from plain Godot `Label`/`Button`/`RichTextLabel`
-  nodes with no sprites, so the logic can be reviewed and iterated on
-  without blocking on assets.
+- **Real pixel art for Sukhumvit Shallows' cast.** The Apprentice Mage and
+  all 8 monsters that actually appear in the game (Flooded Ghoul plus the
+  district's 5 mobs, mini-boss, and boss) have true 32×32 RGBA sprites in
+  `assets/sprites/` — every pixel is an explicit color choice (region-fill
+  generation, not an AI image model), so hard edges and real alpha
+  transparency are guaranteed, not hoped for. Each has a 2-frame idle
+  animation. `scripts/util/sprite_loader.gd` renders them as
+  `AnimatedSprite2D` in the overworld and as animated portraits in
+  combat, and **falls back to the original colored-rectangle/text-only
+  look for any id without art** — which is still 96+ of the 105 classes
+  and all but 8 monsters, so that fallback path is the common case, not
+  an edge case, and must keep working as more content is added.
 - **No real unlock/evolution engine yet** — `evolves_to`,
   `evolution_hint`, and `unlock_type` exist as data fields, but nothing
   reads them yet to actually trigger a class change in-game.
@@ -399,8 +407,11 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   is fully linear, one path F straight through to S; the original brief's
   "don't know how, maybe multiple paths" idea for branching evolutions
   isn't built).
-- Real pixel art: character/portrait sprites, monster/item icons, a real
-  tileset for the overworld (currently plain `ColorRect`s), UI skin.
+- Art for everything outside Sukhumvit Shallows' 9 sprites: the other 14
+  class families (and every non-F/E rank of all 15), monster/item icons
+  for the other 31 planned districts/dungeons/dimensions, a real tileset
+  for the overworld ground (currently plain `ColorRect`s — only the
+  characters standing on it have real art now), and general UI skinning.
 - Meta-progression / save system between runs — right now all state
   (`RunState`) lives in memory only and is lost when the game closes.
 - Class-specific mechanical hooks beyond the shared combo system (e.g. the
