@@ -24,6 +24,15 @@ var boss_spawn: Dictionary # {monster_id, cell:[x,y]} or {} if none
 var item_spawns: Array # Array[Dictionary] {item_id, cell:[x,y]}
 var events: Array # Array[Dictionary] {cell:[x,y], text, repeatable}
 
+## Optional visual terrain: one string per row (top to bottom), one
+## legend character per column - see overworld.gd's TERRAIN_LEGEND. Purely
+## cosmetic; collision always comes from blocked_cells regardless of what
+## a cell's terrain character says. Empty (the default for every district
+## that hasn't been authored yet) means "no tile art yet" and overworld.gd
+## falls back to its plain colored-grid rendering, the same fallback
+## pattern used for character/monster sprites.
+var terrain: Array # Array[String]
+
 static func from_dict(data: Dictionary) -> DistrictData:
 	var d := DistrictData.new()
 	d.id = data.get("id", "")
@@ -54,5 +63,9 @@ static func from_dict(data: Dictionary) -> DistrictData:
 	d.events = []
 	for event in data.get("events", []):
 		d.events.append(event)
+
+	d.terrain = []
+	for row in data.get("terrain", []):
+		d.terrain.append(String(row))
 
 	return d
