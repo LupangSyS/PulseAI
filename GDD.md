@@ -6,33 +6,48 @@ re-derived from scratch each session.
 
 ## Logline
 
-A turn-based card RPG set in Bangkok, 2035, nine years after a mega-flood
-drowned the surface and cracked open something that had been sealed in the
-mountains and glaciers since before history. Science hit a wall; the
-survivors who rebuilt among the flooded skyscrapers are the ones who learned
+A turn-based card RPG set in Bangkok, October 2025 onward, in the immediate
+aftermath of a mega-flood that drowned the surface and cracked open
+something that had been sealed in the mountains and glaciers since before
+history. Science hit a wall; the survivors clawing out a foothold among the
+flooded skyscrapers are the ones who learned
 to wield what came out.
 
 ## World
 
-- **2026**: Catastrophic mega-flooding hits Bangkok. The surface is lost;
-  skyscrapers become the new "ground" — bridges, zip-lines, and flooded
-  lower floors connect a vertical city.
-- **The Release**: The flood breaks a seal in the mountains/glaciers,
-  releasing mystic power and monsters into the world. Nobody agrees on what
-  it is or where it came from — myth, forgotten physics, or something that
-  was always there and only now has a way in.
-- **2035 (present)**: Most of humanity survived and is rebuilding a new
-  civilization *among* these new powers, not in spite of them. Conventional
-  science has plateaued — it can't explain or fully control the new forces,
-  so society is a mix of scavenged tech, old science, and raw,
-  half-understood power wielded by "awakened" individuals.
-- **Tone touchstone**: recent hunter/awakening manhwa (Solo Leveling-style
-  power fantasy) crossed with climate-collapse sci-fi. Mystery and
-  discovery are a core feeling, not just flavor text.
+*Canonical timeline as of the Story Bible (see the Story Bible section
+below) — this supersedes an earlier draft that set the flood in 2026 with
+the game nine years later in 2035. The compressed timeline (flood, then
+almost immediately playable) fits a save-the-world urgency better than a
+"society already rebuilt" framing.*
+
+- **October 2025, The Inundation**: the water did not fall or rise from
+  the Gulf — it pushed up from beneath the foundations, black and
+  vibrating at a sub-bass hum that resonated structural steel. Bangkok
+  didn't just flood; it sank into ancient sediment of human sorrow, guilt,
+  and suppressed mythological mass.
+- **The Release**: with the brackish surge came a warp in human
+  neuro-chemistry. Those who nearly drowned emerged with anomalous
+  nervous systems — the Hunters, indexed Rank F to Rank S by the makeshift
+  remnants of the Department of Disaster Prevention. The water also
+  carried things that had spent millennia calcifying beneath the Chao
+  Phraya basin: skin-stealers, karmic parasites, conceptual abominations
+  that feed on human regret.
+- **2025–2026 (present)**: the game takes place in the immediate
+  aftermath, not a settled-in future — survival is raw, the social order
+  is still collapsing/reforming (opportunists, militias, cults, and
+  genuine communities all forming in real time), and nobody yet fully
+  understands what the Release actually is: myth, forgotten physics, or
+  something that was always there and only now has a way in.
+- **Tone touchstone**: gritty survival body-horror (district-tier content)
+  escalating into cosmic/metaphysical dread (dimension-tier content),
+  crossed with a hunter/awakening power fantasy (Solo Leveling-style rank
+  progression). Mystery and discovery are a core feeling, not just flavor
+  text.
 - **The goal**: this is a save-the-world RPG, not an endless roguelike
-  grind — see World Map below for how districts, dungeons, and the ten
-  "extra dimensions" (unlocked step by step) build toward a literal
-  climax at the source of the 2026 catastrophe.
+  grind — see World Map and the Story Bible below for how districts,
+  dungeons, and the ten dimensions (unlocked step by step) build toward a
+  literal climax at the Source of the Release.
 
 ## World Map
 
@@ -108,7 +123,433 @@ yet written to `data/districts.json`.
 | 7 | The Mirror Current | Alternate choice | Reflects evolution paths *not* taken — a look at who you could have become |
 | 8 | The Yantra Lattice | Sacred geometry | Reality organized as living sak yant ink — Monk chain's true test |
 | 9 | The Court Beyond Court | Myth-above-myth | Where Naga/Garuda/Yaksha/etc. avatars answer to something bigger than themselves |
-| 10 | The Source of the Release | Origin | The literal origin point of the 2026 catastrophe — the game's ending |
+| 10 | The Source of the Release | Origin | The literal origin point of the October 2025 catastrophe — the game's ending |
+
+## Story Bible: The Drowned Chronicles
+
+*Written by the project owner against the World Map above — district and
+dimension names/order match exactly, so this is the canonical narrative
+layer for every location. Everything here is **designed content**, not
+built: no NPC-dialogue, puzzle, or multi-phase-boss engine exists yet (see
+Roadmap) except where a district is already implemented in code, noted
+inline below. Three reconciliation notes before the content itself:*
+
+1. **Timeline** — adopted as canonical; the World section above now reads
+   October 2025 Inundation / immediate aftermath, not the earlier "2035,
+   nine years later" draft.
+2. **District 1 (Sukhumvit Shallows) is already built** with different
+   creature names than this bible originally used for it: the built
+   mini-boss is `sukhumvit_stalker` ("Sukhumvit Stalker"), not "The Neon
+   Strangler"; the built boss is `shallow_tide_mother` ("The Shallow Tide
+   Mother"), not "Phra Khanong Mother (Mae Nak Reflected)." Both already
+   fill the exact narrative *role* this bible describes — a district
+   guardian mini-boss, and an HP-threshold multi-stage "origin mother"
+   boss (`shallow_tide_mother` already has two real stage transitions in
+   `data/monsters.json`) — so no engineering change is needed, only
+   optional flavor-text polish to align the wording fully. Read "Neon
+   Strangler" and "Phra Khanong Mother" below as this bible's working
+   titles for those same two already-built encounters.
+3. **The 10 dungeons' unlockable evolutions** used placeholder base-class
+   names (Warrior, Fighter, Scout, Druid, Shaman, Acolyte) that aren't in
+   the actual 15-family roster. Each is mapped below to the closest real
+   family — first-pass, easy to revise, since the unlock-condition engine
+   that would actually wire these doesn't exist yet regardless.
+
+### Prologue: The Inundation
+
+The water didn't fall from the sky or rise from the Gulf — it pushed up
+from beneath the foundations, black and viscous, vibrating at a sub-bass
+hum that resonated structural steel. Bangkok didn't just flood; it sank
+into an ancient sediment of human sorrow, guilt, and suppressed
+mythological mass. With the surge came the Release: human neurochemistry
+warped, and those who nearly drowned emerged with anomalous nervous
+systems — the Hunters, indexed Rank F to S by the makeshift remnants of
+the Department of Disaster Prevention. The water also carried things that
+had spent millennia calcifying beneath the Chao Phraya basin: skin-
+stealers, karmic parasites, conceptual abominations that feed on regret.
+
+### Part I: The Districts (grounded descent — gritty survival, body horror)
+
+**1. Sukhumvit Shallows** *(built)* — Waist-deep brackish scum reflecting
+drowned neon signs; rooftops still have solar power while street level is
+a cemetery of submerged cars. NPCs: **Uncle Somchai** (Rank D veteran,
+legs replaced with salvaged hydro-turbines, runs a floating noodle-barge
+weapons trade) and **Sister Da** (ex-nurse performing unsedated illicit
+Hunter awakenings). Sub-maps: Soi 11 Drowned Arcade (submerged
+entertainment center, signs still humming underwater), BTS Asok Concourse
+Haven (the fortified survivor camp on the train platforms). Puzzle — *The
+Breaker Pump Protocol*: route battery cells across floating car roofs to
+drain a submerged transformer room, matching three electrical frequencies
+before the rising tide electrocutes the floor. Mini-boss — *The Neon
+Strangler*: a drowned tourist fused with high-voltage neon wiring and
+fiber-optic cable; plunges the room into darkness, attacks telegraphed via
+buzzing cracked-tube hum. Boss — *Phra Khanong Mother (Mae Nak
+Reflected)*: **Phase 1** a weeping silhouette atop a sunken taxi depot,
+hurling shipping containers and ultrasonic wails that scramble the UI;
+**Phase 2** her limbs stretch through the water beneath the player — step
+only on floating debris, or get dragged into a chokehold. Narrative beat:
+an emergency broadcast recording proves the government knew the flood was
+coming months early, and deliberately sealed canal locks to drown the
+lower-income districts first.
+
+**2. Chatuchak Ruins** — Mudflats and collapsed market stalls forming a
+labyrinth; the weekend market is a graveyard of exotic animals that
+mutated instead of dying, traded by scavengers who worship mannequin
+heads. NPC: **The Watchmaker (Kru Viroj)**, obsessively repairing
+waterlogged watches, claims he can hear the flood's pulse. Sub-maps:
+Section 7 (The Amulet Vault) — heat-pulsing clay talismans; The Vivarium
+Drains — ruptured exotic-wildlife holding cells. Puzzle — *The Amulet
+Scale*: balance genuine amulets against cursed lead weights pulled from
+corpse pockets. Mini-boss — *The Scale Merchant*: four-armed, fused to
+cages of mutated fighting fish spitting caustic bile. Boss — *The Chimera
+of the Drowned Aviary*: **Phase 1** hundreds of mutated birds moving as
+one shifting avian titan; **Phase 2** consolidates into an emaciated
+vulture-beast whose chest cavity houses the market's blind, weeping former
+animal-syndicate boss. Narrative beat: trade manifests show biological
+samples arriving from deep ocean trenches under the river days before the
+first fissure broke.
+
+**3. Klong Toey Canals** *(the Hunter's discovery site — Crocodile
+Warden)* — Oil-slicked, caustic water choked with shipping containers;
+the poorest turned monstrous first. NPC: **Commander Lek**, one-eyed
+militia leader running F-rank scavengers as expendable mine-clearers.
+Sub-maps: Stack-City Core (a 10-story rusted-container tower), Drydock 4
+(an oil tanker wedged sideways in the mud). Puzzle — *Crane Sluice
+Alignment*: align container bridges with a broken cargo crane while
+corrosive sludge rises. Mini-boss — *Sluice Ripper*: a harbor worker
+grafted to hydraulic forklift blades. Boss — *Klong Toey Leviathan (The
+Scum Matron)*: **Phase 1** an amorphous oil/hair/sewage blob erupting
+through floor grates; **Phase 2** hardens into an oily carapace and sets
+the water on fire — manipulate pumps to douse platforms. Narrative beat:
+Lek's logs reveal Ratchaprasong elites trading food for children, allegedly
+as fuel or sacrifice to keep the central grid alive.
+
+**4. Wat Hualamphong Depths** *(the Necromancer's site — Bone Tide
+Necromancer)* — Flooded temple crematoriums merged with MRT tunnels;
+monks who died mid-chant are petrified statues whose voices cause
+cognitive hemorrhage. NPC: **Phra Maha Prasert**, a monk who gouged out
+his own eyes rather than see "the skinless things that pray beside the
+novices." Sub-maps: the Hall of Unclaimed Coffins (knocking in
+synchronized rhythm), MRT Platform 2 (submerged, lights still flickering
+in dead train cars). Puzzle — *The Chanting Tuning-Forks*: strike three
+brass bells to match the petrified monks' pitch and shatter an acoustic
+seal. Mini-boss — *The Undertaker of Wat Hua*: shrouded, carries an
+incense cauldron emitting blind-rage gas. Boss — *The Hungry Ghost of Hua
+Lamphong (Preta Titan)*: **Phase 1** a 15m emaciated pinhole-mouthed
+humanoid firing starvation sonic beams; **Phase 2** its ribs tear open
+into a gravity-pulling stomach-mouth. Narrative beat: temple scripture
+says the flood recurs every 500 years once collective human debt outgrows
+what the soil can bear.
+
+**5. Ratchaprasong Intersection** *(the Tank's shrine — Erawan Guardian)*
+— Mirror-black water around ruined luxury malls; wealthy shelter-in-place
+survivors turned cannibalistic aristocrats holding black-tie galas. NPC:
+**Madame Pim**, rotting silk, information broker for depraved survivor
+syndicates. Sub-maps: Central Atrium Abyss (a blown-out mall core), the
+VIP Penthouse Suite (blood-spattered, classical music on loop). Puzzle —
+*Mannequin Mirror Line*: rotate mirrored partitions to reflect sunlight
+past a shadow curtain. Mini-boss — *The Retail Prince*: bulletproof
+tuxedo, dual suppressed handguns, packs of skinned greyhounds. Boss — *The
+Golden Yaksha of Siam (Desire Manifest)*: **Phase 1** a brass shrine
+guardian wielding a massive cleaver at terrifying speed; **Phase 2** the
+shell cracks — molten gold and burning flesh create persistent hazard
+pools. Narrative beat: the Aristocrats made a pact with something inside
+the Grand Palace, luring refugee caravans into kill-zones in exchange for
+safety.
+
+**6. Thonburi Drowned Temples** *(shared site for the Assassin's Yaksha
+Blade and Kuman Thong Warden)* — Total submersion; bell towers and
+Ayutthaya-era brick pushing through modern asphalt, silent water, lotus
+flowers that rot into blood when touched. NPC: **The Boatman (Khun
+Charoen)**, silent, communicates only via oar-tapping rhythm. Sub-maps:
+the Inverted Stupa (sunk point-down into a sinkhole), the Hall of the
+Submerged Buddha (a bronze reclining Buddha under poisonous water).
+Puzzle — *The Water Bell Alignment*: dive between three bronze bell
+chambers before oxygen runs out to part the water. Mini-boss — *The
+Bell-Ringer Priest*: external gills, wields a temple clapper like a
+warhammer. Boss — *Naga Regent (The River's Spite)*: **Phase 1** a
+serpentine demigod generating whirlpool currents; **Phase 2** sprouts
+seven heads, each casting a distinct elemental curse while slamming tidal
+waves. Narrative beat: murals inside the inverted stupa depict modern
+Bangkok burning and drowning — painted 300 years ago by a mad Ayutthayan
+monk.
+
+**7. Rama IV Fuel Depots** *(the Pyromancer's origin — Garuda Ember
+Knight)* — Diesel slicks, ruptured silos, floating napalm-grade gasoline
+lakes; one spark ignites entire blocks. NPC: **Chief Engineer Korn**,
+coughing, obsessed with preventing a mega-silo explosion that would take
+the remaining districts with it. Sub-maps: Silo 9 Interior (an insurgent
+cult's torture den in a hollow fuel tank), Pipeline Catwalks (suspended
+mesh bridges over burning crude). Puzzle — *Pressure Relief Valve
+Routing*: adjust three valves across a burning catwalk within a 90-second
+countdown. Mini-boss — *The Pyre Warden*: fire-immune, strapped into an
+industrial flamethrower rig. Boss — *Combustion Entity: Phloeng (The
+Fire-In-Water)*: **Phase 1** superheated blue flame inside a boiling-water
+sphere, throwing steam geysers; **Phase 2** expands into a combustion
+pillar — trigger halon fire-suppression stations to weaken its shield.
+Narrative beat: the fuel was stockpiled by the military junta to burn the
+slums if the infected broke the cordon, not for civilian survival.
+
+**8. Skybridge Network** *(the Ranger's vertical territory —
+Hanuman-Blessed Ranger)* — 30m above the water; glass/steel skywalks
+between towers, toxic mist below, winged skinless carrion beasts hunting
+the walkways. NPC: **Sniper Jane**, ex-Olympic marksman defending an
+orphanage on the 42nd floor. Sub-maps: the Shattered Glass Bridge
+(cracked floorplates give way under weight), Sky-Lobby Helipad
+(windswept, rain-lashed). Puzzle — *The Counterweight Crane Elevator*:
+sever specific cables to catapult a maintenance lift up. Mini-boss — *The
+Wind-Cutter Drone*: an overgrown security drone with mutated human
+eyeballs wired into its targeting. Boss — *Garuda Ascendant (The Apex
+Scavenger)*: **Phase 1** an avian-humanoid slicing catwalk cables, dropping
+arena segments into the mist; **Phase 2** summons gale winds forcing
+players to anchor to pillars while dodging javelin feathers. Narrative
+beat: Jane reveals the evacuation helicopters didn't reach safety — they
+flew into the sky above the Grand Palace and vanished.
+
+**9. Bang Rak Underlevels** *(the Berserker's fight pits — Rakshasa
+Fury)* — Colonial brick drainage and flooded embassy vaults, smelling of
+wet parchment and formaldehyde; catacombs hold preserved 19th-century
+diplomats and anatomical specimens. NPC: **Father Thomas**, a mad Jesuit
+baptizing survivors in caustic floodwater until they mutate or drown.
+Sub-maps: the Flooded Embassy Archive (floating colonial intelligence on
+Siamese occult relics), the Bone-Cistern (a century of human skulls
+stacked to the ceiling). Puzzle — *The Seal of St. Jude*: align three
+Latin dials to historical plague dates. Mini-boss — *The Archivist of
+Flesh*: multi-limbed, binds skin into leather books with scalpels. Boss —
+*The Inquisitor's Leviathan (The Penitent King)*: **Phase 1** a floating
+iron cage firing barbed chains to reel players into the water; **Phase 2**
+the cage shatters into a flayed giant wielding crucifixes that strike with
+holy-fire. Narrative beat: 1893 colonial documents describe discovering
+the first "Rupture Point" beneath the river and sealing it with
+silver-lined masonry — seals that cracked open in October 2025.
+
+**10. The Drowned University** *(the Mage's original school — Naga Mage,
+the very first lore hook)* — Murky courtyards, flooded libraries with
+floating textbooks, collapsed labs; faculty went insane quantifying the
+floodwater's supernatural properties. NPC: **Professor Chai**, dying,
+IV-strapped, dimensional equations scrawled across his lab coat. Sub-maps:
+the Sunken Faculty Library (a 4-story rotunda navigated via floating
+bookshelves), the Centrifuge Vault (centrifuges still spinning shimmering
+dimensional blood). Puzzle — *The Spectrometer Calibration*: split violet
+light across three prisms to disable a decontamination laser grid.
+Mini-boss — *The Dean of Dissection*: cybernetic, bone-saws and
+defibrillator paddles, ceiling-rail-mounted. Boss — *The Scholastic Hive
+(The Pedant)*: **Phase 1** a floating sphere of mummified professors'
+heads, firing psychokinetic barrages that reverse player controls;
+**Phase 2** pulls millions of wet pages and desks into a 20-foot armored
+juggernaut. Narrative beat: Professor Chai's final paper argues the flood
+isn't physical liquid — it's liquid *information*, reality's unused memory
+overflowing into our coordinate space.
+
+**11. Refugee Tower Cluster** *(the Healer's territory — morally
+messier: inhabited, not just infested)* — Three 50-story towers leaning
+together in a swamp; tens of thousands fled here and starved, driving
+ritual madness and tribal floor-territories. NPC: **Mei**, a 10-year-old
+who climbs elevator cables with superhuman agility, trading medicine for
+dubious dried meat. Sub-maps: the Skybridge of the Starved (a rope bridge
+at the 35th floor), the Meat Locker — Floor 13 (a curing room for human
+jerky). Puzzle — *The Elevator Counter-Balance*: shift rubble between two
+freight elevators to balance an ascent mechanism. Mini-boss — *The
+Floor-Lord Butcher*: obese, wields a dual-bladed industrial pizza cutter.
+Boss — *The Swarm of the 40th Floor (The Congregate)*: **Phase 1** a wall
+of reaching human arms spitting toxic bile; **Phase 2** an enormous pale
+tapeworm-horror with the weeping faces of the tower's original landlords
+along its spine. Narrative beat: from the roof, the sky above the Grand
+Palace isn't cloudy or black — it's an impossible geometric hole where the
+stars spin in reverse.
+
+**12. The Grand Palace Shallows** *(highest-tier district; gateway to the
+dungeons and dimensions)* — White marble courtyards under shallow,
+mirror-flat, gold-tinged water; pristine gold-leaf roofs, deafening
+silence, no scent, no ripples even when walking. NPC: **The Royal Knight
+(Krit)**, the last Palace Guard, guarding a door to nowhere with an empty
+rifle. Sub-maps: the Corridor of Murals (the Ramayana epic, every painted
+demon face gouged out), the Emerald Sanctum (the Emerald Buddha's pedestal
+empty, replaced by a swirling column of static). Puzzle — *The Nine-Fold
+Chatta Alignment*: rotate nine ceremonial umbrellas so their shadows
+converge on the empty throne, cracking the dimensional threshold.
+Mini-boss — *The Faceless Praetorian*: a 12-foot mirror-armored guardian
+whose faceplate reflects the player's own worst fears/strongest attacks.
+Boss — *Guardian of the Threshold (Yaksha Overlord Tossakan Reborn)*:
+**Phase 1** The Ten-Faced General — ten arms, ten weapons, destroy in a
+sequence keyed to elemental vulnerability; **Phase 2** The Heartless Titan
+— his heart floats in a glass vessel behind the player while he sweeps;
+**Phase 3** The Shattered Icon — his body crumbles into a floating vortex
+that tears reality open. Narrative beat: on Tossakan's defeat the marble
+splits, water rushing into a bottomless drop — the player doesn't descend,
+they fall *upward* into the first dimension.
+
+### Part II: The Dimensions (endgame — cosmic horror, metaphysical dread)
+
+Visual/tonal shift at the transition: the water stops having physics,
+becomes mirror-flat, reflects skies that don't exist. Enemy design sheds
+biological motifs (teeth, hair, rotten meat) for geometric/acoustic/
+typographic forms (floating Pali script, sine waves, fragmented statues).
+
+**13. The Static Between Seconds (Time)** — Raindrops frozen mid-air,
+explosions frozen mid-burst; moving causes friction burns against
+unmoving air. Puzzle — *Chronos-Stepping*: use temporal resonance needles
+to momentarily unfreeze specific objects as makeshift bridges/elevators.
+Mini-boss — *The Stutter-Stalker*: teleports to the player's past
+positions, striking where you stood 3 seconds ago. Boss — *Chronophage:
+The Stolen Moment*: **Phase 1** fights in fast-forward, react to audio
+cues before animations; **Phase 2** reverses status — healing damages,
+resource spending restores, buffs become lethal debuffs.
+
+**14. The Weight of What's Owed (Gravity ↔ Guilt)** — Gravity scales with
+psychological guilt; inverted floating temple ruins hang over an iron
+sky. Puzzle — *Karmic Ballast*: carry lead talismans representing
+betrayed earlier-district NPCs — more defense, agonizingly slower, across
+gravity-inversion plates. Mini-boss — *The Bailiff of Souls*: a balance
+scale that equalizes party HP to the lowest member. Boss — *The Sinking
+Sinner (Phra Malai's Regret)*: **Phase 1** a dense sphere of bodies
+exerting gravitational pull into crushing zones; **Phase 2** gravity
+reverses unpredictably — fight while falling upward toward a ceiling of
+spikes.
+
+**15. The Unheard Frequency (Sound/Signal)** *(the Bard/Signal chain's
+true test)* — A pitch-black void of oscillating radio waves visualized as
+blinding ribbons; sound causes physical impact. Puzzle — *Waveform
+Harmonization*: tune receivers to the resonant frequency of invisible
+bridges that exist only under a specific chord. Mini-boss — *The Feedback
+Siren*: deafens/blurs the UI proportional to incoming sound waves. Boss —
+*The Deafening Silence (The Void Broadcast)*: **Phase 1** a CRT-static
+colossus that cancels spellcasting during scream cycles; **Phase 2** total
+silence — no music, no SFX, attacks telegraphed only by subtle air
+ripples.
+
+**16. The Space Between Names (Identity)** — A shifting maze of mirrors
+and melting mannequins; entering a room randomizes the player's visual
+model and loadout. Puzzle — *The Bureaucracy of Existence*: stamp your own
+death certificate at three consular desks using clues from your
+character's starting corpse. Mini-boss — *The Amnesiac Clerk*: deletes a
+random skill from the quick-bar every 45 seconds until staggered. Boss —
+*The Nameless Doppelgänger*: **Phase 1** copies your current class/build/
+deck, playing your own strategy 20% more efficiently; **Phase 2**
+transforms into the party member you relied on most, forcing you to fight
+your own primary damage dealer.
+
+**17. The Undertow of Memory (Collective Memory)** — A sepia 1970s
+Bangkok; vintage trams on non-existent roads, the 1976 protests looping;
+touching a memory means reliving that person's death. Puzzle — *The
+Paradox Photograph*: find historical discrepancies in three looped
+memories to collapse the illusion. Mini-boss — *The Sepia Executioner*:
+phases through walls, vulnerable only inside a vintage camera's flash.
+Boss — *The Amniotic Sea (The Mother of Days)*: **Phase 1** summons
+memory-clones of the Districts 1/3/5 bosses at reduced HP simultaneously;
+**Phase 2** submerges the stage in memory fluid — stand only on fading
+Polaroids that dissolve after 5 seconds.
+
+**18. The Marrow Depths (Structure)** *(Necromancer-adjacent)* — Reality's
+skeletal framework: walls of cross-laminated human femur, spinal elevator
+shafts, pulsing marrow rivers. Puzzle — *Osteo-Pillar Alignment*: strike
+nerve bundles to grow/retract bone spurs into a 500-foot spinal
+staircase. Mini-boss — *The Calcified Carpenter*: constructs bone walls to
+box the player into crush zones. Boss — *The Architect of Ribs (The Great
+Osteon)*: **Phase 1** traps the player in its own ribcage with rhythmic
+spike waves; **Phase 2** sheds its structure — an exposed spinal cord
+lashes electrical nerve impulses that stun.
+
+**19. The Mirror Current (Alternate Choice)** — The river of unmade
+choices; phantom Bangkoks that were never flooded (solar utopias, nuclear
+wastelands, extinction in 1767). Puzzle — *Timeline Shifting*: step
+through fractured mirror glass to toggle a room between Ruined/Utopian/
+Scorched states to bypass walls. Mini-boss — *The Unborn Potential*: uses
+skills from classes the player chose *not* to evolve into. Boss — *The
+Parallel Sovereign (The You That Didn't Drown)*: **Phase 1** a version of
+the protagonist who embraced the flood's corruption; **Phase 2** melds
+with three alternate-timeline selves, rotating elemental affinity/combat
+style every 30 seconds.
+
+**20. The Yantra Lattice (Sacred Geometry)** *(the Monk chain's true
+test)* — Floating golden Pali scripture and laser-precise sacred geometry
+in a velvet-red cosmos. Puzzle — *Sutra Completion*: trace missing
+geometric lines by stepping on glowing glyphs in correct phonetic
+sequence. Mini-boss — *The Geometer Monk*: fires geometric laser grids
+bisecting the room into safe/lethal zones. Boss — *The Living Yantra
+(Phra Phrom Unbound)*: **Phase 1** a rotating four-faced tetrahedral
+construct that rotates the whole battlefield 90° each turn; **Phase 2**
+deconstructs into thousands of razor-sharp golden characters raining in
+carpet-bombing runs.
+
+**21. The Court Beyond Court (Myth-Above-Myth)** — The celestial throne
+room above all pantheons; infinite cracked marble pillars leaking black
+sewage, dead gods propped like discarded marionettes. Puzzle — *The
+Broken Scales*: place earlier dimensional bosses' severed heads on
+celestial balance scales to force the Obsidian Gate open. Mini-boss — *The
+Executioner of Deities*: a guillotine blade that permanently reduces max
+HP for the rest of the fight. Boss — *The Usurper of the Throne (Indra
+Decayed)*: **Phase 1** a rotting king on an elephant skeleton, hurling
+petrifying lightning spears; **Phase 2** fights on foot with broken
+god-metal blades at near-light speed. Dying gasp: *"We did not start the
+flood... we built the dams... and your world... broke them from below..."*
+
+**22. The Source of the Release (Origin) — final area** — Not an ocean or
+temple: a sterile hyper-modern hospital basement beneath a Bangkok street,
+smelling of damp concrete, infant powder, and sea salt. At its center, an
+ancient pulsating biological valve — the primordial drain reality's toxic
+waste is purged through. No NPCs; only the player's own thoughts echoed
+back along the wet walls. **Final boss — The Embryo of the Flood
+(Ananta-Shesha Unborn)**: **Phase 1** The Cradle of Seepage — an immense
+mass wedged into the foundation, acidic tidal surges, memory wipes,
+summoned echoes; **Phase 2** The Anthropocene Worm — a multi-headed
+cosmic serpent built from Bangkok's debris (cars, rail, concrete, a
+million human hands); **Phase 3** The Dry Water — a pure conceptual
+entity, the water becomes blinding white light, and the player's entire
+card deck/skill set dissolves, fighting with only core "Drown" or
+"Breathe" primordial commands.
+
+**The Ending — three mutually exclusive options:**
+- **A. Pull the Plug (The Drain)** — drain the water permanently; magic
+  and classes vanish, monsters die, Bangkok becomes a desiccated
+  bone-desert. Humanity survives, hollowed out.
+- **B. Let It Rise (The Abyssal Cradle)** — surrender the terrestrial
+  world; the earth drowns completely and humanity evolves into
+  gill-bearing, psychically linked aquatic beings.
+- **C. Become the Dam (The Sovereign Seal)** — fuse body and soul into the
+  ruptured foundation, becoming the new seal; the flood recedes to normal
+  river levels, but you remain awake for eternity beneath the Chao
+  Phraya, feeling every drop of filth pass through your teeth.
+
+### Part III: The Dungeons — updated with real class-family mappings
+
+*Gimmick/boss concept and unlock tier are the bible's as written; the
+"Unlocks" column maps each placeholder base class to the actual family
+(see reconciliation note 3 above) and — where one already exists — the
+already-documented evolution target from the Roster table.*
+
+| Tier | Dungeon | Gimmick / Boss | Unlocks (real family) |
+|---|---|---|---|
+| D | The Flooded Subway Line | Total darkness, flashlight battery life. Boss: *The Track-Dragger* (blind mole-human) | **Ranger** branch — "Sub-Stalker" |
+| D-C | The Sunken Cinema | Projector shadows become physical. Boss: *The Projectionist* (cutting film reels) | **Mage** branch — "Illusionist," alongside the existing Naga Mage path |
+| C | The Vertical Vault | High water pressure; armor slows descent but resists hazards. Boss: *The Gilded Safe-Cracker* | **Tank** branch — "Juggernaut" |
+| C | The Coiling Temple | Continuous whirlpool current along a spiral dragon body. Boss: *The Dragon's Heart Parasite* | **Monk** branch — "Dragon-Monk," naga-themed |
+| C-B | The Rakshasa's Arena | Melee generates "Blood Heat"; low heat = hypothermia. Boss: *The Unbeaten Champion* (8-limbed ghoul) | **Berserker** — matches the already-documented Rakshasa Fury proving ground |
+| B | The Garuda Spire | Wind gusts push toward the edge; lightning telegraphs landing zones. Boss: *Storm-Herald Roc* | **Ranger** — alongside the existing Hanuman-Blessed Ranger/Pyromancer site |
+| B | Hanging Gardens of Kuman Thong | Toxic spores swap friend/foe labels. Boss: *The Floral Mother (Banyan Queen)* | **Necromancer** branch — closest fit to "Necro-Botanist" |
+| B-A | Court of the Drowned King | Boats tip/rock based on damage and weight. Boss: *The Admiral of the Rotten Fleet* | **Summoner** branch ("Tide-Caller") **or** Necromancer (this dungeon was originally slated as the Necromancer's own endgame — genuinely ambiguous, worth the project owner's call |
+| A | The Yaksha Vault | Security lasers reflect off water; gold weights disable traps. Boss: *The Automated Yaksha Colossus* | **Berserker** branch — "Titan-Breaker," a second/higher offshoot alongside Rakshasa Fury |
+| A | The Erawan Bastion | Three-headed statue beams divine wrath by quadrant. Boss: *Erawan's Avatar* (33-headed) | **Tank** — matches the already-documented Erawan Guardian → Erawan Avatar S-rank chain directly |
+
+### Gameplay flow directives (design notes — not yet built)
+
+- **Water Level Meter** (districts 1–12): being submerged drains stamina,
+  slows dodge-rolling, and raises encounter frequency.
+- **Structural integrity**: certain floor tiles (cracked glass, rotten
+  boards, rusted zinc) have HP that degrades under weapon use or
+  prolonged standing.
+- **The Abstract Transition** (district 12 → dimension 13): water stops
+  having physics, becomes mirror-flat, reflects nonexistent skies; enemy
+  design shifts from biological to geometric/acoustic/typographic.
+- **Boss Phase Escalation Protocol** (every boss, all 22 critical-path
+  maps): Phase 1 recognizable iconography (monks, statues, serpents,
+  flood myths) → Phase 2 the arena itself breaks, environmental hazards
+  dominate → Phase 3/desperation the boss sheds identity and attacks the
+  player's interface/senses/status directly, not just their HP. This
+  already has a real, working analog in the engine: `MonsterData.stages`
+  (HP-threshold-triggered movelist/name swaps — see `shallow_tide_mother`
+  for a working 2-stage example) is the mechanism a real Phase 2/3 would
+  extend, not a new system.
 
 ## Class System
 

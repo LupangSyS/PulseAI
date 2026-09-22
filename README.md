@@ -1,11 +1,13 @@
 # Deluge Chronicles (working title)
 
 A turn-based card RPG built in [Godot 4](https://godotengine.org/) (4.3+).
-Set in Bangkok, 2035 — nine years after a mega-flood drowned the surface
-and released mystic power and monsters sealed since before history.
-Players take on hidden, evolvable RPG classes (F-rank to S-rank) discovered
-through exploration and quests rather than picked from a menu, exploring a
-world of districts, dungeons, and dimensions toward a save-the-world climax.
+Set in Bangkok, October 2025 onward — the immediate aftermath of a
+mega-flood that drowned the surface and released mystic power and
+monsters sealed since before history. Players take on hidden, evolvable
+RPG classes (F-rank to S-rank) discovered through exploration and quests
+rather than picked from a menu, exploring a world of districts, dungeons,
+and dimensions toward a save-the-world climax. Full story bible in
+GDD.md.
 
 This repo previously hosted a different, unrelated project (a news/stocks
 dashboard). That project has been retired; everything here now is the game.

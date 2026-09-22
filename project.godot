@@ -9,7 +9,7 @@ config_version=5
 [application]
 
 config/name="Deluge Chronicles"
-config/description="A turn-based card RPG set in flooded Bangkok, 2035. Working title."
+config/description="A turn-based card RPG set in flooded Bangkok, October 2025 onward. Working title."
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 
