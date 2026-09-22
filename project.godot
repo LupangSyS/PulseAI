@@ -25,7 +25,8 @@ window/size/viewport_height=460
 window/size/window_width_override=960
 window/size/window_height_override=920
 window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
+window/stretch/aspect="keep"
+window/stretch/scale_mode="fractional"
 
 [rendering]
 

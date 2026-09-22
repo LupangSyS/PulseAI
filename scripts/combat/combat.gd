@@ -31,6 +31,13 @@ extends Control
 ## driven by _process) render when generated art exists for that class/
 ## monster id; otherwise the TextureRect just stays hidden - most ids don't
 ## have art yet (see GDD.md), so that fallback is the common case.
+##
+## Layout is a fixed-height arena (portrait + name/HP + an HP bar per side)
+## over a fixed-height log over a fixed-height scrolling card/item tray -
+## every panel's height is a constant, nothing relies on SIZE_EXPAND_FILL
+## to soak up leftover space, and the tray wraps into a 2-column grid
+## instead of a single row that can run off the right edge. See
+## _build_ui's doc comment and GDD.md for why.
 
 const STARTING_HAND_SIZE := 4
 const DEFAULT_CLASS_ID := "mage_f"
@@ -52,15 +59,18 @@ var combo_count: int = 0
 ## "main" | "cards" | "items" - which sub-panel the action menu is showing.
 var menu_state: String = "main"
 
-var status_label: Label
-var enemy_label: Label
+var player_name_label: Label
+var enemy_name_label: Label
+var player_hp_bar: ProgressBar
+var enemy_hp_bar: ProgressBar
+var player_stat_label: Label
 var log_label: RichTextLabel
 var menu_row: HBoxContainer
 var menu_cards_button: Button
 var menu_item_button: Button
 var menu_guard_button: Button
-var hand_container: HBoxContainer
-var item_container: HBoxContainer
+var card_scroll: ScrollContainer
+var card_grid: GridContainer
 var end_turn_button: Button
 var continue_button: Button
 
@@ -91,43 +101,68 @@ func _process(delta: float) -> void:
 	if enemy_portrait_frames.size() == 2:
 		enemy_portrait.texture = enemy_portrait_frames[portrait_anim_frame]
 
+## Layout budget (fits the 480x460 viewport with slack to spare, verified
+## headlessly - see GDD.md's combat UI note): a fixed-height arena row, a
+## fixed-height log, and a fixed-height scrolling card tray. Nothing here
+## uses SIZE_EXPAND_FILL to soak up leftover space, on purpose - every
+## panel's height is a known constant, so total content height is
+## predictable instead of depending on how much text happens to be in the
+## log or how many cards are in hand (the cause of the original overflow
+## bug, where an expand-fill log always grew to fill whatever space was
+## left, and an unbounded hand row could run past the right edge).
 func _build_ui() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
+	var margin := MarginContainer.new()
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for side in ["left", "right", "top", "bottom"]:
+		margin.add_theme_constant_override("margin_%s" % side, 8)
+	add_child(margin)
+
 	var root_box := VBoxContainer.new()
-	root_box.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root_box.add_theme_constant_override("separation", 6)
-	add_child(root_box)
+	margin.add_child(root_box)
 
-	status_label = Label.new()
-	enemy_label = Label.new()
-	root_box.add_child(status_label)
-	root_box.add_child(enemy_label)
+	# --- Arena: player (left) vs. enemy (right), each with a portrait,
+	# name + HP readout, and a visual HP bar.
+	var arena_row := HBoxContainer.new()
+	arena_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	arena_row.add_theme_constant_override("separation", 28)
+	arena_row.custom_minimum_size = Vector2(0, 120)
+	root_box.add_child(arena_row)
 
-	var portrait_row := HBoxContainer.new()
-	portrait_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	portrait_row.add_theme_constant_override("separation", 20)
-	root_box.add_child(portrait_row)
+	var player_panel := VBoxContainer.new()
+	player_panel.alignment = BoxContainer.ALIGNMENT_CENTER
+	arena_row.add_child(player_panel)
+	player_portrait = _make_portrait()
+	player_panel.add_child(player_portrait)
+	player_name_label = _make_centered_label(11)
+	player_panel.add_child(player_name_label)
+	player_hp_bar = _make_hp_bar()
+	player_panel.add_child(player_hp_bar)
 
-	player_portrait = TextureRect.new()
-	player_portrait.custom_minimum_size = Vector2(48, 48)
-	player_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	player_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	portrait_row.add_child(player_portrait)
+	var enemy_panel := VBoxContainer.new()
+	enemy_panel.alignment = BoxContainer.ALIGNMENT_CENTER
+	arena_row.add_child(enemy_panel)
+	enemy_portrait = _make_portrait()
+	enemy_panel.add_child(enemy_portrait)
+	enemy_name_label = _make_centered_label(11)
+	enemy_panel.add_child(enemy_name_label)
+	enemy_hp_bar = _make_hp_bar()
+	enemy_panel.add_child(enemy_hp_bar)
 
-	enemy_portrait = TextureRect.new()
-	enemy_portrait.custom_minimum_size = Vector2(48, 48)
-	enemy_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	enemy_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	portrait_row.add_child(enemy_portrait)
+	# --- Compact resource/block readout beneath the arena.
+	player_stat_label = _make_centered_label()
+	root_box.add_child(player_stat_label)
 
+	# --- Battle log: fixed height, does not expand.
 	log_label = RichTextLabel.new()
-	log_label.custom_minimum_size = Vector2(0, 90)
+	log_label.custom_minimum_size = Vector2(0, 42)
 	log_label.bbcode_enabled = true
 	log_label.scroll_following = true
-	log_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	root_box.add_child(log_label)
 
+	# --- Action menu: Cards / Item / Guard (FF/Pokemon-style turn input).
 	menu_row = HBoxContainer.new()
 	menu_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	menu_row.add_theme_constant_override("separation", 8)
@@ -135,28 +170,37 @@ func _build_ui() -> void:
 
 	menu_cards_button = Button.new()
 	menu_cards_button.text = "Cards"
+	menu_cards_button.custom_minimum_size = Vector2(72, 0)
 	menu_cards_button.pressed.connect(_on_menu_cards_pressed)
 	menu_row.add_child(menu_cards_button)
 
 	menu_item_button = Button.new()
 	menu_item_button.text = "Item"
+	menu_item_button.custom_minimum_size = Vector2(72, 0)
 	menu_item_button.pressed.connect(_on_menu_item_pressed)
 	menu_row.add_child(menu_item_button)
 
 	menu_guard_button = Button.new()
 	menu_guard_button.text = "Guard"
+	menu_guard_button.custom_minimum_size = Vector2(72, 0)
 	menu_guard_button.pressed.connect(_on_guard_pressed)
 	menu_row.add_child(menu_guard_button)
 
-	hand_container = HBoxContainer.new()
-	hand_container.add_theme_constant_override("separation", 8)
-	hand_container.visible = false
-	root_box.add_child(hand_container)
+	# --- Card/item tray: a fixed-size scroll area holding a 2-column grid,
+	# so entries wrap to a new row instead of running off the right edge,
+	# and any overflow (more rows than fit) scrolls instead of pushing
+	# End Turn off-screen.
+	card_scroll = ScrollContainer.new()
+	card_scroll.custom_minimum_size = Vector2(0, 116)
+	card_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	root_box.add_child(card_scroll)
 
-	item_container = HBoxContainer.new()
-	item_container.add_theme_constant_override("separation", 8)
-	item_container.visible = false
-	root_box.add_child(item_container)
+	card_grid = GridContainer.new()
+	card_grid.columns = 2
+	card_grid.add_theme_constant_override("h_separation", 8)
+	card_grid.add_theme_constant_override("v_separation", 8)
+	card_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	card_scroll.add_child(card_grid)
 
 	end_turn_button = Button.new()
 	end_turn_button.text = "End Turn"
@@ -168,6 +212,61 @@ func _build_ui() -> void:
 	continue_button.visible = false
 	continue_button.pressed.connect(_on_continue_pressed)
 	root_box.add_child(continue_button)
+
+func _make_portrait() -> TextureRect:
+	var rect := TextureRect.new()
+	rect.custom_minimum_size = Vector2(56, 56)
+	rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	rect.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	rect.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	return rect
+
+func _make_centered_label(font_size: int = 0) -> Label:
+	var label := Label.new()
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	if font_size > 0:
+		label.add_theme_font_size_override("font_size", font_size)
+	return label
+
+func _make_hp_bar() -> ProgressBar:
+	var bar := ProgressBar.new()
+	bar.custom_minimum_size = Vector2(110, 12)
+	bar.min_value = 0
+	bar.show_percentage = false
+	bar.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	return bar
+
+## A tray entry (hand card or item): a Button used purely as the click
+## target (text left empty) wrapping a VBoxContainer of real Labels, so
+## the description can word-wrap instead of overflowing the button's
+## fixed width. Every descendant is set to MOUSE_FILTER_IGNORE so clicks
+## pass through to the Button itself rather than being eaten by a child.
+func _make_tray_button(title: String, description: String, is_disabled: bool) -> Button:
+	var btn := Button.new()
+	btn.custom_minimum_size = Vector2(208, 50)
+	btn.disabled = is_disabled
+
+	var vb := VBoxContainer.new()
+	vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	vb.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	vb.add_theme_constant_override("separation", 2)
+	btn.add_child(vb)
+
+	var title_label := Label.new()
+	title_label.text = title
+	title_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	title_label.add_theme_font_size_override("font_size", 13)
+	vb.add_child(title_label)
+
+	var desc_label := Label.new()
+	desc_label.text = description
+	desc_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	desc_label.add_theme_font_size_override("font_size", 10)
+	vb.add_child(desc_label)
+
+	return btn
 
 func _load_portraits(class_id: String, monster_id: String) -> void:
 	player_portrait_frames = SpriteLoader.load_frames(class_id, "character")
@@ -504,40 +603,43 @@ func _start_player_turn() -> void:
 	_draw_cards(STARTING_HAND_SIZE - hand.size())
 
 func _refresh_ui() -> void:
-	status_label.text = "%s  |  HP %d/%d  |  %s %d/%d  |  Block %d" % [
-		player.display_name, player.hp, player.max_hp,
-		player.resource_name, player.resource, player.max_resource,
-		player.block,
+	player_name_label.text = "%s\nHP %d/%d" % [player.display_name, player.hp, player.max_hp]
+	player_hp_bar.max_value = player.max_hp
+	player_hp_bar.value = player.hp
+	player_stat_label.text = "%s %d/%d  |  Block %d" % [
+		player.resource_name, player.resource, player.max_resource, player.block,
 	]
 
-	var enemy_text := ""
-	for e in enemies:
-		var status_text: String = "HP %d/%d" % [e.hp, e.max_hp] if e.is_alive() else "Defeated"
-		enemy_text += "%s  |  %s\n" % [e.display_name, status_text]
-	enemy_label.text = enemy_text.strip_edges()
+	var enemy: Combatant = enemies[0] if enemies.size() > 0 else null
+	if enemy != null:
+		var status_text: String = "HP %d/%d" % [enemy.hp, enemy.max_hp] if enemy.is_alive() else "Defeated"
+		enemy_name_label.text = "%s\n%s" % [enemy.display_name, status_text]
+		enemy_hp_bar.max_value = enemy.max_hp
+		enemy_hp_bar.value = enemy.hp
 
 	var battle_over: bool = not player.is_alive() or _all_enemies_dead()
 
-	for child in hand_container.get_children():
-		child.queue_free()
-	for child in item_container.get_children():
+	# remove_child (synchronous) before queue_free (deferred delete) so a
+	# menu switch within the same frame doesn't briefly count/see the old
+	# children alongside the new ones - queue_free alone only marks them
+	# for deletion at end-of-frame, leaving them in the tree until then.
+	for child in card_grid.get_children():
+		card_grid.remove_child(child)
 		child.queue_free()
 
-	hand_container.visible = menu_state == "cards" and not battle_over
-	item_container.visible = menu_state == "items" and not battle_over
-
-	if hand_container.visible:
+	if not battle_over and menu_state == "cards":
 		for card_id in hand:
 			var card := GameData.get_card(card_id)
 			if card == null:
 				continue
-			var button := Button.new()
-			button.text = "%s (%d)\n%s" % [card.display_name, card.cost, card.description]
-			button.disabled = card.cost > player.resource
-			button.pressed.connect(_on_card_pressed.bind(card_id))
-			hand_container.add_child(button)
-
-	if item_container.visible:
+			var btn := _make_tray_button(
+				"%s (%d)" % [card.display_name, card.cost],
+				card.description,
+				card.cost > player.resource,
+			)
+			btn.pressed.connect(_on_card_pressed.bind(card_id))
+			card_grid.add_child(btn)
+	elif not battle_over and menu_state == "items":
 		for item_id in RunState.inventory.keys():
 			var count: int = RunState.inventory[item_id]
 			if count <= 0:
@@ -545,10 +647,14 @@ func _refresh_ui() -> void:
 			var item := GameData.get_item(item_id)
 			if item == null or item.effect == "":
 				continue
-			var button := Button.new()
-			button.text = "%s x%d\n%s" % [item.display_name, count, item.description]
-			button.pressed.connect(_on_item_button_pressed.bind(item_id))
-			item_container.add_child(button)
+			var btn := _make_tray_button("%s x%d" % [item.display_name, count], item.description, false)
+			btn.pressed.connect(_on_item_button_pressed.bind(item_id))
+			card_grid.add_child(btn)
+	elif not battle_over:
+		var hint := _make_centered_label()
+		hint.text = "Choose Cards, Item, or Guard."
+		hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		card_grid.add_child(hint)
 
 	menu_row.visible = not battle_over
 	menu_cards_button.disabled = battle_over

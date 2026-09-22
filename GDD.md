@@ -354,6 +354,26 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   screen at once, which on the original 480×270 viewport pushed
   `end_turn_button` off the visible area entirely (the "can't combat"
   bug — the UI wasn't broken, it was just rendering below the fold).
+- **Fixed-height combat layout, not size-to-content.** Every panel in
+  `combat.gd`'s `_build_ui()` — the arena, the log, the card/item tray —
+  has a constant height; nothing uses `SIZE_EXPAND_FILL` to soak up
+  leftover space or a plain `HBoxContainer` that grows without bound.
+  The arena shows both combatants side by side with a portrait, a
+  name/HP readout, and a `ProgressBar` HP bar each (closer to the
+  Final Fantasy/Pokémon reference the player asked for than plain text
+  status lines). The card/item tray is a 2-column `GridContainer`
+  inside a fixed-size `ScrollContainer` — cards wrap to a new row
+  instead of running off the right edge (the original bug report:
+  cards "hard to read" and getting clipped), and if a future roster of
+  items ever needs more rows than fit, it scrolls instead of pushing
+  `end_turn_button` off-screen again. Each tray entry is a `Button`
+  wrapping real `Label`s with `autowrap_mode` set, not the button's own
+  text, so long descriptions word-wrap instead of overflowing — Godot's
+  `Button` doesn't wrap its own `text` property. Headlessly verified:
+  every visible control's global rect stays within the viewport bounds
+  in the closed-menu, cards-open, and items-open states, with real
+  pixel slack (not a zero-margin fit), including a stress case of
+  more usable items than fit in one row.
 - **105 classes fully defined and battle-tested** (15 families × F
   through S rank, see Roster below) — every one was run through a full
   headless combat simulation with zero errors and reaches victory. Turn
@@ -373,31 +393,85 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   real `change_scene_to_file` transitions (menu-style start → overworld →
   walk into a monster → real scene change to combat → win → real scene
   change back → the fresh overworld correctly shows the spawn on cooldown).
-- **Real pixel art for Sukhumvit Shallows' cast.** The Apprentice Mage and
-  all 8 monsters that actually appear in the game (Flooded Ghoul plus the
-  district's 5 mobs, mini-boss, and boss) have true 32×32 RGBA sprites in
-  `assets/sprites/` — every pixel is an explicit color choice (region-fill
-  generation, not an AI image model), so hard edges and real alpha
-  transparency are guaranteed, not hoped for. Humanoid faces (Apprentice
-  Mage, Flooded Ghoul) have explicit eye pixels, not blank skin-colored
-  ovals. Each has a 2-frame idle animation. `scripts/util/sprite_loader.gd`
-  renders them as
-  `AnimatedSprite2D` in the overworld and as animated portraits in
-  combat, and **falls back to the original colored-rectangle/text-only
-  look for any id without art** — which is still 96+ of the 105 classes
-  and all but 8 monsters, so that fallback path is the common case, not
-  an edge case, and must keep working as more content is added.
+- **Real pixel art for Sukhumvit Shallows' cast, plus all 15 F-rank
+  starting classes.** All 8 monsters that actually appear in the game
+  (Flooded Ghoul plus the district's 5 mobs, mini-boss, and boss) and
+  all 15 F-rank classes (one per family — the only ones actually
+  reachable without a real evolution-unlock engine yet, see below) have
+  true 32×32 RGBA sprites in `assets/sprites/` — every pixel is an
+  explicit color choice (region-fill generation, not an AI image
+  model), so hard edges and real alpha transparency are guaranteed, not
+  hoped for. Humanoid faces have explicit eye pixels, not blank
+  skin-colored ovals. Each has a 2-frame idle animation.
+  `scripts/util/sprite_loader.gd` renders them as `AnimatedSprite2D` in
+  the overworld and as animated portraits in combat, and **falls back
+  to the original colored-rectangle/text-only look for any id without
+  art** — still the other 90 classes (E through S rank) and all but 8
+  monsters, so that fallback path remains the common case and must keep
+  working as more content is added. Adding a class's art is one
+  `humanoid(...)` config entry in `tools/gen_sprites.py` — no other
+  code changes needed; `SpriteLoader` picks it up by filename
+  convention alone.
+- **Tile-based overworld rendering, piloted on Sukhumvit Shallows.**
+  `tools/gen_tiles.py` generates an original 40×40 tileset
+  (`assets/tiles/flood_tileset.png`: shallow water, deep water, wet
+  pavement, rubble — same region-fill/real-alpha principle as the
+  character generator, themed to *our* flooded Bangkok, not copied from
+  any reference game's tile graphics) that `scripts/util/tile_loader.gd`
+  turns into a real Godot `TileSet`/`TileMap`. A district opts in with a
+  new `terrain` field (`DistrictData.terrain` — one legend string per
+  row, purely cosmetic; collision always comes from `blocked_cells`
+  regardless of the terrain character underneath). No `terrain` data
+  (every one of the other 31 districts/dungeons/dimensions right now)
+  falls back to the original flat colored-rect grid — same "safe
+  fallback for content that hasn't been authored yet" pattern as
+  sprites. The overworld HUD was rebuilt to match: a district
+  name/description banner and a small live minimap (dot-grid, player
+  marker, red mini-boss/boss markers while they're still up) top, an
+  HP/resource bar readout, deck-size counter, message log, and inventory
+  row bottom. `CELL_SIZE` grew 24→40 and the grid's screen position is
+  now computed per-district (centered horizontally, anchored under the
+  banner) rather than a fixed offset. **Known gap: no camera/scroll
+  system yet** — a district's grid must fit entirely within the
+  480×460 viewport minus the HUD bands (Sukhumvit Shallows' 10×8 does;
+  a bigger district won't) — solving that comes before giving the other
+  31 locations tile art. Headlessly verified: the tile-rendering path,
+  the flat-grid fallback path, every HUD element's on-screen bounds, and
+  that movement/encounters/item pickup are unaffected, on top of the
+  existing overworld↔combat end-to-end flow.
+- **Status/Items menu (Escape, from the overworld).**
+  `scripts/menu/status_menu.gd` — a portrait, name, rank, HP/resource
+  bars, and two tabs: Status (playstyle blurb + the full deck list with
+  costs/descriptions, not shown anywhere else) and Items (held
+  consumables). Deliberately has no Equipment/Formation/Config/Save
+  commands like a typical FF-style menu — none of those systems exist
+  yet (no equipment slots, no party, no settings, no save/load), and per
+  the project's own conventions a menu command that does nothing is
+  worse than no command. It's an overlay on the overworld scene (not a
+  scene change), so opening/closing it can't disturb spawn/respawn
+  state; movement input is guarded off while it's open.
 - **No real unlock/evolution engine yet** — `evolves_to`,
   `evolution_hint`, and `unlock_type` exist as data fields, but nothing
   reads them yet to actually trigger a class change in-game.
-- The project targets Godot 4.3+ (GL Compatibility renderer, integer-scaled
-  pixel viewport at 480x460 — chosen for broad device/browser support and
-  crisp pixel scaling once real pixel art is added), which exports to
-  desktop, mobile, and web from one project. The viewport height grew
-  from an original 270 to fit the combat screen's portrait row, log, and
-  action menu without clipping (see the JRPG action menu note above);
-  480×460 was headlessly verified to leave the log comfortably above its
-  minimum size and every button fully on-screen.
+- The project targets Godot 4.3+ (GL Compatibility renderer, pixel
+  viewport at 480x460 — chosen for broad device/browser support), which
+  exports to desktop, mobile, and web from one project. The viewport
+  height grew from an original 270 to fit the combat screen's portrait
+  row, log, and action menu without clipping (see the fixed-height
+  combat layout note above). `window/stretch/scale_mode` is
+  **`fractional`**, not `integer` — integer scale mode cannot scale
+  below 1x, so on a real device/browser window smaller than 480×460 the
+  content was getting cropped at the window edge instead of being
+  letterboxed down to fit (this is the likely cause of "characters and
+  enemies fly off screen" reported from real device testing — a device
+  viewport narrower or shorter than the design resolution, not a layout
+  bug per se). Fractional scaling always fits the full 480×460 canvas
+  into whatever window is available (`window/stretch/aspect="keep"`
+  preserves the aspect ratio via letterboxing rather than distorting
+  it), at the cost of pixel art occasionally scaling to a non-integer
+  ratio instead of always landing on a crisp 2x/3x — an intentional
+  trade favoring "never cropped" over "always pixel-perfect" while the
+  game is still being tested across unpredictable device sizes.
 
 ## Roadmap / Phase 2 ideas (not built)
 
@@ -405,7 +479,17 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   districts, all 10 dungeons, and all 10 dimensions are designed (World
   Map above) but have zero entries in `data/districts.json` /
   `data/monsters.json`. Filling these in is now mostly content work,
-  following the exact pattern Sukhumvit Shallows already proved out.
+  following the exact pattern Sukhumvit Shallows already proved out
+  (content + `terrain` tile art, now that the tile-rendering pilot is
+  real). The full spawn-to-final-boss order is: the 12 districts in
+  tier order, then the 10 dimensions in their documented order ending
+  at *The Source of the Release* (the literal final boss); the 10
+  dungeons are optional side content, not on the critical path.
+- **Overworld camera/scroll system.** The tile-based renderer has no
+  camera follow or viewport culling yet, so a district's grid must fit
+  entirely on screen — fine for Sukhumvit Shallows (10×8), not for
+  anything bigger. Needed before most of the other 31 locations can get
+  real tile art.
 - **Inter-zone progression/gating.** Right now the overworld only knows
   about one district; there's no world-map screen to travel between
   districts, no unlock gate stopping an F-rank player from walking into

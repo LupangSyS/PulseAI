@@ -13,6 +13,16 @@
       [6, 5], [6, 6], [7, 6],
       [5, 0]
     ],
+    "terrain": [
+      "ppsssrssss",
+      "ppsrsspsss",
+      "ppsrssssss",
+      "pssrsssssw",
+      "ppssssssww",
+      "psssssrsww",
+      "ssssssrrww",
+      "sssssswwww"
+    ],
     "monster_spawns": [
       {"monster_id": "silt_rat", "cell": [2, 2], "respawn_seconds": 20},
       {"monster_id": "silt_rat", "cell": [4, 5], "respawn_seconds": 20},

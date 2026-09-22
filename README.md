@@ -40,17 +40,36 @@ currently exists:
 - Main menu has two entry points: "Start Exploring" begins a real run and
   drops into Sukhumvit Shallows; "[DEV] Enter the Flood" is an isolated
   combat-only shortcut for balance testing.
-- **Real pixel art for everything currently in the game**: the Apprentice
-  Mage and all 8 monsters that actually appear (`assets/sprites/`), true
-  32×32 RGBA with 2-frame idle animation, rendered in both the overworld
-  and combat with an automatic fallback to the original placeholder look
-  for the 96+ classes and every other monster that doesn't have art yet.
+- **Real pixel art for everything currently in the game**: all 15
+  F-rank starting classes (one per family) and all 8 monsters that
+  actually appear (`assets/sprites/`), true 32×32 RGBA with 2-frame
+  idle animation, rendered in both the overworld and combat with an
+  automatic fallback to the original placeholder look for the other 90
+  classes (E through S rank) and every other monster that doesn't have
+  art yet.
+- **Sukhumvit Shallows now renders as a real tile-based map**, not a
+  flat colored grid: an original 40×40 tileset (`tools/gen_tiles.py`,
+  `assets/tiles/`) themed to our own flooded-Bangkok setting, plus a
+  rebuilt HUD — a district name/description banner, a live minimap, HP/
+  resource bars, deck count, and message log. Any district without
+  authored tile art (everything else right now) falls back to the
+  original flat-grid look automatically.
 - **Combat uses a JRPG-style action menu** (Cards / Item / Guard —
   Final Fantasy/Pokémon-style), not an always-visible hand. Guard grants
   block for free; usable consumables can be used mid-fight from the Item
-  menu; both are free actions that don't end the turn. The combat
-  viewport grew (480×270 → 480×460) so the portrait row, battle log, and
-  action menu all fit on screen without clipping.
+  menu; both are free actions that don't end the turn. The layout is a
+  fixed-height arena (portrait + name/HP + an HP bar per side), a fixed
+  battle log, and a fixed-size scrolling card/item tray (a 2-column
+  grid, so entries wrap instead of running off the right edge) — every
+  panel has a known height, so nothing can grow unbounded and push
+  End Turn off-screen. The project's stretch scale mode is `fractional`
+  (not `integer`), so the full screen always letterboxes to fit a real
+  device window instead of getting cropped at the edge on smaller
+  screens.
+- **Status/Items menu** (press Escape from the overworld): portrait,
+  name, rank, HP/resource bars, your full deck list with descriptions,
+  and held items. No Equipment/Formation/Config/Save — those systems
+  don't exist yet, so the menu doesn't pretend to have them.
 - No class-selection UI, no inter-district travel/gating, no
   evolution-unlock engine yet, no art beyond Sukhumvit Shallows' 9
   sprites — see GDD.md's roadmap section for the full, honest list.
