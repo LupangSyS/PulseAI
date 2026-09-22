@@ -21,9 +21,9 @@ RunState="*res://scripts/autoload/run_state.gd"
 [display]
 
 window/size/viewport_width=480
-window/size/viewport_height=270
+window/size/viewport_height=460
 window/size/window_width_override=960
-window/size/window_height_override=540
+window/size/window_height_override=920
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 

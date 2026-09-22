@@ -1,20 +1,23 @@
 extends Control
 
-## Turn-based combat: deck -> hand -> discard, Action/Spell/Power cards,
-## and a combo system where playing cards with the same combo_tag
-## back-to-back stacks a scaling bonus. Which tag a class's deck leans on
-## (mostly Spell for the Mage, mostly Action for the Hunter, etc.) is what
-## gives each class a distinct feel without any per-class special-case code.
+## Turn-based combat: an FF/Pokemon-style action menu (Cards / Item / Guard)
+## fronting a deck-driven card system underneath. "Cards" opens your hand
+## (Action/Spell/Power cards - the actual attack/cast-spell repertoire);
+## "Item" opens usable consumables from RunState.inventory; "Guard" is a
+## free, always-available defensive action. Multiple actions are allowed
+## per turn (resource-gated for cards, free for Guard/Item) - click
+## "End Turn" when done, matching the resource-pool design rather than a
+## strict one-action-per-turn classic JRPG turn.
 ##
-## Card/move effects: damage, heal, block, empower_next (base kit),
-## dot (lingering damage that bypasses block, ticks each turn), aoe_damage
-## (hits every living enemy), execute (bonus damage below 50% HP). The
-## same six effects resolve for BOTH the player's cards (_apply_card_effect)
-## and monster moves (_apply_monster_move) - monsters pick from a weighted
-## move list (MonsterData.moves) each turn instead of clicking a card, and
-## mini-bosses/bosses can carry `stages` that swap their active move list
-## (and optionally display_name) once their HP crosses a threshold - see
-## _check_stage_transitions.
+## Card/item/monster-move effects: damage, heal, block, empower_next (base
+## kit), dot (lingering damage that bypasses block, ticks each turn),
+## aoe_damage (hits every living enemy), execute (bonus damage below 50%
+## HP). The same six effects resolve for BOTH the player's cards
+## (_apply_card_effect) and monster moves (_apply_monster_move) - monsters
+## pick from a weighted move list (MonsterData.moves) each turn instead of
+## clicking a card, and mini-bosses/bosses can carry `stages` that swap
+## their active move list (and optionally display_name) once their HP
+## crosses a threshold - see _check_stage_transitions.
 ##
 ## Player state (HP, resource, etc) persists across encounters via the
 ## RunState autoload: when entered from the Overworld, RunState.player and
@@ -32,6 +35,7 @@ extends Control
 const STARTING_HAND_SIZE := 4
 const DEFAULT_CLASS_ID := "mage_f"
 const DEFAULT_MONSTER_ID := "flooded_ghoul"
+const GUARD_BLOCK := 3
 
 var player: Combatant
 var enemies: Array[Combatant] = []
@@ -45,10 +49,18 @@ var discard_pile: Array[String] = []
 var combo_tag: String = ""
 var combo_count: int = 0
 
+## "main" | "cards" | "items" - which sub-panel the action menu is showing.
+var menu_state: String = "main"
+
 var status_label: Label
 var enemy_label: Label
 var log_label: RichTextLabel
+var menu_row: HBoxContainer
+var menu_cards_button: Button
+var menu_item_button: Button
+var menu_guard_button: Button
 var hand_container: HBoxContainer
+var item_container: HBoxContainer
 var end_turn_button: Button
 var continue_button: Button
 
@@ -68,12 +80,23 @@ func _ready() -> void:
 		from_overworld = false
 		_start_battle(DEFAULT_CLASS_ID, DEFAULT_MONSTER_ID, null)
 
+func _process(delta: float) -> void:
+	portrait_anim_timer += delta
+	if portrait_anim_timer < 0.5:
+		return
+	portrait_anim_timer = 0.0
+	portrait_anim_frame = 1 - portrait_anim_frame
+	if player_portrait_frames.size() == 2:
+		player_portrait.texture = player_portrait_frames[portrait_anim_frame]
+	if enemy_portrait_frames.size() == 2:
+		enemy_portrait.texture = enemy_portrait_frames[portrait_anim_frame]
+
 func _build_ui() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 	var root_box := VBoxContainer.new()
 	root_box.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	root_box.add_theme_constant_override("separation", 12)
+	root_box.add_theme_constant_override("separation", 6)
 	add_child(root_box)
 
 	status_label = Label.new()
@@ -87,27 +110,53 @@ func _build_ui() -> void:
 	root_box.add_child(portrait_row)
 
 	player_portrait = TextureRect.new()
-	player_portrait.custom_minimum_size = Vector2(64, 64)
+	player_portrait.custom_minimum_size = Vector2(48, 48)
 	player_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	player_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	portrait_row.add_child(player_portrait)
 
 	enemy_portrait = TextureRect.new()
-	enemy_portrait.custom_minimum_size = Vector2(64, 64)
+	enemy_portrait.custom_minimum_size = Vector2(48, 48)
 	enemy_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	enemy_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	portrait_row.add_child(enemy_portrait)
 
 	log_label = RichTextLabel.new()
-	log_label.custom_minimum_size = Vector2(0, 140)
+	log_label.custom_minimum_size = Vector2(0, 90)
 	log_label.bbcode_enabled = true
 	log_label.scroll_following = true
 	log_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	root_box.add_child(log_label)
 
+	menu_row = HBoxContainer.new()
+	menu_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	menu_row.add_theme_constant_override("separation", 8)
+	root_box.add_child(menu_row)
+
+	menu_cards_button = Button.new()
+	menu_cards_button.text = "Cards"
+	menu_cards_button.pressed.connect(_on_menu_cards_pressed)
+	menu_row.add_child(menu_cards_button)
+
+	menu_item_button = Button.new()
+	menu_item_button.text = "Item"
+	menu_item_button.pressed.connect(_on_menu_item_pressed)
+	menu_row.add_child(menu_item_button)
+
+	menu_guard_button = Button.new()
+	menu_guard_button.text = "Guard"
+	menu_guard_button.pressed.connect(_on_guard_pressed)
+	menu_row.add_child(menu_guard_button)
+
 	hand_container = HBoxContainer.new()
 	hand_container.add_theme_constant_override("separation", 8)
+	hand_container.visible = false
 	root_box.add_child(hand_container)
+
+	item_container = HBoxContainer.new()
+	item_container.add_theme_constant_override("separation", 8)
+	item_container.visible = false
+	root_box.add_child(item_container)
 
 	end_turn_button = Button.new()
 	end_turn_button.text = "End Turn"
@@ -119,17 +168,6 @@ func _build_ui() -> void:
 	continue_button.visible = false
 	continue_button.pressed.connect(_on_continue_pressed)
 	root_box.add_child(continue_button)
-
-func _process(delta: float) -> void:
-	portrait_anim_timer += delta
-	if portrait_anim_timer < 0.5:
-		return
-	portrait_anim_timer = 0.0
-	portrait_anim_frame = 1 - portrait_anim_frame
-	if player_portrait_frames.size() == 2:
-		player_portrait.texture = player_portrait_frames[portrait_anim_frame]
-	if enemy_portrait_frames.size() == 2:
-		enemy_portrait.texture = enemy_portrait_frames[portrait_anim_frame]
 
 func _load_portraits(class_id: String, monster_id: String) -> void:
 	player_portrait_frames = SpriteLoader.load_frames(class_id, "character")
@@ -165,6 +203,7 @@ func _start_battle(class_id: String, monster_id: String, existing_player: Combat
 	discard_pile.clear()
 	combo_tag = ""
 	combo_count = 0
+	menu_state = "main"
 	continue_button.visible = false
 
 	_log("[b]%s[/b] squares off against [b]%s[/b]." % [player.display_name, enemies[0].display_name])
@@ -204,6 +243,58 @@ func _draw_cards(amount: int) -> void:
 			discard_pile.clear()
 			draw_pile.shuffle()
 		hand.append(draw_pile.pop_back())
+
+func _on_menu_cards_pressed() -> void:
+	menu_state = "main" if menu_state == "cards" else "cards"
+	_refresh_ui()
+
+func _on_menu_item_pressed() -> void:
+	menu_state = "main" if menu_state == "items" else "items"
+	_refresh_ui()
+
+func _on_guard_pressed() -> void:
+	if not player.is_alive() or _all_enemies_dead():
+		return
+	player.add_block(GUARD_BLOCK)
+	combo_tag = ""
+	combo_count = 0
+	_log("%s braces defensively, gaining %d block." % [player.display_name, GUARD_BLOCK])
+	_refresh_ui()
+
+func _has_usable_items() -> bool:
+	for item_id in RunState.inventory.keys():
+		if RunState.inventory[item_id] <= 0:
+			continue
+		var item := GameData.get_item(item_id)
+		if item != null and item.effect != "":
+			return true
+	return false
+
+func _on_item_button_pressed(item_id: String) -> void:
+	if not player.is_alive() or _all_enemies_dead():
+		return
+	if not RunState.inventory.has(item_id) or RunState.inventory[item_id] <= 0:
+		return
+	var item := GameData.get_item(item_id)
+	if item == null or item.effect == "":
+		return
+
+	match item.effect:
+		"heal":
+			player.heal(item.value)
+			_log("%s uses [i]%s[/i], recovering %d HP." % [player.display_name, item.display_name, item.value])
+		"restore_resource":
+			player.resource = min(player.resource + item.value, player.max_resource)
+			_log("%s uses [i]%s[/i], recovering %d %s." % [player.display_name, item.display_name, item.value, player.resource_name])
+
+	RunState.inventory[item_id] -= 1
+	if RunState.inventory[item_id] <= 0:
+		RunState.inventory.erase(item_id)
+	combo_tag = ""
+	combo_count = 0
+	if not _has_usable_items():
+		menu_state = "main"
+	_refresh_ui()
 
 func _on_card_pressed(card_id: String) -> void:
 	if not player.is_alive() or _all_enemies_dead():
@@ -409,6 +500,7 @@ func _start_player_turn() -> void:
 	player.refill_resource()
 	combo_tag = ""
 	combo_count = 0
+	menu_state = "main"
 	_draw_cards(STARTING_HAND_SIZE - hand.size())
 
 func _refresh_ui() -> void:
@@ -424,19 +516,44 @@ func _refresh_ui() -> void:
 		enemy_text += "%s  |  %s\n" % [e.display_name, status_text]
 	enemy_label.text = enemy_text.strip_edges()
 
+	var battle_over: bool = not player.is_alive() or _all_enemies_dead()
+
 	for child in hand_container.get_children():
 		child.queue_free()
+	for child in item_container.get_children():
+		child.queue_free()
 
-	var battle_over: bool = not player.is_alive() or _all_enemies_dead()
-	for card_id in hand:
-		var card := GameData.get_card(card_id)
-		if card == null:
-			continue
-		var button := Button.new()
-		button.text = "%s (%d)\n%s" % [card.display_name, card.cost, card.description]
-		button.disabled = battle_over or card.cost > player.resource
-		button.pressed.connect(_on_card_pressed.bind(card_id))
-		hand_container.add_child(button)
+	hand_container.visible = menu_state == "cards" and not battle_over
+	item_container.visible = menu_state == "items" and not battle_over
+
+	if hand_container.visible:
+		for card_id in hand:
+			var card := GameData.get_card(card_id)
+			if card == null:
+				continue
+			var button := Button.new()
+			button.text = "%s (%d)\n%s" % [card.display_name, card.cost, card.description]
+			button.disabled = card.cost > player.resource
+			button.pressed.connect(_on_card_pressed.bind(card_id))
+			hand_container.add_child(button)
+
+	if item_container.visible:
+		for item_id in RunState.inventory.keys():
+			var count: int = RunState.inventory[item_id]
+			if count <= 0:
+				continue
+			var item := GameData.get_item(item_id)
+			if item == null or item.effect == "":
+				continue
+			var button := Button.new()
+			button.text = "%s x%d\n%s" % [item.display_name, count, item.description]
+			button.pressed.connect(_on_item_button_pressed.bind(item_id))
+			item_container.add_child(button)
+
+	menu_row.visible = not battle_over
+	menu_cards_button.disabled = battle_over
+	menu_item_button.disabled = battle_over or not _has_usable_items()
+	menu_guard_button.disabled = battle_over
 
 	end_turn_button.disabled = battle_over
 	end_turn_button.visible = not battle_over

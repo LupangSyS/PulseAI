@@ -45,6 +45,12 @@ currently exists:
   32×32 RGBA with 2-frame idle animation, rendered in both the overworld
   and combat with an automatic fallback to the original placeholder look
   for the 96+ classes and every other monster that doesn't have art yet.
+- **Combat uses a JRPG-style action menu** (Cards / Item / Guard —
+  Final Fantasy/Pokémon-style), not an always-visible hand. Guard grants
+  block for free; usable consumables can be used mid-fight from the Item
+  menu; both are free actions that don't end the turn. The combat
+  viewport grew (480×270 → 480×460) so the portrait row, battle log, and
+  action menu all fit on screen without clipping.
 - No class-selection UI, no inter-district travel/gating, no
   evolution-unlock engine yet, no art beyond Sukhumvit Shallows' 9
   sprites — see GDD.md's roadmap section for the full, honest list.

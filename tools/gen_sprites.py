@@ -70,6 +70,10 @@ def humanoid(colors, hood=False, robed=False, weapon=None, weapon_glow=False, we
     else:
         fill(g, 4, 10, 13, 18, colors["skin"])
 
+    eye_color = colors.get("eye", "#2a1f18")
+    fill(g, 8, 8, 14, 14, eye_color)
+    fill(g, 8, 8, 17, 17, eye_color)
+
     fill(g, 11, 20, 11, 20, colors["primary"])
     fill(g, 11, 19, 8, 10, colors["secondary"])
     fill(g, 18, 19, 8, 10, colors["skin"])
@@ -201,13 +205,13 @@ CHARACTERS = {}
 CHARACTERS["mage_f"] = humanoid(
     {"skin": "#d9a066", "primary": "#2f6d64", "secondary": "#255a53",
      "shadow": "#1d4740", "trim": "#c98a3a", "boot": "#16302c",
-     "weapon": "#8a7a63", "glow": "#f0b94d"},
+     "weapon": "#8a7a63", "glow": "#f0b94d", "eye": "#241810"},
     hood=True, robed=True, weapon="staff", weapon_glow=True,
 )
 
 CHARACTERS["flooded_ghoul"] = humanoid(
     {"skin": "#7c9481", "primary": "#4a5a4d", "secondary": "#3d4a3f",
-     "shadow": "#2e3a31", "trim": "#3a4a3d", "boot": "#233026"},
+     "shadow": "#2e3a31", "trim": "#3a4a3d", "boot": "#233026", "eye": "#c9d43a"},
     hood=False, robed=False, weapon=None,
 )
 

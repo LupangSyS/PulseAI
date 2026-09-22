@@ -337,6 +337,23 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   shortcut still works too, defaulting to a fresh Apprentice Mage vs. the
   placeholder Flooded Ghoul (now itself a `MonsterData` entry, not
   hardcoded).
+- **JRPG-style action menu, not an always-open hand.** Turn input is a
+  Final Fantasy/Pokémon-style main menu (`Cards` / `Item` / `Guard`)
+  rather than dumping the full hand on screen at once — `menu_state`
+  (`"main"` / `"cards"` / `"items"`) gates which sub-panel is visible.
+  `Cards` reveals the existing hand/discard system unchanged; `Guard`
+  is a new free action (`_on_guard_pressed`) that grants flat block
+  (`GUARD_BLOCK = 3`), resets the combo streak, and — like using an
+  item — does **not** end the turn, consistent with the existing
+  "multiple actions per turn, resource-permitting" design; `Item`
+  lists usable consumables from `RunState.inventory` (heal /
+  restore_resource effects only) and auto-closes back to `"main"` once
+  the last one of a kind is consumed. The Item button disables itself
+  when nothing usable is held. This replaced an earlier layout where
+  the hand row and a newly-added portrait row were both always on
+  screen at once, which on the original 480×270 viewport pushed
+  `end_turn_button` off the visible area entirely (the "can't combat"
+  bug — the UI wasn't broken, it was just rendering below the fold).
 - **105 classes fully defined and battle-tested** (15 families × F
   through S rank, see Roster below) — every one was run through a full
   headless combat simulation with zero errors and reaches victory. Turn
@@ -361,8 +378,10 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   district's 5 mobs, mini-boss, and boss) have true 32×32 RGBA sprites in
   `assets/sprites/` — every pixel is an explicit color choice (region-fill
   generation, not an AI image model), so hard edges and real alpha
-  transparency are guaranteed, not hoped for. Each has a 2-frame idle
-  animation. `scripts/util/sprite_loader.gd` renders them as
+  transparency are guaranteed, not hoped for. Humanoid faces (Apprentice
+  Mage, Flooded Ghoul) have explicit eye pixels, not blank skin-colored
+  ovals. Each has a 2-frame idle animation. `scripts/util/sprite_loader.gd`
+  renders them as
   `AnimatedSprite2D` in the overworld and as animated portraits in
   combat, and **falls back to the original colored-rectangle/text-only
   look for any id without art** — which is still 96+ of the 105 classes
@@ -372,9 +391,13 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   `evolution_hint`, and `unlock_type` exist as data fields, but nothing
   reads them yet to actually trigger a class change in-game.
 - The project targets Godot 4.3+ (GL Compatibility renderer, integer-scaled
-  pixel viewport at 480x270 — chosen for broad device/browser support and
+  pixel viewport at 480x460 — chosen for broad device/browser support and
   crisp pixel scaling once real pixel art is added), which exports to
-  desktop, mobile, and web from one project.
+  desktop, mobile, and web from one project. The viewport height grew
+  from an original 270 to fit the combat screen's portrait row, log, and
+  action menu without clipping (see the JRPG action menu note above);
+  480×460 was headlessly verified to leave the log comfortably above its
+  minimum size and every button fully on-screen.
 
 ## Roadmap / Phase 2 ideas (not built)
 
