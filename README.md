@@ -19,16 +19,21 @@ Early prototype. What currently exists:
 
 - A data-driven class/card system (`data/classes.json`, `data/cards.json`)
   loaded at runtime by the `GameData` autoload.
-- **30 classes** (15 base + 15 evolutions) fully defined with lore,
-  stats, and decks — see GDD.md's roster table for the full list.
+- **105 classes** (15 families, each a full F→E→D→C→B→A→S evolution
+  chain) fully defined with lore, stats, and decks — see GDD.md's roster
+  table for the full list. Every chain culminates in the character
+  becoming a full avatar of the Thai myth it's anchored to (Naga, Yaksha,
+  Erawan, Garuda, Hanuman, Kuman Thong, Rakshasa, and more).
 - A main menu that lists every class as "???" (all classes start hidden
   by design) with a developer shortcut into a test battle.
 - A single playable combat encounter demonstrating the deck/hand/discard
-  loop, the Action/Spell/Power card system, and the combo mechanic. It's
-  hardcoded to start as the Apprentice Mage; there's no class-picker UI
-  yet.
-- No art yet, no unlock/evolution engine yet, no class-selection UI yet
-  — see GDD.md's roadmap section.
+  loop, the Action/Spell/Power card system, the combo mechanic, and three
+  rank-gated effects (`dot` at D+, `aoe_damage` at B+, `execute` at S+).
+  It's hardcoded to start as the F-rank Apprentice Mage; there's no
+  class-picker UI yet.
+- No art yet, no unlock/evolution engine yet, no class-selection UI yet,
+  no enemy variety yet (one placeholder enemy) — see GDD.md's roadmap
+  section.
 
 ## Opening the project
 
@@ -41,8 +46,10 @@ Early prototype. What currently exists:
 This project was scaffolded without access to the Godot editor, so a
 headless Godot 4.3 binary was used to verify it (`--import` to catch
 parse errors, then a scripted run that plays out a full battle for all
-30 classes). It has not been opened in the graphical editor — if
-anything looks off visually, that's the first thing to check.
+105 classes, plus targeted checks that the dot/aoe/execute mechanics do
+what they're supposed to). It has not been opened in the graphical
+editor — if anything looks off visually, that's the first thing to
+check.
 
 ## Project structure
 
@@ -65,6 +72,8 @@ scripts/
   combat/
     combat.gd                # Turn/combo engine + UI (built in code, no hand-authored layout)
     combatant.gd               # HP/resource/block state
+tools/
+  gen_ranks.py            # Generator used to produce the D-S rank content (reference, not rerunnable as-is)
 GDD.md                  # Design doc: world, classes, combat system, roadmap, open questions
 ```
 

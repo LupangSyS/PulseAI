@@ -42,7 +42,9 @@
       "naga_scale_ward"
     ],
     "evolves_from": "mage_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "mage_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -113,7 +115,9 @@
       "croc_ambush_stillness"
     ],
     "evolves_from": "hunter_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "hunter_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -136,7 +140,9 @@
       "medium_banishing_strike"
     ],
     "evolves_from": "healer_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "healer_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -184,7 +190,9 @@
       "bone_deathless_focus"
     ],
     "evolves_from": "necromancer_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "necromancer_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -232,7 +240,9 @@
       "yaksha_wrath_focus"
     ],
     "evolves_from": "assassin_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "assassin_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -280,7 +290,9 @@
       "erawan_unbroken_will"
     ],
     "evolves_from": "tank_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "tank_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -328,7 +340,9 @@
       "rakshasa_kings_focus"
     ],
     "evolves_from": "berserker_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "berserker_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -376,7 +390,9 @@
       "kuman_shared_breath"
     ],
     "evolves_from": "summoner_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "summoner_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -424,7 +440,9 @@
       "garuda_royal_focus"
     ],
     "evolves_from": "pyromancer_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "pyromancer_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -472,7 +490,9 @@
       "hanuman_monkeys_grin"
     ],
     "evolves_from": "ranger_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "ranger_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -520,7 +540,9 @@
       "yant_invocation"
     ],
     "evolves_from": "monk_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "monk_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -568,7 +590,9 @@
       "mutagen_hardening_dose"
     ],
     "evolves_from": "alchemist_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "alchemist_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -616,7 +640,9 @@
       "resonant_perfect_clarity"
     ],
     "evolves_from": "psychic_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "psychic_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -664,7 +690,9 @@
       "khru_sealed_circle"
     ],
     "evolves_from": "exorcist_f",
-    "evolves_to": [],
+    "evolves_to": [
+      "exorcist_d"
+    ],
     "evolution_hint": "",
     "unlock_type": "hidden_event"
   },
@@ -712,6 +740,1853 @@
       "wraith_lullaby_frequency"
     ],
     "evolves_from": "bard_f",
+    "evolves_to": [
+      "bard_d"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "mage_d",
+    "display_name": "Tide-Marked Sorcerer",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The naga's blood doesn't fight you for control anymore. It answers before you finish the thought.",
+    "playstyle": "Spell-chain caster refined: a lingering Silt Curse now scars enemies with damage that keeps ticking.",
+    "max_hp": 30,
+    "max_resource": 4,
+    "resource_name": "Tide",
+    "deck": [
+      "mage_d_primary",
+      "mage_d_primary",
+      "mage_d_dot",
+      "mage_d_block",
+      "mage_d_empower"
+    ],
+    "evolves_from": "naga_mage_e",
+    "evolves_to": [
+      "mage_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "mage_c",
+    "display_name": "Naga-Fang Mage",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Fangs grew in where teeth used to be. You didn't ask for them, and lately you don't mind them either.",
+    "playstyle": "Fusion caster: the deck splits between Spell current and Power scale-craft, a true hybrid of mage and naga.",
+    "max_hp": 35,
+    "max_resource": 5,
+    "resource_name": "Tide",
+    "deck": [
+      "mage_c_primary",
+      "mage_c_primary",
+      "mage_c_secondary",
+      "mage_c_dot",
+      "mage_c_empower"
+    ],
+    "evolves_from": "mage_d",
+    "evolves_to": [
+      "mage_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "mage_b",
+    "display_name": "Half-Naga Warlock",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Half your reflection is still human. The rest has scales, and it's stopped hiding when the water's still.",
+    "playstyle": "Half-transformed caster: a river-wide Tide Wave now catches every enemy in reach.",
+    "max_hp": 40,
+    "max_resource": 5,
+    "resource_name": "Tide",
+    "deck": [
+      "mage_b_primary",
+      "mage_b_primary",
+      "mage_b_aoe",
+      "mage_b_block",
+      "mage_b_empower"
+    ],
+    "evolves_from": "mage_c",
+    "evolves_to": [
+      "mage_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "mage_a",
+    "display_name": "Eternal Tide Naga",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The river outside the mage school doesn't remember a version of you that wasn't like this. Most days, neither do you.",
+    "playstyle": "Mastery tier: every Spell lands harder for the same cost. The tide simply obeys now.",
+    "max_hp": 46,
+    "max_resource": 6,
+    "resource_name": "Tide",
+    "deck": [
+      "mage_a_primary",
+      "mage_a_primary",
+      "mage_a_dot",
+      "mage_a_block",
+      "mage_a_empower"
+    ],
+    "evolves_from": "mage_b",
+    "evolves_to": [
+      "mage_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "mage_s",
+    "display_name": "Naga Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You stopped falling into the river a long time ago. These days, when the water rises, it rises because you're in it.",
+    "playstyle": "Full avatar: a single Drowning Judgment can end a fight outright against anything already wounded.",
+    "max_hp": 53,
+    "max_resource": 7,
+    "resource_name": "Tide",
+    "deck": [
+      "mage_s_primary",
+      "mage_s_primary",
+      "mage_s_execute",
+      "mage_s_aoe",
+      "mage_s_empower"
+    ],
+    "evolves_from": "mage_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "hunter_d",
+    "display_name": "Canal Stalker",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The canal doesn't just tolerate you anymore. Things move out of your way down there now.",
+    "playstyle": "Action-chain brawler refined: a Festering Bite now leaves a wound that keeps draining the target.",
+    "max_hp": 33,
+    "max_resource": 4,
+    "resource_name": "Bite",
+    "deck": [
+      "hunter_d_primary",
+      "hunter_d_primary",
+      "hunter_d_dot",
+      "hunter_d_block",
+      "hunter_d_empower"
+    ],
+    "evolves_from": "crocodile_warden_e",
+    "evolves_to": [
+      "hunter_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "hunter_c",
+    "display_name": "Crocodile-Fang Hunter",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Your canines came in wrong a while back. Sharper. You've stopped going to dentists about it.",
+    "playstyle": "Fusion brawler: the kit splits between raw Action strikes and a Power-guarded ambush stance.",
+    "max_hp": 39,
+    "max_resource": 5,
+    "resource_name": "Bite",
+    "deck": [
+      "hunter_c_primary",
+      "hunter_c_primary",
+      "hunter_c_secondary",
+      "hunter_c_dot",
+      "hunter_c_empower"
+    ],
+    "evolves_from": "hunter_d",
+    "evolves_to": [
+      "hunter_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "hunter_b",
+    "display_name": "Half-Crocodile Ravager",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Half your face doesn't move like a face is supposed to anymore. The other half still smiles, when it wants to.",
+    "playstyle": "Half-transformed brawler: a Canal Frenzy now tears into every enemy caught nearby.",
+    "max_hp": 46,
+    "max_resource": 5,
+    "resource_name": "Bite",
+    "deck": [
+      "hunter_b_primary",
+      "hunter_b_primary",
+      "hunter_b_aoe",
+      "hunter_b_block",
+      "hunter_b_empower"
+    ],
+    "evolves_from": "hunter_c",
+    "evolves_to": [
+      "hunter_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "hunter_a",
+    "display_name": "Eternal Canal Predator",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The Klong Toey canal doesn't have monsters in it anymore. It just has you, and that's usually enough.",
+    "playstyle": "Mastery tier: every strike lands like the first one always did, except it never stops.",
+    "max_hp": 54,
+    "max_resource": 6,
+    "resource_name": "Bite",
+    "deck": [
+      "hunter_a_primary",
+      "hunter_a_primary",
+      "hunter_a_dot",
+      "hunter_a_block",
+      "hunter_a_empower"
+    ],
+    "evolves_from": "hunter_b",
+    "evolves_to": [
+      "hunter_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "hunter_s",
+    "display_name": "Crocodile Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't hunt the canal anymore. Nine years on, the canal is just where you live, and everything in it knows your name.",
+    "playstyle": "Full avatar: a single Death Roll Verdict can end anything already bleeding.",
+    "max_hp": 64,
+    "max_resource": 7,
+    "resource_name": "Bite",
+    "deck": [
+      "hunter_s_primary",
+      "hunter_s_primary",
+      "hunter_s_execute",
+      "hunter_s_aoe",
+      "hunter_s_empower"
+    ],
+    "evolves_from": "hunter_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "healer_d",
+    "display_name": "Ancestor-Touched Adept",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The prayers you say over the sick don't feel like prayers anymore. They feel like conversations, and something's answering.",
+    "playstyle": "Power-chain support refined: a Withering Rebuke now weakens whatever's threatening your patient over time.",
+    "max_hp": 29,
+    "max_resource": 4,
+    "resource_name": "Ancestral Faith",
+    "deck": [
+      "healer_d_primary",
+      "healer_d_primary",
+      "healer_d_dot",
+      "healer_d_block",
+      "healer_d_empower"
+    ],
+    "evolves_from": "ancestral_medium_e",
+    "evolves_to": [
+      "healer_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "healer_c",
+    "display_name": "Spirit-Bound Medium",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You stopped needing to ask permission to channel them a while ago. Now they just show up when you need the hands.",
+    "playstyle": "Fusion support: the kit splits between Power-built shields and a Spell strike borrowed from the ancestors' patience running out.",
+    "max_hp": 34,
+    "max_resource": 5,
+    "resource_name": "Ancestral Faith",
+    "deck": [
+      "healer_c_primary",
+      "healer_c_primary",
+      "healer_c_secondary",
+      "healer_c_dot",
+      "healer_c_empower"
+    ],
+    "evolves_from": "healer_d",
+    "evolves_to": [
+      "healer_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "healer_b",
+    "display_name": "Half-Ancestor Oracle",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You can see the tower's dead now, not just hear them. Most of them just want to help. Most.",
+    "playstyle": "Half-transformed support: an Ancestral Reckoning now protects and punishes everything in the fight at once.",
+    "max_hp": 39,
+    "max_resource": 5,
+    "resource_name": "Ancestral Faith",
+    "deck": [
+      "healer_b_primary",
+      "healer_b_primary",
+      "healer_b_aoe",
+      "healer_b_block",
+      "healer_b_empower"
+    ],
+    "evolves_from": "healer_c",
+    "evolves_to": [
+      "healer_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "healer_a",
+    "display_name": "Eternal Vigil Medium",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The refugee towers stopped whispering your name a while back. Now they just say it out loud, like it's always been true.",
+    "playstyle": "Mastery tier: shields hold longer, heals land bigger, and the ancestors never seem to tire.",
+    "max_hp": 45,
+    "max_resource": 6,
+    "resource_name": "Ancestral Faith",
+    "deck": [
+      "healer_a_primary",
+      "healer_a_primary",
+      "healer_a_dot",
+      "healer_a_block",
+      "healer_a_empower"
+    ],
+    "evolves_from": "healer_b",
+    "evolves_to": [
+      "healer_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "healer_s",
+    "display_name": "Ancestor Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't channel the ancestors anymore. Somewhere along the way, without quite noticing, you became one of the ones the next medium will pray to.",
+    "playstyle": "Full avatar: a single Final Reckoning ends what's already failing, and nothing here fights alone anymore.",
+    "max_hp": 52,
+    "max_resource": 7,
+    "resource_name": "Ancestral Faith",
+    "deck": [
+      "healer_s_primary",
+      "healer_s_primary",
+      "healer_s_execute",
+      "healer_s_aoe",
+      "healer_s_empower"
+    ],
+    "evolves_from": "healer_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "necromancer_d",
+    "display_name": "Deep Bone Warden",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The dead outside Wat Hualamphong don't just follow you back up anymore. They wait for you to ask.",
+    "playstyle": "Spell-chain drainer refined: a Marrow Rot curse now keeps feeding on the target long after it lands.",
+    "max_hp": 27,
+    "max_resource": 4,
+    "resource_name": "Tide of Bones",
+    "deck": [
+      "necromancer_d_primary",
+      "necromancer_d_primary",
+      "necromancer_d_dot",
+      "necromancer_d_block",
+      "necromancer_d_empower"
+    ],
+    "evolves_from": "bone_tide_e",
+    "evolves_to": [
+      "necromancer_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "necromancer_c",
+    "display_name": "Drowned-Bone Necromancer",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You stopped needing to dive for the dead a while ago. Now the flood just brings them to you.",
+    "playstyle": "Fusion drainer: the kit splits between Spell current and a Power ward built from borrowed bone.",
+    "max_hp": 31,
+    "max_resource": 5,
+    "resource_name": "Tide of Bones",
+    "deck": [
+      "necromancer_c_primary",
+      "necromancer_c_primary",
+      "necromancer_c_secondary",
+      "necromancer_c_dot",
+      "necromancer_c_empower"
+    ],
+    "evolves_from": "necromancer_d",
+    "evolves_to": [
+      "necromancer_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "necromancer_b",
+    "display_name": "Half-Drowned Lich",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Half of you stopped needing to breathe a while back. The other half still insists on it, out of habit.",
+    "playstyle": "Half-transformed drainer: a Tide of the Drowned now drags every enemy in reach under with you.",
+    "max_hp": 35,
+    "max_resource": 5,
+    "resource_name": "Tide of Bones",
+    "deck": [
+      "necromancer_b_primary",
+      "necromancer_b_primary",
+      "necromancer_b_aoe",
+      "necromancer_b_block",
+      "necromancer_b_empower"
+    ],
+    "evolves_from": "necromancer_c",
+    "evolves_to": [
+      "necromancer_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "necromancer_a",
+    "display_name": "Eternal Tide Lich",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Wat Hualamphong doesn't flood anymore, not really. It just breathes, slowly, in and out, and you breathe with it.",
+    "playstyle": "Mastery tier: every curse lands harder and lingers longer. The current has stopped fighting you back.",
+    "max_hp": 40,
+    "max_resource": 6,
+    "resource_name": "Tide of Bones",
+    "deck": [
+      "necromancer_a_primary",
+      "necromancer_a_primary",
+      "necromancer_a_dot",
+      "necromancer_a_block",
+      "necromancer_a_empower"
+    ],
+    "evolves_from": "necromancer_b",
+    "evolves_to": [
+      "necromancer_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "necromancer_s",
+    "display_name": "Drowned King Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't dive for the dead anymore. Nine years on, they surface for you, the way a court rises for a king it's still deciding whether to trust.",
+    "playstyle": "Full avatar: a single Drowned King's Decree ends anything the tide has already claimed.",
+    "max_hp": 46,
+    "max_resource": 7,
+    "resource_name": "Tide of Bones",
+    "deck": [
+      "necromancer_s_primary",
+      "necromancer_s_primary",
+      "necromancer_s_execute",
+      "necromancer_s_aoe",
+      "necromancer_s_empower"
+    ],
+    "evolves_from": "necromancer_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "assassin_d",
+    "display_name": "Temple-Marked Blade",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The guardian statue's mark on your arm hasn't faded. If anything, it's gotten more detailed.",
+    "playstyle": "Action-chain burst refined: a Cursed Edge wound now keeps bleeding long after the cut.",
+    "max_hp": 25,
+    "max_resource": 4,
+    "resource_name": "Yaksha's Rage",
+    "deck": [
+      "assassin_d_primary",
+      "assassin_d_primary",
+      "assassin_d_dot",
+      "assassin_d_block",
+      "assassin_d_empower"
+    ],
+    "evolves_from": "yaksha_blade_e",
+    "evolves_to": [
+      "assassin_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "assassin_c",
+    "display_name": "Yaksha-Fang Assassin",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Your reflection in still water doesn't quite match anymore. It's not wrong. It's just older than you.",
+    "playstyle": "Fusion assassin: the kit splits between fast Action strikes and a Power-guarded demon stance.",
+    "max_hp": 29,
+    "max_resource": 5,
+    "resource_name": "Yaksha's Rage",
+    "deck": [
+      "assassin_c_primary",
+      "assassin_c_primary",
+      "assassin_c_secondary",
+      "assassin_c_dot",
+      "assassin_c_empower"
+    ],
+    "evolves_from": "assassin_d",
+    "evolves_to": [
+      "assassin_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "assassin_b",
+    "display_name": "Half-Yaksha Reaver",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Half your shadow doesn't match your shape anymore, most nights. You've learned not to look at it directly.",
+    "playstyle": "Half-transformed reaver: a Guardian's Wrath now cuts down every enemy in the room.",
+    "max_hp": 33,
+    "max_resource": 5,
+    "resource_name": "Yaksha's Rage",
+    "deck": [
+      "assassin_b_primary",
+      "assassin_b_primary",
+      "assassin_b_aoe",
+      "assassin_b_block",
+      "assassin_b_empower"
+    ],
+    "evolves_from": "assassin_c",
+    "evolves_to": [
+      "assassin_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "assassin_a",
+    "display_name": "Eternal Guardian Blade",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The drowned wat in Thonburi doesn't need a statue anymore. It has you, and you don't mind the job.",
+    "playstyle": "Mastery tier: every strike carries a guardian's full weight, and none of it costs more than it used to.",
+    "max_hp": 38,
+    "max_resource": 6,
+    "resource_name": "Yaksha's Rage",
+    "deck": [
+      "assassin_a_primary",
+      "assassin_a_primary",
+      "assassin_a_dot",
+      "assassin_a_block",
+      "assassin_a_empower"
+    ],
+    "evolves_from": "assassin_b",
+    "evolves_to": [
+      "assassin_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "assassin_s",
+    "display_name": "Yaksha Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You stopped being the statue's new vessel a long time ago. These days, when something needs guarding, the city just sends them to you.",
+    "playstyle": "Full avatar: a single Guardian's Final Verdict ends anything already cornered.",
+    "max_hp": 44,
+    "max_resource": 7,
+    "resource_name": "Yaksha's Rage",
+    "deck": [
+      "assassin_s_primary",
+      "assassin_s_primary",
+      "assassin_s_execute",
+      "assassin_s_aoe",
+      "assassin_s_empower"
+    ],
+    "evolves_from": "assassin_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "tank_d",
+    "display_name": "Threefold Bulwark",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Three heads' worth of will doesn't get tired the way one does. You're starting to understand what that actually means.",
+    "playstyle": "Power-chain wall refined: a Guardian's Brand now wears down anything foolish enough to keep attacking.",
+    "max_hp": 43,
+    "max_resource": 4,
+    "resource_name": "Threefold Resolve",
+    "deck": [
+      "tank_d_primary",
+      "tank_d_primary",
+      "tank_d_dot",
+      "tank_d_block",
+      "tank_d_empower"
+    ],
+    "evolves_from": "erawan_guardian_e",
+    "evolves_to": [
+      "tank_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "tank_c",
+    "display_name": "Erawan-Bound Warden",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't need the shrine anymore, not really. Wherever you plant your feet, that's the ground it's protecting now.",
+    "playstyle": "Fusion guardian: the kit splits between a Power wall and an Action-tagged counter-charge.",
+    "max_hp": 49,
+    "max_resource": 5,
+    "resource_name": "Threefold Resolve",
+    "deck": [
+      "tank_c_primary",
+      "tank_c_primary",
+      "tank_c_secondary",
+      "tank_c_dot",
+      "tank_c_empower"
+    ],
+    "evolves_from": "tank_d",
+    "evolves_to": [
+      "tank_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "tank_b",
+    "display_name": "Half-Erawan Colossus",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't fit through most doorways anymore, not comfortably. Nobody's complained yet. Nobody's tried.",
+    "playstyle": "Half-transformed colossus: a Threefold Judgment now punishes every enemy that dared get close.",
+    "max_hp": 56,
+    "max_resource": 5,
+    "resource_name": "Threefold Resolve",
+    "deck": [
+      "tank_b_primary",
+      "tank_b_primary",
+      "tank_b_aoe",
+      "tank_b_block",
+      "tank_b_empower"
+    ],
+    "evolves_from": "tank_c",
+    "evolves_to": [
+      "tank_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "tank_a",
+    "display_name": "Eternal Threefold Guardian",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The intersection at Ratchaprasong doesn't flood the way it used to. It just has you standing in it, and that seems to be enough.",
+    "playstyle": "Mastery tier: block stacks higher than ever, and nothing gets through unnoticed anymore.",
+    "max_hp": 64,
+    "max_resource": 6,
+    "resource_name": "Threefold Resolve",
+    "deck": [
+      "tank_a_primary",
+      "tank_a_primary",
+      "tank_a_dot",
+      "tank_a_block",
+      "tank_a_empower"
+    ],
+    "evolves_from": "tank_b",
+    "evolves_to": [
+      "tank_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "tank_s",
+    "display_name": "Erawan Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You stopped guarding the shrine a long time ago. Nine years on, people just call the intersection by your name instead of the shrine's.",
+    "playstyle": "Full avatar: a single Threefold Reckoning ends anything already failing to get past you.",
+    "max_hp": 74,
+    "max_resource": 7,
+    "resource_name": "Threefold Resolve",
+    "deck": [
+      "tank_s_primary",
+      "tank_s_primary",
+      "tank_s_execute",
+      "tank_s_aoe",
+      "tank_s_empower"
+    ],
+    "evolves_from": "tank_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "berserker_d",
+    "display_name": "Demon-Marked Brawler",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The mask doesn't come off clean anymore. There's a mark underneath now, whether or not you're wearing it.",
+    "playstyle": "Action-chain glass cannon refined: a Demon's Grudge wound now keeps hurting long after the punch lands.",
+    "max_hp": 35,
+    "max_resource": 4,
+    "resource_name": "Demon's Fury",
+    "deck": [
+      "berserker_d_primary",
+      "berserker_d_primary",
+      "berserker_d_dot",
+      "berserker_d_block",
+      "berserker_d_empower"
+    ],
+    "evolves_from": "rakshasa_fury_e",
+    "evolves_to": [
+      "berserker_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "berserker_c",
+    "display_name": "Rakshasa-Fanged Berserker",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't need the mask in the pit anymore. Half the time you forget to bring it, and nobody's noticed the difference.",
+    "playstyle": "Fusion berserker: the kit splits between raw Action fury and a Power-guarded demon stance.",
+    "max_hp": 41,
+    "max_resource": 5,
+    "resource_name": "Demon's Fury",
+    "deck": [
+      "berserker_c_primary",
+      "berserker_c_primary",
+      "berserker_c_secondary",
+      "berserker_c_dot",
+      "berserker_c_empower"
+    ],
+    "evolves_from": "berserker_d",
+    "evolves_to": [
+      "berserker_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "berserker_b",
+    "display_name": "Half-Rakshasa Ravager",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Ten arms would be an exaggeration. Four isn't, most nights, and nobody in the pit argues about it anymore.",
+    "playstyle": "Half-transformed ravager: a Tenfold Ruin now flattens every enemy in reach.",
+    "max_hp": 48,
+    "max_resource": 5,
+    "resource_name": "Demon's Fury",
+    "deck": [
+      "berserker_b_primary",
+      "berserker_b_primary",
+      "berserker_b_aoe",
+      "berserker_b_block",
+      "berserker_b_empower"
+    ],
+    "evolves_from": "berserker_c",
+    "evolves_to": [
+      "berserker_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "berserker_a",
+    "display_name": "Eternal Demon-King Fury",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The fight pit under the old expressway doesn't have a champion anymore. It just has you, and everyone else takes turns losing.",
+    "playstyle": "Mastery tier: every strike lands with a king's full weight, and the fury never runs dry.",
+    "max_hp": 56,
+    "max_resource": 6,
+    "resource_name": "Demon's Fury",
+    "deck": [
+      "berserker_a_primary",
+      "berserker_a_primary",
+      "berserker_a_dot",
+      "berserker_a_block",
+      "berserker_a_empower"
+    ],
+    "evolves_from": "berserker_b",
+    "evolves_to": [
+      "berserker_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "berserker_s",
+    "display_name": "Rakshasa Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't wear the mask into the pit anymore. Nine years on, the pit just clears out when it hears you coming, mask or not.",
+    "playstyle": "Full avatar: a single King's Judgment ends anything already staggered.",
+    "max_hp": 66,
+    "max_resource": 7,
+    "resource_name": "Demon's Fury",
+    "deck": [
+      "berserker_s_primary",
+      "berserker_s_primary",
+      "berserker_s_execute",
+      "berserker_s_aoe",
+      "berserker_s_empower"
+    ],
+    "evolves_from": "berserker_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "summoner_d",
+    "display_name": "Bonded Warden",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Little brother doesn't wait to be called anymore. He just shows up, usually right when you need him to.",
+    "playstyle": "Power-chain summoner refined: a Mischief Curse now wears the enemy down while little brother keeps you safe.",
+    "max_hp": 28,
+    "max_resource": 4,
+    "resource_name": "Bond",
+    "deck": [
+      "summoner_d_primary",
+      "summoner_d_primary",
+      "summoner_d_dot",
+      "summoner_d_block",
+      "summoner_d_empower"
+    ],
+    "evolves_from": "kuman_thong_e",
+    "evolves_to": [
+      "summoner_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "summoner_c",
+    "display_name": "Kuman-Marked Summoner",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You stopped needing the spirit house months ago. These days he just follows, the way a little brother does.",
+    "playstyle": "Fusion summoner: the kit splits between a Power-built bond and a Spell strike he lends you outright.",
+    "max_hp": 33,
+    "max_resource": 5,
+    "resource_name": "Bond",
+    "deck": [
+      "summoner_c_primary",
+      "summoner_c_primary",
+      "summoner_c_secondary",
+      "summoner_c_dot",
+      "summoner_c_empower"
+    ],
+    "evolves_from": "summoner_d",
+    "evolves_to": [
+      "summoner_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "summoner_b",
+    "display_name": "Half-Spirit Conjurer",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Some days you're not entirely sure where you end and he begins. He seems to find that funnier than you do.",
+    "playstyle": "Half-transformed conjurer: a Brotherhood's Reckoning now hits everything in the fight at once.",
+    "max_hp": 38,
+    "max_resource": 5,
+    "resource_name": "Bond",
+    "deck": [
+      "summoner_b_primary",
+      "summoner_b_primary",
+      "summoner_b_aoe",
+      "summoner_b_block",
+      "summoner_b_empower"
+    ],
+    "evolves_from": "summoner_c",
+    "evolves_to": [
+      "summoner_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "summoner_a",
+    "display_name": "Eternal Bond Warden",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The spirit house on the rooftop is long gone. You never needed to rebuild it. He was never really tied to the house.",
+    "playstyle": "Mastery tier: the bond holds stronger than ever, and every strike lands with two sets of will behind it.",
+    "max_hp": 44,
+    "max_resource": 6,
+    "resource_name": "Bond",
+    "deck": [
+      "summoner_a_primary",
+      "summoner_a_primary",
+      "summoner_a_dot",
+      "summoner_a_block",
+      "summoner_a_empower"
+    ],
+    "evolves_from": "summoner_b",
+    "evolves_to": [
+      "summoner_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "summoner_s",
+    "display_name": "Kuman Thong Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't summon him anymore. Nine years on, when people say your name, half the time they mean both of you.",
+    "playstyle": "Full avatar: a single Brothers' Verdict can end anything already reeling.",
+    "max_hp": 51,
+    "max_resource": 7,
+    "resource_name": "Bond",
+    "deck": [
+      "summoner_s_primary",
+      "summoner_s_primary",
+      "summoner_s_execute",
+      "summoner_s_aoe",
+      "summoner_s_empower"
+    ],
+    "evolves_from": "summoner_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "pyromancer_d",
+    "display_name": "Solar-Marked Pyromancer",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The mural's fire doesn't just answer when you call it now. It's started answering before you finish asking.",
+    "playstyle": "Spell-chain burst caster refined: a Sunscar Brand now keeps burning long after the initial blast.",
+    "max_hp": 25,
+    "max_resource": 4,
+    "resource_name": "Sunfire",
+    "deck": [
+      "pyromancer_d_primary",
+      "pyromancer_d_primary",
+      "pyromancer_d_dot",
+      "pyromancer_d_block",
+      "pyromancer_d_empower"
+    ],
+    "evolves_from": "garuda_ember_e",
+    "evolves_to": [
+      "pyromancer_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "pyromancer_c",
+    "display_name": "Garuda-Wing Pyromancer",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Something like feathers is starting to show at the edge of the burns. You've stopped trying to explain it to people.",
+    "playstyle": "Fusion caster: the kit splits between Spell fire and a Power-guarded wingbeat of heat.",
+    "max_hp": 29,
+    "max_resource": 5,
+    "resource_name": "Sunfire",
+    "deck": [
+      "pyromancer_c_primary",
+      "pyromancer_c_primary",
+      "pyromancer_c_secondary",
+      "pyromancer_c_dot",
+      "pyromancer_c_empower"
+    ],
+    "evolves_from": "pyromancer_d",
+    "evolves_to": [
+      "pyromancer_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "pyromancer_b",
+    "display_name": "Half-Garuda Flamebearer",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't remember deciding to grow wings. You just remember the first time you used them, and not falling.",
+    "playstyle": "Half-transformed flamebearer: a Sunwing Eruption now burns everything caught in the blast.",
+    "max_hp": 33,
+    "max_resource": 5,
+    "resource_name": "Sunfire",
+    "deck": [
+      "pyromancer_b_primary",
+      "pyromancer_b_primary",
+      "pyromancer_b_aoe",
+      "pyromancer_b_block",
+      "pyromancer_b_empower"
+    ],
+    "evolves_from": "pyromancer_c",
+    "evolves_to": [
+      "pyromancer_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "pyromancer_a",
+    "display_name": "Eternal Sunfire Knight",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The old palace mural doesn't flake anymore. Divers say it looks freshly painted, and they're right, in a way none of them expect.",
+    "playstyle": "Mastery tier: every bolt lands with a myth's full weight, and the fire never seems to gutter.",
+    "max_hp": 38,
+    "max_resource": 6,
+    "resource_name": "Sunfire",
+    "deck": [
+      "pyromancer_a_primary",
+      "pyromancer_a_primary",
+      "pyromancer_a_dot",
+      "pyromancer_a_block",
+      "pyromancer_a_empower"
+    ],
+    "evolves_from": "pyromancer_b",
+    "evolves_to": [
+      "pyromancer_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "pyromancer_s",
+    "display_name": "Garuda Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't channel the mural's fire anymore. Nine years on, when the sky over the flooded district catches light at dusk, people just say your name.",
+    "playstyle": "Full avatar: a single Sun-Eagle's Verdict ends anything already scorched.",
+    "max_hp": 44,
+    "max_resource": 7,
+    "resource_name": "Sunfire",
+    "deck": [
+      "pyromancer_s_primary",
+      "pyromancer_s_primary",
+      "pyromancer_s_execute",
+      "pyromancer_s_aoe",
+      "pyromancer_s_empower"
+    ],
+    "evolves_from": "pyromancer_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "ranger_d",
+    "display_name": "Windrunning Adept",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't miss a landing anymore. Not once, not since the jump that shouldn't have worked.",
+    "playstyle": "Action-chain skirmisher refined: a Wind-Cut Wound now keeps the target bleeding tempo it can't spare.",
+    "max_hp": 29,
+    "max_resource": 4,
+    "resource_name": "Leaping Wind",
+    "deck": [
+      "ranger_d_primary",
+      "ranger_d_primary",
+      "ranger_d_dot",
+      "ranger_d_block",
+      "ranger_d_empower"
+    ],
+    "evolves_from": "hanuman_ranger_e",
+    "evolves_to": [
+      "ranger_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "ranger_c",
+    "display_name": "Hanuman-Marked Ranger",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Your shadow moves a beat before you do, most days. You've stopped trying to catch it doing that.",
+    "playstyle": "Fusion ranger: the kit splits between fast Action shots and a Power-guarded leap.",
+    "max_hp": 34,
+    "max_resource": 5,
+    "resource_name": "Leaping Wind",
+    "deck": [
+      "ranger_c_primary",
+      "ranger_c_primary",
+      "ranger_c_secondary",
+      "ranger_c_dot",
+      "ranger_c_empower"
+    ],
+    "evolves_from": "ranger_d",
+    "evolves_to": [
+      "ranger_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "ranger_b",
+    "display_name": "Half-Hanuman Skyrunner",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You cleared four towers in one jump last week. Nobody who saw it has fully explained it to themselves yet.",
+    "playstyle": "Half-transformed skyrunner: a Monkey-God's Volley now catches every enemy across the field.",
+    "max_hp": 39,
+    "max_resource": 5,
+    "resource_name": "Leaping Wind",
+    "deck": [
+      "ranger_b_primary",
+      "ranger_b_primary",
+      "ranger_b_aoe",
+      "ranger_b_block",
+      "ranger_b_empower"
+    ],
+    "evolves_from": "ranger_c",
+    "evolves_to": [
+      "ranger_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "ranger_a",
+    "display_name": "Eternal Windstep Ranger",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The skybridges between towers don't feel far anymore. Nine years of running them will do that, apparently.",
+    "playstyle": "Mastery tier: every shot lands with a monkey-god's aim, and the wind never seems to slow you.",
+    "max_hp": 45,
+    "max_resource": 6,
+    "resource_name": "Leaping Wind",
+    "deck": [
+      "ranger_a_primary",
+      "ranger_a_primary",
+      "ranger_a_dot",
+      "ranger_a_block",
+      "ranger_a_empower"
+    ],
+    "evolves_from": "ranger_b",
+    "evolves_to": [
+      "ranger_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "ranger_s",
+    "display_name": "Hanuman Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't run the skybridges anymore. Nine years on, when something impossible needs doing between two towers, people just say your name.",
+    "playstyle": "Full avatar: a single Monkey-God's Verdict ends anything already caught mid-fall.",
+    "max_hp": 52,
+    "max_resource": 7,
+    "resource_name": "Leaping Wind",
+    "deck": [
+      "ranger_s_primary",
+      "ranger_s_primary",
+      "ranger_s_execute",
+      "ranger_s_aoe",
+      "ranger_s_empower"
+    ],
+    "evolves_from": "ranger_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "monk_d",
+    "display_name": "Yantra-Bound Fighter",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The ink doesn't just sit on your skin anymore. It moves, sometimes, right before you do.",
+    "playstyle": "Action-chain striker refined: a Cursed Yantra Wound now keeps draining whatever it marks.",
+    "max_hp": 31,
+    "max_resource": 4,
+    "resource_name": "Yantra",
+    "deck": [
+      "monk_d_primary",
+      "monk_d_primary",
+      "monk_d_dot",
+      "monk_d_block",
+      "monk_d_empower"
+    ],
+    "evolves_from": "sak_yant_e",
+    "evolves_to": [
+      "monk_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "monk_c",
+    "display_name": "Sacred-Ink Adept",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You stopped counting the tattoos a while ago. The ink stopped needing your permission to add more, too.",
+    "playstyle": "Fusion striker: the kit splits between fast Action strikes and a Power-guarded ward stance.",
+    "max_hp": 36,
+    "max_resource": 5,
+    "resource_name": "Yantra",
+    "deck": [
+      "monk_c_primary",
+      "monk_c_primary",
+      "monk_c_secondary",
+      "monk_c_dot",
+      "monk_c_empower"
+    ],
+    "evolves_from": "monk_d",
+    "evolves_to": [
+      "monk_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "monk_b",
+    "display_name": "Half-Spirit Yantra Warrior",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Your shadow has lines on it now, the same ones as your skin. You've stopped questioning who drew those.",
+    "playstyle": "Half-transformed warrior: a Five-Row Reckoning now marks every enemy caught in range.",
+    "max_hp": 41,
+    "max_resource": 5,
+    "resource_name": "Yantra",
+    "deck": [
+      "monk_b_primary",
+      "monk_b_primary",
+      "monk_b_aoe",
+      "monk_b_block",
+      "monk_b_empower"
+    ],
+    "evolves_from": "monk_c",
+    "evolves_to": [
+      "monk_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "monk_a",
+    "display_name": "Eternal Yantra Master",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The old shophouse where you got the first tattoo flooded over years ago. The ink doesn't need the shop anymore. It never really did.",
+    "playstyle": "Mastery tier: every strike lands with a master's full weight, and the ink has stopped needing to be earned twice.",
+    "max_hp": 47,
+    "max_resource": 6,
+    "resource_name": "Yantra",
+    "deck": [
+      "monk_a_primary",
+      "monk_a_primary",
+      "monk_a_dot",
+      "monk_a_block",
+      "monk_a_empower"
+    ],
+    "evolves_from": "monk_b",
+    "evolves_to": [
+      "monk_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "monk_s",
+    "display_name": "Yantra Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't need new ink anymore. Nine years on, the sacred script covers you completely, and it's stopped being a metaphor.",
+    "playstyle": "Full avatar: a single Master's Final Verdict ends anything already marked.",
+    "max_hp": 54,
+    "max_resource": 7,
+    "resource_name": "Yantra",
+    "deck": [
+      "monk_s_primary",
+      "monk_s_primary",
+      "monk_s_execute",
+      "monk_s_aoe",
+      "monk_s_empower"
+    ],
+    "evolves_from": "monk_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "alchemist_d",
+    "display_name": "Current-Touched Alchemist",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The batches don't fail anymore, not the way they used to. They just... change, into something you didn't quite plan for.",
+    "playstyle": "Volatile mixer refined: a Corroding Draft now keeps eating away at whatever it touches.",
+    "max_hp": 26,
+    "max_resource": 4,
+    "resource_name": "Catalyst",
+    "deck": [
+      "alchemist_d_primary",
+      "alchemist_d_primary",
+      "alchemist_d_dot",
+      "alchemist_d_block",
+      "alchemist_d_empower"
+    ],
+    "evolves_from": "mutagen_alchemist_e",
+    "evolves_to": [
+      "alchemist_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "alchemist_c",
+    "display_name": "Catalyst-Bound Chemist",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You stopped needing the stall a while back. These days the reagents mostly find you.",
+    "playstyle": "Fusion mixer: the kit splits between a Power-primed brew and a Spell cast the moment it's ready.",
+    "max_hp": 30,
+    "max_resource": 5,
+    "resource_name": "Catalyst",
+    "deck": [
+      "alchemist_c_primary",
+      "alchemist_c_primary",
+      "alchemist_c_secondary",
+      "alchemist_c_dot",
+      "alchemist_c_empower"
+    ],
+    "evolves_from": "alchemist_d",
+    "evolves_to": [
+      "alchemist_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "alchemist_b",
+    "display_name": "Half-Mutated Alchemist",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Your veins glow faintly now, when the current under the city runs strong. You've stopped covering them up.",
+    "playstyle": "Half-transformed mixer: a Catalytic Bloom now spreads across every enemy in the blast radius.",
+    "max_hp": 34,
+    "max_resource": 5,
+    "resource_name": "Catalyst",
+    "deck": [
+      "alchemist_b_primary",
+      "alchemist_b_primary",
+      "alchemist_b_aoe",
+      "alchemist_b_block",
+      "alchemist_b_empower"
+    ],
+    "evolves_from": "alchemist_c",
+    "evolves_to": [
+      "alchemist_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "alchemist_a",
+    "display_name": "Eternal Catalyst Alchemist",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The market stall is gone, washed out years ago. You don't need a stall. You are, more or less, the reaction now.",
+    "playstyle": "Mastery tier: every brew lands harder, and the reagents never seem to run short anymore.",
+    "max_hp": 39,
+    "max_resource": 6,
+    "resource_name": "Catalyst",
+    "deck": [
+      "alchemist_a_primary",
+      "alchemist_a_primary",
+      "alchemist_a_dot",
+      "alchemist_a_block",
+      "alchemist_a_empower"
+    ],
+    "evolves_from": "alchemist_b",
+    "evolves_to": [
+      "alchemist_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "alchemist_s",
+    "display_name": "Current Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't brew from the current anymore. Nine years on, the current under Bangkok just runs a little stronger wherever you're standing.",
+    "playstyle": "Full avatar: a single Catalytic Verdict ends anything already destabilized.",
+    "max_hp": 45,
+    "max_resource": 7,
+    "resource_name": "Catalyst",
+    "deck": [
+      "alchemist_s_primary",
+      "alchemist_s_primary",
+      "alchemist_s_execute",
+      "alchemist_s_aoe",
+      "alchemist_s_empower"
+    ],
+    "evolves_from": "alchemist_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "psychic_d",
+    "display_name": "Deep Resonant Adept",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The current under the city doesn't feel like static anymore. It feels like something with an opinion, and it's started sharing them.",
+    "playstyle": "Spell-chain telekinetic refined: a Fracturing Thought now keeps unraveling whatever it's aimed at.",
+    "max_hp": 25,
+    "max_resource": 4,
+    "resource_name": "Resonance",
+    "deck": [
+      "psychic_d_primary",
+      "psychic_d_primary",
+      "psychic_d_dot",
+      "psychic_d_block",
+      "psychic_d_empower"
+    ],
+    "evolves_from": "resonant_e",
+    "evolves_to": [
+      "psychic_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "psychic_c",
+    "display_name": "Current-Bound Psychic",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You stopped needing to concentrate to hear it a while ago. Now it's more like it's always half-talking, and you're half-listening back.",
+    "playstyle": "Fusion psychic: the kit splits between Spell force and a Power-built mental ward.",
+    "max_hp": 29,
+    "max_resource": 5,
+    "resource_name": "Resonance",
+    "deck": [
+      "psychic_c_primary",
+      "psychic_c_primary",
+      "psychic_c_secondary",
+      "psychic_c_dot",
+      "psychic_c_empower"
+    ],
+    "evolves_from": "psychic_d",
+    "evolves_to": [
+      "psychic_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "psychic_b",
+    "display_name": "Half-Resonant Oracle",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't always know anymore which thoughts started in your own head. Most days that stopped mattering.",
+    "playstyle": "Half-transformed oracle: a Current's Verdict now unravels every enemy caught in its reach.",
+    "max_hp": 33,
+    "max_resource": 5,
+    "resource_name": "Resonance",
+    "deck": [
+      "psychic_b_primary",
+      "psychic_b_primary",
+      "psychic_b_aoe",
+      "psychic_b_block",
+      "psychic_b_empower"
+    ],
+    "evolves_from": "psychic_c",
+    "evolves_to": [
+      "psychic_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "psychic_a",
+    "display_name": "Eternal Resonance Adept",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The noise stopped being noise years ago. It's just conversation now, one you've been having for so long you've forgotten it started as static.",
+    "playstyle": "Mastery tier: every thought lands with the current's full weight, and the resonance never seems to fade.",
+    "max_hp": 38,
+    "max_resource": 6,
+    "resource_name": "Resonance",
+    "deck": [
+      "psychic_a_primary",
+      "psychic_a_primary",
+      "psychic_a_dot",
+      "psychic_a_block",
+      "psychic_a_empower"
+    ],
+    "evolves_from": "psychic_b",
+    "evolves_to": [
+      "psychic_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "psychic_s",
+    "display_name": "Resonance Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't listen for the current anymore. Nine years on, when the current under Bangkok speaks, more often than not it's using your voice.",
+    "playstyle": "Full avatar: a single Current's Final Word ends anything already fracturing.",
+    "max_hp": 44,
+    "max_resource": 7,
+    "resource_name": "Resonance",
+    "deck": [
+      "psychic_s_primary",
+      "psychic_s_primary",
+      "psychic_s_execute",
+      "psychic_s_aoe",
+      "psychic_s_empower"
+    ],
+    "evolves_from": "psychic_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "exorcist_d",
+    "display_name": "Boundary-Marked Khru",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The sutras don't feel unfinished anymore. They feel like they were always going to end up complete, with or without a teacher to finish them.",
+    "playstyle": "Spell-chain purifier refined: a Binding Sutra now keeps weakening whatever it's spoken over.",
+    "max_hp": 29,
+    "max_resource": 4,
+    "resource_name": "Merit",
+    "deck": [
+      "exorcist_d_primary",
+      "exorcist_d_primary",
+      "exorcist_d_dot",
+      "exorcist_d_block",
+      "exorcist_d_empower"
+    ],
+    "evolves_from": "drowned_khru_e",
+    "evolves_to": [
+      "exorcist_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "exorcist_c",
+    "display_name": "Spirit-Bound Exorcist",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't fully banish them anymore, not always. Sometimes you just ask what they need, and that works better than expected.",
+    "playstyle": "Fusion exorcist: the kit splits between Spell purification and a Power-built boundary ward.",
+    "max_hp": 34,
+    "max_resource": 5,
+    "resource_name": "Merit",
+    "deck": [
+      "exorcist_c_primary",
+      "exorcist_c_primary",
+      "exorcist_c_secondary",
+      "exorcist_c_dot",
+      "exorcist_c_empower"
+    ],
+    "evolves_from": "exorcist_d",
+    "evolves_to": [
+      "exorcist_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "exorcist_b",
+    "display_name": "Half-Spirit Khru",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You're not entirely on the living side of the boundary anymore, not fully. Neither are you entirely gone. It's a useful place to stand.",
+    "playstyle": "Half-transformed khru: a Boundary's Judgment now purifies every threat caught between worlds.",
+    "max_hp": 39,
+    "max_resource": 5,
+    "resource_name": "Merit",
+    "deck": [
+      "exorcist_b_primary",
+      "exorcist_b_primary",
+      "exorcist_b_aoe",
+      "exorcist_b_block",
+      "exorcist_b_empower"
+    ],
+    "evolves_from": "exorcist_c",
+    "evolves_to": [
+      "exorcist_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "exorcist_a",
+    "display_name": "Eternal Boundary Khru",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The old teacher's unfinished lesson plan doesn't feel unfinished anymore. You've been teaching yourself out of it for nine years, and it shows.",
+    "playstyle": "Mastery tier: every rite lands with a completed ordination's full weight, and the boundary holds without strain.",
+    "max_hp": 45,
+    "max_resource": 6,
+    "resource_name": "Merit",
+    "deck": [
+      "exorcist_a_primary",
+      "exorcist_a_primary",
+      "exorcist_a_dot",
+      "exorcist_a_block",
+      "exorcist_a_empower"
+    ],
+    "evolves_from": "exorcist_b",
+    "evolves_to": [
+      "exorcist_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "exorcist_s",
+    "display_name": "Boundary Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't guard the line between worlds anymore. Nine years on, wherever you're standing, that's just where the line is.",
+    "playstyle": "Full avatar: a single Final Ordination ends anything still clinging to this side of the boundary.",
+    "max_hp": 52,
+    "max_resource": 7,
+    "resource_name": "Merit",
+    "deck": [
+      "exorcist_s_primary",
+      "exorcist_s_primary",
+      "exorcist_s_execute",
+      "exorcist_s_aoe",
+      "exorcist_s_empower"
+    ],
+    "evolves_from": "exorcist_a",
+    "evolves_to": [],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "bard_d",
+    "display_name": "Deep Signal Adept",
+    "rank": "D",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't need the 3 a.m. slot anymore. The signal answers whenever you reach for it now, day or night.",
+    "playstyle": "Power-chain enabler refined: a Fading Frequency now keeps draining whatever it's tuned to.",
+    "max_hp": 26,
+    "max_resource": 4,
+    "resource_name": "Broadcast",
+    "deck": [
+      "bard_d_primary",
+      "bard_d_primary",
+      "bard_d_dot",
+      "bard_d_block",
+      "bard_d_empower"
+    ],
+    "evolves_from": "broadcast_wraith_e",
+    "evolves_to": [
+      "bard_c"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "bard_c",
+    "display_name": "Frequency-Bound Wraith",
+    "rank": "C",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You stopped needing the transmitter's power source a while back. You're not sure what's powering it now, and you've stopped asking.",
+    "playstyle": "Fusion herald: the kit splits between a Power-primed broadcast and a Spell burst it pays off.",
+    "max_hp": 30,
+    "max_resource": 5,
+    "resource_name": "Broadcast",
+    "deck": [
+      "bard_c_primary",
+      "bard_c_primary",
+      "bard_c_secondary",
+      "bard_c_dot",
+      "bard_c_empower"
+    ],
+    "evolves_from": "bard_d",
+    "evolves_to": [
+      "bard_b"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "bard_b",
+    "display_name": "Half-Signal Herald",
+    "rank": "B",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "Half your voice doesn't sound like yours over the old emergency band anymore. People say it's clearer than it's ever been.",
+    "playstyle": "Half-transformed herald: a Citywide Broadcast now reaches every threat in range at once.",
+    "max_hp": 34,
+    "max_resource": 5,
+    "resource_name": "Broadcast",
+    "deck": [
+      "bard_b_primary",
+      "bard_b_primary",
+      "bard_b_aoe",
+      "bard_b_block",
+      "bard_b_empower"
+    ],
+    "evolves_from": "bard_c",
+    "evolves_to": [
+      "bard_a"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "bard_a",
+    "display_name": "Eternal Broadcast Herald",
+    "rank": "A",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "The dead station went off the air in 2026. Nine years later, it's never really stopped broadcasting. It just stopped needing the building.",
+    "playstyle": "Mastery tier: every burst lands with a station's full power, and the signal never seems to fade.",
+    "max_hp": 39,
+    "max_resource": 6,
+    "resource_name": "Broadcast",
+    "deck": [
+      "bard_a_primary",
+      "bard_a_primary",
+      "bard_a_dot",
+      "bard_a_block",
+      "bard_a_empower"
+    ],
+    "evolves_from": "bard_b",
+    "evolves_to": [
+      "bard_s"
+    ],
+    "evolution_hint": "",
+    "unlock_type": "hidden_event"
+  },
+  {
+    "id": "bard_s",
+    "display_name": "Signal Avatar",
+    "rank": "S",
+    "is_hidden": true,
+    "locked_description": "???",
+    "unlocked_description": "You don't need a transmitter anymore. Nine years on, you are the emergency band, and half the towers in Bangkok still tune in without knowing why.",
+    "playstyle": "Full avatar: a single Final Broadcast ends anything already drowning in the noise.",
+    "max_hp": 45,
+    "max_resource": 7,
+    "resource_name": "Broadcast",
+    "deck": [
+      "bard_s_primary",
+      "bard_s_primary",
+      "bard_s_execute",
+      "bard_s_aoe",
+      "bard_s_empower"
+    ],
+    "evolves_from": "bard_a",
     "evolves_to": [],
     "evolution_hint": "",
     "unlock_type": "hidden_event"

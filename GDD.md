@@ -66,39 +66,71 @@ to wield what came out.
   leaving room for a class to break the pattern later (e.g. a class whose
   gimmick *is* mixing types).
 
-### Roster (v0.2 — 15 base classes, each with one F→E evolution)
+### Roster (v0.3 — 15 class families, each a full F→S evolution chain)
 
-All 30 entries (15 base + 15 evolutions) are implemented in
-`data/classes.json` / `data/cards.json` and have been battle-tested (see
-Prototype status below). Evolution hooks lean on Thai myth and Bangkok
-geography specifically so they don't read as generic fantasy reskins —
-Naga, Yaksha, Erawan, Garuda, Hanuman, and Kuman Thong are all figures
-most players with any exposure to Thai culture will recognize, which
-should make discovering an evolution feel like a "wait, *that's* what
-this is" moment rather than an arbitrary stat upgrade.
+All 105 entries (15 families × 7 ranks: F, E, D, C, B, A, S) are
+implemented in `data/classes.json` / `data/cards.json` and have been
+battle-tested (see Prototype status below). Each family evolves through
+one continuous chain rather than branching, anchored to a Thai myth or
+Bangkok place so it doesn't read as a generic fantasy reskin — Naga,
+Yaksha, Erawan, Garuda, Hanuman, and Kuman Thong are figures most players
+with any exposure to Thai culture will recognize. Every family's naming
+follows the same escalation pattern end to end: F/E establish the base
+identity (see the original 30-class table below), D/C refine and fuse it
+with the myth, B is a `Half-<Anchor>` transformation, A is `Eternal
+<Domain> <Anchor>`, and S is a full `<Anchor> Avatar` — the character
+*becomes* the myth they started out surviving an encounter with.
 
-| Base (F) | Deck bias | Evolves into (E) | Discovery hook |
-|---|---|---|---|
-| Apprentice Mage | Spell | Naga Mage | Accidental fall into the river by the old mage school |
-| Rookie Hunter | Action | Crocodile Warden | Survives being mauled by something in a Klong Toey canal |
-| Field Medic | Power | Ancestral Medium | Ancestors start answering prayers said over the dying |
-| Grave-Diver | Spell | Bone Tide Necromancer | The flooded dead of Wat Hualamphong stop resisting |
-| Alley Ghost | Action | Yaksha Blade | A drowned temple guardian statue chooses a new vessel |
-| Riot Warden | Power | Erawan Guardian | A flooded shrine grants its three-headed guardian's will |
-| Scrap Brawler | Action | Rakshasa Fury | A joke demon-king mask stops being a joke |
-| Spirit-House Keeper | Power | Kuman Thong Warden | A tended spirit house starts tending back |
-| Ember Diver | Spell | Garuda Ember Knight | Fire from a sunken fuel depot answers to a palace mural's myth |
-| Skybridge Scout | Action | Hanuman-Blessed Ranger | Survives an impossible leap between towers |
-| Klong-side Boxer | Action | Sak Yant Adept | Sacred tattoo ink finally takes |
-| Salvage Chemist | Power/Spell | Mutagen Alchemist | A "failed" brew leaves something behind instead of killing them |
-| Static Touched | Spell | Resonant | Psychic "noise" turns out to be the world's current talking back |
-| Novice Exorcist | Spell | Khru of the Drowned | Unfinished monk training completes itself, somehow |
-| Signal Ghost | Power | Broadcast Wraith | Stops needing the transmitter to broadcast |
+| Family (anchor) | F/E identity | D | C | B | A | S |
+|---|---|---|---|---|---|---|
+| Mage (Naga) | Apprentice Mage → Naga Mage | Tide-Marked Sorcerer | Naga-Fang Mage | Half-Naga Warlock | Eternal Tide Naga | Naga Avatar |
+| Hunter (Crocodile) | Rookie Hunter → Crocodile Warden | Canal Stalker | Crocodile-Fang Hunter | Half-Crocodile Ravager | Eternal Canal Predator | Crocodile Avatar |
+| Healer (Ancestors) | Field Medic → Ancestral Medium | Ancestor-Touched Adept | Spirit-Bound Medium | Half-Ancestor Oracle | Eternal Vigil Medium | Ancestor Avatar |
+| Necromancer (Bone Tide) | Grave-Diver → Bone Tide Necromancer | Deep Bone Warden | Drowned-Bone Necromancer | Half-Drowned Lich | Eternal Tide Lich | Drowned King Avatar |
+| Assassin (Yaksha) | Alley Ghost → Yaksha Blade | Temple-Marked Blade | Yaksha-Fang Assassin | Half-Yaksha Reaver | Eternal Guardian Blade | Yaksha Avatar |
+| Tank (Erawan) | Riot Warden → Erawan Guardian | Threefold Bulwark | Erawan-Bound Warden | Half-Erawan Colossus | Eternal Threefold Guardian | Erawan Avatar |
+| Berserker (Rakshasa) | Scrap Brawler → Rakshasa Fury | Demon-Marked Brawler | Rakshasa-Fanged Berserker | Half-Rakshasa Ravager | Eternal Demon-King Fury | Rakshasa Avatar |
+| Summoner (Kuman Thong) | Spirit-House Keeper → Kuman Thong Warden | Bonded Warden | Kuman-Marked Summoner | Half-Spirit Conjurer | Eternal Bond Warden | Kuman Thong Avatar |
+| Pyromancer (Garuda) | Ember Diver → Garuda Ember Knight | Solar-Marked Pyromancer | Garuda-Wing Pyromancer | Half-Garuda Flamebearer | Eternal Sunfire Knight | Garuda Avatar |
+| Ranger (Hanuman) | Skybridge Scout → Hanuman-Blessed Ranger | Windrunning Adept | Hanuman-Marked Ranger | Half-Hanuman Skyrunner | Eternal Windstep Ranger | Hanuman Avatar |
+| Monk (Sak Yant) | Klong-side Boxer → Sak Yant Adept | Yantra-Bound Fighter | Sacred-Ink Adept | Half-Spirit Yantra Warrior | Eternal Yantra Master | Yantra Avatar |
+| Alchemist (Current) | Salvage Chemist → Mutagen Alchemist | Current-Touched Alchemist | Catalyst-Bound Chemist | Half-Mutated Alchemist | Eternal Catalyst Alchemist | Current Avatar |
+| Psychic (Resonance) | Static Touched → Resonant | Deep Resonant Adept | Current-Bound Psychic | Half-Resonant Oracle | Eternal Resonance Adept | Resonance Avatar |
+| Exorcist (Boundary) | Novice Exorcist → Khru of the Drowned | Boundary-Marked Khru | Spirit-Bound Exorcist | Half-Spirit Khru | Eternal Boundary Khru | Boundary Avatar |
+| Bard (Signal) | Signal Ghost → Broadcast Wraith | Deep Signal Adept | Frequency-Bound Wraith | Half-Signal Herald | Eternal Broadcast Herald | Signal Avatar |
 
-Full flavor text (locked rumor + unlocked lore + playstyle blurb) lives in
-`data/classes.json` — this table is just an index. Higher ranks (D through
-S) and second-stage evolutions are intentionally not built yet — see
-Roadmap.
+Full flavor text (locked rumor at F rank, "???" at every rank after until
+discovered, unlocked lore, playstyle blurb) lives in `data/classes.json`
+— this table is just an index.
+
+**Mechanical rank breakpoints.** Every rank has the base kit (damage /
+heal / block / empower_next), but three ranks each introduce one new card
+effect that every family gains a signature card for, so later ranks feel
+like a real step up rather than the same kit with bigger numbers (see
+Combat System below for what each effect does):
+- **D rank**: a `dot` card — the power now lingers after the hit.
+- **B rank**: an `aoe_damage` card — the power now radiates outward.
+- **S rank**: an `execute` card — a signature finisher, the class's one
+  true "ultimate."
+- **C rank** has no new mechanic, but is the one rank where the deck
+  composition itself shifts to roughly split between the class's primary
+  and secondary card type — the "fusion" step, mechanically as well as
+  narratively.
+- **A rank** also has no new mechanic; it's a pure mastery breakpoint
+  (bigger numbers across the board) between the C-rank fusion and the
+  S-rank avatar transformation.
+
+Stat growth (HP, resource pool, and card values for D through S) is
+computed per rank from each family's own F/E baseline rather than
+hand-tuned per class, so relative archetype identity holds all the way up
+(e.g. the Tank stays the tankiest family at every rank). The formulas
+(rank multipliers, HP-tier increments, resource-per-rank table) and the
+per-family flavor data live in `tools/gen_ranks.py`, kept as a reference
+for the design intent behind the numbers. It currently only appends new
+content and asserts on duplicate IDs, so it is *not* safe to rerun as-is
+against the current `data/*.json` — reusing it for a rebalance pass would
+need a small change to overwrite existing entries instead of asserting
+against them.
 
 ## Combat System
 
@@ -113,11 +145,10 @@ Card-based, turn-based, one player character vs. one or more enemies.
     effects.
   - **Power**: setup cards — block, buffs, "empower the next card played."
 - **Resource**: each class has its own named resource (Mana, Stamina,
-  Faith, Tide, ...) that refills each turn. This is deliberately just a
-  reskinned mana pool for now; class-specific resource *mechanics*
-  (e.g. a resource that carries over, or costs HP) are a Phase 2 idea —
-  the Naga Mage's bigger "Tide" pool is a first small step in that
-  direction.
+  Faith, Tide, ...) that refills each turn and grows with rank (F=3 up to
+  S=7). This is deliberately just a reskinned mana pool for now;
+  class-specific resource *mechanics* (e.g. a resource that carries over,
+  or costs HP) are a Phase 2 idea.
 - **Deck / hand / discard loop**: each battle shuffles the class's deck
   into a draw pile, draws a hand each turn, discards played and
   end-of-turn leftover cards, and reshuffles the discard pile back in when
@@ -127,6 +158,21 @@ Card-based, turn-based, one player character vs. one or more enemies.
     (currently +20% per consecutive same-tag card). This is the "combo"
     the brief asked for, implemented generically so every class gets it
     for free, biased by their deck's card-type mix.
+- **Rank-gated mechanics** (added alongside the D-S rank content): three
+  more card effects beyond the base kit, each targeting the enemy roster
+  (`combat.gd`'s `enemies: Array[Combatant]`, always length 1 in the
+  current single-enemy prototype, but real multi-target logic):
+  - `dot` (D rank+): applies stacking lingering damage that **bypasses
+    block** (`Combatant.apply_dot` / `tick_dot`) and ticks down (halving)
+    at the start of the affected creature's next turn.
+  - `aoe_damage` (B rank+): hits every living enemy for the card's value.
+    In the current single-enemy encounter this behaves identically to
+    `damage`; it's real multi-target logic waiting on multi-enemy
+    encounters to matter (see Roadmap).
+  - `execute` (S rank+): deals double damage if the target is at or below
+    50% of its max HP — every class's signature "ultimate," gated to one
+    card per class, cost 2.
+  All three respect the same combo multiplier as `damage`/`heal`.
 
 ## Prototype status (current build)
 
@@ -145,13 +191,16 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   multiplier. Hardcoded to start as the Apprentice Mage; swapping the
   class id in `_start_battle()` (or wiring up a class picker) is the
   natural next step.
-- **30 classes fully defined and battle-tested** (15 base + 15
-  evolutions, see Roster below) — every one was run through a full
-  headless combat simulation with zero errors and reaches victory, with
-  turn counts genuinely varying by playstyle (e.g. Berserker/Naga
-  Mage/Resonant burst it down in ~2 turns; Tank/Healer grind it out over
-  8-9). No class-selection UI exists yet to pick between them in a real
-  playthrough — the prototype scene still only starts as the Mage.
+- **105 classes fully defined and battle-tested** (15 families × F
+  through S rank, see Roster below) — every one was run through a full
+  headless combat simulation with zero errors and reaches victory. Turn
+  counts drop monotonically by rank against the placeholder enemy (F rank
+  averages ~4 turns, S rank ~1) since the single "Flooded Ghoul" doesn't
+  scale with the player — expected given there's only one enemy in the
+  game right now (see below), not a balance claim about rank power
+  relative to *real* future encounters. No class-selection UI exists yet
+  to pick between them in a real playthrough — the prototype scene still
+  only starts as the F-rank Apprentice Mage.
 - **No art yet** — pixel art was chosen as the target style, but the UI
   is currently built from plain Godot `Label`/`Button`/`RichTextLabel`
   nodes with no sprites, so the logic can be reviewed and iterated on
@@ -173,9 +222,17 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   flips `is_hidden` / performs the evolution.
 - NPC dialogue system for quest-given unlocks.
 - A class-selection scene (pick from unlocked classes rather than the
-  combat prototype hardcoding "mage_f"), and multiple/second-stage
-  evolutions (D through S rank) beyond the current single F→E step.
-- Multi-enemy encounters, enemy variety/AI patterns beyond a fixed attack.
+  combat prototype hardcoding "mage_f").
+- Multi-enemy encounters and enemy variety/AI patterns beyond a fixed
+  attack — this is now the main thing making the `aoe_damage` effect and
+  the rank-vs-turn-count numbers above look more dramatic than they'll
+  actually be once there's a real bestiary to fight (a single scaling
+  enemy roster, or several enemies at once, would make high-rank battles
+  meaningfully harder again, not just faster).
+- A second evolution *branch* per family (right now each of the 15 chains
+  is fully linear, one path F straight through to S; the original brief's
+  "don't know how, maybe multiple paths" idea for branching evolutions
+  isn't built).
 - Real pixel art: character/portrait sprites, card art, backgrounds, UI
   skin.
 - Meta-progression / save system between runs.

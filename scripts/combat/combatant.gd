@@ -8,6 +8,7 @@ var max_resource: int
 var resource: int
 var resource_name: String
 var block: int = 0
+var dot_stacks: int = 0
 
 func _init(p_name: String, p_hp: int, p_resource: int, p_resource_name: String = "Mana") -> void:
 	display_name = p_name
@@ -36,3 +37,16 @@ func add_block(amount: int) -> void:
 
 func refill_resource() -> void:
 	resource = max_resource
+
+func apply_dot(amount: int) -> void:
+	dot_stacks += amount
+
+## Deals dot_stacks damage (bypassing block, unlike take_damage), then lets
+## the lingering effect fade by half. Returns the damage dealt.
+func tick_dot() -> int:
+	if dot_stacks <= 0:
+		return 0
+	var damage: int = dot_stacks
+	hp = max(hp - damage, 0)
+	dot_stacks = int(dot_stacks / 2.0)
+	return damage

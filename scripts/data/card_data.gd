@@ -7,6 +7,12 @@ extends RefCounted
 ## combo system in combat.gd: playing cards with matching combo_tag back
 ## to back stacks a scaling bonus, which is how each class's deck (skewed
 ## toward one card type) ends up with a distinct playstyle.
+##
+## effect is one of the base kit (damage / heal / block / empower_next,
+## available at every rank) or one of three mechanics content only starts
+## using at specific ranks (see GDD.md's Combat System section): dot
+## (D-rank+, lingering damage that bypasses block), aoe_damage (B-rank+,
+## hits every living enemy), execute (S-rank+, bonus damage below 50% HP).
 
 var id: String
 var display_name: String
@@ -14,7 +20,7 @@ var type: String # "action" | "spell" | "power"
 var class_id: String
 var cost: int
 var description: String
-var effect: String # "damage" | "heal" | "block" | "empower_next"
+var effect: String # "damage" | "heal" | "block" | "empower_next" | "dot" | "aoe_damage" | "execute"
 var base_value: int
 var combo_tag: String
 
