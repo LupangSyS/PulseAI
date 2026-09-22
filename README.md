@@ -48,9 +48,15 @@ currently exists:
 - **Combat uses a JRPG-style action menu** (Cards / Item / Guard —
   Final Fantasy/Pokémon-style), not an always-visible hand. Guard grants
   block for free; usable consumables can be used mid-fight from the Item
-  menu; both are free actions that don't end the turn. The combat
-  viewport grew (480×270 → 480×460) so the portrait row, battle log, and
-  action menu all fit on screen without clipping.
+  menu; both are free actions that don't end the turn. The layout is a
+  fixed-height arena (portrait + name/HP + an HP bar per side), a fixed
+  battle log, and a fixed-size scrolling card/item tray (a 2-column
+  grid, so entries wrap instead of running off the right edge) — every
+  panel has a known height, so nothing can grow unbounded and push
+  End Turn off-screen. The project's stretch scale mode is `fractional`
+  (not `integer`), so the full screen always letterboxes to fit a real
+  device window instead of getting cropped at the edge on smaller
+  screens.
 - No class-selection UI, no inter-district travel/gating, no
   evolution-unlock engine yet, no art beyond Sukhumvit Shallows' 9
   sprites — see GDD.md's roadmap section for the full, honest list.
