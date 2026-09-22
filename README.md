@@ -64,6 +64,10 @@ currently exists:
   (not `integer`), so the full screen always letterboxes to fit a real
   device window instead of getting cropped at the edge on smaller
   screens.
+- **Status/Items menu** (press Escape from the overworld): portrait,
+  name, rank, HP/resource bars, your full deck list with descriptions,
+  and held items. No Equipment/Formation/Config/Save — those systems
+  don't exist yet, so the menu doesn't pretend to have them.
 - No class-selection UI, no inter-district travel/gating, no
   evolution-unlock engine yet, no art beyond Sukhumvit Shallows' 9
   sprites — see GDD.md's roadmap section for the full, honest list.

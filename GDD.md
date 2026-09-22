@@ -434,6 +434,17 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   the flat-grid fallback path, every HUD element's on-screen bounds, and
   that movement/encounters/item pickup are unaffected, on top of the
   existing overworld↔combat end-to-end flow.
+- **Status/Items menu (Escape, from the overworld).**
+  `scripts/menu/status_menu.gd` — a portrait, name, rank, HP/resource
+  bars, and two tabs: Status (playstyle blurb + the full deck list with
+  costs/descriptions, not shown anywhere else) and Items (held
+  consumables). Deliberately has no Equipment/Formation/Config/Save
+  commands like a typical FF-style menu — none of those systems exist
+  yet (no equipment slots, no party, no settings, no save/load), and per
+  the project's own conventions a menu command that does nothing is
+  worse than no command. It's an overlay on the overworld scene (not a
+  scene change), so opening/closing it can't disturb spawn/respawn
+  state; movement input is guarded off while it's open.
 - **No real unlock/evolution engine yet** — `evolves_to`,
   `evolution_hint`, and `unlock_type` exist as data fields, but nothing
   reads them yet to actually trigger a class change in-game.

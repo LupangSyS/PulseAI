@@ -75,6 +75,7 @@ var resource_bar: ProgressBar
 var deck_label: Label
 var log_label: RichTextLabel
 var inventory_container: HBoxContainer
+var status_menu: StatusMenu
 
 func _ready() -> void:
 	if RunState.player == null:
@@ -98,6 +99,7 @@ func _ready() -> void:
 	_spawn_entities()
 	_update_player_visual()
 	_refresh_status()
+	_log_message("[Arrows] Move   [Esc] Status/Items menu")
 
 func _process(_delta: float) -> void:
 	_check_respawns()
@@ -166,6 +168,9 @@ func _build_ui() -> void:
 	inventory_container = HBoxContainer.new()
 	inventory_container.add_theme_constant_override("separation", 4)
 	bottom.add_child(inventory_container)
+
+	status_menu = StatusMenu.new()
+	add_child(status_menu)
 
 func _build_grid() -> void:
 	# remove_child (synchronous) before queue_free (deferred delete) so a
@@ -336,6 +341,14 @@ func _update_player_visual() -> void:
 		minimap.update_player(player_cell)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		if status_menu.visible:
+			status_menu.close()
+		else:
+			status_menu.open()
+		return
+	if status_menu.visible:
+		return
 	if event.is_action_pressed("ui_up"):
 		move_player(Vector2i(0, -1))
 	elif event.is_action_pressed("ui_down"):
