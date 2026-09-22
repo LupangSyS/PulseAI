@@ -40,11 +40,13 @@ currently exists:
 - Main menu has two entry points: "Start Exploring" begins a real run and
   drops into Sukhumvit Shallows; "[DEV] Enter the Flood" is an isolated
   combat-only shortcut for balance testing.
-- **Real pixel art for everything currently in the game**: the Apprentice
-  Mage and all 8 monsters that actually appear (`assets/sprites/`), true
-  32×32 RGBA with 2-frame idle animation, rendered in both the overworld
-  and combat with an automatic fallback to the original placeholder look
-  for the 96+ classes and every other monster that doesn't have art yet.
+- **Real pixel art for everything currently in the game**: all 15
+  F-rank starting classes (one per family) and all 8 monsters that
+  actually appear (`assets/sprites/`), true 32×32 RGBA with 2-frame
+  idle animation, rendered in both the overworld and combat with an
+  automatic fallback to the original placeholder look for the other 90
+  classes (E through S rank) and every other monster that doesn't have
+  art yet.
 - **Sukhumvit Shallows now renders as a real tile-based map**, not a
   flat colored grid: an original 40×40 tileset (`tools/gen_tiles.py`,
   `assets/tiles/`) themed to our own flooded-Bangkok setting, plus a

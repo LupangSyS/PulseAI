@@ -393,20 +393,25 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   real `change_scene_to_file` transitions (menu-style start → overworld →
   walk into a monster → real scene change to combat → win → real scene
   change back → the fresh overworld correctly shows the spawn on cooldown).
-- **Real pixel art for Sukhumvit Shallows' cast.** The Apprentice Mage and
-  all 8 monsters that actually appear in the game (Flooded Ghoul plus the
-  district's 5 mobs, mini-boss, and boss) have true 32×32 RGBA sprites in
-  `assets/sprites/` — every pixel is an explicit color choice (region-fill
-  generation, not an AI image model), so hard edges and real alpha
-  transparency are guaranteed, not hoped for. Humanoid faces (Apprentice
-  Mage, Flooded Ghoul) have explicit eye pixels, not blank skin-colored
-  ovals. Each has a 2-frame idle animation. `scripts/util/sprite_loader.gd`
-  renders them as
-  `AnimatedSprite2D` in the overworld and as animated portraits in
-  combat, and **falls back to the original colored-rectangle/text-only
-  look for any id without art** — which is still 96+ of the 105 classes
-  and all but 8 monsters, so that fallback path is the common case, not
-  an edge case, and must keep working as more content is added.
+- **Real pixel art for Sukhumvit Shallows' cast, plus all 15 F-rank
+  starting classes.** All 8 monsters that actually appear in the game
+  (Flooded Ghoul plus the district's 5 mobs, mini-boss, and boss) and
+  all 15 F-rank classes (one per family — the only ones actually
+  reachable without a real evolution-unlock engine yet, see below) have
+  true 32×32 RGBA sprites in `assets/sprites/` — every pixel is an
+  explicit color choice (region-fill generation, not an AI image
+  model), so hard edges and real alpha transparency are guaranteed, not
+  hoped for. Humanoid faces have explicit eye pixels, not blank
+  skin-colored ovals. Each has a 2-frame idle animation.
+  `scripts/util/sprite_loader.gd` renders them as `AnimatedSprite2D` in
+  the overworld and as animated portraits in combat, and **falls back
+  to the original colored-rectangle/text-only look for any id without
+  art** — still the other 90 classes (E through S rank) and all but 8
+  monsters, so that fallback path remains the common case and must keep
+  working as more content is added. Adding a class's art is one
+  `humanoid(...)` config entry in `tools/gen_sprites.py` — no other
+  code changes needed; `SpriteLoader` picks it up by filename
+  convention alone.
 - **Tile-based overworld rendering, piloted on Sukhumvit Shallows.**
   `tools/gen_tiles.py` generates an original 40×40 tileset
   (`assets/tiles/flood_tileset.png`: shallow water, deep water, wet

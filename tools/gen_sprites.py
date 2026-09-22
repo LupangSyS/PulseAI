@@ -209,6 +209,96 @@ CHARACTERS["mage_f"] = humanoid(
     hood=True, robed=True, weapon="staff", weapon_glow=True,
 )
 
+# --- Remaining 14 F-rank starting classes (one per family) ---------------
+
+CHARACTERS["hunter_f"] = humanoid(
+    {"skin": "#c48958", "primary": "#5c5233", "secondary": "#7a6f47",
+     "shadow": "#3a3420", "trim": "#a85c2e", "boot": "#2e2a1c", "eye": "#2a1c10"},
+    hood=False, robed=False, weapon=None,
+)
+
+CHARACTERS["healer_f"] = humanoid(
+    {"skin": "#e0ab7a", "primary": "#d8d2c4", "secondary": "#c46a5e",
+     "shadow": "#8a8477", "trim": "#c46a5e", "boot": "#5c574c", "eye": "#3a2a1e"},
+    hood=False, robed=False, weapon=None,
+)
+
+CHARACTERS["necromancer_f"] = humanoid(
+    {"skin": "#a68f8a", "primary": "#3a2a45", "secondary": "#2e2038",
+     "shadow": "#1c1424", "trim": "#6b4a8a", "boot": "#180f1e",
+     "weapon": "#5c4a4a", "glow": "#7de08a", "eye": "#7de08a"},
+    hood=True, robed=True, weapon="staff", weapon_glow=True,
+)
+
+CHARACTERS["assassin_f"] = humanoid(
+    {"skin": "#b98a6a", "primary": "#2c2c34", "secondary": "#22222a",
+     "shadow": "#161619", "trim": "#5a1e1e", "boot": "#0e0e11", "eye": "#c9a23a"},
+    hood=True, robed=False, weapon=None,
+)
+
+CHARACTERS["tank_f"] = humanoid(
+    {"skin": "#c99566", "primary": "#3a4a5c", "secondary": "#2e3a48",
+     "shadow": "#1e2730", "trim": "#8a9aa8", "boot": "#1a2228",
+     "weapon": "#7a828a", "eye": "#1c1410"},
+    hood=False, robed=False, weapon="shield", weapon_side="left",
+)
+
+CHARACTERS["berserker_f"] = humanoid(
+    {"skin": "#b97a52", "primary": "#6b2620", "secondary": "#4a1c18",
+     "shadow": "#301210", "trim": "#c9622e", "boot": "#241010", "eye": "#e8c23a"},
+    hood=False, robed=False, weapon=None,
+)
+
+CHARACTERS["summoner_f"] = humanoid(
+    {"skin": "#d9a874", "primary": "#7a1e2e", "secondary": "#c9a23a",
+     "shadow": "#4a1420", "trim": "#e8c65a", "boot": "#3a1418", "eye": "#241810"},
+    hood=False, robed=True, weapon=None,
+)
+
+CHARACTERS["pyromancer_f"] = humanoid(
+    {"skin": "#c9855a", "primary": "#8a2e1e", "secondary": "#c94e26",
+     "shadow": "#4a1810", "trim": "#e8a23a", "boot": "#241008",
+     "weapon": "#4a3a30", "glow": "#f0782c", "eye": "#f0b23a"},
+    hood=True, robed=True, weapon="staff", weapon_glow=True, weapon_side="left",
+)
+
+CHARACTERS["ranger_f"] = humanoid(
+    {"skin": "#c48a5c", "primary": "#3d5c3a", "secondary": "#547a4e",
+     "shadow": "#263a24", "trim": "#7a8a4a", "boot": "#22301e", "eye": "#1c2418"},
+    hood=False, robed=False, weapon=None,
+)
+
+CHARACTERS["monk_f"] = humanoid(
+    {"skin": "#a8734a", "primary": "#8a1e1e", "secondary": "#c9a23a",
+     "shadow": "#4a1010", "trim": "#e8c65a", "boot": "#5c4028", "eye": "#241810"},
+    hood=False, robed=False, weapon=None,
+)
+
+CHARACTERS["alchemist_f"] = humanoid(
+    {"skin": "#cf9a68", "primary": "#5c6b2e", "secondary": "#8a9a3e",
+     "shadow": "#343d1a", "trim": "#c9d454", "boot": "#2a3014",
+     "weapon": "#5c6b6b", "glow": "#c9e854", "eye": "#241c10"},
+    hood=False, robed=False, weapon="staff", weapon_glow=True,
+)
+
+CHARACTERS["psychic_f"] = humanoid(
+    {"skin": "#c9a8b0", "primary": "#3a2c4a", "secondary": "#5c4a7a",
+     "shadow": "#241c30", "trim": "#9a7ac9", "boot": "#1c1624", "eye": "#c9e8f0"},
+    hood=False, robed=False, weapon=None,
+)
+
+CHARACTERS["exorcist_f"] = humanoid(
+    {"skin": "#e0b888", "primary": "#e8e0c8", "secondary": "#c9a23a",
+     "shadow": "#a89a6e", "trim": "#8a1e1e", "boot": "#6b5c3a", "eye": "#241810"},
+    hood=False, robed=True, weapon=None,
+)
+
+CHARACTERS["bard_f"] = humanoid(
+    {"skin": "#c9926a", "primary": "#2e5c5c", "secondary": "#4a8a8a",
+     "shadow": "#1c3a3a", "trim": "#7ac9c9", "boot": "#162e2e", "eye": "#c9f0e8"},
+    hood=False, robed=False, weapon=None,
+)
+
 CHARACTERS["flooded_ghoul"] = humanoid(
     {"skin": "#7c9481", "primary": "#4a5a4d", "secondary": "#3d4a3f",
      "shadow": "#2e3a31", "trim": "#3a4a3d", "boot": "#233026", "eye": "#c9d43a"},
@@ -265,6 +355,20 @@ print("wrote contact sheet with", len(names), "characters")
 # ---------------------------------------------------------------------------
 CHARACTER_KIND = {
     "mage_f": "characters",
+    "hunter_f": "characters",
+    "healer_f": "characters",
+    "necromancer_f": "characters",
+    "assassin_f": "characters",
+    "tank_f": "characters",
+    "berserker_f": "characters",
+    "summoner_f": "characters",
+    "pyromancer_f": "characters",
+    "ranger_f": "characters",
+    "monk_f": "characters",
+    "alchemist_f": "characters",
+    "psychic_f": "characters",
+    "exorcist_f": "characters",
+    "bard_f": "characters",
     "flooded_ghoul": "monsters",
     "silt_rat": "monsters",
     "flood_leech": "monsters",
