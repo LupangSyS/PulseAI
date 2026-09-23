@@ -712,6 +712,16 @@ CHARACTERS["chimera_of_drowned_aviary"] = boss_mass(
      "tendril": "#6b5c3a", "glow": "#c9e854"},
 )
 
+CHARACTERS["feral_mannequin"] = humanoid(
+    {"skin": "#d8cfc0", "primary": "#8a3e4a", "secondary": "#6b2e38",
+     "shadow": "#3e1a20", "trim": "#c9622e", "boot": "#4a2418", "eye": "#1a1a1a"},
+    hood=False, robed=False, weapon=None,
+)
+
+CHARACTERS["vivarium_stalker"] = quadruped(
+    {"body": "#5c7a3a", "accent": "#8aa354"}, size="medium", eye_color="#e8c23a",
+)
+
 # --- District 3: Klong Toey Canals ---------------------------------------
 CHARACTERS["canal_crocodile"] = quadruped(
     {"body": "#4a5c3a", "accent": "#8a9a54"}, size="large", ridged=True, eye_color="#e8c23a",
@@ -783,6 +793,8 @@ CHARACTER_KIND.update({
     "shallow_tide_mother": "monsters",
     "current_dragger": "monsters",
     "voltaic_current_eel": "monsters",
+    "feral_mannequin": "monsters",
+    "vivarium_stalker": "monsters",
     "market_dog": "monsters",
     "stall_wraith": "monsters",
     "trickster_imp": "monsters",

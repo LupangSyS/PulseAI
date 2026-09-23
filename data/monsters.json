@@ -548,7 +548,7 @@
     "display_name": "The Scale Merchant",
     "description": "Four-armed, fused at the shoulders to a rack of cages holding mutated fighting fish. It still haggles - you just can't understand the price anymore.",
     "rank": "E",
-    "max_hp": 48,
+    "max_hp": 60,
     "is_miniboss": true,
     "is_boss": false,
     "moves": [
@@ -556,7 +556,7 @@
         "name": "Caustic Spit",
         "description": "One of the caged fish, aimed at you.",
         "effect": "damage",
-        "value": 8,
+        "value": 9,
         "weight": 3
       },
       {
@@ -593,6 +593,41 @@
             "effect": "empower_next",
             "value": 3,
             "weight": 1
+          },
+          {
+            "name": "Fourth Arm Grab",
+            "description": "It never needed all four for haggling.",
+            "effect": "block",
+            "value": 6,
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "trigger_hp_pct": 0.2,
+        "display_name": "The Scale Merchant (Every Cage at Once)",
+        "transition_text": "Every cage shatters at once. There's no more haggling left in it, just teeth.",
+        "moves": [
+          {
+            "name": "Full Rack Spit",
+            "description": "Nothing held back anymore.",
+            "effect": "damage",
+            "value": 12,
+            "weight": 3
+          },
+          {
+            "name": "Caustic Flood",
+            "description": "The rack empties everything it has, all over you.",
+            "effect": "dot",
+            "value": 5,
+            "weight": 2
+          },
+          {
+            "name": "Last Appraisal",
+            "description": "It weighs your life against nothing.",
+            "effect": "execute",
+            "value": 8,
+            "weight": 1
           }
         ]
       }
@@ -605,6 +640,10 @@
       {
         "item_id": "genuine_amulet",
         "chance": 0.3
+      },
+      {
+        "item_id": "brass_stall_key",
+        "chance": 1.0
       }
     ]
   },
@@ -613,7 +652,7 @@
     "display_name": "The Chimera of the Drowned Aviary",
     "description": "Hundreds of mutated birds from the market's exotic-pet stalls, moving as one shifting avian titan.",
     "rank": "E",
-    "max_hp": 75,
+    "max_hp": 96,
     "is_miniboss": false,
     "is_boss": true,
     "moves": [
@@ -621,7 +660,7 @@
         "name": "Wing Battering",
         "description": "A hundred wingbeats landing as one.",
         "effect": "damage",
-        "value": 8,
+        "value": 9,
         "weight": 3
       },
       {
@@ -670,14 +709,14 @@
             "name": "Vulture Dive",
             "description": "Everything left, thrown at once.",
             "effect": "damage",
-            "value": 13,
+            "value": 15,
             "weight": 3
           },
           {
             "name": "The Boss's Final Count",
             "description": "It doesn't need to see you to know the tally's about to close.",
             "effect": "execute",
-            "value": 9,
+            "value": 10,
             "weight": 2
           },
           {
@@ -686,6 +725,13 @@
             "effect": "block",
             "value": 10,
             "weight": 1
+          },
+          {
+            "name": "Circling Shriek",
+            "description": "It's not done with you just because it's dying.",
+            "effect": "dot",
+            "value": 5,
+            "weight": 2
           }
         ]
       }
@@ -1095,6 +1141,86 @@
     "drop_table": [
       {
         "item_id": "stabilized_iv_drip",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": "feral_mannequin",
+    "display_name": "Feral Mannequin",
+    "description": "A display-window mannequin, animated by whatever the market's cult worships now. It never blinks because it can't, and it never stops because it doesn't need to.",
+    "rank": "E",
+    "max_hp": 27,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Painted Smile Backhand",
+        "description": "The plastic never chips, even against bone.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 3
+      },
+      {
+        "name": "Display Case Slam",
+        "description": "It hits like something that's never felt the impact.",
+        "effect": "damage",
+        "value": 9,
+        "weight": 2
+      },
+      {
+        "name": "Freeze in Place",
+        "description": "Stillness, and then it isn't still at all.",
+        "effect": "block",
+        "value": 5,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "market_tag",
+        "chance": 0.3
+      },
+      {
+        "item_id": "preserved_antivenom",
+        "chance": 0.15
+      }
+    ]
+  },
+  {
+    "id": "vivarium_stalker",
+    "display_name": "Vivarium Stalker",
+    "description": "One of the exotic-pet stall's escapees, bred faster and hungrier by whatever's in the water down here. It remembers the cage. It isn't going back.",
+    "rank": "E",
+    "max_hp": 21,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Venomous Snap",
+        "description": "Quick, low, and it doesn't let go clean.",
+        "effect": "dot",
+        "value": 4,
+        "weight": 3
+      },
+      {
+        "name": "Pounce",
+        "description": "It's been waiting in the mud for this.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 2
+      },
+      {
+        "name": "Coil Low",
+        "description": "It draws back into striking distance.",
+        "effect": "block",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "preserved_antivenom",
         "chance": 0.3
       }
     ]

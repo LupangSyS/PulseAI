@@ -174,5 +174,37 @@
     "rarity": "uncommon",
     "effect": "heal",
     "value": 14
+  },
+  {
+    "id": "vivarium_cage_key",
+    "display_name": "Vivarium Cage Key",
+    "description": "Small, brass, still warm - like it was just made rather than found.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "brass_stall_key",
+    "display_name": "Brass Stall Key",
+    "description": "Stamped with a stall number that doesn't match anything on the market map anymore.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "mannequin_queens_glass_eye",
+    "display_name": "Mannequin Queen's Glass Eye",
+    "description": "It tracks you around the room even packed away in a bag. Worth a fortune to the cult, which is exactly why you're taking it.",
+    "rarity": "unique",
+    "effect": "restore_resource",
+    "value": 20
+  },
+  {
+    "id": "preserved_antivenom",
+    "display_name": "Preserved Antivenom",
+    "description": "Salvaged from the Vivarium's medical stock, somehow still viable. Whatever it was made for, it works on you too.",
+    "rarity": "uncommon",
+    "effect": "heal",
+    "value": 14
   }
 ]

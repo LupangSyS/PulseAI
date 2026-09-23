@@ -248,22 +248,35 @@ coming months early, and deliberately sealed canal locks to drown the
 lower-income districts first. The secret vault holds the district's best
 loot, the Drowned Queen's Signet.
 
-**2. Chatuchak Ruins** *(built)* — Mudflats and collapsed market stalls forming a
-labyrinth; the weekend market is a graveyard of exotic animals that
-mutated instead of dying, traded by scavengers who worship mannequin
-heads. NPC: **The Watchmaker (Kru Viroj)**, obsessively repairing
-waterlogged watches, claims he can hear the flood's pulse. Sub-maps:
-Section 7 (The Amulet Vault) — heat-pulsing clay talismans; The Vivarium
-Drains — ruptured exotic-wildlife holding cells. Puzzle — *The Amulet
+**2. Chatuchak Ruins** *(built, depth pass)* — Mudflats and collapsed
+market stalls forming a labyrinth; the weekend market is a graveyard of
+exotic animals that mutated instead of dying, traded by scavengers who
+worship mannequin heads. Also grown to a real 28×20 map (same
+generator/zoning approach as Sukhumvit Shallows): a market-stall maze
+around the entrance, Section 7 hosting the Amulet Scale puzzle, a
+Mannequin Shrine zone in the north with a new second puzzle (*the Three
+Offerings* — a torn dress, a porcelain face, a curio bell, solved in
+order), the Vivarium Drains sealed behind a cage-key-gated lock in the
+northeast, a walled-off Vault Depths in the south gated behind actually
+solving the Amulet Scale (previously just a flavor reward), and a
+secret alley gated behind the mini-boss's guaranteed key drop. NPC:
+**The Watchmaker (Kru Viroj)**, obsessively repairing waterlogged
+watches, claims he can hear the flood's pulse. Puzzle — *The Amulet
 Scale*: balance genuine amulets against cursed lead weights pulled from
 corpse pockets. Mini-boss — *The Scale Merchant*: four-armed, fused to
-cages of mutated fighting fish spitting caustic bile. Boss — *The Chimera
-of the Drowned Aviary*: **Phase 1** hundreds of mutated birds moving as
-one shifting avian titan; **Phase 2** consolidates into an emaciated
-vulture-beast whose chest cavity houses the market's blind, weeping former
-animal-syndicate boss. Narrative beat: trade manifests show biological
-samples arriving from deep ocean trenches under the river days before the
-first fissure broke.
+cages of mutated fighting fish spitting caustic bile; toughened to 60 HP
+with a new third stage, *Every Cage at Once*, below 20%. Boss — *The
+Chimera of the Drowned Aviary*: also toughened, to 96 HP. **Phase 1**
+hundreds of mutated birds moving as one shifting avian titan; **Phase 2**
+consolidates into an emaciated vulture-beast whose chest cavity houses
+the market's blind, weeping former animal-syndicate boss. Two new
+species patrol the Vault Depths — **Feral Mannequin** (an animated
+display dummy) and **Vivarium Stalker** (an escaped, faster-bred exotic
+predator) — alongside the original five. Narrative beat: trade
+manifests show biological samples arriving from deep ocean trenches
+under the river days before the first fissure broke (now found inside
+the Vivarium Drains rather than near the entrance). The secret alley
+holds the Mannequin Queen's Glass Eye, the district's best loot.
 
 **3. Klong Toey Canals** *(built)* *(the Hunter's discovery site — Crocodile
 Warden)* — Oil-slicked, caustic water choked with shipping containers;
@@ -841,15 +854,16 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   beaten, item pickups + monster loot drops feeding a simple inventory
   with usable items, and a cluster of NPC/landmark/narrative events plus
   a sequential flag-gated puzzle (Breaker Pump Protocol / Amulet Scale /
-  Crane Sluice Alignment) apiece. Chatuchak Ruins and Klong Toey Canals
-  are still the original 10×8 pilot shape (6 regular monster spawns, 5
-  species, one puzzle, no locked cells); Sukhumvit Shallows got a
-  flagship depth pass (see above) and is now 28×20 with 14 regular
-  spawns across 7 species, two puzzles, 3 locked gates, and a secret
-  vault — the same depth-pass treatment for districts 2/3 is designed
-  but not yet built (see Roadmap). No travel between them yet - each is
-  its own standalone run, picked by `RunState` via a "[DEV] <district>"
-  main-menu button. Walking into a live monster transitions into...
+  Crane Sluice Alignment) apiece. Klong Toey Canals is still the
+  original 10×8 pilot shape (6 regular monster spawns, 5 species, one
+  puzzle, no locked cells); Sukhumvit Shallows and Chatuchak Ruins both
+  got the flagship depth pass (see above) and are now 28×20 with 14
+  regular spawns across 7 species, two puzzles, 3 locked gates, and a
+  secret vault apiece — the same treatment for Klong Toey Canals is
+  designed but not yet built (see Roadmap). No travel between them yet -
+  each is its own standalone run, picked by `RunState` via a
+  "[DEV] <district>" main-menu button. Walking into a live monster
+  transitions into...
 - **A real save/load system, single slot** (`RunState.save_game`/
   `load_game`, JSON at `user://saves/slot1.json`): player class, HP,
   resource, inventory, and *every* district's exploration state
@@ -1142,17 +1156,17 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
 
 ## Roadmap / Phase 2 ideas (not built)
 
-- **The other 29 zones, plus the depth pass for districts 2-3.** Three
+- **The other 29 zones, plus the depth pass for district 3.** Three
   districts are real (Sukhumvit Shallows, Chatuchak Ruins, Klong Toey
   Canals); the other 9 districts, all 10 dungeons, and all 10 dimensions
   are designed (World Map above and the Story Bible section, with full
   atmosphere/NPC/puzzle/boss detail for every one of them) but have zero
-  entries in `data/districts.json` / `data/monsters.json`. Chatuchak
-  Ruins and Klong Toey Canals are also still at the original 10×8 pilot
-  scale and would benefit from the same flagship depth pass Sukhumvit
-  Shallows just got (bigger procedurally-laid-out grid, a second puzzle,
-  locked sub-areas, tougher/more varied monsters) before being called
-  "done" rather than "playable." Filling in new zones is purely content
+  entries in `data/districts.json` / `data/monsters.json`. Klong Toey
+  Canals is also still at the original 10×8 pilot scale and would
+  benefit from the same flagship depth pass Sukhumvit Shallows and
+  Chatuchak Ruins just got (bigger procedurally-laid-out grid, a second
+  puzzle, locked sub-areas, tougher/more varied monsters) before being
+  called "done" rather than "playable." Filling in new zones is purely content
   work, following the pattern Sukhumvit Shallows proved out (content +
   `terrain` tile art, `tools/gen_district_layout.py` for a
   connectivity-guaranteed base layout at any size) — the camera system

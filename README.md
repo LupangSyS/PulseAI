@@ -43,12 +43,17 @@ currently exists:
     Breaker Pump Protocol actually unlocks, and a mini-boss-key-gated
     secret vault) — see "Bigger, harder Sukhumvit Shallows" below for
     the full rundown.
-  - **Chatuchak Ruins**: mini-boss **The Scale Merchant** (2 stages),
-    boss **The Chimera of the Drowned Aviary** (3 stages), 7 events
-    including the Watchmaker (Kru Viroj) and the **Amulet Scale**
-    puzzle (find a cursed weight, balance the scale, open the vault -
-    each step fails cleanly if attempted out of order, so it can't
-    softlock).
+  - **Chatuchak Ruins** *(depth pass)*: also grown to a real 28×20 map,
+    14 regular monster spawns across 7 species, mini-boss **The Scale
+    Merchant** (now 60 HP, 2 stages) and boss **The Chimera of the
+    Drowned Aviary** (now 96 HP, 3 stages), 15 events including the
+    Watchmaker (Kru Viroj) and two chained puzzles (the **Amulet Scale**
+    - find a cursed weight, balance the scale, open the vault, each
+    step fails cleanly out of order so it can't softlock - and the
+    Mannequin Shrine's **Three Offerings**), and 3 locked areas (the
+    cage-key-gated Vivarium Drains, a flag-gated Vault Depths the
+    Amulet Scale actually unlocks, and a mini-boss-key-gated secret
+    alley).
   - **Klong Toey Canals**: mini-boss **The Sluice Ripper** (2 stages),
     boss **Klong Toey Leviathan** (The Scum Matron, 3 stages), 7 events
     including Commander Lek and the **Crane Sluice Alignment** puzzle
@@ -102,7 +107,7 @@ currently exists:
   drop straight into districts 2/3 the same way, since there's no
   in-fiction travel between districts yet.
 - **Real pixel art for all 105 classes** (not just the 15 F-rank
-  starters) and all 24 monsters that actually appear across the three
+  starters) and all 26 monsters that actually appear across the three
   built districts (`assets/sprites/`), true 64×64 RGBA with 2-frame idle animation.
   E-through-S ranks aren't 90 hand-painted palettes — each family
   defines one base look (hair + a weapon or wraps, so no one's bald or
