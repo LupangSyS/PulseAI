@@ -191,7 +191,7 @@ func _build_ui() -> void:
 	# and any overflow (more rows than fit) scrolls instead of pushing
 	# End Turn off-screen.
 	card_scroll = ScrollContainer.new()
-	card_scroll.custom_minimum_size = Vector2(0, 116)
+	card_scroll.custom_minimum_size = Vector2(0, 132)
 	card_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	root_box.add_child(card_scroll)
 
@@ -242,16 +242,45 @@ func _make_hp_bar() -> ProgressBar:
 ## the description can word-wrap instead of overflowing the button's
 ## fixed width. Every descendant is set to MOUSE_FILTER_IGNORE so clicks
 ## pass through to the Button itself rather than being eaten by a child.
-func _make_tray_button(title: String, description: String, is_disabled: bool) -> Button:
+## Per-effect icon (assets/icons/effect_<effect>.png - see
+## tools/gen_card_icons.py) tinted per card type at runtime via
+## TextureRect.modulate, rather than baking 7 effects x 3 types = 21
+## separate images. Covers all cards automatically since every card
+## already has one of these seven effects (card_data.gd).
+const TYPE_TINT := {
+	"action": Color(0.91, 0.4, 0.27),
+	"spell": Color(0.4, 0.58, 0.91),
+	"power": Color(0.89, 0.74, 0.3),
+}
+
+func _make_tray_button(title: String, description: String, is_disabled: bool, icon_effect: String = "", icon_tint: Color = Color.WHITE) -> Button:
 	var btn := Button.new()
-	btn.custom_minimum_size = Vector2(208, 50)
+	btn.custom_minimum_size = Vector2(228, 70)
 	btn.disabled = is_disabled
+
+	var hb := HBoxContainer.new()
+	hb.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hb.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	hb.add_theme_constant_override("separation", 6)
+	btn.add_child(hb)
+
+	if icon_effect != "":
+		var icon_path := "res://assets/icons/effect_%s.png" % icon_effect
+		if ResourceLoader.exists(icon_path):
+			var icon := TextureRect.new()
+			icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			icon.custom_minimum_size = Vector2(22, 22)
+			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			icon.modulate = icon_tint
+			icon.texture = load(icon_path)
+			hb.add_child(icon)
 
 	var vb := VBoxContainer.new()
 	vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	vb.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	vb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	vb.add_theme_constant_override("separation", 2)
-	btn.add_child(vb)
+	hb.add_child(vb)
 
 	var title_label := Label.new()
 	title_label.text = title
@@ -263,7 +292,7 @@ func _make_tray_button(title: String, description: String, is_disabled: bool) ->
 	desc_label.text = description
 	desc_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	desc_label.add_theme_font_size_override("font_size", 10)
+	desc_label.add_theme_font_size_override("font_size", 9)
 	vb.add_child(desc_label)
 
 	return btn
@@ -636,6 +665,8 @@ func _refresh_ui() -> void:
 				"%s (%d)" % [card.display_name, card.cost],
 				card.description,
 				card.cost > player.resource,
+				card.effect,
+				TYPE_TINT.get(card.type, Color.WHITE),
 			)
 			btn.pressed.connect(_on_card_pressed.bind(card_id))
 			card_grid.add_child(btn)

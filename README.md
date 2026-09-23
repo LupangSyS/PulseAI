@@ -77,6 +77,11 @@ currently exists:
   (not `integer`), so the full screen always letterboxes to fit a real
   device window instead of getting cropped at the edge on smaller
   screens.
+- **Every card shows an icon for what it does**: seven small icons keyed
+  to a card's effect (damage/heal/block/empower/lingering-damage/
+  hits-everyone/execute), tinted red/blue/gold by its type
+  (action/spell/power). Covers all 417 cards automatically — no
+  per-card art needed (`tools/gen_card_icons.py`).
 - **Status/Items menu** (press Escape from the overworld): portrait,
   name, rank, HP/resource bars, your full deck list with descriptions,
   and held items. No Equipment/Formation/Config/Save — those systems

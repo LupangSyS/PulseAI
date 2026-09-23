@@ -815,6 +815,30 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   in the closed-menu, cards-open, and items-open states, with real
   pixel slack (not a zero-margin fit), including a stress case of
   more usable items than fit in one row.
+- **Card art: one icon per effect, tinted per type.** `tools/gen_card_icons.py`
+  generates seven small white-silhouette icons keyed to `CardData.effect`
+  (damage/heal/block/empower_next/dot/aoe_damage/execute —
+  `assets/icons/effect_<name>.png`), covering all 417 cards automatically
+  since every card already has one of these seven effects — no per-card
+  or per-class art needed. Each icon is tinted at runtime via
+  `TextureRect.modulate` keyed by `CardData.type` (`combat.gd`'s
+  `TYPE_TINT`: action=red-orange, spell=blue, power=gold), so 7 effects
+  × 3 types reads as meaningfully different without baking 21 separate
+  images. A deliberate scope call: the user asked for "action and spell"
+  art, and with 417 cards, bespoke art per card wasn't tractable
+  alongside the 90-class portrait pass in the same session — an
+  effect-keyed icon is also more informative at a glance (shows *what a
+  card does*) than a per-card illustration would be at this size.
+  Wiring this in surfaced a real pre-existing layout bug: `_make_tray_button`'s
+  `Button` doesn't auto-grow to fit its children (they're anchored via
+  `PRESET_FULL_RECT`, so the button's own fixed size is authoritative,
+  not computed from content) — the longest card description (89 chars)
+  was silently overflowing past its button's bottom edge even before
+  the icon narrowed the text column further, just by less. Card tray
+  buttons grew (208×50 → 228×70, using width the scroll area already
+  had unused) and `card_scroll` grew to match (116 → 132), both
+  re-validated against that exact longest-description card as the
+  worst-case test, not just typical ones.
 - **105 classes fully defined and battle-tested** (15 families × F
   through S rank, see Roster below) — every one was run through a full
   headless combat simulation with zero errors and reaches victory. Turn
