@@ -278,20 +278,33 @@ under the river days before the first fissure broke (now found inside
 the Vivarium Drains rather than near the entrance). The secret alley
 holds the Mannequin Queen's Glass Eye, the district's best loot.
 
-**3. Klong Toey Canals** *(built)* *(the Hunter's discovery site — Crocodile
-Warden)* — Oil-slicked, caustic water choked with shipping containers;
-the poorest turned monstrous first. NPC: **Commander Lek**, one-eyed
-militia leader running F-rank scavengers as expendable mine-clearers.
-Sub-maps: Stack-City Core (a 10-story rusted-container tower), Drydock 4
-(an oil tanker wedged sideways in the mud). Puzzle — *Crane Sluice
-Alignment*: align container bridges with a broken cargo crane while
-corrosive sludge rises. Mini-boss — *Sluice Ripper*: a harbor worker
-grafted to hydraulic forklift blades. Boss — *Klong Toey Leviathan (The
-Scum Matron)*: **Phase 1** an amorphous oil/hair/sewage blob erupting
-through floor grates; **Phase 2** hardens into an oily carapace and sets
-the water on fire — manipulate pumps to douse platforms. Narrative beat:
-Lek's logs reveal Ratchaprasong elites trading food for children, allegedly
-as fuel or sacrifice to keep the central grid alive.
+**3. Klong Toey Canals** *(built, depth pass)* *(the Hunter's discovery
+site — Crocodile Warden)* — Oil-slicked, caustic water choked with
+shipping containers; the poorest turned monstrous first. Grown to the
+same 28×20 scale as the other two districts: a canal grind zone around
+the entrance, the crane/sluice zone hosting Crane Sluice Alignment,
+Stack-City Core in the north with a new second puzzle (*Ladder Ascent*
+— three rope-ladder tiers secured in order, rewarding a tower access
+card), the card-gated Drydock 4 in the northeast, a walled-off Sluice
+Depths in the south gated behind actually finishing Crane Sluice
+Alignment (previously just a flavor reward), and a secret hold gated
+behind the mini-boss's guaranteed key drop. NPC: **Commander Lek**,
+one-eyed militia leader running F-rank scavengers as expendable
+mine-clearers. Puzzle — *Crane Sluice Alignment*: align container
+bridges with a broken cargo crane while corrosive sludge rises.
+Mini-boss — *Sluice Ripper*: a harbor worker grafted to hydraulic
+forklift blades; toughened to 70 HP with a new third stage, *Redline
+Failure*, below 20%. Boss — *Klong Toey Leviathan (The Scum Matron)*:
+also toughened, to 110 HP. **Phase 1** an amorphous oil/hair/sewage
+blob erupting through floor grates; **Phase 2** hardens into an oily
+carapace and sets the water on fire — manipulate pumps to douse
+platforms. Two new species patrol the Sluice Depths — **Sunken
+Foreman** (a dockworker wielding a crane hook on a chain) and **Slick
+Crawler** (living oil-slick filth) — alongside the original five.
+Narrative beat: Lek's logs reveal Ratchaprasong elites trading food for
+children, allegedly as fuel or sacrifice to keep the central grid alive.
+The secret hold holds the Leviathan's Barnacle Crown, the district's
+best loot.
 
 **4. Wat Hualamphong Depths** *(the Necromancer's site — Bone Tide
 Necromancer)* — Flooded temple crematoriums merged with MRT tunnels;
@@ -854,14 +867,12 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   beaten, item pickups + monster loot drops feeding a simple inventory
   with usable items, and a cluster of NPC/landmark/narrative events plus
   a sequential flag-gated puzzle (Breaker Pump Protocol / Amulet Scale /
-  Crane Sluice Alignment) apiece. Klong Toey Canals is still the
-  original 10×8 pilot shape (6 regular monster spawns, 5 species, one
-  puzzle, no locked cells); Sukhumvit Shallows and Chatuchak Ruins both
-  got the flagship depth pass (see above) and are now 28×20 with 14
-  regular spawns across 7 species, two puzzles, 3 locked gates, and a
-  secret vault apiece — the same treatment for Klong Toey Canals is
-  designed but not yet built (see Roadmap). No travel between them yet -
-  each is its own standalone run, picked by `RunState` via a
+  Crane Sluice Alignment) apiece. All three now got the same depth pass
+  (see above) and are 28×20 with 14 regular spawns across 7 species, two
+  puzzles, 3 locked gates, and a secret vault apiece — up from the
+  original 10×8/6-spawn/one-puzzle/no-locks pilot shape every district
+  shipped with initially. No travel between them yet - each is its own
+  standalone run, picked by `RunState` via a
   "[DEV] <district>" main-menu button. Walking into a live monster
   transitions into...
 - **A real save/load system, single slot** (`RunState.save_game`/
@@ -1156,17 +1167,13 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
 
 ## Roadmap / Phase 2 ideas (not built)
 
-- **The other 29 zones, plus the depth pass for district 3.** Three
-  districts are real (Sukhumvit Shallows, Chatuchak Ruins, Klong Toey
-  Canals); the other 9 districts, all 10 dungeons, and all 10 dimensions
-  are designed (World Map above and the Story Bible section, with full
-  atmosphere/NPC/puzzle/boss detail for every one of them) but have zero
-  entries in `data/districts.json` / `data/monsters.json`. Klong Toey
-  Canals is also still at the original 10×8 pilot scale and would
-  benefit from the same flagship depth pass Sukhumvit Shallows and
-  Chatuchak Ruins just got (bigger procedurally-laid-out grid, a second
-  puzzle, locked sub-areas, tougher/more varied monsters) before being
-  called "done" rather than "playable." Filling in new zones is purely content
+- **The other 29 zones.** Three districts are real (Sukhumvit Shallows,
+  Chatuchak Ruins, Klong Toey Canals), all three now at the same
+  28×20 depth-pass scale; the other 9 districts, all 10 dungeons, and
+  all 10 dimensions are designed (World Map above and the Story Bible
+  section, with full atmosphere/NPC/puzzle/boss detail for every one of
+  them) but have zero entries in `data/districts.json` /
+  `data/monsters.json`. Filling in new zones is purely content
   work, following the pattern Sukhumvit Shallows proved out (content +
   `terrain` tile art, `tools/gen_district_layout.py` for a
   connectivity-guaranteed base layout at any size) — the camera system

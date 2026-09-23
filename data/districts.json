@@ -1619,165 +1619,639 @@
   {
     "id": "klong_toey_canals",
     "display_name": "Klong Toey Canals",
-    "description": "Oil-slicked, caustic water choked with shipping containers. The poorest turned monstrous first - and there were more of them than anywhere else in the city.",
+    "description": "Oil-slicked, caustic water choked with shipping containers. The poorest turned monstrous first - and there were more of them than anywhere else in the city. Bigger than the sluice gate first suggests: Stack-City Core's rope ladders climb north toward a locked drydock, and the crane's alignment guards a flooded depth no one's mapped.",
     "danger_tier": "E",
     "kind": "district",
-    "grid_width": 10,
-    "grid_height": 8,
+    "grid_width": 28,
+    "grid_height": 20,
     "entrance_cell": [
       0,
-      4
+      10
     ],
     "blocked_cells": [
       [
-        2,
-        0
-      ],
-      [
-        2,
-        2
-      ],
-      [
-        3,
-        2
-      ],
-      [
-        4,
-        2
-      ],
-      [
-        5,
-        0
-      ],
-      [
-        5,
+        0,
         1
       ],
       [
-        6,
-        1
+        0,
+        12
       ],
       [
-        7,
-        1
+        0,
+        13
+      ],
+      [
+        0,
+        15
+      ],
+      [
+        0,
+        16
       ],
       [
         1,
-        4
+        11
+      ],
+      [
+        1,
+        12
+      ],
+      [
+        1,
+        13
+      ],
+      [
+        1,
+        15
+      ],
+      [
+        1,
+        16
       ],
       [
         2,
-        4
-      ],
-      [
-        3,
-        4
-      ],
-      [
-        5,
-        4
-      ],
-      [
-        6,
-        4
+        9
       ],
       [
         2,
-        6
+        10
+      ],
+      [
+        2,
+        11
+      ],
+      [
+        2,
+        16
       ],
       [
         3,
-        6
+        11
+      ],
+      [
+        3,
+        17
+      ],
+      [
+        3,
+        19
       ],
       [
         4,
-        6
-      ],
-      [
-        6,
-        6
+        2
       ],
       [
         7,
-        6
+        14
+      ],
+      [
+        7,
+        15
+      ],
+      [
+        7,
+        16
+      ],
+      [
+        7,
+        17
+      ],
+      [
+        7,
+        19
       ],
       [
         8,
+        13
+      ],
+      [
+        8,
+        16
+      ],
+      [
+        9,
+        2
+      ],
+      [
+        9,
+        3
+      ],
+      [
+        9,
+        13
+      ],
+      [
+        10,
+        0
+      ],
+      [
+        10,
+        2
+      ],
+      [
+        10,
+        3
+      ],
+      [
+        10,
+        7
+      ],
+      [
+        10,
+        8
+      ],
+      [
+        10,
+        9
+      ],
+      [
+        10,
+        13
+      ],
+      [
+        10,
+        16
+      ],
+      [
+        10,
+        18
+      ],
+      [
+        11,
+        0
+      ],
+      [
+        11,
         6
+      ],
+      [
+        11,
+        13
+      ],
+      [
+        12,
+        5
+      ],
+      [
+        12,
+        6
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        13,
+        5
+      ],
+      [
+        13,
+        6
+      ],
+      [
+        13,
+        8
+      ],
+      [
+        13,
+        9
+      ],
+      [
+        13,
+        10
+      ],
+      [
+        13,
+        13
+      ],
+      [
+        13,
+        14
+      ],
+      [
+        14,
+        8
+      ],
+      [
+        14,
+        9
+      ],
+      [
+        14,
+        10
+      ],
+      [
+        14,
+        13
+      ],
+      [
+        15,
+        8
+      ],
+      [
+        15,
+        9
+      ],
+      [
+        15,
+        10
+      ],
+      [
+        15,
+        11
+      ],
+      [
+        15,
+        12
+      ],
+      [
+        15,
+        13
+      ],
+      [
+        15,
+        15
+      ],
+      [
+        16,
+        11
+      ],
+      [
+        16,
+        12
+      ],
+      [
+        16,
+        16
+      ],
+      [
+        16,
+        19
+      ],
+      [
+        17,
+        13
+      ],
+      [
+        17,
+        17
+      ],
+      [
+        18,
+        13
+      ],
+      [
+        19,
+        13
+      ],
+      [
+        19,
+        15
+      ],
+      [
+        19,
+        17
+      ],
+      [
+        19,
+        19
+      ],
+      [
+        20,
+        7
+      ],
+      [
+        20,
+        12
+      ],
+      [
+        20,
+        13
+      ],
+      [
+        20,
+        16
+      ],
+      [
+        21,
+        7
+      ],
+      [
+        21,
+        9
+      ],
+      [
+        21,
+        10
+      ],
+      [
+        21,
+        13
+      ],
+      [
+        21,
+        17
+      ],
+      [
+        21,
+        18
+      ],
+      [
+        21,
+        19
+      ],
+      [
+        22,
+        0
+      ],
+      [
+        22,
+        1
+      ],
+      [
+        22,
+        3
+      ],
+      [
+        22,
+        4
+      ],
+      [
+        22,
+        5
+      ],
+      [
+        22,
+        13
+      ],
+      [
+        22,
+        17
+      ],
+      [
+        23,
+        5
+      ],
+      [
+        23,
+        11
+      ],
+      [
+        23,
+        13
+      ],
+      [
+        23,
+        17
+      ],
+      [
+        24,
+        5
+      ],
+      [
+        24,
+        7
+      ],
+      [
+        24,
+        8
+      ],
+      [
+        24,
+        11
+      ],
+      [
+        24,
+        12
+      ],
+      [
+        24,
+        13
+      ],
+      [
+        25,
+        5
+      ],
+      [
+        25,
+        11
+      ],
+      [
+        25,
+        12
+      ],
+      [
+        25,
+        13
+      ],
+      [
+        25,
+        14
+      ],
+      [
+        26,
+        5
+      ],
+      [
+        26,
+        13
+      ],
+      [
+        27,
+        5
+      ],
+      [
+        27,
+        7
+      ],
+      [
+        27,
+        8
+      ],
+      [
+        27,
+        9
+      ],
+      [
+        27,
+        13
       ]
     ],
     "terrain": [
-      "pprrpprrws",
-      "psrrpsrrww",
-      "pssrrpsrww",
-      "psswwpsrww",
-      "prsswwssrw",
-      "psswwsrrws",
-      "psrrwwsrrw",
-      "psswwwssrw"
+      "rprprppppppppppppprrpprppppp",
+      "rpppppppppprpprpprprpprpprpp",
+      "pppppppppppprprpppprpprprppp",
+      "ppprprppprpprpppppprpppprppp",
+      "pppppppppppppprrprprpprppprp",
+      "rppprprppprpppprpppppprppprp",
+      "prppprprpppppppppppprrprprrr",
+      "swssswwsspsssppsprpppprppprr",
+      "wswssswsspssssssrpprppppprpp",
+      "swwsswssssppsspppprppppprppp",
+      "sswwwwsspspppsssrprprppppprp",
+      "swswsssssspsppssrrprppppprrr",
+      "sssssswssssssspsppprrppppppp",
+      "sssswwsssspsppppppppppprpprp",
+      "sswwswsssswswwsswswwwswwwssw",
+      "swssssswwswwwswwswswwwwwssww",
+      "wsswssswsswsssssswssssswswww",
+      "rrrwwswsssswwsswwsswwsswswss",
+      "rrrsswwswwsswsswsswswwwswsss",
+      "pprssssssssswwwwsssssswswsww"
+    ],
+    "locked_cells": [
+      {
+        "cell": [
+          23,
+          2
+        ],
+        "requires_item": "tower_access_card",
+        "locked_text": "Drydock 4's gate reader wants a tower access card - it won't so much as click without one."
+      },
+      {
+        "cell": [
+          2,
+          18
+        ],
+        "requires_item": "riggers_master_key",
+        "locked_text": "A rigger's padlock, salt-seized but intact. Force won't turn this one."
+      },
+      {
+        "cell": [
+          16,
+          14
+        ],
+        "requires_flag": "crane_aligned",
+        "locked_text": "The sluice gate stays shut until the crane's actually aligned - swimming this current unaided would be suicide."
+      }
     ],
     "monster_spawns": [
       {
         "monster_id": "canal_crocodile",
         "cell": [
-          4,
-          1
-        ],
-        "respawn_seconds": 25
-      },
-      {
-        "monster_id": "canal_crocodile",
-        "cell": [
-          7,
-          3
+          2,
+          8
         ],
         "respawn_seconds": 25
       },
       {
         "monster_id": "canal_eel",
         "cell": [
-          1,
-          2
+          5,
+          9
         ],
         "respawn_seconds": 20
       },
       {
         "monster_id": "drowned_dockworker",
         "cell": [
-          4,
-          3
+          6,
+          12
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "canal_crocodile",
+        "cell": [
+          9,
+          8
         ],
         "respawn_seconds": 25
       },
       {
         "monster_id": "rusted_stevedore",
         "cell": [
-          8,
-          2
+          12,
+          10
+        ],
+        "respawn_seconds": 30
+      },
+      {
+        "monster_id": "rusted_stevedore",
+        "cell": [
+          6,
+          1
         ],
         "respawn_seconds": 30
       },
       {
         "monster_id": "oil_slick_wisp",
         "cell": [
-          1,
-          6
+          18,
+          4
         ],
         "respawn_seconds": 20
+      },
+      {
+        "monster_id": "canal_eel",
+        "cell": [
+          20,
+          2
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "oil_slick_wisp",
+        "cell": [
+          5,
+          16
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "sunken_foreman",
+        "cell": [
+          10,
+          15
+        ],
+        "respawn_seconds": 40
+      },
+      {
+        "monster_id": "sunken_foreman",
+        "cell": [
+          14,
+          17
+        ],
+        "respawn_seconds": 40
+      },
+      {
+        "monster_id": "sunken_foreman",
+        "cell": [
+          20,
+          15
+        ],
+        "respawn_seconds": 40
+      },
+      {
+        "monster_id": "slick_crawler",
+        "cell": [
+          12,
+          18
+        ],
+        "respawn_seconds": 35
+      },
+      {
+        "monster_id": "slick_crawler",
+        "cell": [
+          18,
+          17
+        ],
+        "respawn_seconds": 35
       }
     ],
     "miniboss_spawn": {
       "monster_id": "sluice_ripper",
       "cell": [
-        8,
-        5
+        22,
+        16
       ]
     },
     "boss_spawn": {
       "monster_id": "klong_toey_leviathan",
       "cell": [
-        9,
-        7
+        26,
+        18
       ]
     },
     "item_spawns": [
@@ -1785,50 +2259,126 @@
         "item_id": "dockworker_badge",
         "cell": [
           3,
-          3
+          9
         ]
       },
       {
         "item_id": "crocodile_scale",
         "cell": [
-          6,
-          3
+          9,
+          5
+        ]
+      },
+      {
+        "item_id": "sealed_ration_tin",
+        "cell": [
+          26,
+          2
+        ]
+      },
+      {
+        "item_id": "crocodile_scale",
+        "cell": [
+          27,
+          0
+        ]
+      },
+      {
+        "item_id": "sealed_ration_tin",
+        "cell": [
+          9,
+          17
+        ]
+      },
+      {
+        "item_id": "leviathans_barnacle_crown",
+        "cell": [
+          1,
+          18
         ]
       }
     ],
     "events": [
       {
         "cell": [
-          1,
-          1
+          3,
+          5
         ],
         "text": "Stack-City Core - a ten-story tower of rusted shipping containers, stacked and welded into something between a fortress and a grave. Rope ladders still sway between the upper tiers.",
         "repeatable": false
       },
       {
         "cell": [
-          8,
-          0
-        ],
-        "text": "Drydock 4. An oil tanker, wedged sideways in the mud, hull split open like it was trying to give birth to something. Whatever it was already left.",
-        "repeatable": false
-      },
-      {
-        "cell": [
           1,
-          5
+          9
         ],
-        "text": "Commander Lek stands watch with one working eye and a rifle held like it's still useful. His F-rank scavengers work the mud around him, unbothered - or too scared to be. \"Crane's still standing over at the sluice gate,\" he says, not looking at you. \"Align the container bridges to it and you can cross without swimming. Do it in order - alpha bridge, beta bridge, then the crane lock - or the whole rig drops you in the sludge.\"",
+        "text": "Commander Lek stands watch with one working eye and a rifle held like it's still useful. His F-rank scavengers work the mud around him, unbothered - or too scared to be. \"Crane's still standing over at the sluice gate,\" he says, not looking at you. \"Align the container bridges to it and you can cross without swimming. Do it in order - alpha bridge, beta bridge, then the crane lock - or the whole rig drops you in the sludge. Climb Stack-City's ladders if you want a dry place to sleep first - top tier's got a locked drydock, if you can get the tower to let you in.\"",
         "repeatable": true
       },
       {
         "cell": [
-          9,
+          6,
+          8
+        ],
+        "text": "Rope ladders sway overhead between the container tiers, tied off by hands that stopped climbing a long time ago. Something up there still tends them.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          21,
           2
+        ],
+        "text": "From the top tier you can see Drydock 4 to the east, an oil tanker wedged sideways in the mud - and a gate that clearly wants more than just showing up.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          11,
+          9
         ],
         "text": "A waterlogged strongbox, Lek's own handwriting on the ledgers inside. Shipping manifests routed through Ratchaprasong - food, going out, children coming back. The entries don't say what for. They don't have to.",
         "repeatable": false,
         "reward_item": "leks_militia_logs"
+      },
+      {
+        "cell": [
+          8,
+          2
+        ],
+        "text": "Ladder Tier 1: you lash the lowest rope ladder off to a stable container corner. It holds your weight without groaning. One tier secured.",
+        "repeatable": false,
+        "sets_flag": "ladder_1"
+      },
+      {
+        "cell": [
+          14,
+          4
+        ],
+        "text": "Ladder Tier 2: with the lower tier secure, this one's a clean climb - the ropes are old but the knots are sound. Two tiers up.",
+        "fail_text": "This ladder's still coiled and unlashed - the tier below it needs securing first.",
+        "repeatable": false,
+        "requires_flag": "ladder_1",
+        "sets_flag": "ladder_2"
+      },
+      {
+        "cell": [
+          19,
+          1
+        ],
+        "text": "Ladder Tier 3: the top tier, and the view from here reaches past the sluice gate. A weatherproofed card is wedged into the railing - someone's old tower pass, still good.",
+        "fail_text": "The top ladder's out of reach without the tier below it secured first.",
+        "repeatable": false,
+        "requires_flag": "ladder_2",
+        "sets_flag": "ladder_3",
+        "reward_item": "tower_access_card"
+      },
+      {
+        "cell": [
+          25,
+          1
+        ],
+        "text": "Drydock 4. An oil tanker, wedged sideways in the mud, hull split open like it was trying to give birth to something. Whatever it was already left.",
+        "repeatable": false
       },
       {
         "cell": [
@@ -1841,8 +2391,8 @@
       },
       {
         "cell": [
-          5,
-          6
+          12,
+          8
         ],
         "text": "Bridge Beta: with Alpha holding steady, this one slots into place clean. Two down.",
         "fail_text": "Bridge Beta swings loose - nothing's anchoring it yet. Alpha needs to go first.",
@@ -1852,15 +2402,39 @@
       },
       {
         "cell": [
-          5,
-          7
+          14,
+          12
         ],
-        "text": "The crane lock catches both bridges at once and grinds to a stop, finally aligned. The sluice gate path is clear.",
+        "text": "The crane lock catches both bridges at once and grinds to a stop, finally aligned. Somewhere south, a sluice gate you can't see yet groans and starts to open.",
         "fail_text": "The crane lock won't catch - it needs both bridges seated first.",
         "repeatable": false,
         "requires_flag": "bridge_beta",
         "sets_flag": "crane_aligned",
         "reward_item": "crane_control_chip"
+      },
+      {
+        "cell": [
+          2,
+          15
+        ],
+        "text": "A rigger's toolbox, locked, chained to a container that's since sunk. Whoever it belonged to isn't coming back for the key.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          11,
+          19
+        ],
+        "text": "The canal doesn't end here so much as give up pretending it's shallow. Container shapes loom under the surface, stacked deeper than any crane could have lifted them.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          0,
+          18
+        ],
+        "text": "A second toolbox down here, this one already forced open and picked clean - except for one thing, wedged where the lock used to be.",
+        "repeatable": false
       }
     ]
   }

@@ -54,10 +54,20 @@ currently exists:
     cage-key-gated Vivarium Drains, a flag-gated Vault Depths the
     Amulet Scale actually unlocks, and a mini-boss-key-gated secret
     alley).
-  - **Klong Toey Canals**: mini-boss **The Sluice Ripper** (2 stages),
-    boss **Klong Toey Leviathan** (The Scum Matron, 3 stages), 7 events
-    including Commander Lek and the **Crane Sluice Alignment** puzzle
-    (align bridge alpha, then beta, then lock the crane).
+  - **Klong Toey Canals** *(depth pass)*: also grown to a real 28×20
+    map, 14 regular monster spawns across 7 species, mini-boss **The
+    Sluice Ripper** (now 70 HP, 2 stages) and boss **Klong Toey
+    Leviathan** (The Scum Matron, now 110 HP, 3 stages), 15 events
+    including Commander Lek and two chained puzzles (the **Crane
+    Sluice Alignment** - align bridge alpha, then beta, then lock the
+    crane - and Stack-City Core's **Ladder Ascent**), and 3 locked
+    areas (the card-gated Drydock 4, a flag-gated Sluice Depths the
+    Crane Sluice Alignment actually unlocks, and a mini-boss-key-gated
+    secret hold).
+
+  All three districts are now at the same 28×20 depth-pass scale -
+  up from the original 10×8/6-spawn/one-puzzle pilot shape every
+  district shipped with initially.
 
   Walking into a monster transitions into a real combat encounter and
   back. There's no travel between districts yet, so each is its own
@@ -107,7 +117,7 @@ currently exists:
   drop straight into districts 2/3 the same way, since there's no
   in-fiction travel between districts yet.
 - **Real pixel art for all 105 classes** (not just the 15 F-rank
-  starters) and all 26 monsters that actually appear across the three
+  starters) and all 28 monsters that actually appear across the three
   built districts (`assets/sprites/`), true 64×64 RGBA with 2-frame idle animation.
   E-through-S ranks aren't 90 hand-painted palettes — each family
   defines one base look (hair + a weapon or wraps, so no one's bald or

@@ -206,5 +206,37 @@
     "rarity": "uncommon",
     "effect": "heal",
     "value": 14
+  },
+  {
+    "id": "tower_access_card",
+    "display_name": "Tower Access Card",
+    "description": "Weatherproofed and still magnetic-striped. Somebody cared enough about Stack-City to laminate this.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "riggers_master_key",
+    "display_name": "Rigger's Master Key",
+    "description": "Heavier than a key needs to be, stamped with a shipping line's logo nobody's used in years.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "leviathans_barnacle_crown",
+    "display_name": "Leviathan's Barnacle Crown",
+    "description": "Fused shell and rust in a rough circle. It was never meant to be worn, and it doesn't care.",
+    "rarity": "unique",
+    "effect": "restore_resource",
+    "value": 20
+  },
+  {
+    "id": "sealed_ration_tin",
+    "display_name": "Sealed Ration Tin",
+    "description": "The seal held. Whatever's inside is decades past its date and still better than nothing.",
+    "rarity": "uncommon",
+    "effect": "heal",
+    "value": 14
   }
 ]

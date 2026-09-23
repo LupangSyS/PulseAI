@@ -758,6 +758,18 @@ CHARACTERS["klong_toey_leviathan"] = boss_mass(
      "tendril": "#2e2818", "glow": "#e85a2e"},
 )
 
+CHARACTERS["sunken_foreman"] = humanoid(
+    {"skin": "#7a8a7c", "primary": "#4a4234", "secondary": "#8a7a3a",
+     "shadow": "#28241a", "trim": "#3a3428", "boot": "#1a1810",
+     "weapon": "#5c5648", "eye": "#c9d43a"},
+    hood=False, robed=False, weapon="axe",
+)
+
+CHARACTERS["slick_crawler"] = blob(
+    {"primary": "#1c1a16", "secondary": "#4a3e28", "shadow": "#0d0c0a", "eye": "#e8a23d"},
+    shape="oval", eye=True,
+)
+
 # ---------------------------------------------------------------------------
 # Render contact sheet for review
 # ---------------------------------------------------------------------------
@@ -795,6 +807,8 @@ CHARACTER_KIND.update({
     "voltaic_current_eel": "monsters",
     "feral_mannequin": "monsters",
     "vivarium_stalker": "monsters",
+    "sunken_foreman": "monsters",
+    "slick_crawler": "monsters",
     "market_dog": "monsters",
     "stall_wraith": "monsters",
     "trickster_imp": "monsters",
