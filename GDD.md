@@ -845,6 +845,29 @@ Sukhumvit Shallows as the vertical slice.
   finishing the Breaker Pump Protocol, not just a flavor reward anymore).
   Distinct from an event's own `requires_flag`, which gates a one-time
   text/reward, not passage.
+- **World Map / inter-district travel** (`scenes/world_map.tscn` /
+  `scripts/world_map/world_map.gd`): the piece the roadmap used to flag
+  as "the main structural piece standing between 'one working district'
+  and 'an actual game you play through'". `RunState.DISTRICT_ORDER`
+  lists the built districts in tier order; `RunState.unlocked_districts`
+  (district_id -> true, persisted through save/load) tracks which ones
+  the player can enter. Only the first district starts unlocked;
+  defeating a district's *boss* specifically (checked by cell against
+  `district.boss_spawn`, not just any unique/mini-boss kill - see
+  `Overworld._process_battle_result`) calls
+  `RunState.unlock_next_district` and opens the next one. The World Map
+  screen lists every entry in `DISTRICT_ORDER`: unlocked ones are a real
+  button dropping straight into that district's entrance cell
+  (`pending_player_cell` explicitly reset to "no override" first, so a
+  stale cell from wherever the player left a *different* district can
+  never leak in), locked ones are grayed out with a one-line reason.
+  Reached from "Start Exploring" on the main menu (a fresh run) or a new
+  "World Map" button in the status menu (leaving mid-run); "Continue"
+  bypasses it entirely and resumes at the exact saved district/cell,
+  matching its existing contract. The "[DEV] <district>" main-menu
+  shortcuts still bypass the World Map and its unlock gating entirely,
+  unchanged - they're for quick balance testing, not the real
+  progression loop.
 
 ## Prototype status (current build)
 
@@ -871,10 +894,15 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   (see above) and are 28×20 with 14 regular spawns across 7 species, two
   puzzles, 3 locked gates, and a secret vault apiece — up from the
   original 10×8/6-spawn/one-puzzle/no-locks pilot shape every district
-  shipped with initially. No travel between them yet - each is its own
-  standalone run, picked by `RunState` via a
-  "[DEV] <district>" main-menu button. Walking into a live monster
-  transitions into...
+  shipped with initially. Real in-fiction travel between them now exists
+  via the World Map (see below) - the "[DEV] <district>" main-menu
+  buttons still work too, as unlock-gate-bypassing shortcuts. Walking
+  into a live monster transitions into...
+- **World Map / inter-district travel** (`scenes/world_map.tscn`): lists
+  the 3 built districts in tier order, unlocked ones enterable, locked
+  ones grayed out with a reason - see the Exploration & Encounter System
+  section above for the full mechanic. Reached from "Start Exploring" on
+  the main menu or "World Map" in the status menu.
 - **A real save/load system, single slot** (`RunState.save_game`/
   `load_game`, JSON at `user://saves/slot1.json`): player class, HP,
   resource, inventory, and *every* district's exploration state
@@ -1185,13 +1213,14 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   their documented order ending at *The Source of the Release* (the
   literal final boss); the 10 dungeons are optional side content, not on
   the critical path.
-- **Inter-zone progression/gating.** Right now the overworld only knows
-  about one district; there's no world-map screen to travel between
-  districts, no unlock gate stopping an F-rank player from walking into
-  a B-rank district, and no logic tying dimension access to "unlocked
-  step by step" story progress (per the brief). This is the main
-  structural piece standing between "one working district" and "an
-  actual game you play through."
+- **Inter-zone progression/gating for the other 29 zones.** Built for the
+  3 real districts (see "World Map / inter-district travel" above);
+  extending `RunState.DISTRICT_ORDER` to the other 9 designed-but-unbuilt
+  districts is mechanical once they exist as data, but there's still no
+  rank-tier gate stopping an F-rank player from walking into a B-rank
+  district (rank progression itself isn't tracked yet - see the unlock-
+  condition bullet below), and no logic tying the 10 dimensions' access to
+  "unlocked step by step" story progress beyond the linear district chain.
 - A data-driven "unlock condition" system (quest flag, item found,
   location + trigger) that reads `unlock_type` / `evolution_hint` and
   flips `is_hidden` / performs the class evolution — the *class* side of

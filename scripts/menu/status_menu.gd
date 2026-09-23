@@ -8,10 +8,13 @@ extends Control
 ## and your class/deck (Status tab - portrait, name, rank, HP/resource,
 ## and the full card list, which isn't shown anywhere else in the game).
 ##
-## Deliberately does NOT have Equipment/Formation/Config/Save commands
-## like the FF-style reference menu - none of those systems exist yet
-## (no equipment slots, no party, no settings, no save/load), and a menu
-## button that does nothing is worse than no button.
+## Also the exit point for the bottom row's two real commands: Save Game
+## (RunState.save_game, needs overworld_ref for the current district/cell)
+## and World Map (leaves the district entirely - see
+## scripts/world_map/world_map.gd). Still deliberately has no Equipment/
+## Formation/Config beyond that - none of those systems exist yet (no
+## equipment slots, no party, no settings), and a menu button that does
+## nothing is worse than no button.
 
 const VIEWPORT_WIDTH := 480
 const VIEWPORT_HEIGHT := 460
@@ -33,6 +36,7 @@ var content_scroll: ScrollContainer
 var content_list: VBoxContainer
 var close_button: Button
 var save_button: Button
+var world_map_button: Button
 
 ## Set by Overworld right after instantiating this menu - lets the Save
 ## button capture exactly where the player currently is (district_id +
@@ -71,6 +75,9 @@ func _on_save_pressed() -> void:
 		return
 	RunState.save_game(overworld_ref.district_id, overworld_ref.player_cell)
 	save_button.text = "Saved!"
+
+func _on_world_map_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/world_map.tscn")
 
 func _build_ui() -> void:
 	theme = UITheme.build()
@@ -155,6 +162,12 @@ func _build_ui() -> void:
 	save_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	save_button.pressed.connect(_on_save_pressed)
 	bottom_row.add_child(save_button)
+
+	world_map_button = Button.new()
+	world_map_button.text = "World Map"
+	world_map_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	world_map_button.pressed.connect(_on_world_map_pressed)
+	bottom_row.add_child(world_map_button)
 
 	close_button = Button.new()
 	close_button.text = "Close (Esc)"

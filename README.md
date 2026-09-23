@@ -70,20 +70,27 @@ currently exists:
   district shipped with initially.
 
   Walking into a monster transitions into a real combat encounter and
-  back. There's no travel between districts yet, so each is its own
-  standalone run picked from a "[DEV] <district>" main-menu button. 9
-  more districts, 10 dungeons, and 10 "beyond human sense" dimensions
-  are fully designed in GDD.md's World Map but not yet built as data.
+  back. 9 more districts, 10 dungeons, and 10 "beyond human sense"
+  dimensions are fully designed in GDD.md's World Map but not yet built
+  as data.
+- **Real inter-district travel**: a World Map screen
+  (`scenes/world_map.tscn`) lists the built districts in tier order.
+  Only Sukhumvit Shallows starts unlocked; defeating a district's boss
+  (specifically its boss, not any mini-boss/unique kill) unlocks the
+  next one. Reached from "Start Exploring" on the main menu or a
+  "World Map" button in the status menu; the "[DEV] <district>"
+  shortcuts still exist too, bypassing the unlock gating entirely for
+  quick testing.
 - Monsters are now data-driven too (`data/monsters.json`) with weighted
   AI move lists and multi-stage boss/mini-boss transitions, using the
   same six card effects as the player (including the two newest,
   `dot`/`aoe_damage`/`execute`, all rank-gated D/B/S+).
 - **Real save/load** (single slot): "Save Game" in the status menu
   (Escape from the overworld) writes everything - class, HP, resource,
-  inventory, and every district's exploration progress (spawns, items,
-  events, puzzle flags) - to `user://saves/slot1.json`. "Continue" on
-  the main menu appears once a save exists and resumes at the exact
-  saved district and cell.
+  inventory, every district's exploration progress (spawns, items,
+  events, puzzle flags), and which districts are unlocked - to
+  `user://saves/slot1.json`. "Continue" on the main menu appears once a
+  save exists and resumes at the exact saved district and cell.
 - **Locked doors/gates**: a cell can require a specific item in
   inventory (a permanent key, not consumed) or a district flag (the same
   flag a puzzle event sets) before the player can cross it, distinct
@@ -184,15 +191,14 @@ currently exists:
   per-card art needed (`tools/gen_card_icons.py`).
 - **Status/Items menu** (press Escape from the overworld): portrait,
   name, rank, HP/resource bars, your full deck list with descriptions,
-  and held items. No Equipment/Formation/Config/Save — those systems
+  and held items. No Equipment/Formation/Config — those systems
   don't exist yet, so the menu doesn't pretend to have them.
-- No class-selection UI, no inter-district travel/gating, no
-  evolution-unlock engine yet. "Start Exploring" still only goes to
-  Sukhumvit Shallows; Chatuchak Ruins and Klong Toey Canals are each
-  reachable via their own "[DEV] <district>" main-menu shortcut (same
-  pattern as "[DEV] Enter the Flood"), not through real in-fiction
-  travel between districts. See GDD.md's roadmap section for the full,
-  honest list.
+- No class-selection UI, no rank-tier gating (an F-rank player can enter
+  any unlocked district regardless of its danger tier), no
+  evolution-unlock engine yet. Inter-district travel itself is real now
+  (see the World Map bullet above) - unlocking is purely "beat this
+  district's boss," not a rank check. See GDD.md's roadmap section for
+  the full, honest list.
 
 ## Opening the project
 
@@ -200,10 +206,12 @@ currently exists:
    the .NET/Mono build — this project doesn't use C#).
 2. Godot → Import → select this repo's `project.godot`.
 3. Run the project (F5). It opens on the main menu. "Start Exploring"
-   drops you into Sukhumvit Shallows (arrow keys to move, walk into a
-   monster to fight it); "[DEV] Chatuchak Ruins" / "[DEV] Klong Toey
-   Canals" drop you into districts 2/3 the same way; "[DEV] Enter the
-   Flood" starts an isolated test
+   drops you into the World Map, where Sukhumvit Shallows is the only
+   unlocked entry at first (arrow keys to move once inside a district,
+   walk into a monster to fight it; defeat a district's boss to unlock
+   the next one on the map); "[DEV] Chatuchak Ruins" / "[DEV] Klong Toey
+   Canals" drop straight into districts 2/3 instead, bypassing the World
+   Map's unlock gating; "[DEV] Enter the Flood" starts an isolated test
    battle as the Apprentice Mage.
 
 This project was scaffolded without access to the Godot editor, so a
@@ -231,6 +239,7 @@ assets/
     monsters/               # the 8 Sukhumvit Shallows monsters, same convention
 scenes/
   main_menu.tscn
+  world_map.tscn
   overworld.tscn
   combat.tscn
 scripts/
@@ -245,6 +254,8 @@ scripts/
     district_data.gd               # DistrictData model (grid layout, spawns)
   ui/
     main_menu.gd
+  world_map/
+    world_map.gd            # District unlock list + travel between them
   overworld/
     overworld.gd            # Grid movement, spawn/respawn, items, events
   combat/

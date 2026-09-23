@@ -526,6 +526,9 @@ func _process_battle_result() -> void:
 		if entry.get("is_unique", false):
 			state["defeated_spawns"][spawn_key] = -1
 			_log_message("The threat is gone for good.")
+			if not district.boss_spawn.is_empty() and spawn_key == _cell_key(district.boss_spawn["cell"]):
+				RunState.unlock_next_district(district_id)
+				_log_message("A new path opens on the world map.")
 		else:
 			var respawn_seconds: float = entry.get("respawn_seconds", 30)
 			state["defeated_spawns"][spawn_key] = Time.get_ticks_msec() + int(respawn_seconds * 1000)

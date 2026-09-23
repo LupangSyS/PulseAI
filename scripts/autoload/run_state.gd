@@ -19,6 +19,31 @@ var pending_spawn_key: String = ""
 var last_battle_outcome: String = "" # "victory" | "defeat" | ""
 var last_battle_loot: Array = []
 
+## Tier order the built districts unlock in - matches the numeric
+## District 1/2/3 ordering used throughout the docs. Defeating a
+## district's boss unlocks the next entry (see unlock_next_district);
+## the first entry is always unlocked from begin_run(). A district not
+## yet built as data (see GDD.md's World Map) simply never appears here.
+const DISTRICT_ORDER := ["sukhumvit_shallows", "chatuchak_ruins", "klong_toey_canals"]
+
+## district_id -> true for every district the player has access to via
+## the World Map. Persisted across save/load; reset to just the first
+## district in DISTRICT_ORDER on a fresh begin_run().
+var unlocked_districts: Dictionary = {}
+
+func is_district_unlocked(district_id: String) -> bool:
+	return unlocked_districts.get(district_id, false)
+
+## Called once a district's *boss* (not mini-boss) is confirmed defeated -
+## see Overworld._process_battle_result(), which checks the killed spawn's
+## cell against district.boss_spawn before calling this. No-op past the
+## last built district.
+func unlock_next_district(cleared_district_id: String) -> void:
+	var idx: int = DISTRICT_ORDER.find(cleared_district_id)
+	if idx == -1 or idx + 1 >= DISTRICT_ORDER.size():
+		return
+	unlocked_districts[DISTRICT_ORDER[idx + 1]] = true
+
 ## Persistent per-district exploration state, keyed by district_id, each:
 ## {
 ##   "defeated_spawns": {spawn_key: respawn_at_msec}, # -1 = never respawns (mini-boss/boss)
@@ -54,6 +79,7 @@ func begin_run(class_id: String) -> void:
 	player = Combatant.new(cls.display_name, cls.max_hp, cls.max_resource, cls.resource_name)
 	district_states.clear()
 	inventory.clear()
+	unlocked_districts = {DISTRICT_ORDER[0]: true}
 
 # ---------------------------------------------------------------------------
 # Save / load (single slot, user://saves/slot1.json)
@@ -81,6 +107,7 @@ func save_game(district_id: String, player_cell: Vector2i) -> void:
 		"district_id": district_id,
 		"player_cell": [player_cell.x, player_cell.y],
 		"district_states": _serialize_district_states(),
+		"unlocked_districts": unlocked_districts,
 	}
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	f.store_string(JSON.stringify(data))
@@ -129,6 +156,7 @@ func load_game() -> Dictionary:
 	player.hp = int(data.get("player_hp", player.hp))
 	player.resource = int(data.get("player_resource", player.resource))
 	inventory = data.get("inventory", {})
+	unlocked_districts = data.get("unlocked_districts", {DISTRICT_ORDER[0]: true})
 
 	var now: int = Time.get_ticks_msec()
 	var loaded_states: Dictionary = data.get("district_states", {})

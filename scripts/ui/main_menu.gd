@@ -2,19 +2,22 @@ extends Control
 
 ## Main menu. Every class in data/classes.json currently has is_hidden = true
 ## by design (see GDD.md) - so the codex summary below never names a class,
-## only counts them, until a real discovery/unlock system exists. Two entry
-## points exist on purpose: "Start Exploring" is the real (if still rough)
-## game loop - it begins a run and drops the player into the starting
-## district's overworld. "[DEV] Enter the Flood" is a developer shortcut
-## straight into an isolated test battle, bypassing the overworld/class
-## gating entirely, kept for quick combat-balance testing. "[DEV] Chatuchak
-## Ruins" / "[DEV] Klong Toey Canals" are the same idea for districts 2/3:
-## there's no inter-district travel engine yet (see GDD.md's roadmap), so
-## these are the only way to reach them in-game right now short of editing
-## RunState directly. "Continue" only appears when RunState.has_save() is
-## true (a single save slot - status_menu.gd's "Save Game" button writes
-## it) and resumes at the exact saved district/cell via
+## only counts them, until a real discovery/unlock system exists.
+##
+## "Start Exploring" begins a fresh run and drops into the World Map
+## (scripts/world_map/world_map.gd), which lists every built district in
+## tier order - only Sukhumvit Shallows starts unlocked; defeating a
+## district's boss unlocks the next one (RunState.unlock_next_district).
+## "Continue" only appears when RunState.has_save() is true (a single save
+## slot - status_menu.gd's "Save Game" button writes it) and bypasses the
+## World Map entirely, resuming at the exact saved district/cell via
 ## RunState.pending_player_cell, consumed once by Overworld._ready().
+##
+## "[DEV] Enter the Flood" / "[DEV] Chatuchak Ruins" / "[DEV] Klong Toey
+## Canals" are developer shortcuts straight into an isolated test battle or
+## a specific district, bypassing both the World Map and its unlock gating
+## entirely - kept for quick balance testing, not part of the real
+## progression loop.
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -70,7 +73,7 @@ func _ready() -> void:
 		continue_button.pressed.connect(_on_continue_pressed)
 		box.add_child(continue_button)
 
-	var explore_button := _make_menu_button("Start Exploring (Sukhumvit Shallows, as the Apprentice Mage)")
+	var explore_button := _make_menu_button("Start Exploring (World Map, as the Apprentice Mage)")
 	explore_button.pressed.connect(_on_explore_pressed)
 	box.add_child(explore_button)
 
@@ -106,8 +109,7 @@ func _build_codex_text() -> String:
 
 func _on_explore_pressed() -> void:
 	RunState.begin_run("mage_f")
-	RunState.pending_district_id = "sukhumvit_shallows"
-	get_tree().change_scene_to_file("res://scenes/overworld.tscn")
+	get_tree().change_scene_to_file("res://scenes/world_map.tscn")
 
 func _on_continue_pressed() -> void:
 	var resume: Dictionary = RunState.load_game()
