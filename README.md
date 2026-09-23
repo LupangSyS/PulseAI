@@ -95,11 +95,17 @@ currently exists:
   (not `integer`), so the full screen always letterboxes to fit a real
   device window instead of getting cropped at the edge on smaller
   screens.
-- **Combat has a real dark theme now, not stock Godot widgets.** Every
-  panel (arena, log, card tray) is a bordered dark PanelContainer built
-  from one shared `Theme` resource in `combat.gd`, HP bars are colored
-  per side (cyan player, rose enemy) instead of default gray, and mana is
-  shown as filled/empty pips alongside the exact number. Damage/heal/
+- **The whole app has a real dark theme now, not stock Godot widgets** —
+  main menu, overworld HUD, the status/items menu, and combat all share
+  one `Theme` resource (`scripts/util/ui_theme.gd`'s `UITheme`, built
+  once and reused rather than each scene re-deriving its own): bordered
+  dark panels instead of flat default gray, HP bars colored per role
+  (cyan player, rose enemy/danger, violet resource/mana), consistent
+  button/label styling everywhere including nodes created at runtime
+  (tray buttons, inventory buttons). Combat layers its own additions on
+  top: every panel (arena, log, card tray) is a bordered dark
+  PanelContainer, and mana is shown as filled/empty pips alongside the
+  exact number. Damage/heal/
   block now spawn a floating number over the affected portrait and a
   brief screen-shake on hits — juice a static HP-bar tick alone doesn't
   give. **Enemies telegraph their next move** (Slay the Spire-style

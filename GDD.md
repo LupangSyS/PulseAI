@@ -838,14 +838,29 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   in the closed-menu, cards-open, and items-open states, with real
   pixel slack (not a zero-margin fit), including a stress case of
   more usable items than fit in one row.
-- **Real dark theme + enemy intent telegraph, not stock Godot widgets.**
-  `combat.gd`'s `_build_theme()` builds one shared `Theme` (dark bordered
-  `PanelContainer`s wrapping the arena/log/tray, per-side HP bar colors,
-  a consistent button/label palette) applied once to the scene root, so
-  every dynamically-created tray button picks it up automatically rather
-  than needing per-instance overrides. Cards also get a type-tinted
-  border, reusing the same `TYPE_TINT` the icon tinting already used.
-  **The bigger addition is a real intent telegraph**: `enemy_intent`
+- **Real dark theme app-wide + enemy intent telegraph, not stock Godot
+  widgets.** `scripts/util/ui_theme.gd`'s `UITheme` (a static-function
+  utility, same convention as `SpriteLoader`/`TileLoader`) builds one
+  shared `Theme` - dark bordered `PanelContainer`s, per-role bar colors
+  (`COL_PLAYER` cyan, `COL_ENEMY` rose, `COL_RESOURCE` violet,
+  `COL_WARNING` amber), a consistent button/label palette - and every
+  screen adopts it with one `theme = UITheme.build()` line in its own
+  `_build_ui()`/`_ready()`: `combat.gd` (which originated the look, now
+  refactored to call `UITheme` instead of keeping a private copy),
+  `overworld.gd` (flat-fill panel backgrounds behind the top/bottom HUD
+  bands, since those position children by raw pixel coordinates rather
+  than container rules, so a `PanelContainer` wrapper would fight that;
+  `Minimap._draw()` also fills its own panel-colored background now),
+  `status_menu.gd`, and `main_menu.gd` (boxed in a `PanelContainer`,
+  which required capping its width and adding `clip_text` to the
+  buttons - a `PanelContainer` sizes to its widest natural content, and
+  these button labels are long enough to overflow the 480px canvas
+  unconstrained; caught by an actual screenshot, not assumed). Applied
+  once to a scene root, every dynamically-created node (tray buttons,
+  inventory buttons) picks it up automatically rather than needing
+  per-instance overrides. Cards also get a type-tinted border, reusing
+  the same `TYPE_TINT` the icon tinting already used.
+  **Combat's bigger addition is a real intent telegraph**: `enemy_intent`
   holds the monster's next move, pre-rolled a full player turn in
   advance (`_start_battle` seeds it; `_enemy_turn` re-rolls it right
   after resolving a move, and *also* whenever a stage transition swaps

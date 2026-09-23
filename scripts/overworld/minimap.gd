@@ -29,6 +29,7 @@ func set_markers(cells: Array[Vector2i]) -> void:
 func _draw() -> void:
 	if district == null:
 		return
+	draw_rect(Rect2(Vector2.ZERO, size), UITheme.COL_PANEL_BG)
 	for y in district.grid_height:
 		for x in district.grid_width:
 			var blocked := false

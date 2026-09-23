@@ -84,19 +84,20 @@ var enemy_intent_label: Label
 ## (battle just started) or "enemy is dead", both of which hide the display.
 var enemy_intent: Dictionary = {}
 
-## Palette for the combat scene's theme/panels/accents - see _build_theme.
-## Kept as named constants rather than inlined so the "player=cyan,
-## enemy=rose, warning=amber" color language stays consistent across the
-## HP bars, name labels, and intent readout.
-const COL_BG := Color("#05070c")
-const COL_PANEL_BG := Color("#0d121c")
-const COL_PANEL_BORDER := Color("#1e293b")
-const COL_HAZARD_BORDER := Color("#7f1d1d")
-const COL_PLAYER := Color("#38bdf8")
-const COL_ENEMY := Color("#f43f5e")
-const COL_WARNING := Color("#f59e0b")
-const COL_TEXT := Color("#dbe4f0")
-const COL_TEXT_DIM := Color("#8b96ab")
+## Palette for the combat scene's theme/panels/accents, aliased from the
+## shared UITheme utility (scripts/util/ui_theme.gd) so every other screen
+## (overworld, main menu, status menu) uses the exact same "player=cyan,
+## enemy=rose, warning=amber" color language instead of each scene
+## re-deriving its own.
+const COL_BG := UITheme.COL_BG
+const COL_PANEL_BG := UITheme.COL_PANEL_BG
+const COL_PANEL_BORDER := UITheme.COL_PANEL_BORDER
+const COL_HAZARD_BORDER := UITheme.COL_HAZARD_BORDER
+const COL_PLAYER := UITheme.COL_PLAYER
+const COL_ENEMY := UITheme.COL_ENEMY
+const COL_WARNING := UITheme.COL_WARNING
+const COL_TEXT := UITheme.COL_TEXT
+const COL_TEXT_DIM := UITheme.COL_TEXT_DIM
 
 var player_portrait: TextureRect
 var enemy_portrait: TextureRect
@@ -158,7 +159,7 @@ func _build_ui() -> void:
 	# name + HP readout, and a visual HP bar. Wrapped in a dark bordered
 	# panel (the "stage") instead of sitting bare on the background.
 	var arena_panel := PanelContainer.new()
-	arena_panel.add_theme_stylebox_override("panel", _panel_style(COL_PANEL_BORDER))
+	arena_panel.add_theme_stylebox_override("panel", UITheme.panel_style(COL_PANEL_BORDER))
 	root_box.add_child(arena_panel)
 
 	arena_row = HBoxContainer.new()
@@ -222,7 +223,7 @@ func _build_ui() -> void:
 
 	# --- Battle log: fixed height, does not expand.
 	var log_panel := PanelContainer.new()
-	log_panel.add_theme_stylebox_override("panel", _panel_style(COL_PANEL_BORDER))
+	log_panel.add_theme_stylebox_override("panel", UITheme.panel_style(COL_PANEL_BORDER))
 	root_box.add_child(log_panel)
 
 	log_label = RichTextLabel.new()
@@ -262,7 +263,7 @@ func _build_ui() -> void:
 	# End Turn off-screen. Wrapped in a hazard-bordered panel (the action
 	# zone) to distinguish it from the arena/log's neutral panels.
 	var tray_panel := PanelContainer.new()
-	tray_panel.add_theme_stylebox_override("panel", _panel_style(COL_HAZARD_BORDER))
+	tray_panel.add_theme_stylebox_override("panel", UITheme.panel_style(COL_HAZARD_BORDER))
 	root_box.add_child(tray_panel)
 
 	card_scroll = ScrollContainer.new()
@@ -294,16 +295,21 @@ func _build_ui() -> void:
 ## as this Control's own `theme` (see _build_ui), so every child Button/
 ## Label/PanelContainer picks it up automatically, including ones created
 ## later by _make_tray_button for cards/items.
+## Combat's own buttons (menu Cards/Item/Guard, End Turn, tray entries) use
+## a thicker border than UITheme.build()'s default - they're chunkier
+## tap/click targets than a HUD label row - so this stays a thin local
+## wrapper around UITheme.panel_style rather than calling UITheme.build()
+## directly.
 func _build_theme() -> Theme:
 	var t := Theme.new()
 
-	t.set_stylebox("panel", "PanelContainer", _panel_style(COL_PANEL_BORDER))
+	t.set_stylebox("panel", "PanelContainer", UITheme.panel_style(COL_PANEL_BORDER))
 
-	var btn_normal := _panel_style(COL_PANEL_BORDER, 4)
-	var btn_hover := _panel_style(COL_PLAYER, 4)
-	var btn_pressed := _panel_style(COL_PLAYER, 4)
+	var btn_normal := UITheme.panel_style(COL_PANEL_BORDER, 4)
+	var btn_hover := UITheme.panel_style(COL_PLAYER, 4)
+	var btn_pressed := UITheme.panel_style(COL_PLAYER, 4)
 	btn_pressed.bg_color = Color("#182335")
-	var btn_disabled := _panel_style(Color("#232b3d"), 4)
+	var btn_disabled := UITheme.panel_style(Color("#232b3d"), 4)
 	btn_disabled.bg_color = Color("#0a0d14")
 
 	t.set_stylebox("normal", "Button", btn_normal)
@@ -319,15 +325,6 @@ func _build_theme() -> Theme:
 	t.set_color("font_color", "RichTextLabel", COL_TEXT)
 
 	return t
-
-func _panel_style(border: Color, border_width: int = 2) -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = COL_PANEL_BG
-	style.border_color = border
-	style.set_border_width_all(border_width)
-	style.set_corner_radius_all(6)
-	style.set_content_margin_all(8)
-	return style
 
 func _make_portrait() -> TextureRect:
 	var rect := TextureRect.new()
@@ -351,19 +348,7 @@ func _make_hp_bar(fill_color: Color) -> ProgressBar:
 	bar.min_value = 0
 	bar.show_percentage = false
 	bar.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-
-	var bg := StyleBoxFlat.new()
-	bg.bg_color = Color("#0a0d14")
-	bg.border_color = COL_PANEL_BORDER
-	bg.set_border_width_all(1)
-	bg.set_corner_radius_all(3)
-	bar.add_theme_stylebox_override("background", bg)
-
-	var fill := StyleBoxFlat.new()
-	fill.bg_color = fill_color
-	fill.set_corner_radius_all(3)
-	bar.add_theme_stylebox_override("fill", fill)
-
+	UITheme.style_bar(bar, fill_color)
 	return bar
 
 ## A tray entry (hand card or item): a Button used purely as the click
@@ -391,7 +376,7 @@ func _make_tray_button(title: String, description: String, is_disabled: bool, ic
 	# see the icon block below) so a card's type reads at a glance, the
 	# same idea as the icon tinting, applied to the frame around it too.
 	if icon_tint != Color.WHITE:
-		var border := _panel_style(icon_tint, 2)
+		var border := UITheme.panel_style(icon_tint, 2)
 		border.bg_color = COL_PANEL_BG
 		btn.add_theme_stylebox_override("normal", border)
 		var border_disabled := border.duplicate()

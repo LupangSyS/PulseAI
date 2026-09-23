@@ -108,6 +108,33 @@ func _process(_delta: float) -> void:
 
 func _build_ui() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	theme = UITheme.build()
+
+	var backdrop := ColorRect.new()
+	backdrop.color = UITheme.COL_BG
+	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(backdrop)
+
+	# Flat panel fills (not PanelContainer) behind the top/bottom HUD bands -
+	# both bands position their children with raw pixel coordinates rather
+	# than container layout rules, so wrapping them in a PanelContainer
+	# would fight that positioning; a plain colored rect behind them gets
+	# the same "boxed panel" read without touching how anything inside is
+	# placed.
+	var top_panel_bg := ColorRect.new()
+	top_panel_bg.color = UITheme.COL_PANEL_BG
+	top_panel_bg.position = Vector2.ZERO
+	top_panel_bg.size = Vector2(VIEWPORT_WIDTH, TOP_HUD_HEIGHT)
+	top_panel_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(top_panel_bg)
+
+	var bottom_panel_bg := ColorRect.new()
+	bottom_panel_bg.color = UITheme.COL_PANEL_BG
+	bottom_panel_bg.position = Vector2(0, VIEWPORT_HEIGHT - BOTTOM_HUD_HEIGHT)
+	bottom_panel_bg.size = Vector2(VIEWPORT_WIDTH, BOTTOM_HUD_HEIGHT)
+	bottom_panel_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(bottom_panel_bg)
 
 	map_viewport = Control.new()
 	map_viewport.position = Vector2(0, TOP_HUD_HEIGHT)
@@ -122,12 +149,14 @@ func _build_ui() -> void:
 	name_label = Label.new()
 	name_label.position = Vector2(8, 2)
 	name_label.add_theme_font_size_override("font_size", 14)
+	name_label.add_theme_color_override("font_color", UITheme.COL_WARNING)
 	add_child(name_label)
 
 	desc_label = Label.new()
 	desc_label.position = Vector2(8, 20)
 	desc_label.size = Vector2(340, 18)
 	desc_label.add_theme_font_size_override("font_size", 9)
+	desc_label.add_theme_color_override("font_color", UITheme.COL_TEXT_DIM)
 	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	desc_label.clip_text = true
 	add_child(desc_label)
@@ -161,16 +190,19 @@ func _build_ui() -> void:
 	hp_bar = ProgressBar.new()
 	hp_bar.custom_minimum_size = Vector2(220, 10)
 	hp_bar.show_percentage = false
+	UITheme.style_bar(hp_bar, UITheme.COL_PLAYER)
 	bars_row.add_child(hp_bar)
 	resource_bar = ProgressBar.new()
 	resource_bar.custom_minimum_size = Vector2(120, 10)
 	resource_bar.show_percentage = false
+	UITheme.style_bar(resource_bar, UITheme.COL_RESOURCE)
 	bars_row.add_child(resource_bar)
 
 	log_label = RichTextLabel.new()
 	log_label.custom_minimum_size = Vector2(0, 18)
 	log_label.bbcode_enabled = true
 	log_label.add_theme_font_size_override("normal_font_size", 10)
+	log_label.add_theme_color_override("default_color", UITheme.COL_TEXT)
 	bottom.add_child(log_label)
 
 	inventory_container = HBoxContainer.new()

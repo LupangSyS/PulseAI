@@ -59,9 +59,11 @@ func close() -> void:
 	visible = false
 
 func _build_ui() -> void:
+	theme = UITheme.build()
+
 	panel_bg = ColorRect.new()
 	panel_bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	panel_bg.color = Color(0.05, 0.06, 0.08, 0.94)
+	panel_bg.color = Color(UITheme.COL_BG.r, UITheme.COL_BG.g, UITheme.COL_BG.b, 0.94)
 	add_child(panel_bg)
 
 	var margin := MarginContainer.new()
@@ -91,16 +93,19 @@ func _build_ui() -> void:
 
 	title_label = Label.new()
 	title_label.add_theme_font_size_override("font_size", 13)
+	title_label.add_theme_color_override("font_color", UITheme.COL_WARNING)
 	header_text.add_child(title_label)
 
 	hp_bar = ProgressBar.new()
 	hp_bar.custom_minimum_size = Vector2(0, 12)
 	hp_bar.show_percentage = false
+	UITheme.style_bar(hp_bar, UITheme.COL_PLAYER)
 	header_text.add_child(hp_bar)
 
 	resource_bar = ProgressBar.new()
 	resource_bar.custom_minimum_size = Vector2(0, 12)
 	resource_bar.show_percentage = false
+	UITheme.style_bar(resource_bar, UITheme.COL_RESOURCE)
 	header_text.add_child(resource_bar)
 
 	var tab_row := HBoxContainer.new()
