@@ -807,6 +807,25 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   Crane Sluice Alignment) apiece. No travel between them yet - each is
   its own standalone run, picked by `RunState` via a "[DEV] <district>"
   main-menu button. Walking into a live monster transitions into...
+- **A real save/load system, single slot** (`RunState.save_game`/
+  `load_game`, JSON at `user://saves/slot1.json`): player class, HP,
+  resource, inventory, and *every* district's exploration state
+  (defeated spawns, collected items, fired events, puzzle flags) all
+  round-trip. The one real correctness trap here - `defeated_spawns`'
+  respawn timers are stored as *absolute* `Time.get_ticks_msec()`
+  values, which reset to ~0 every process start, so saving them raw
+  and reloading in a later session would make every timed-out spawn
+  respawn instantly (or at some arbitrary wrong moment) - is handled by
+  converting to/from *remaining* milliseconds at the save/load
+  boundary, verified headlessly by checking the restored value isn't
+  the stale raw number and the remaining time survives within a slack
+  window. "Save Game" lives in the status menu (needs to know where
+  the player currently is, which `RunState` alone can't - `overworld.gd`
+  hands the status menu a reference to itself for exactly this);
+  "Continue" appears on the main menu only when a save file exists and
+  resumes at the exact saved district and cell via
+  `RunState.pending_player_cell`, consumed once by `Overworld._ready()`
+  the same way `pending_district_id` already was.
 - **Combat** (`scenes/combat.tscn` / `scripts/combat/combat.gd`): the
   deck/hand/discard loop, resource costs, block, healing, empower-next,
   combo multiplier, plus monster AI (weighted move lists) and multi-stage
@@ -1109,8 +1128,6 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   building/landmark art beyond flavor text, and general UI skinning
   (partially addressed by `UITheme` - see the dark-theme note above,
   though it's palette/panels, not bespoke per-district art).
-- Meta-progression / save system between runs — right now all state
-  (`RunState`) lives in memory only and is lost when the game closes.
 - Class-specific mechanical hooks beyond the shared combo system (e.g. the
   Naga Mage paying costs in HP instead of Tide, per its original pitch).
 

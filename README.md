@@ -57,6 +57,12 @@ currently exists:
   AI move lists and multi-stage boss/mini-boss transitions, using the
   same six card effects as the player (including the two newest,
   `dot`/`aoe_damage`/`execute`, all rank-gated D/B/S+).
+- **Real save/load** (single slot): "Save Game" in the status menu
+  (Escape from the overworld) writes everything - class, HP, resource,
+  inventory, and every district's exploration progress (spawns, items,
+  events, puzzle flags) - to `user://saves/slot1.json`. "Continue" on
+  the main menu appears once a save exists and resumes at the exact
+  saved district and cell.
 - Main menu has two real entry points and two dev shortcuts: "Start
   Exploring" begins a real run and drops into Sukhumvit Shallows;
   "[DEV] Enter the Flood" is an isolated combat-only shortcut for

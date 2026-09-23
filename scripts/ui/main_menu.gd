@@ -11,7 +11,10 @@ extends Control
 ## Ruins" / "[DEV] Klong Toey Canals" are the same idea for districts 2/3:
 ## there's no inter-district travel engine yet (see GDD.md's roadmap), so
 ## these are the only way to reach them in-game right now short of editing
-## RunState directly.
+## RunState directly. "Continue" only appears when RunState.has_save() is
+## true (a single save slot - status_menu.gd's "Save Game" button writes
+## it) and resumes at the exact saved district/cell via
+## RunState.pending_player_cell, consumed once by Overworld._ready().
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -62,6 +65,11 @@ func _ready() -> void:
 	codex_label.add_theme_color_override("font_color", UITheme.COL_TEXT_DIM)
 	box.add_child(codex_label)
 
+	if RunState.has_save():
+		var continue_button := _make_menu_button("Continue (resume your saved run)")
+		continue_button.pressed.connect(_on_continue_pressed)
+		box.add_child(continue_button)
+
 	var explore_button := _make_menu_button("Start Exploring (Sukhumvit Shallows, as the Apprentice Mage)")
 	explore_button.pressed.connect(_on_explore_pressed)
 	box.add_child(explore_button)
@@ -99,6 +107,14 @@ func _build_codex_text() -> String:
 func _on_explore_pressed() -> void:
 	RunState.begin_run("mage_f")
 	RunState.pending_district_id = "sukhumvit_shallows"
+	get_tree().change_scene_to_file("res://scenes/overworld.tscn")
+
+func _on_continue_pressed() -> void:
+	var resume: Dictionary = RunState.load_game()
+	if resume.is_empty():
+		return
+	RunState.pending_district_id = resume["district_id"]
+	RunState.pending_player_cell = resume["player_cell"]
 	get_tree().change_scene_to_file("res://scenes/overworld.tscn")
 
 func _on_start_pressed() -> void:

@@ -92,6 +92,12 @@ func _ready() -> void:
 	district = GameData.get_district(district_id)
 	player_cell = Vector2i(district.entrance_cell[0], district.entrance_cell[1])
 
+	# A loaded save resumes at the exact saved cell instead of the
+	# district's entrance - consumed once, same pattern as pending_district_id.
+	if RunState.pending_player_cell != Vector2i(-1, -1):
+		player_cell = RunState.pending_player_cell
+		RunState.pending_player_cell = Vector2i(-1, -1)
+
 	_build_ui()
 
 	if RunState.last_battle_outcome != "":
@@ -210,6 +216,7 @@ func _build_ui() -> void:
 	bottom.add_child(inventory_container)
 
 	status_menu = StatusMenu.new()
+	status_menu.overworld_ref = self
 	add_child(status_menu)
 
 func _build_grid() -> void:

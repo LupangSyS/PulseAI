@@ -32,6 +32,13 @@ var tab_items_button: Button
 var content_scroll: ScrollContainer
 var content_list: VBoxContainer
 var close_button: Button
+var save_button: Button
+
+## Set by Overworld right after instantiating this menu - lets the Save
+## button capture exactly where the player currently is (district_id +
+## player_cell), which RunState.save_game needs but has no way to know on
+## its own since it doesn't track overworld position.
+var overworld_ref: Control = null
 
 func _ready() -> void:
 	visible = false
@@ -52,11 +59,18 @@ func _process(delta: float) -> void:
 func open() -> void:
 	visible = true
 	tab_state = "status"
+	save_button.text = "Save Game"
 	_load_portrait()
 	refresh()
 
 func close() -> void:
 	visible = false
+
+func _on_save_pressed() -> void:
+	if overworld_ref == null:
+		return
+	RunState.save_game(overworld_ref.district_id, overworld_ref.player_cell)
+	save_button.text = "Saved!"
 
 func _build_ui() -> void:
 	theme = UITheme.build()
@@ -132,10 +146,21 @@ func _build_ui() -> void:
 	content_list.add_theme_constant_override("separation", 4)
 	content_scroll.add_child(content_list)
 
+	var bottom_row := HBoxContainer.new()
+	bottom_row.add_theme_constant_override("separation", 8)
+	root_box.add_child(bottom_row)
+
+	save_button = Button.new()
+	save_button.text = "Save Game"
+	save_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	save_button.pressed.connect(_on_save_pressed)
+	bottom_row.add_child(save_button)
+
 	close_button = Button.new()
 	close_button.text = "Close (Esc)"
+	close_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	close_button.pressed.connect(close)
-	root_box.add_child(close_button)
+	bottom_row.add_child(close_button)
 
 func _load_portrait() -> void:
 	portrait_frames = SpriteLoader.load_frames(RunState.player_class_id, "character")
