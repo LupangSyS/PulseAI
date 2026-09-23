@@ -849,10 +849,11 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   reading as too low-fidelity at the sizes players actually see it.
   Combat and the status menu grew their portrait boxes (56px → 80px) to
   show the extra detail off; the overworld's on-screen sprite size was
-  deliberately kept the same (its `_SCALE` constants shrank to
-  compensate for the bigger source), since growing it would overflow
-  the viewport without the camera/scroll system already flagged as a
-  follow-up. Each has a 2-frame idle animation.
+  initially kept the same (scale constants shrunk to compensate) since
+  growing it would have overflowed the viewport — resolved by the
+  camera/scroll system below, after which `CELL_SIZE` grew to match and
+  the scale constants went back up near-native. Each has a 2-frame idle
+  animation.
   `scripts/util/sprite_loader.gd` renders them as `AnimatedSprite2D` in
   the overworld and as animated portraits in combat, and **falls back
   to the original colored-rectangle/text-only look for any id without
@@ -862,36 +863,42 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   `humanoid(...)` config entry in `tools/gen_sprites.py` — no other
   code changes needed; `SpriteLoader` picks it up by filename
   convention alone.
-- **Tile-based overworld rendering, piloted on Sukhumvit Shallows.**
-  `tools/gen_tiles.py` generates an original 40×40 tileset
-  (`assets/tiles/flood_tileset.png`: shallow water, deep water, wet
-  pavement, rubble — same region-fill/real-alpha principle as the
+- **Tile-based overworld rendering with a real camera, piloted on
+  Sukhumvit Shallows.** `tools/gen_tiles.py` generates an original 64×64
+  tileset (`assets/tiles/flood_tileset.png`: shallow water, deep water,
+  wet pavement, rubble — same region-fill/real-alpha principle as the
   character generator, themed to *our* flooded Bangkok, not copied from
   any reference game's tile graphics; the design grid is fully
-  addressable at the native 40×40 — not a chunky 20×20-at-2x-scale
-  upscale — so there's room for finer ripple/crack/debris texture
-  without changing the on-screen tile size, which stays fixed to
-  `overworld.gd`'s `CELL_SIZE`) that `scripts/util/tile_loader.gd`
-  turns into a real Godot `TileSet`/`TileMap`. A district opts in with a
-  new `terrain` field (`DistrictData.terrain` — one legend string per
-  row, purely cosmetic; collision always comes from `blocked_cells`
-  regardless of the terrain character underneath). No `terrain` data
-  (every one of the other 31 districts/dungeons/dimensions right now)
-  falls back to the original flat colored-rect grid — same "safe
-  fallback for content that hasn't been authored yet" pattern as
-  sprites. The overworld HUD was rebuilt to match: a district
+  addressable at the native tile size, not a chunky upscale, so there's
+  room for fine ripple/crack/debris texture) that
+  `scripts/util/tile_loader.gd` turns into a real Godot
+  `TileSet`/`TileMap`. A district opts in with a `terrain` field
+  (`DistrictData.terrain` — one legend string per row, purely cosmetic;
+  collision always comes from `blocked_cells` regardless of the terrain
+  character underneath). No `terrain` data (every one of the other 31
+  districts/dungeons/dimensions right now) falls back to the original
+  flat colored-rect grid — same "safe fallback for content that hasn't
+  been authored yet" pattern as sprites. The overworld HUD: a district
   name/description banner and a small live minimap (dot-grid, player
   marker, red mini-boss/boss markers while they're still up) top, an
   HP/resource bar readout, deck-size counter, message log, and inventory
-  row bottom. `CELL_SIZE` grew 24→40 and the grid's screen position is
-  now computed per-district (centered horizontally, anchored under the
-  banner) rather than a fixed offset. **Known gap: no camera/scroll
-  system yet** — a district's grid must fit entirely within the
-  480×460 viewport minus the HUD bands (Sukhumvit Shallows' 10×8 does;
-  a bigger district won't) — solving that comes before giving the other
-  31 locations tile art. Headlessly verified: the tile-rendering path,
-  the flat-grid fallback path, every HUD element's on-screen bounds, and
-  that movement/encounters/item pickup are unaffected, on top of the
+  row bottom.
+  **Camera/scroll system**: `grid_root` (all tiles/sprites, in pure
+  grid-local pixel coordinates) lives inside `map_viewport`, a Control
+  with `clip_contents = true` sized to the play area between the HUD
+  bands; `_update_camera` recenters on the player every move, clamped so
+  it never scrolls past the map's edges, or exactly centers the map if
+  it's smaller than the viewport (the small-map case — what Sukhumvit
+  Shallows *was* before this — is a special case of the same clamp, not
+  a separate code path). This removed the "district must fit on one
+  screen" constraint, so `CELL_SIZE` went 24→40→64 to finally match the
+  sprite/tile art's native resolution — Sukhumvit Shallows (10×8 cells =
+  640×512px) is now itself bigger than the visible window and genuinely
+  pans, which doubles as the camera system's own test case. Headlessly
+  verified: the tile-rendering path, the flat-grid fallback path, every
+  HUD element's on-screen bounds, camera clamping at all four map
+  corners plus a synthetic small-map centering case, and that
+  movement/encounters/item pickup are unaffected, on top of the
   existing overworld↔combat end-to-end flow.
 - **Status/Items menu (Escape, from the overworld).**
   `scripts/menu/status_menu.gd` — a portrait, name, rank, HP/resource
@@ -931,19 +938,17 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
 
 - **The other 31 zones.** Only Sukhumvit Shallows is real; the other 11
   districts, all 10 dungeons, and all 10 dimensions are designed (World
-  Map above) but have zero entries in `data/districts.json` /
-  `data/monsters.json`. Filling these in is now mostly content work,
-  following the exact pattern Sukhumvit Shallows already proved out
-  (content + `terrain` tile art, now that the tile-rendering pilot is
-  real). The full spawn-to-final-boss order is: the 12 districts in
-  tier order, then the 10 dimensions in their documented order ending
-  at *The Source of the Release* (the literal final boss); the 10
-  dungeons are optional side content, not on the critical path.
-- **Overworld camera/scroll system.** The tile-based renderer has no
-  camera follow or viewport culling yet, so a district's grid must fit
-  entirely on screen — fine for Sukhumvit Shallows (10×8), not for
-  anything bigger. Needed before most of the other 31 locations can get
-  real tile art.
+  Map above and the Story Bible section, with full atmosphere/NPC/
+  puzzle/boss detail for every one of them) but have zero entries in
+  `data/districts.json` / `data/monsters.json`. Filling these in is now
+  purely content work, following the exact pattern Sukhumvit Shallows
+  already proved out (content + `terrain` tile art) — the camera system
+  means a district's size no longer has to fit on one screen, so this is
+  no longer blocked on anything structural. The full spawn-to-final-boss
+  order is: the 12 districts in tier order, then the 10 dimensions in
+  their documented order ending at *The Source of the Release* (the
+  literal final boss); the 10 dungeons are optional side content, not on
+  the critical path.
 - **Inter-zone progression/gating.** Right now the overworld only knows
   about one district; there's no world-map screen to travel between
   districts, no unlock gate stopping an F-rank player from walking into

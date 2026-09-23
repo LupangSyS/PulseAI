@@ -13,10 +13,15 @@ extends Control
 ## blocked_cells regardless of which rendering path is active or what a
 ## cell's terrain character says - terrain is purely cosmetic.
 ##
-## Known limitation: there's no camera/scroll system yet, so a district
-## much bigger than the viewport (480x460 minus the HUD bands) will run
-## off the edges. Sukhumvit Shallows (10x8) fits; this needs solving
-## before bigger districts get tile art. Flagged in GDD.md's roadmap.
+## Camera/scroll: `grid_root` (all tiles/sprites, in pure grid-local
+## pixel coordinates - _cell_to_pixel no longer adds any screen offset)
+## lives inside `map_viewport`, a Control with clip_contents = true sized
+## to the play area between the HUD bands. `_update_camera` recomputes
+## `camera_offset` (player-centered, clamped to the map's edges, or
+## exactly centering the map if it's smaller than the viewport - the
+## small-map case renders identically to before) and applies it as
+## grid_root.position each time the player moves, so a district bigger
+## than one screen now pans instead of running off the edges.
 ##
 ## All state that needs to survive the Overworld <-> Combat scene
 ## transition (change_scene_to_file destroys this scene entirely) lives on
@@ -30,15 +35,15 @@ extends Control
 ## can be driven directly from a test script exactly like combat.gd's
 ## _on_card_pressed, without needing to simulate real input events.
 
-const CELL_SIZE := 40
+const CELL_SIZE := 64 # matches the 64x64 sprite/tile native resolution - see gen_sprites.py/gen_tiles.py
 const TOP_HUD_HEIGHT := 46
 const BOTTOM_HUD_HEIGHT := 80
 const VIEWPORT_WIDTH := 480
 const VIEWPORT_HEIGHT := 460
 const DEFAULT_DISTRICT_ID := "sukhumvit_shallows"
 const DEFAULT_CLASS_ID := "mage_f"
-const PLAYER_SPRITE_SCALE := 0.55 # native sprites are 64px; ~35px on-screen in a 40px cell
-const MONSTER_SPRITE_SCALE := 0.53
+const PLAYER_SPRITE_SCALE := 0.9 # native sprites are 64px; ~58px on-screen in a 64px cell
+const MONSTER_SPRITE_SCALE := 0.85
 
 ## Purely cosmetic terrain legend -> TileLoader tile name. Any character
 ## not in this map (or a district with no `terrain` at all) falls back to
@@ -54,7 +59,8 @@ const TERRAIN_LEGEND := {
 var district_id: String
 var district: DistrictData
 var player_cell: Vector2i
-var grid_offset: Vector2
+var camera_offset: Vector2
+var map_viewport: Control
 
 var active_monster_spawns: Dictionary = {} # spawn_key -> {monster_id, cell, respawn_seconds, is_unique}
 var active_items: Dictionary = {} # spawn_key -> {item_id, cell}
@@ -85,10 +91,6 @@ func _ready() -> void:
 	RunState.pending_district_id = district_id
 	district = GameData.get_district(district_id)
 	player_cell = Vector2i(district.entrance_cell[0], district.entrance_cell[1])
-	grid_offset = Vector2(
-		(VIEWPORT_WIDTH - district.grid_width * CELL_SIZE) / 2.0,
-		TOP_HUD_HEIGHT,
-	)
 
 	_build_ui()
 
@@ -107,8 +109,14 @@ func _process(_delta: float) -> void:
 func _build_ui() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
+	map_viewport = Control.new()
+	map_viewport.position = Vector2(0, TOP_HUD_HEIGHT)
+	map_viewport.size = Vector2(VIEWPORT_WIDTH, VIEWPORT_HEIGHT - TOP_HUD_HEIGHT - BOTTOM_HUD_HEIGHT)
+	map_viewport.clip_contents = true
+	add_child(map_viewport)
+
 	grid_root = Node2D.new()
-	add_child(grid_root)
+	map_viewport.add_child(grid_root)
 
 	# --- Top band: district name/description banner (left) + minimap (right).
 	name_label = Label.new()
@@ -197,7 +205,6 @@ func _tile_name_for_cell(cell: Vector2i) -> String:
 
 func _build_tile_grid() -> void:
 	var tile_map := TileMap.new()
-	tile_map.position = grid_offset
 	tile_map.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	tile_map.tile_set = TileLoader.build_tileset()
 	for y in district.grid_height:
@@ -213,7 +220,7 @@ func _build_flat_grid() -> void:
 			var cell := Vector2i(x, y)
 			var rect := ColorRect.new()
 			rect.size = Vector2(CELL_SIZE - 1, CELL_SIZE - 1)
-			rect.position = grid_offset + Vector2(x * CELL_SIZE, y * CELL_SIZE)
+			rect.position = Vector2(x * CELL_SIZE, y * CELL_SIZE)
 			rect.color = Color(0.15, 0.2, 0.3) if _is_blocked(cell) else Color(0.2, 0.35, 0.45)
 			grid_root.add_child(rect)
 
@@ -222,8 +229,10 @@ func _cell_key(cell) -> String:
 		return "%d_%d" % [cell.x, cell.y]
 	return "%d_%d" % [cell[0], cell[1]]
 
+## Pure grid-local pixel coordinates - no screen offset. The camera
+## (grid_root.position, see _update_camera) supplies the screen offset.
 func _cell_to_pixel(cell: Vector2i) -> Vector2:
-	return grid_offset + Vector2(cell.x * CELL_SIZE, cell.y * CELL_SIZE)
+	return Vector2(cell.x * CELL_SIZE, cell.y * CELL_SIZE)
 
 func _is_blocked(cell: Vector2i) -> bool:
 	for b in district.blocked_cells:
@@ -339,6 +348,30 @@ func _update_player_visual() -> void:
 		_position_visual_at_cell(player_visual, player_cell)
 	if minimap != null:
 		minimap.update_player(player_cell)
+	_update_camera()
+
+## Centers the camera on the player, clamped so it never scrolls past the
+## map's edges; if the map is smaller than the viewport in a dimension,
+## centers the whole map in that dimension instead (matches the old
+## always-fits-on-screen behavior for small districts like Sukhumvit
+## Shallows exactly, since it never actually needs to pan).
+func _update_camera() -> void:
+	var map_w: float = district.grid_width * CELL_SIZE
+	var map_h: float = district.grid_height * CELL_SIZE
+	var view_w: float = map_viewport.size.x
+	var view_h: float = map_viewport.size.y
+	var player_center: Vector2 = (Vector2(player_cell) + Vector2(0.5, 0.5)) * CELL_SIZE
+
+	var target := player_center - Vector2(view_w, view_h) / 2.0
+	target.x = clamp(target.x, 0.0, max(0.0, map_w - view_w))
+	target.y = clamp(target.y, 0.0, max(0.0, map_h - view_h))
+	if map_w < view_w:
+		target.x = (map_w - view_w) / 2.0
+	if map_h < view_h:
+		target.y = (map_h - view_h) / 2.0
+
+	camera_offset = target
+	grid_root.position = -camera_offset
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):

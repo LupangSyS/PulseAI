@@ -50,13 +50,20 @@ currently exists:
   with an automatic fallback to the original placeholder look for the
   other 90 classes (E through S rank) and every other monster that
   doesn't have art yet.
-- **Sukhumvit Shallows now renders as a real tile-based map**, not a
-  flat colored grid: an original 40×40 tileset (`tools/gen_tiles.py`,
-  `assets/tiles/`) themed to our own flooded-Bangkok setting, plus a
-  rebuilt HUD — a district name/description banner, a live minimap, HP/
-  resource bars, deck count, and message log. Any district without
-  authored tile art (everything else right now) falls back to the
-  original flat-grid look automatically.
+- **Sukhumvit Shallows now renders as a real tile-based map with a
+  scrolling camera**, not a flat colored grid: an original 64×64
+  tileset (`tools/gen_tiles.py`, `assets/tiles/`) themed to our own
+  flooded-Bangkok setting, plus a rebuilt HUD — a district
+  name/description banner, a live minimap, HP/resource bars, deck
+  count, and message log. The camera follows the player and clamps at
+  the map's edges (or centers a district smaller than the screen), so a
+  district is no longer limited to fitting on one screen. Any district
+  without authored tile art (everything else right now) falls back to
+  the original flat-grid look automatically.
+- **Full story bible in GDD.md**: atmosphere, NPCs, puzzles, mini-boss/
+  boss (with phases), and a narrative beat for every district and
+  dimension, the 3-phase final boss, and three mutually exclusive
+  endings.
 - **Combat uses a JRPG-style action menu** (Cards / Item / Guard —
   Final Fantasy/Pokémon-style), not an always-visible hand. Guard grants
   block for free; usable consumables can be used mid-fight from the Item
