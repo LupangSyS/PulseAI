@@ -46,11 +46,15 @@ currently exists:
   starters) and all 8 monsters that actually appear
   (`assets/sprites/`), true 64×64 RGBA with 2-frame idle animation.
   E-through-S ranks aren't 90 hand-painted palettes — each family
-  defines one base look, and a rank-tier system (`tools/gen_sprites.py`)
-  derives the rest via progressive color intensity plus a glowing aura
-  and forehead mark from C rank up, using each family's own accent
-  color so it stays family-distinct. Falls back to the original
-  placeholder look for any monster beyond Sukhumvit Shallows' 8.
+  defines one base look (hair + a weapon or wraps, so no one's bald or
+  empty-handed), and a rank-tier system (`tools/gen_sprites.py`)
+  derives the rest via progressive color intensity, gear upgrades
+  (pauldrons at C, a cape at B, a circlet at S), a glowing aura and
+  forehead mark from C rank up, and — S rank only — a halo arc and two
+  floating companion orbs, so the final evolution reads as a real apex
+  tier. Uses each family's own accent color throughout so it stays
+  family-distinct. Falls back to the original placeholder look for any
+  monster beyond Sukhumvit Shallows' 8.
 - **Sukhumvit Shallows now renders as a real tile-based map with a
   scrolling camera**, not a flat colored grid: an original 64×64
   tileset (`tools/gen_tiles.py`, `assets/tiles/`) themed to our own

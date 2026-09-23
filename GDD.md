@@ -874,15 +874,25 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   constraint. Each has a 2-frame idle animation.
   **Rank power progression, not 90 hand-authored palettes**: each of
   the 15 families defines one base look (`FAMILY_BASE` — the F-rank
-  config); `RANK_TIERS` in `tools/gen_sprites.py` derives E through S
-  from it via HSV saturation/brightness boosts (`boost_colors`), plus
-  from C rank up a forehead mark and a glowing aura outline dilated
-  around the finished silhouette (`add_aura`) that thickens with rank,
-  with S rank also getting fully luminous eyes. The aura's color is
-  drawn from each family's own trim/glow color, so it stays
-  family-distinct (the Necromancer's ghostly green glow, the Tank's
-  blue-gray shield glint) rather than a single generic "power-up"
-  effect. This is a deliberate scope trade against bespoke
+  config, every family now with its own hair color and either a weapon
+  or hand-wraps — no more bald heads or empty hands), and `RANK_TIERS`
+  in `tools/gen_sprites.py` derives E through S from it. The
+  progression is gear, not just a recolor, because a class evolution is
+  meant to be hard-won and the payoff needs to read as genuinely more
+  elegant/powerful: HSV saturation/brightness boosts (`boost_colors`)
+  throughout, then from C rank up shoulder pauldrons, from B rank up a
+  flowing cape, and — S rank only — a circlet, fully luminous eyes, a
+  halo arc hovering above the head, and two small glowing companion
+  orbs at the shoulders, so the final evolution reads as a distinct
+  apex tier rather than one more step of the same escalation. C rank up
+  also adds a forehead mark and a glowing aura outline dilated around
+  the finished silhouette (`add_aura`, thickening with rank), and the
+  weapon itself picks up the same glow from C rank up
+  (`_draw_weapon`'s `glow` accent). All of it — aura, pauldron trim,
+  weapon glow, halo, orbs — is drawn from each family's own trim/glow
+  color, so it stays family-distinct (the Necromancer's ghostly green
+  glow, the Tank's blue-gray shield glint) rather than a single generic
+  "power-up" effect. This is a deliberate scope trade against bespoke
   myth-specific art (naga scales for the Mage chain, wings for Garuda,
   etc.) for all 90 non-F-rank classes at once — uniform and honest
   about being a rank indicator, not a claim of unique per-evolution

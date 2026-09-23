@@ -124,7 +124,8 @@ def bob(grid):
 # Humanoid (player classes, upright monsters)
 # ---------------------------------------------------------------------------
 def humanoid(colors, hood=False, robed=False, weapon=None, weapon_glow=False, weapon_side="right",
-             aura=None, aura_thickness=0, mark=False, eye_override=None):
+             wraps=False, aura=None, aura_thickness=0, mark=False, eye_override=None,
+             pauldrons=False, cape=False, crown=False, halo=False, orbs=False):
     g = blank()
     skin = colors["skin"]
     primary = colors["primary"]
@@ -132,6 +133,7 @@ def humanoid(colors, hood=False, robed=False, weapon=None, weapon_glow=False, we
     shadow = colors["shadow"]
     trim = colors["trim"]
     boot = colors["boot"]
+    hair = colors.get("hair", "#2a1f18")
     eye = colors.get("eye", "#2a1f18")
     eye_glint = lighten(eye)
 
@@ -141,8 +143,14 @@ def humanoid(colors, hood=False, robed=False, weapon=None, weapon_glow=False, we
         fill(g, 9, 17, 20, 44, primary)
         fill(g, 17, 26, 23, 41, skin)
     else:
-        fill(g, 9, 9, 24, 40, skin)
-        fill(g, 10, 26, 21, 43, skin)
+        # Hair cap (top + a little volume past the face's sides) over a
+        # skin face from the brow line down - a bald skin-colored dome
+        # read as "hair missing" at the sizes players actually see this.
+        fill(g, 8, 8, 24, 40, hair)
+        fill(g, 9, 13, 20, 44, hair)
+        fill(g, 14, 26, 21, 43, skin)
+        fill(g, 14, 19, 19, 20, hair)
+        fill(g, 14, 19, 45, 46, hair)
 
     # Eyes: base color + a small lighter glint for a less "dead" look.
     fill(g, 19, 22, 27, 30, eye)
@@ -179,36 +187,148 @@ def humanoid(colors, hood=False, robed=False, weapon=None, weapon_glow=False, we
         fill(g, 61, 63, 16, 29, boot)
         fill(g, 61, 63, 35, 48, boot)
 
-    if weapon == "staff":
-        weapon_light = lighten(colors.get("weapon", "#8a7a63"), 0.3)
-        wc = 47 if weapon_side == "right" else 14
-        fill(g, 18, 50, wc, wc + 2, colors["weapon"])
-        fill(g, 18, 50, wc, wc, weapon_light)
-        if weapon_glow:
-            glow = colors["glow"]
-            fill(g, 10, 17, wc - 3, wc + 5, glow)
-            fill(g, 11, 14, wc - 1, wc + 3, lighten(glow, 0.35))
-    elif weapon == "shield":
-        wc0 = 9 if weapon_side == "left" else 45
-        fill(g, 24, 48, wc0, wc0 + 8, colors["weapon"])
-        fill(g, 24, 25, wc0, wc0 + 8, trim)
-        fill(g, 47, 48, wc0, wc0 + 8, trim)
-        fill(g, 33, 39, wc0 + 2, wc0 + 6, trim)
+    _draw_weapon(g, colors, weapon, weapon_side, weapon_glow)
+    if wraps:
+        wrap_color = colors.get("trim", secondary)
+        fill(g, 44, 46, 9, 14, wrap_color)
+        fill(g, 44, 46, 50, 55, wrap_color)
 
-    # --- Rank-tier power progression (C rank and up): a sak-yant-style
-    # forehead mark (works for any family/myth, not just ones with an
-    # obvious personal emblem) and a glowing aura outline dilated around
-    # the finished silhouette - see add_aura. S rank also overrides the
-    # eyes to a fully luminous color instead of just a glint.
+    # --- Rank-tier power progression: visible gear upgrades, not just a
+    # brighter recolor - class evolution is meant to be hard-won, so the
+    # payoff should read as genuinely more elegant/powerful, not just
+    # "growing". C rank+ adds shoulder pauldrons; B rank+ adds a flowing
+    # cape past the shoulders; S rank adds a circlet. Plus the existing
+    # sak-yant-style forehead mark and glowing aura outline (add_aura),
+    # and S rank overrides the eyes to a fully luminous color.
+    if pauldrons:
+        pauldron_light = lighten(trim, 0.3)
+        fill(g, 27, 31, 6, 16, trim)
+        fill(g, 27, 31, 48, 58, trim)
+        fill(g, 27, 27, 6, 16, pauldron_light)
+        fill(g, 27, 27, 48, 58, pauldron_light)
+    if cape:
+        cape_color = shadow
+        fill(g, 26, 35, 4, 7, cape_color)
+        fill(g, 35, 44, 3, 6, cape_color)
+        fill(g, 44, 53, 2, 5, cape_color)
+        fill(g, 26, 35, 57, 60, cape_color)
+        fill(g, 35, 44, 58, 61, cape_color)
+        fill(g, 44, 53, 59, 62, cape_color)
     if mark:
         mark_color = lighten(trim, 0.55)
         fill(g, 11, 12, 31, 32, mark_color)
+    if crown:
+        crown_color = lighten(trim, 0.4)
+        fill(g, 8, 9, 22, 42, crown_color)
+        fill(g, 6, 8, 30, 34, lighten(crown_color, 0.3))
     if eye_override:
         fill(g, 19, 22, 27, 30, eye_override)
         fill(g, 19, 22, 36, 39, eye_override)
+    # S-rank-only apex flourishes: a halo arc hovering above the head and
+    # two small companion orbs at the shoulders - reserved for the final
+    # evolution so it reads as a genuinely different tier, not just this
+    # family's usual color/aura scaled up one more notch.
+    if halo:
+        halo_color = lighten(colors.get("glow", trim), 0.3)
+        cx, cy = 32.0, 6.0
+        for r in range(0, 8):
+            for c in range(14, 51):
+                dx = (c - cx) / 2.2
+                dy = r - cy
+                dist = (dx * dx + dy * dy) ** 0.5
+                if 3.0 <= dist <= 4.0:
+                    g[r][c] = halo_color
+    if orbs:
+        orb_color = colors.get("glow", trim)
+        orb_core = lighten(orb_color, 0.45)
+        for ox in (3, 60):
+            fill(g, 13, 17, ox - 2, ox + 2, orb_color)
+            fill(g, 14, 16, ox - 1, ox + 1, orb_core)
     if aura and aura_thickness > 0:
         g = add_aura(g, aura, aura_thickness)
     return g
+
+
+def _draw_weapon(g, colors, weapon, side, glow):
+    """Every class carries something - a weapon is part of reading as a
+    powerful Hunter, not an accessory. wc is the held-hand reference
+    column; shapes are built out from there. `colors["weapon"]` is the
+    primary material color; `colors.get("glow")` (falling back to trim)
+    is the enchantment-glow accent used when `glow` is True."""
+    if not weapon:
+        return
+    w = colors.get("weapon", colors["trim"])
+    accent = colors.get("glow", colors["trim"])
+    grip = colors.get("boot", "#3a2a1a")
+    wc = 47 if side == "right" else 14
+
+    if weapon == "staff":
+        fill(g, 18, 50, wc, wc + 2, w)
+        fill(g, 18, 50, wc, wc, lighten(w, 0.3))
+        if glow:
+            fill(g, 10, 17, wc - 3, wc + 5, accent)
+            fill(g, 11, 14, wc - 1, wc + 3, lighten(accent, 0.35))
+    elif weapon == "shield":
+        wc0 = 9 if side == "left" else 45
+        fill(g, 24, 48, wc0, wc0 + 8, w)
+        fill(g, 24, 25, wc0, wc0 + 8, colors["trim"])
+        fill(g, 47, 48, wc0, wc0 + 8, colors["trim"])
+        fill(g, 33, 39, wc0 + 2, wc0 + 6, colors["trim"])
+        if glow:
+            fill(g, 34, 38, wc0 + 3, wc0 + 5, accent)
+    elif weapon == "sword":
+        fill(g, 14, 44, wc, wc + 2, w)
+        fill(g, 14, 44, wc, wc, lighten(w, 0.3))
+        fill(g, 43, 45, wc - 2, wc + 4, colors["trim"])
+        fill(g, 45, 50, wc, wc + 2, grip)
+        fill(g, 50, 52, wc - 1, wc + 3, colors["trim"])
+        if glow:
+            fill(g, 12, 15, wc - 1, wc + 3, accent)
+    elif weapon == "spear":
+        haft_c = 48 if side == "right" else 13
+        fill(g, 8, 52, haft_c, haft_c + 2, grip)
+        fill(g, 6, 9, haft_c - 1, haft_c + 3, w)
+        fill(g, 3, 6, haft_c, haft_c + 2, w)
+        if glow:
+            fill(g, 2, 5, haft_c - 1, haft_c + 3, accent)
+    elif weapon == "axe":
+        fill(g, 20, 52, wc, wc + 2, grip)
+        fill(g, 16, 18, wc - 5, wc + 2, w)
+        fill(g, 18, 23, wc - 8, wc + 2, w)
+        fill(g, 23, 27, wc - 5, wc + 2, w)
+        fill(g, 16, 27, wc + 2, wc + 2, lighten(w, 0.3))
+        if glow:
+            fill(g, 20, 23, wc - 7, wc - 6, accent)
+    elif weapon == "bow":
+        fill(g, 14, 16, wc, wc + 2, w)
+        fill(g, 16, 19, wc + 2, wc + 4, w)
+        fill(g, 19, 26, wc + 3, wc + 5, w)
+        fill(g, 26, 33, wc + 3, wc + 5, w)
+        fill(g, 33, 36, wc + 2, wc + 4, w)
+        fill(g, 36, 38, wc, wc + 2, w)
+        for r in range(15, 38):
+            fill(g, r, r, wc, wc, colors.get("secondary", "#cccccc"))
+        if glow:
+            fill(g, 24, 27, wc + 4, wc + 6, accent)
+    elif weapon == "dagger":
+        fill(g, 30, 44, wc, wc + 2, w)
+        fill(g, 29, 30, wc - 1, wc + 3, colors["trim"])
+        fill(g, 44, 48, wc, wc + 2, grip)
+        if glow:
+            fill(g, 27, 29, wc, wc + 2, accent)
+    elif weapon == "orb":
+        fill(g, 32, 39, wc - 2, wc + 5, accent)
+        fill(g, 33, 36, wc - 1, wc + 2, lighten(accent, 0.4))
+        if glow:
+            fill(g, 30, 31, wc, wc + 3, lighten(accent, 0.2))
+    elif weapon == "wand":
+        # A short rod held at hand height, not a towering staff - the
+        # ornament sits just above the hand/shoulder, not up near the head.
+        fill(g, 24, 46, wc, wc + 2, w)
+        fill(g, 20, 24, wc - 2, wc + 4, accent)
+        fill(g, 21, 23, wc - 1, wc + 3, lighten(accent, 0.3))
+        if glow:
+            fill(g, 18, 20, wc - 1, wc + 3, lighten(accent, 0.35))
 
 
 # ---------------------------------------------------------------------------
@@ -343,83 +463,91 @@ CHARACTERS = {}
 FAMILY_BASE = {
     "mage": dict(
         colors={"skin": "#d9a066", "primary": "#2f6d64", "secondary": "#255a53",
-                "shadow": "#1d4740", "trim": "#c98a3a", "boot": "#16302c",
+                "shadow": "#1d4740", "trim": "#c98a3a", "boot": "#16302c", "hair": "#4a3528",
                 "weapon": "#8a7a63", "glow": "#f0b94d", "eye": "#241810"},
         hood=True, robed=True, weapon="staff", weapon_glow=True,
     ),
     "hunter": dict(
         colors={"skin": "#c48958", "primary": "#5c5233", "secondary": "#7a6f47",
-                "shadow": "#3a3420", "trim": "#a85c2e", "boot": "#2e2a1c", "eye": "#2a1c10"},
-        hood=False, robed=False, weapon=None,
+                "shadow": "#3a3420", "trim": "#a85c2e", "boot": "#2e2a1c", "hair": "#2e2013", "eye": "#2a1c10"},
+        hood=False, robed=False, weapon="spear",
     ),
     "healer": dict(
         colors={"skin": "#e0ab7a", "primary": "#d8d2c4", "secondary": "#c46a5e",
-                "shadow": "#8a8477", "trim": "#c46a5e", "boot": "#5c574c", "eye": "#3a2a1e"},
-        hood=False, robed=False, weapon=None,
+                "shadow": "#8a8477", "trim": "#c46a5e", "boot": "#5c574c", "hair": "#8a5a3a",
+                "weapon": "#b8875a", "glow": "#f0d8c0", "eye": "#3a2a1e"},
+        hood=False, robed=False, weapon="wand",
     ),
     "necromancer": dict(
         colors={"skin": "#a68f8a", "primary": "#3a2a45", "secondary": "#2e2038",
-                "shadow": "#1c1424", "trim": "#6b4a8a", "boot": "#180f1e",
+                "shadow": "#1c1424", "trim": "#6b4a8a", "boot": "#180f1e", "hair": "#241a2e",
                 "weapon": "#5c4a4a", "glow": "#7de08a", "eye": "#7de08a"},
         hood=True, robed=True, weapon="staff", weapon_glow=True,
     ),
     "assassin": dict(
         colors={"skin": "#b98a6a", "primary": "#2c2c34", "secondary": "#22222a",
-                "shadow": "#161619", "trim": "#5a1e1e", "boot": "#0e0e11", "eye": "#c9a23a"},
-        hood=True, robed=False, weapon=None,
+                "shadow": "#161619", "trim": "#5a1e1e", "boot": "#0e0e11", "hair": "#141414",
+                "weapon": "#c8ccd4", "glow": "#c9a23a", "eye": "#c9a23a"},
+        hood=True, robed=False, weapon="dagger",
     ),
     "tank": dict(
         colors={"skin": "#c99566", "primary": "#3a4a5c", "secondary": "#2e3a48",
-                "shadow": "#1e2730", "trim": "#8a9aa8", "boot": "#1a2228",
-                "weapon": "#7a828a", "eye": "#1c1410"},
+                "shadow": "#1e2730", "trim": "#8a9aa8", "boot": "#1a2228", "hair": "#4a4a52",
+                "weapon": "#7a828a", "glow": "#c8d4dc", "eye": "#1c1410"},
         hood=False, robed=False, weapon="shield", weapon_side="left",
     ),
     "berserker": dict(
         colors={"skin": "#b97a52", "primary": "#6b2620", "secondary": "#4a1c18",
-                "shadow": "#301210", "trim": "#c9622e", "boot": "#241010", "eye": "#e8c23a"},
-        hood=False, robed=False, weapon=None,
+                "shadow": "#301210", "trim": "#c9622e", "boot": "#241010", "hair": "#2e1610",
+                "weapon": "#5c5c5c", "glow": "#f0782c", "eye": "#e8c23a"},
+        hood=False, robed=False, weapon="axe",
     ),
     "summoner": dict(
         colors={"skin": "#d9a874", "primary": "#7a1e2e", "secondary": "#c9a23a",
-                "shadow": "#4a1420", "trim": "#e8c65a", "boot": "#3a1418", "eye": "#241810"},
-        hood=False, robed=True, weapon=None,
+                "shadow": "#4a1420", "trim": "#e8c65a", "boot": "#3a1418", "hair": "#241010",
+                "weapon": "#8a5a3a", "glow": "#e8c65a", "eye": "#241810"},
+        hood=False, robed=True, weapon="wand",
     ),
     "pyromancer": dict(
         colors={"skin": "#c9855a", "primary": "#8a2e1e", "secondary": "#c94e26",
-                "shadow": "#4a1810", "trim": "#e8a23a", "boot": "#241008",
+                "shadow": "#4a1810", "trim": "#e8a23a", "boot": "#241008", "hair": "#5a2a1a",
                 "weapon": "#4a3a30", "glow": "#f0782c", "eye": "#f0b23a"},
         hood=True, robed=True, weapon="staff", weapon_glow=True, weapon_side="left",
     ),
     "ranger": dict(
         colors={"skin": "#c48a5c", "primary": "#3d5c3a", "secondary": "#547a4e",
-                "shadow": "#263a24", "trim": "#7a8a4a", "boot": "#22301e", "eye": "#1c2418"},
-        hood=False, robed=False, weapon=None,
+                "shadow": "#263a24", "trim": "#7a8a4a", "boot": "#22301e", "hair": "#3a2c1a",
+                "weapon": "#5c4530", "glow": "#c9d454", "eye": "#1c2418"},
+        hood=False, robed=False, weapon="bow",
     ),
     "monk": dict(
         colors={"skin": "#a8734a", "primary": "#8a1e1e", "secondary": "#c9a23a",
-                "shadow": "#4a1010", "trim": "#e8c65a", "boot": "#5c4028", "eye": "#241810"},
-        hood=False, robed=False, weapon=None,
+                "shadow": "#4a1010", "trim": "#e8c65a", "boot": "#5c4028", "hair": "#1a1410", "eye": "#241810"},
+        hood=False, robed=False, wraps=True,
     ),
     "alchemist": dict(
         colors={"skin": "#cf9a68", "primary": "#5c6b2e", "secondary": "#8a9a3e",
-                "shadow": "#343d1a", "trim": "#c9d454", "boot": "#2a3014",
+                "shadow": "#343d1a", "trim": "#c9d454", "boot": "#2a3014", "hair": "#8a6a3a",
                 "weapon": "#5c6b6b", "glow": "#c9e854", "eye": "#241c10"},
         hood=False, robed=False, weapon="staff", weapon_glow=True,
     ),
     "psychic": dict(
         colors={"skin": "#c9a8b0", "primary": "#3a2c4a", "secondary": "#5c4a7a",
-                "shadow": "#241c30", "trim": "#9a7ac9", "boot": "#1c1624", "eye": "#c9e8f0"},
-        hood=False, robed=False, weapon=None,
+                "shadow": "#241c30", "trim": "#9a7ac9", "boot": "#1c1624", "hair": "#d8c8e0",
+                "weapon": "#5c4a7a", "glow": "#c9e8f0", "eye": "#c9e8f0"},
+        hood=False, robed=False, weapon="orb",
     ),
     "exorcist": dict(
         colors={"skin": "#e0b888", "primary": "#e8e0c8", "secondary": "#c9a23a",
-                "shadow": "#a89a6e", "trim": "#8a1e1e", "boot": "#6b5c3a", "eye": "#241810"},
-        hood=False, robed=True, weapon=None,
+                "shadow": "#a89a6e", "trim": "#8a1e1e", "boot": "#6b5c3a", "hair": "#e8e0c8",
+                "weapon": "#a8843a", "glow": "#f0d878", "eye": "#241810"},
+        hood=False, robed=True, weapon="wand",
     ),
     "bard": dict(
         colors={"skin": "#c9926a", "primary": "#2e5c5c", "secondary": "#4a8a8a",
-                "shadow": "#1c3a3a", "trim": "#7ac9c9", "boot": "#162e2e", "eye": "#c9f0e8"},
-        hood=False, robed=False, weapon=None,
+                "shadow": "#1c3a3a", "trim": "#7ac9c9", "boot": "#162e2e", "hair": "#1c2a2a",
+                "weapon": "#3a2818", "glow": "#c9f0e8", "eye": "#c9f0e8"},
+        hood=False, robed=False, weapon="wand",
     ),
 }
 
@@ -431,12 +559,18 @@ FAMILY_BASE = {
 # specific iconography (which would need bespoke art per family to do
 # justice to; this is the sustainable alternative for 90 classes at once).
 RANK_TIERS = {
-    "E": dict(sat=0.05, val=0.03, aura=None, aura_t=0, mark=False, eye=False),
-    "D": dict(sat=0.10, val=0.06, aura=None, aura_t=0, mark=False, eye=False),
-    "C": dict(sat=0.15, val=0.10, aura="trim", aura_t=1, mark=True, eye=False),
-    "B": dict(sat=0.20, val=0.14, aura="trim", aura_t=1, mark=True, eye=False),
-    "A": dict(sat=0.25, val=0.18, aura="glow", aura_t=2, mark=True, eye=False),
-    "S": dict(sat=0.32, val=0.22, aura="glow", aura_t=2, mark=True, eye=True),
+    "E": dict(sat=0.05, val=0.03, aura=None, aura_t=0, mark=False, eye=False,
+              pauldrons=False, cape=False, crown=False, halo=False, orbs=False),
+    "D": dict(sat=0.10, val=0.06, aura=None, aura_t=0, mark=False, eye=False,
+              pauldrons=False, cape=False, crown=False, halo=False, orbs=False),
+    "C": dict(sat=0.15, val=0.10, aura="trim", aura_t=1, mark=True, eye=False,
+              pauldrons=True, cape=False, crown=False, halo=False, orbs=False),
+    "B": dict(sat=0.20, val=0.14, aura="trim", aura_t=1, mark=True, eye=False,
+              pauldrons=True, cape=True, crown=False, halo=False, orbs=False),
+    "A": dict(sat=0.25, val=0.18, aura="glow", aura_t=2, mark=True, eye=False,
+              pauldrons=True, cape=True, crown=False, halo=False, orbs=False),
+    "S": dict(sat=0.32, val=0.22, aura="glow", aura_t=2, mark=True, eye=True,
+              pauldrons=True, cape=True, crown=True, halo=True, orbs=True),
 }
 
 
@@ -449,7 +583,8 @@ def _generate_rank_chain(family: str, base: dict, chain_ids: list) -> None:
         if rank == "F":
             CHARACTERS[class_id] = humanoid(dict(base["colors"]), hood=base["hood"], robed=base["robed"],
                                              weapon=base.get("weapon"), weapon_glow=base.get("weapon_glow", False),
-                                             weapon_side=base.get("weapon_side", "right"))
+                                             weapon_side=base.get("weapon_side", "right"),
+                                             wraps=base.get("wraps", False))
             continue
         tier = RANK_TIERS[rank]
         colors = boost_colors(base["colors"], tier["sat"], tier["val"])
@@ -462,8 +597,10 @@ def _generate_rank_chain(family: str, base: dict, chain_ids: list) -> None:
         CHARACTERS[class_id] = humanoid(
             colors, hood=base["hood"], robed=base["robed"],
             weapon=base.get("weapon"), weapon_glow=base.get("weapon_glow", False) or bool(tier["aura"]),
-            weapon_side=base.get("weapon_side", "right"),
+            weapon_side=base.get("weapon_side", "right"), wraps=base.get("wraps", False),
             aura=aura_color, aura_thickness=tier["aura_t"], mark=tier["mark"], eye_override=eye_override,
+            pauldrons=tier["pauldrons"], cape=tier["cape"], crown=tier["crown"],
+            halo=tier["halo"], orbs=tier["orbs"],
         )
 
 
