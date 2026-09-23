@@ -234,7 +234,7 @@ high-voltage neon wiring and fiber-optic cable, toughened for the bigger
 map (58 HP, a new desperate third phase — *Raw Nerve* — once it drops
 below 20%); plunges the room into darkness, attacks telegraphed via
 buzzing cracked-tube hum; always drops the corroded vault key. Boss —
-*Phra Khanong Mother (Mae Nak Reflected)*: also toughened (92 HP).
+*Phra Khanong Mother (Mae Nak Reflected)*: also toughened (60 HP).
 **Phase 1** a weeping silhouette atop a sunken taxi depot, hurling
 shipping containers and ultrasonic wails that scramble the UI; **Phase
 2** her limbs stretch through the water beneath the player — step only
@@ -264,9 +264,9 @@ secret alley gated behind the mini-boss's guaranteed key drop. NPC:
 watches, claims he can hear the flood's pulse. Puzzle — *The Amulet
 Scale*: balance genuine amulets against cursed lead weights pulled from
 corpse pockets. Mini-boss — *The Scale Merchant*: four-armed, fused to
-cages of mutated fighting fish spitting caustic bile; toughened to 60 HP
+cages of mutated fighting fish spitting caustic bile; toughened to 55 HP
 with a new third stage, *Every Cage at Once*, below 20%. Boss — *The
-Chimera of the Drowned Aviary*: also toughened, to 96 HP. **Phase 1**
+Chimera of the Drowned Aviary*: also toughened, to 65 HP. **Phase 1**
 hundreds of mutated birds moving as one shifting avian titan; **Phase 2**
 consolidates into an emaciated vulture-beast whose chest cavity houses
 the market's blind, weeping former animal-syndicate boss. Two new
@@ -293,9 +293,9 @@ one-eyed militia leader running F-rank scavengers as expendable
 mine-clearers. Puzzle — *Crane Sluice Alignment*: align container
 bridges with a broken cargo crane while corrosive sludge rises.
 Mini-boss — *Sluice Ripper*: a harbor worker grafted to hydraulic
-forklift blades; toughened to 70 HP with a new third stage, *Redline
+forklift blades; toughened to 57 HP with a new third stage, *Redline
 Failure*, below 20%. Boss — *Klong Toey Leviathan (The Scum Matron)*:
-also toughened, to 110 HP. **Phase 1** an amorphous oil/hair/sewage
+also toughened, to 59 HP. **Phase 1** an amorphous oil/hair/sewage
 blob erupting through floor grates; **Phase 2** hardens into an oily
 carapace and sets the water on fire — manipulate pumps to douse
 platforms. Two new species patrol the Sluice Depths — **Sunken
@@ -1159,6 +1159,28 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   specific to `llvmpipe` software rendering in this headless sandbox,
   since it couldn't be tested against a real GPU here). Needs a fresh
   look, ideally on real hardware, before the next district depth pass.
+- **Boss/mini-boss balance is now empirically verified, not just
+  eyeballed.** The mini-boss/boss HP and damage increases from the depth
+  pass above were initially picked by feel (a flat ~25-30% bump), which
+  turned out to be a real mistake: a bot-plays-combat headless check (a
+  fresh full-HP Apprentice Mage, greedy-but-not-optimal card play, no
+  items, 30-50 simulated fights per matchup) found all three *bosses* at
+  a 0% win rate - and re-running the same check against the pre-depth-
+  pass stats showed they were *already* 0% winnable before this pass,
+  so the toughening made a pre-existing, never-validated problem worse
+  rather than causing it outright. Mini-bosses fared better originally
+  (85-90% for two of three) but the toughening still pushed one (Sluice
+  Ripper) to 0% as well. Fixed by scaling HP and offensive move values
+  (block/heal untouched) back down per fight until each landed in a
+  target band - roughly 55-70% for mini-bosses, 40-55% for bosses,
+  measured against a fresh full-HP starting point, so real play (which
+  starts a boss fight with some HP already spent on the district's
+  regular encounters) should run harder than these numbers suggest, not
+  easier. Final confirmed win rates: Neon Strangler 70%, Phra Khanong
+  Mother 55%, Scale Merchant 75%, Chimera of the Drowned Aviary 40%,
+  Sluice Ripper 70%, Klong Toey Leviathan 70%. This is exactly the kind
+  of check the project should run on any future monster-stat change
+  before shipping it, not just for new content.
 - **Status/Items menu (Escape, from the overworld).**
   `scripts/menu/status_menu.gd` — a portrait, name, rank, HP/resource
   bars, and two tabs: Status (playstyle blurb + the full deck list with

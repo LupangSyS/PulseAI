@@ -288,7 +288,7 @@
     "display_name": "Phra Khanong Mother (Mae Nak Reflected)",
     "description": "A weeping silhouette perched atop a sunken taxi depot. She was a mother once. The flood remembered that before it remembered anything else.",
     "rank": "E",
-    "max_hp": 92,
+    "max_hp": 60,
     "is_miniboss": false,
     "is_boss": true,
     "moves": [
@@ -296,7 +296,7 @@
         "name": "Hurled Container",
         "description": "A shipping container arcs out of the dark water toward you.",
         "effect": "damage",
-        "value": 9,
+        "value": 6,
         "weight": 3
       },
       {
@@ -317,14 +317,14 @@
             "name": "Container Barrage",
             "description": "The current itself seems to aim this one.",
             "effect": "damage",
-            "value": 10,
+            "value": 7,
             "weight": 3
           },
           {
             "name": "Ultrasonic Wail",
             "description": "A scream pitched to unravel you slowly.",
             "effect": "dot",
-            "value": 4,
+            "value": 3,
             "weight": 2
           },
           {
@@ -345,14 +345,14 @@
             "name": "Reaching Limbs",
             "description": "Everything she has left, in one motion.",
             "effect": "damage",
-            "value": 14,
+            "value": 10,
             "weight": 3
           },
           {
             "name": "Chokehold From Below",
             "description": "She doesn't need to see you to find your throat.",
             "effect": "execute",
-            "value": 10,
+            "value": 7,
             "weight": 2
           },
           {
@@ -366,7 +366,7 @@
             "name": "Undertow Grasp",
             "description": "She's not letting either of you leave this one.",
             "effect": "dot",
-            "value": 5,
+            "value": 3,
             "weight": 2
           }
         ]
@@ -548,7 +548,7 @@
     "display_name": "The Scale Merchant",
     "description": "Four-armed, fused at the shoulders to a rack of cages holding mutated fighting fish. It still haggles - you just can't understand the price anymore.",
     "rank": "E",
-    "max_hp": 60,
+    "max_hp": 55,
     "is_miniboss": true,
     "is_boss": false,
     "moves": [
@@ -556,7 +556,7 @@
         "name": "Caustic Spit",
         "description": "One of the caged fish, aimed at you.",
         "effect": "damage",
-        "value": 9,
+        "value": 8,
         "weight": 3
       },
       {
@@ -577,14 +577,14 @@
             "name": "Twin Cage Spit",
             "description": "Two cages at once, no more haggling.",
             "effect": "damage",
-            "value": 10,
+            "value": 8,
             "weight": 3
           },
           {
             "name": "Bile Frenzy",
             "description": "Caustic spray that keeps burning after it lands.",
             "effect": "dot",
-            "value": 4,
+            "value": 3,
             "weight": 2
           },
           {
@@ -612,21 +612,21 @@
             "name": "Full Rack Spit",
             "description": "Nothing held back anymore.",
             "effect": "damage",
-            "value": 12,
+            "value": 10,
             "weight": 3
           },
           {
             "name": "Caustic Flood",
             "description": "The rack empties everything it has, all over you.",
             "effect": "dot",
-            "value": 5,
+            "value": 4,
             "weight": 2
           },
           {
             "name": "Last Appraisal",
             "description": "It weighs your life against nothing.",
             "effect": "execute",
-            "value": 8,
+            "value": 7,
             "weight": 1
           }
         ]
@@ -652,7 +652,7 @@
     "display_name": "The Chimera of the Drowned Aviary",
     "description": "Hundreds of mutated birds from the market's exotic-pet stalls, moving as one shifting avian titan.",
     "rank": "E",
-    "max_hp": 96,
+    "max_hp": 65,
     "is_miniboss": false,
     "is_boss": true,
     "moves": [
@@ -660,7 +660,7 @@
         "name": "Wing Battering",
         "description": "A hundred wingbeats landing as one.",
         "effect": "damage",
-        "value": 9,
+        "value": 6,
         "weight": 3
       },
       {
@@ -681,14 +681,14 @@
             "name": "Scattering Strikes",
             "description": "It isn't one attack anymore. It's all of them.",
             "effect": "damage",
-            "value": 10,
+            "value": 7,
             "weight": 3
           },
           {
             "name": "Panicked Shrieking",
             "description": "A hundred throats, none of them happy about this.",
             "effect": "dot",
-            "value": 4,
+            "value": 3,
             "weight": 2
           },
           {
@@ -709,14 +709,14 @@
             "name": "Vulture Dive",
             "description": "Everything left, thrown at once.",
             "effect": "damage",
-            "value": 15,
+            "value": 11,
             "weight": 3
           },
           {
             "name": "The Boss's Final Count",
             "description": "It doesn't need to see you to know the tally's about to close.",
             "effect": "execute",
-            "value": 10,
+            "value": 7,
             "weight": 2
           },
           {
@@ -730,7 +730,7 @@
             "name": "Circling Shriek",
             "description": "It's not done with you just because it's dying.",
             "effect": "dot",
-            "value": 5,
+            "value": 4,
             "weight": 2
           }
         ]
@@ -912,7 +912,7 @@
     "display_name": "The Sluice Ripper",
     "description": "A harbor worker grafted to hydraulic forklift blades that never got the shutdown signal.",
     "rank": "E",
-    "max_hp": 70,
+    "max_hp": 57,
     "is_miniboss": true,
     "is_boss": false,
     "moves": [
@@ -920,7 +920,7 @@
         "name": "Hydraulic Cleave",
         "description": "The blades don't need him to aim them anymore.",
         "effect": "damage",
-        "value": 10,
+        "value": 7,
         "weight": 3
       },
       {
@@ -941,14 +941,14 @@
             "name": "Overclocked Cleave",
             "description": "Faster than the frame was ever rated for.",
             "effect": "damage",
-            "value": 12,
+            "value": 9,
             "weight": 3
           },
           {
             "name": "Rending Frenzy",
             "description": "A wound that keeps opening under its own momentum.",
             "effect": "dot",
-            "value": 5,
+            "value": 4,
             "weight": 2
           },
           {
@@ -976,21 +976,21 @@
             "name": "Redline Cleave",
             "description": "The frame's about to fail. It doesn't care.",
             "effect": "damage",
-            "value": 13,
+            "value": 9,
             "weight": 3
           },
           {
             "name": "Shrapnel Spray",
             "description": "Pieces of the housing go with every swing now.",
             "effect": "dot",
-            "value": 6,
+            "value": 4,
             "weight": 2
           },
           {
             "name": "Final Overclock",
             "description": "Everything the blades have left, at once.",
             "effect": "execute",
-            "value": 9,
+            "value": 7,
             "weight": 1
           }
         ]
@@ -1016,7 +1016,7 @@
     "display_name": "Klong Toey Leviathan (The Scum Matron)",
     "description": "An amorphous mass of oil, hair, and sewage that erupted through the floor grates and never went back down.",
     "rank": "E",
-    "max_hp": 110,
+    "max_hp": 59,
     "is_miniboss": false,
     "is_boss": true,
     "moves": [
@@ -1024,7 +1024,7 @@
         "name": "Grate Eruption",
         "description": "More of her than should fit through a floor grate, all at once.",
         "effect": "damage",
-        "value": 10,
+        "value": 6,
         "weight": 3
       },
       {
@@ -1045,14 +1045,14 @@
             "name": "Sewage Surge",
             "description": "A wave of everything the canal never let go of.",
             "effect": "damage",
-            "value": 11,
+            "value": 6,
             "weight": 3
           },
           {
             "name": "Caustic Bloom",
             "description": "Something in her keeps burning after it lands.",
             "effect": "dot",
-            "value": 5,
+            "value": 3,
             "weight": 2
           },
           {
@@ -1073,14 +1073,14 @@
             "name": "Burning Carapace Slam",
             "description": "Everything she's hardened into, on fire, thrown at you.",
             "effect": "damage",
-            "value": 17,
+            "value": 10,
             "weight": 3
           },
           {
             "name": "Ignition Wave",
             "description": "The burning oil doesn't care how much of you is already gone.",
             "effect": "execute",
-            "value": 11,
+            "value": 6,
             "weight": 2
           },
           {
@@ -1094,7 +1094,7 @@
             "name": "Smoldering Wake",
             "description": "The fire doesn't go out just because she's losing.",
             "effect": "dot",
-            "value": 6,
+            "value": 4,
             "weight": 2
           }
         ]

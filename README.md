@@ -35,7 +35,7 @@ currently exists:
   - **Sukhumvit Shallows** *(flagship depth pass — see below)*: a real
     28×20-cell map (up from the original 10×8), 14 regular monster
     spawns across 7 species, mini-boss **The Neon Strangler** (now 58
-    HP, 2 stages) and boss **Phra Khanong Mother** (now 92 HP, 3
+    HP, 2 stages) and boss **Phra Khanong Mother** (now 60 HP, 3
     stages), 16 events including two revisitable NPCs (Uncle Somchai,
     Sister Da), two chained puzzles (the **Breaker Pump Protocol** and
     the arcade's **High Score Relay**), and 3 locked areas (a
@@ -45,8 +45,8 @@ currently exists:
     the full rundown.
   - **Chatuchak Ruins** *(depth pass)*: also grown to a real 28×20 map,
     14 regular monster spawns across 7 species, mini-boss **The Scale
-    Merchant** (now 60 HP, 2 stages) and boss **The Chimera of the
-    Drowned Aviary** (now 96 HP, 3 stages), 15 events including the
+    Merchant** (now 55 HP, 2 stages) and boss **The Chimera of the
+    Drowned Aviary** (now 65 HP, 3 stages), 15 events including the
     Watchmaker (Kru Viroj) and two chained puzzles (the **Amulet Scale**
     - find a cursed weight, balance the scale, open the vault, each
     step fails cleanly out of order so it can't softlock - and the
@@ -56,8 +56,8 @@ currently exists:
     alley).
   - **Klong Toey Canals** *(depth pass)*: also grown to a real 28×20
     map, 14 regular monster spawns across 7 species, mini-boss **The
-    Sluice Ripper** (now 70 HP, 2 stages) and boss **Klong Toey
-    Leviathan** (The Scum Matron, now 110 HP, 3 stages), 15 events
+    Sluice Ripper** (now 57 HP, 2 stages) and boss **Klong Toey
+    Leviathan** (The Scum Matron, now 59 HP, 3 stages), 15 events
     including Commander Lek and two chained puzzles (the **Crane
     Sluice Alignment** - align bridge alpha, then beta, then lock the
     crane - and Stack-City Core's **Ladder Ascent**), and 3 locked
@@ -67,7 +67,16 @@ currently exists:
 
   All three districts are now at the same 28×20 depth-pass scale -
   up from the original 10×8/6-spawn/one-puzzle pilot shape every
-  district shipped with initially.
+  district shipped with initially. Every mini-boss/boss's HP and move
+  damage above is now empirically verified, not just eyeballed: a
+  bot-plays-combat headless check (fresh full-HP Apprentice Mage,
+  reasonable-not-optimal card play, 30-50 simulated fights per fight)
+  caught all three original bosses at a 0% win rate - a pre-existing
+  issue this depth pass's first-draft toughening made worse, not one it
+  introduced - and the numbers above are the result of rescaling each
+  fight until it lands in a genuinely winnable-but-hard range. See
+  GDD.md's Prototype status section for the exact methodology and the
+  full before/after win-rate table.
 
   Walking into a monster transitions into a real combat encounter and
   back. 9 more districts, 10 dungeons, and 10 "beyond human sense"
