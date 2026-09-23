@@ -155,5 +155,148 @@
       {"item_id": "tide_mothers_scale", "chance": 1.0},
       {"item_id": "stalker_fang", "chance": 0.5}
     ]
+  },
+  {
+    "id": "market_dog",
+    "display_name": "Market Dog",
+    "description": "A mutated stray that never left the stall it used to guard. It still remembers its post, and it still thinks you're trespassing.",
+    "rank": "F",
+    "max_hp": 18,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Guard Bite", "description": "A fast, territorial snap.", "effect": "damage", "value": 5, "weight": 3},
+      {"name": "Territorial Snarl", "description": "This stall has an owner, and it isn't you.", "effect": "empower_next", "value": 3, "weight": 1}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "market_tag", "chance": 0.25}]
+  },
+  {
+    "id": "stall_wraith",
+    "display_name": "Stall Wraith",
+    "description": "A collapsed market stall's tarp, still billowing like it's got customers to flag down. Nobody's buying anymore.",
+    "rank": "F",
+    "max_hp": 14,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Tarp Snare", "description": "Wraps around whatever's closest.", "effect": "damage", "value": 4, "weight": 2},
+      {"name": "Haunted Billow", "description": "A cold, mildewed gust that clings.", "effect": "dot", "value": 3, "weight": 2}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "market_tag", "chance": 0.2}]
+  },
+  {
+    "id": "trickster_imp",
+    "display_name": "Trickster Imp",
+    "description": "Small, fast, and delighted by how much it can steal before you notice.",
+    "rank": "F",
+    "max_hp": 12,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Snatch", "description": "A quick grab at whatever's loose.", "effect": "damage", "value": 4, "weight": 3},
+      {"name": "Vanish", "description": "Gone before the counter-swing lands.", "effect": "block", "value": 4, "weight": 1}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "market_tag", "chance": 0.3}]
+  },
+  {
+    "id": "caged_songbird",
+    "display_name": "Caged Songbird",
+    "description": "Something that used to sing for tourists outside a pet stall. It hasn't stopped, but the song isn't music anymore.",
+    "rank": "F",
+    "max_hp": 11,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Discordant Shriek", "description": "A pitch that settles under the skin and stays.", "effect": "dot", "value": 3, "weight": 2},
+      {"name": "Panicked Peck", "description": "Frantic, without much behind it.", "effect": "damage", "value": 3, "weight": 2}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "market_tag", "chance": 0.15}]
+  },
+  {
+    "id": "talisman_husk",
+    "display_name": "Talisman Husk",
+    "description": "A clay guardian from Section 7, animated by whatever's still pulsing in the amulets stacked around it.",
+    "rank": "E",
+    "max_hp": 20,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Clay Fist", "description": "Slow, heavy, and hard to take twice.", "effect": "damage", "value": 5, "weight": 2},
+      {"name": "Amulet Pulse", "description": "The talismans around it flare, and the clay hardens.", "effect": "block", "value": 5, "weight": 2}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "genuine_amulet", "chance": 0.1}]
+  },
+  {
+    "id": "scale_merchant",
+    "display_name": "The Scale Merchant",
+    "description": "Four-armed, fused at the shoulders to a rack of cages holding mutated fighting fish. It still haggles - you just can't understand the price anymore.",
+    "rank": "E",
+    "max_hp": 48,
+    "is_miniboss": true,
+    "is_boss": false,
+    "moves": [
+      {"name": "Caustic Spit", "description": "One of the caged fish, aimed at you.", "effect": "damage", "value": 8, "weight": 3},
+      {"name": "Cage Rattle", "description": "The whole rack shakes - a warning, not an attack.", "effect": "block", "value": 5, "weight": 2}
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.5,
+        "display_name": "The Scale Merchant (Cages Cracking)",
+        "transition_text": "The cages crack. What's inside starts spitting on its own, wherever it wants.",
+        "moves": [
+          {"name": "Twin Cage Spit", "description": "Two cages at once, no more haggling.", "effect": "damage", "value": 10, "weight": 3},
+          {"name": "Bile Frenzy", "description": "Caustic spray that keeps burning after it lands.", "effect": "dot", "value": 4, "weight": 2},
+          {"name": "Desperate Weighing", "description": "It tips its own scale, betting everything on the next strike.", "effect": "empower_next", "value": 3, "weight": 1}
+        ]
+      }
+    ],
+    "drop_table": [
+      {"item_id": "scale_merchants_ledger", "chance": 0.6},
+      {"item_id": "genuine_amulet", "chance": 0.3}
+    ]
+  },
+  {
+    "id": "chimera_of_drowned_aviary",
+    "display_name": "The Chimera of the Drowned Aviary",
+    "description": "Hundreds of mutated birds from the market's exotic-pet stalls, moving as one shifting avian titan.",
+    "rank": "E",
+    "max_hp": 75,
+    "is_miniboss": false,
+    "is_boss": true,
+    "moves": [
+      {"name": "Wing Battering", "description": "A hundred wingbeats landing as one.", "effect": "damage", "value": 8, "weight": 3},
+      {"name": "Feathered Ward", "description": "The flock tightens into a shield.", "effect": "block", "value": 6, "weight": 2}
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.66,
+        "display_name": "The Chimera (Scattering Flock)",
+        "transition_text": "The titan shudders and scatters into a hundred smaller strikes at once - there's no single wingbeat left to predict.",
+        "moves": [
+          {"name": "Scattering Strikes", "description": "It isn't one attack anymore. It's all of them.", "effect": "damage", "value": 10, "weight": 3},
+          {"name": "Panicked Shrieking", "description": "A hundred throats, none of them happy about this.", "effect": "dot", "value": 4, "weight": 2},
+          {"name": "Regroup", "description": "The flock pulls back into formation.", "effect": "block", "value": 8, "weight": 1}
+        ]
+      },
+      {
+        "trigger_hp_pct": 0.33,
+        "display_name": "The Chimera (The Weeping Boss)",
+        "transition_text": "The flock collapses inward into one emaciated vulture-beast. Something blind and weeping is curled in its open chest cavity, still counting its old profits.",
+        "moves": [
+          {"name": "Vulture Dive", "description": "Everything left, thrown at once.", "effect": "damage", "value": 13, "weight": 3},
+          {"name": "The Boss's Final Count", "description": "It doesn't need to see you to know the tally's about to close.", "effect": "execute", "value": 9, "weight": 2},
+          {"name": "Last Roost", "description": "One final huddle, more instinct than strategy now.", "effect": "block", "value": 10, "weight": 1}
+        ]
+      }
+    ],
+    "drop_table": [
+      {"item_id": "chimera_feather", "chance": 1.0},
+      {"item_id": "scale_merchants_ledger", "chance": 0.4}
+    ]
   }
 ]

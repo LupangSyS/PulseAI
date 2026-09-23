@@ -667,6 +667,42 @@ CHARACTERS["shallow_tide_mother"] = boss_mass(
      "tendril": "#3a5c5c", "glow": "#e8a23d"},
 )
 
+# --- District 2: Chatuchak Ruins ---------------------------------------
+CHARACTERS["market_dog"] = quadruped(
+    {"body": "#8a6b4a", "accent": "#c9622e"}, size="medium", eye_color="#e8c23a",
+)
+
+CHARACTERS["stall_wraith"] = blob(
+    {"primary": "#6b6558", "secondary": "#9a9284", "shadow": "#4a453c", "eye": "#c9e854"},
+    shape="round", eye=True,
+)
+
+CHARACTERS["trickster_imp"] = blob(
+    {"primary": "#5c3a6b", "secondary": "#8a5ba8", "shadow": "#3a2445", "eye": "#e8c23a"},
+    shape="oval", eye=True,
+)
+
+CHARACTERS["caged_songbird"] = blob(
+    {"primary": "#c9622e", "secondary": "#e8a23a", "shadow": "#8a3e18", "eye": "#241810"},
+    shape="round", eye=True,
+)
+
+CHARACTERS["talisman_husk"] = squat(
+    {"body": "#a8734a", "belly": "#c9a26e", "eye": "#e8843a"},
+)
+
+CHARACTERS["scale_merchant"] = humanoid(
+    {"skin": "#a8845c", "primary": "#3a4a3e", "secondary": "#5c7a5e",
+     "shadow": "#242e26", "trim": "#8a9a54", "boot": "#1a221c", "hair": "#241a10",
+     "weapon": "#5c8a6e", "glow": "#c9e854", "eye": "#e8c23a"},
+    hood=False, robed=True, weapon="orb", weapon_glow=True,
+)
+
+CHARACTERS["chimera_of_drowned_aviary"] = boss_mass(
+    {"primary": "#4a4436", "secondary": "#8a7a54", "shadow": "#2e2a20",
+     "tendril": "#6b5c3a", "glow": "#c9e854"},
+)
+
 # ---------------------------------------------------------------------------
 # Render contact sheet for review
 # ---------------------------------------------------------------------------
@@ -700,6 +736,13 @@ CHARACTER_KIND.update({
     "bloated_toad": "monsters",
     "sukhumvit_stalker": "monsters",
     "shallow_tide_mother": "monsters",
+    "market_dog": "monsters",
+    "stall_wraith": "monsters",
+    "trickster_imp": "monsters",
+    "caged_songbird": "monsters",
+    "talisman_husk": "monsters",
+    "scale_merchant": "monsters",
+    "chimera_of_drowned_aviary": "monsters",
 })
 
 GODOT_ASSET_ROOT = os.path.join(REPO_ROOT, "assets", "sprites")

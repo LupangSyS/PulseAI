@@ -7,7 +7,10 @@ extends Control
 ## game loop - it begins a run and drops the player into the starting
 ## district's overworld. "[DEV] Enter the Flood" is a developer shortcut
 ## straight into an isolated test battle, bypassing the overworld/class
-## gating entirely, kept for quick combat-balance testing.
+## gating entirely, kept for quick combat-balance testing. "[DEV] Chatuchak
+## Ruins" is the same idea for district 2: there's no inter-district travel
+## engine yet (see GDD.md's roadmap), so this is the only way to reach it
+## in-game right now short of editing RunState directly.
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -43,6 +46,11 @@ func _ready() -> void:
 	start_button.pressed.connect(_on_start_pressed)
 	box.add_child(start_button)
 
+	var chatuchak_button := Button.new()
+	chatuchak_button.text = "[DEV] Chatuchak Ruins - Test District 2 (Apprentice Mage)"
+	chatuchak_button.pressed.connect(_on_chatuchak_pressed)
+	box.add_child(chatuchak_button)
+
 func _build_codex_text() -> String:
 	var total: int = GameData.classes.size()
 	var hidden: int = 0
@@ -58,3 +66,8 @@ func _on_explore_pressed() -> void:
 
 func _on_start_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/combat.tscn")
+
+func _on_chatuchak_pressed() -> void:
+	RunState.begin_run("mage_f")
+	RunState.pending_district_id = "chatuchak_ruins"
+	get_tree().change_scene_to_file("res://scenes/overworld.tscn")

@@ -46,5 +46,53 @@
     "rarity": "unique",
     "effect": "",
     "value": 0
+  },
+  {
+    "id": "market_tag",
+    "display_name": "Market Tag",
+    "description": "A torn tag, still readable: STALL 7B - EXOTIC IMPORTS.",
+    "rarity": "common",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "waterlogged_watch",
+    "display_name": "Waterlogged Watch",
+    "description": "Still ticking, somehow. Kru Viroj would want this back.",
+    "rarity": "common",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "genuine_amulet",
+    "display_name": "Genuine Amulet",
+    "description": "Warm to the touch. Actually blessed, unlike most of what's sold here.",
+    "rarity": "uncommon",
+    "effect": "restore_resource",
+    "value": 8
+  },
+  {
+    "id": "trade_manifest",
+    "display_name": "Trade Manifest",
+    "description": "Shipping records for \"biological samples,\" routed from a trench off the coast, dated days before the first fissure broke.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "scale_merchants_ledger",
+    "display_name": "Scale Merchant's Ledger",
+    "description": "Prices in a currency nobody uses anymore, for goods that were never for sale.",
+    "rarity": "uncommon",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "chimera_feather",
+    "display_name": "Chimera Feather",
+    "description": "Still warm. Still faintly singing, off-key.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
   }
 ]

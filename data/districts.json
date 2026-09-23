@@ -93,5 +93,90 @@
         "reward_item": "salvaged_battery_cell"
       }
     ]
+  },
+  {
+    "id": "chatuchak_ruins",
+    "display_name": "Chatuchak Ruins",
+    "description": "Mudflats and collapsed market stalls forming a labyrinth; the weekend market is a graveyard of exotic animals that mutated instead of dying, traded by scavengers who worship mannequin heads.",
+    "danger_tier": "F-E",
+    "kind": "district",
+    "grid_width": 10,
+    "grid_height": 8,
+    "entrance_cell": [0, 3],
+    "blocked_cells": [
+      [1, 1], [2, 1], [3, 1], [5, 1], [6, 1], [7, 1],
+      [2, 3], [3, 3], [4, 3], [6, 3], [7, 3], [8, 3],
+      [1, 5], [2, 5], [4, 5], [5, 5], [7, 5], [8, 5]
+    ],
+    "terrain": [
+      "ppprrpppsp",
+      "psrrrpsrrp",
+      "ppsprrpprp",
+      "pprrrpsrrr",
+      "ppsppsppsp",
+      "prpsrrspsr",
+      "ppssrppssr",
+      "ppppssppsw"
+    ],
+    "monster_spawns": [
+      {"monster_id": "market_dog", "cell": [2, 2], "respawn_seconds": 20},
+      {"monster_id": "market_dog", "cell": [5, 6], "respawn_seconds": 20},
+      {"monster_id": "stall_wraith", "cell": [8, 1], "respawn_seconds": 25},
+      {"monster_id": "trickster_imp", "cell": [1, 6], "respawn_seconds": 20},
+      {"monster_id": "caged_songbird", "cell": [4, 2], "respawn_seconds": 25},
+      {"monster_id": "talisman_husk", "cell": [7, 2], "respawn_seconds": 30}
+    ],
+    "miniboss_spawn": {"monster_id": "scale_merchant", "cell": [8, 6]},
+    "boss_spawn": {"monster_id": "chimera_of_drowned_aviary", "cell": [9, 7]},
+    "item_spawns": [
+      {"item_id": "waterlogged_watch", "cell": [3, 5]},
+      {"item_id": "market_tag", "cell": [6, 2]}
+    ],
+    "events": [
+      {
+        "cell": [1, 2],
+        "text": "Section 7 - the Amulet Vault. Heat-pulsing clay talismans are still stacked on their shelves in neat rows, like whoever priced them expects to come back.",
+        "repeatable": false
+      },
+      {
+        "cell": [8, 0],
+        "text": "The Vivarium Drains - ruptured exotic-wildlife holding cells, bars bent outward, not in. Whatever was in here didn't escape. It got out.",
+        "repeatable": false
+      },
+      {
+        "cell": [1, 4],
+        "text": "Kru Viroj hunches over a folding table of waterlogged watches, obsessively winding ones that will never tick again. \"I can hear the flood's pulse,\" he says, not looking up. \"It has a rhythm, like a heartbeat that forgot how to stop. Section 7's vault only opens for a balanced scale - a real amulet against a cursed weight. Get either wrong and it stays shut forever.\"",
+        "repeatable": true
+      },
+      {
+        "cell": [9, 3],
+        "text": "A waterlogged shipping crate, forced open. Trade manifests inside list \"biological samples\" arriving from a trench off the coast - dated days before the first fissure broke the riverbed. Somebody was expecting this.",
+        "repeatable": false,
+        "reward_item": "trade_manifest"
+      },
+      {
+        "cell": [3, 6],
+        "text": "A corpse slumped against a collapsed stall, pockets still full. You pull a cursed lead weight from where a heart used to be. It's heavier than it should be.",
+        "repeatable": false,
+        "sets_flag": "has_lead_weight"
+      },
+      {
+        "cell": [5, 7],
+        "text": "A brass scale bolted to Section 7's shelving. You set the lead weight on one side and a shelf amulet on the other. The arm tips, settles, and holds - this one's genuine.",
+        "fail_text": "The scale's empty on one side. You'll need something with real weight to test an amulet against.",
+        "repeatable": false,
+        "requires_flag": "has_lead_weight",
+        "sets_flag": "amulet_balanced"
+      },
+      {
+        "cell": [6, 7],
+        "text": "The vault door reads the balanced scale through a slot in the frame and grinds open, stacks of clay talismans humming in unison.",
+        "fail_text": "The vault door won't budge - it's still waiting on a balanced scale, not just a weight.",
+        "repeatable": false,
+        "requires_flag": "amulet_balanced",
+        "sets_flag": "vault_opened",
+        "reward_item": "genuine_amulet"
+      }
+    ]
   }
 ]

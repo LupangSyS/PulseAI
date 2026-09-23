@@ -28,18 +28,27 @@ currently exists:
   table for the full list. Every chain culminates in the character
   becoming a full avatar of the Thai myth it's anchored to (Naga, Yaksha,
   Erawan, Garuda, Hanuman, Kuman Thong, Rakshasa, and more).
-- **A real, explorable district** — Sukhumvit Shallows: grid movement,
-  6 respawning monster spawns (5 species), a 2-stage mini-boss (**The
-  Neon Strangler**) and a 3-stage boss (**Phra Khanong Mother**, Mae Nak
-  reflected) that are permanently removed once beaten, item pickups +
-  monster loot, and 9 events — two revisitable NPCs (Uncle Somchai,
-  Sister Da), two landmark flavor beats, a narrative reveal, and the
-  **Breaker Pump Protocol**: a real sequential 3-step puzzle (attempting
-  a step out of order fails it without consuming it, so it can't
-  softlock) that pays out a reward item on completion. Walking into a monster
-  transitions into a real combat encounter and back. 11 more districts,
-  10 dungeons, and 10 "beyond human sense" dimensions are fully designed
-  in GDD.md's World Map but not yet built as data.
+- **Two real, explorable districts**, each with grid movement, 6
+  respawning monster spawns (5 species), a mini-boss and boss (with
+  stage transitions) permanently removed once beaten, item pickups +
+  monster loot, and a cluster of events built on the same
+  `requires_flag`/`sets_flag` puzzle mechanic:
+  - **Sukhumvit Shallows**: mini-boss **The Neon Strangler** (2 stages),
+    boss **Phra Khanong Mother** (Mae Nak reflected, 3 stages), 9
+    events including two revisitable NPCs (Uncle Somchai, Sister Da)
+    and the **Breaker Pump Protocol** puzzle.
+  - **Chatuchak Ruins**: mini-boss **The Scale Merchant** (2 stages),
+    boss **The Chimera of the Drowned Aviary** (3 stages), 7 events
+    including the Watchmaker (Kru Viroj) and the **Amulet Scale**
+    puzzle (find a cursed weight, balance the scale, open the vault -
+    each step fails cleanly if attempted out of order, so it can't
+    softlock).
+
+  Walking into a monster transitions into a real combat encounter and
+  back. There's no travel between districts yet, so each is its own
+  standalone run. 10 more districts, 10 dungeons, and 10 "beyond human
+  sense" dimensions are fully designed in GDD.md's World Map but not
+  yet built as data.
 - Monsters are now data-driven too (`data/monsters.json`) with weighted
   AI move lists and multi-stage boss/mini-boss transitions, using the
   same six card effects as the player (including the two newest,
@@ -48,8 +57,8 @@ currently exists:
   drops into Sukhumvit Shallows; "[DEV] Enter the Flood" is an isolated
   combat-only shortcut for balance testing.
 - **Real pixel art for all 105 classes** (not just the 15 F-rank
-  starters) and all 8 monsters that actually appear
-  (`assets/sprites/`), true 64×64 RGBA with 2-frame idle animation.
+  starters) and all 15 monsters that actually appear across both built
+  districts (`assets/sprites/`), true 64×64 RGBA with 2-frame idle animation.
   E-through-S ranks aren't 90 hand-painted palettes — each family
   defines one base look (hair + a weapon or wraps, so no one's bald or
   empty-handed), and a rank-tier system (`tools/gen_sprites.py`)
@@ -59,8 +68,8 @@ currently exists:
   floating companion orbs, so the final evolution reads as a real apex
   tier. Uses each family's own accent color throughout so it stays
   family-distinct. Falls back to the original placeholder look for any
-  monster beyond Sukhumvit Shallows' 8.
-- **Sukhumvit Shallows now renders as a real tile-based map with a
+  monster beyond those 15.
+- **Both built districts render as real tile-based maps with a
   scrolling camera**, not a flat colored grid: an original 64×64
   tileset (`tools/gen_tiles.py`, `assets/tiles/`) themed to our own
   flooded-Bangkok setting, plus a rebuilt HUD — a district
@@ -96,8 +105,11 @@ currently exists:
   and held items. No Equipment/Formation/Config/Save — those systems
   don't exist yet, so the menu doesn't pretend to have them.
 - No class-selection UI, no inter-district travel/gating, no
-  evolution-unlock engine yet, no art beyond Sukhumvit Shallows' 9
-  sprites — see GDD.md's roadmap section for the full, honest list.
+  evolution-unlock engine yet. "Start Exploring" still only goes to
+  Sukhumvit Shallows; Chatuchak Ruins is reachable via its own
+  "[DEV] Chatuchak Ruins" main-menu shortcut (same pattern as "[DEV]
+  Enter the Flood"), not through real in-fiction travel between
+  districts. See GDD.md's roadmap section for the full, honest list.
 
 ## Opening the project
 
@@ -106,7 +118,8 @@ currently exists:
 2. Godot → Import → select this repo's `project.godot`.
 3. Run the project (F5). It opens on the main menu. "Start Exploring"
    drops you into Sukhumvit Shallows (arrow keys to move, walk into a
-   monster to fight it); "[DEV] Enter the Flood" starts an isolated test
+   monster to fight it); "[DEV] Chatuchak Ruins" drops you into district
+   2 the same way; "[DEV] Enter the Flood" starts an isolated test
    battle as the Apprentice Mage.
 
 This project was scaffolded without access to the Godot editor, so a

@@ -71,19 +71,21 @@ Three tiers of location, roughly escalating in danger and strangeness:
   endgame content, and the tenth dimension is the literal source of the
   Release: the game's actual final destination.
 
-Only **Sukhumvit Shallows** (district 1) is fully built right now — real
-grid, real monsters, real mini-boss/boss with stage transitions, real
-items and an event (see Exploration & Encounter System and Prototype
-status below). Everything else in this section is a content *plan*,
-following the exact same data shape (`DistrictData`/`MonsterData`), not
-yet written to `data/districts.json`.
+**Sukhumvit Shallows and Chatuchak Ruins** (districts 1-2) are fully
+built right now — real grids, real monsters, real mini-boss/boss with
+stage transitions, real items, NPCs, and puzzle events (see Exploration
+& Encounter System and Prototype status below). Everything else in this
+section is a content *plan*, following the exact same data shape
+(`DistrictData`/`MonsterData`), not yet written to `data/districts.json`.
+There is no inter-district travel yet — each is reachable only as its
+own standalone run, same as when Sukhumvit Shallows was the only one.
 
-### Districts (1 built, 11 designed)
+### Districts (2 built, 10 designed)
 
 | # | District | Tier | Ecosystem / hook |
 |---|---|---|---|
 | 1 | **Sukhumvit Shallows** *(built)* | F | Flood rats, leeches, drowned strays, toads, wisps; mini-boss/boss are the "source" that bred the rest — see Prototype status |
-| 2 | Chatuchak Ruins | F-E | Collapsed weekend market turned scavenger maze — market-dogs, stall-wraiths, trickster spirits |
+| 2 | **Chatuchak Ruins** *(built)* | F-E | Collapsed weekend market turned scavenger maze — market-dogs, stall-wraiths, trickster imps, caged songbirds, talisman husks |
 | 3 | Klong Toey Canals | E | The Hunter's territory — crocodilians, canal eels, drowned dockworkers (Crocodile Warden's discovery site) |
 | 4 | Wat Hualamphong Depths | E | The Necromancer's flooded temple basement — restless dead, bone-creatures, drowned monks (Bone Tide Necromancer's site) |
 | 5 | Ratchaprasong Intersection | E-D | The Tank's shrine — stone-guardian remnants, riot-echo constructs, crowd-crush phantoms (Erawan Guardian's site) |
@@ -132,7 +134,7 @@ dimension names/order match exactly, so this is the canonical narrative
 layer for every location. Everything here is **designed content**, not
 built: no NPC-dialogue, puzzle, or multi-phase-boss engine exists yet (see
 Roadmap) except where a district is already implemented in code, noted
-inline below. Three reconciliation notes before the content itself:*
+inline below. Four reconciliation notes before the content itself:*
 
 1. **Timeline** — adopted as canonical; the World section above now reads
    October 2025 Inundation / immediate aftermath, not the earlier "2035,
@@ -159,6 +161,19 @@ inline below. Three reconciliation notes before the content itself:*
    the actual 15-family roster. Each is mapped below to the closest real
    family — first-pass, easy to revise, since the unlock-condition engine
    that would actually wire these doesn't exist yet regardless.
+4. **District 2 (Chatuchak Ruins) is now built**, matching this bible's
+   section for it below exactly: the mini-boss is `scale_merchant` ("The
+   Scale Merchant," 1 stage) and the boss is `chimera_of_drowned_aviary`
+   ("The Chimera of the Drowned Aviary," 2 stages), both new monster ids
+   with their own sprites (`tools/gen_sprites.py`) rather than a reused
+   District 1 id, since District 2 needed genuinely new species anyway
+   (market-dogs, stall-wraiths, trickster imps, caged songbirds, talisman
+   husks). Kru Viroj (the Watchmaker) is a revisitable NPC event, Section
+   7/the Amulet Vault and the Vivarium Drains are landmark flavor events,
+   the trade-manifest narrative beat is in, and the Amulet Scale puzzle
+   is a real 3-step sequential gate (corpse weight -> scale -> vault
+   door) built on the same `requires_flag`/`sets_flag` event mechanic
+   note 2 describes. See `data/districts.json`'s `chatuchak_ruins` entry.
 
 ### Prologue: The Inundation
 
@@ -197,7 +212,7 @@ an emergency broadcast recording proves the government knew the flood was
 coming months early, and deliberately sealed canal locks to drown the
 lower-income districts first.
 
-**2. Chatuchak Ruins** — Mudflats and collapsed market stalls forming a
+**2. Chatuchak Ruins** *(built)* — Mudflats and collapsed market stalls forming a
 labyrinth; the weekend market is a graveyard of exotic animals that
 mutated instead of dying, traded by scavengers who worship mannequin
 heads. NPC: **The Watchmaker (Kru Viroj)**, obsessively repairing
@@ -767,12 +782,15 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   class codex now shows a count ("X of 105 known classes are still
   unresolved rumors") rather than one "???" line per class, since one
   line each stopped being readable at this roster size.
-- A **fully playable district** (`scenes/overworld.tscn` /
-  `scripts/overworld/overworld.gd`): Sukhumvit Shallows, grid movement,
-  6 regular monster spawns (5 species) that respawn on a timer, a
-  2-stage mini-boss and a 3-stage boss that are permanently removed once
-  beaten, 2 item pickups + monster loot drops feeding a simple inventory
-  with a usable healing item, and one environmental event. Walking into
+- **Two fully playable districts** (`scenes/overworld.tscn` /
+  `scripts/overworld/overworld.gd`): Sukhumvit Shallows and Chatuchak
+  Ruins, each with grid movement, 6 regular monster spawns (5 species)
+  that respawn on a timer, a mini-boss and boss (with stage transitions)
+  that are permanently removed once beaten, item pickups + monster loot
+  drops feeding a simple inventory with usable items, and a cluster of
+  NPC/landmark/narrative events plus a sequential flag-gated puzzle
+  (Breaker Pump Protocol / Amulet Scale) apiece. No travel between them
+  yet - each is its own standalone run, picked by `RunState`. Walking into
   a live monster transitions into...
 - **Combat** (`scenes/combat.tscn` / `scripts/combat/combat.gd`): the
   deck/hand/discard loop, resource costs, block, healing, empower-next,
@@ -863,8 +881,8 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   real `change_scene_to_file` transitions (menu-style start → overworld →
   walk into a monster → real scene change to combat → win → real scene
   change back → the fresh overworld correctly shows the spawn on cooldown).
-- **Real pixel art for all 105 classes and Sukhumvit Shallows' 8
-  monsters.** Every class in the roster — not just the 15 F-rank
+- **Real pixel art for all 105 classes and all 15 monsters across
+  Sukhumvit Shallows and Chatuchak Ruins.** Every class in the roster — not just the 15 F-rank
   starters — now has a true 64×64 RGBA sprite in `assets/sprites/`,
   every pixel an explicit color choice (region-fill generation, not an
   AI image model), so hard edges and real alpha transparency are
@@ -910,7 +928,7 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   real roster data. `SpriteLoader` renders them as `AnimatedSprite2D` in
   the overworld and as animated portraits in combat, and **falls back
   to the original colored-rectangle/text-only look for any id without
-  art** — now down to just monsters beyond Sukhumvit Shallows' 8. Adding
+  art** — now down to just monsters beyond those 15. Adding
   a class's art is one `humanoid(...)` config entry in
   `tools/gen_sprites.py` — no other code changes needed; `SpriteLoader`
   picks it up by filename
@@ -1025,11 +1043,12 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   is fully linear, one path F straight through to S; the original brief's
   "don't know how, maybe multiple paths" idea for branching evolutions
   isn't built).
-- Art for everything outside Sukhumvit Shallows' 9 sprites: the other 14
-  class families (and every non-F/E rank of all 15), monster/item icons
-  for the other 31 planned districts/dungeons/dimensions, a real tileset
-  for the overworld ground (currently plain `ColorRect`s — only the
-  characters standing on it have real art now), and general UI skinning.
+- Art for everything outside the 2 built districts: monster/item icons
+  for the other 30 planned districts/dungeons/dimensions, a real tileset
+  for their overworld ground (Sukhumvit Shallows and Chatuchak Ruins
+  both use the generated flood-city tileset already; everywhere else
+  still falls back to plain `ColorRect`s), named-building/landmark art
+  beyond flavor text, and general UI skinning.
 - Meta-progression / save system between runs — right now all state
   (`RunState`) lives in memory only and is lost when the game closes.
 - Class-specific mechanical hooks beyond the shared combo system (e.g. the
