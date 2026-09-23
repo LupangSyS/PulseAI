@@ -178,5 +178,91 @@
         "reward_item": "genuine_amulet"
       }
     ]
+  },
+  {
+    "id": "klong_toey_canals",
+    "display_name": "Klong Toey Canals",
+    "description": "Oil-slicked, caustic water choked with shipping containers. The poorest turned monstrous first - and there were more of them than anywhere else in the city.",
+    "danger_tier": "E",
+    "kind": "district",
+    "grid_width": 10,
+    "grid_height": 8,
+    "entrance_cell": [0, 4],
+    "blocked_cells": [
+      [2, 0], [2, 2], [3, 2], [4, 2],
+      [5, 0], [5, 1], [6, 1], [7, 1],
+      [1, 4], [2, 4], [3, 4], [5, 4], [6, 4],
+      [2, 6], [3, 6], [4, 6], [6, 6], [7, 6], [8, 6]
+    ],
+    "terrain": [
+      "pprrpprrws",
+      "psrrpsrrww",
+      "pssrrpsrww",
+      "psswwpsrww",
+      "prsswwssrw",
+      "psswwsrrws",
+      "psrrwwsrrw",
+      "psswwwssrw"
+    ],
+    "monster_spawns": [
+      {"monster_id": "canal_crocodile", "cell": [4, 1], "respawn_seconds": 25},
+      {"monster_id": "canal_crocodile", "cell": [7, 3], "respawn_seconds": 25},
+      {"monster_id": "canal_eel", "cell": [1, 2], "respawn_seconds": 20},
+      {"monster_id": "drowned_dockworker", "cell": [4, 3], "respawn_seconds": 25},
+      {"monster_id": "rusted_stevedore", "cell": [8, 2], "respawn_seconds": 30},
+      {"monster_id": "oil_slick_wisp", "cell": [1, 6], "respawn_seconds": 20}
+    ],
+    "miniboss_spawn": {"monster_id": "sluice_ripper", "cell": [8, 5]},
+    "boss_spawn": {"monster_id": "klong_toey_leviathan", "cell": [9, 7]},
+    "item_spawns": [
+      {"item_id": "dockworker_badge", "cell": [3, 3]},
+      {"item_id": "crocodile_scale", "cell": [6, 3]}
+    ],
+    "events": [
+      {
+        "cell": [1, 1],
+        "text": "Stack-City Core - a ten-story tower of rusted shipping containers, stacked and welded into something between a fortress and a grave. Rope ladders still sway between the upper tiers.",
+        "repeatable": false
+      },
+      {
+        "cell": [8, 0],
+        "text": "Drydock 4. An oil tanker, wedged sideways in the mud, hull split open like it was trying to give birth to something. Whatever it was already left.",
+        "repeatable": false
+      },
+      {
+        "cell": [1, 5],
+        "text": "Commander Lek stands watch with one working eye and a rifle held like it's still useful. His F-rank scavengers work the mud around him, unbothered - or too scared to be. \"Crane's still standing over at the sluice gate,\" he says, not looking at you. \"Align the container bridges to it and you can cross without swimming. Do it in order - alpha bridge, beta bridge, then the crane lock - or the whole rig drops you in the sludge.\"",
+        "repeatable": true
+      },
+      {
+        "cell": [9, 2],
+        "text": "A waterlogged strongbox, Lek's own handwriting on the ledgers inside. Shipping manifests routed through Ratchaprasong - food, going out, children coming back. The entries don't say what for. They don't have to.",
+        "repeatable": false,
+        "reward_item": "leks_militia_logs"
+      },
+      {
+        "cell": [4, 5],
+        "text": "Bridge Alpha: you wedge a container flush against the crane's arm. It groans, but holds. One aligned.",
+        "repeatable": false,
+        "sets_flag": "bridge_alpha"
+      },
+      {
+        "cell": [5, 6],
+        "text": "Bridge Beta: with Alpha holding steady, this one slots into place clean. Two down.",
+        "fail_text": "Bridge Beta swings loose - nothing's anchoring it yet. Alpha needs to go first.",
+        "repeatable": false,
+        "requires_flag": "bridge_alpha",
+        "sets_flag": "bridge_beta"
+      },
+      {
+        "cell": [5, 7],
+        "text": "The crane lock catches both bridges at once and grinds to a stop, finally aligned. The sluice gate path is clear.",
+        "fail_text": "The crane lock won't catch - it needs both bridges seated first.",
+        "repeatable": false,
+        "requires_flag": "bridge_beta",
+        "sets_flag": "crane_aligned",
+        "reward_item": "crane_control_chip"
+      }
+    ]
   }
 ]

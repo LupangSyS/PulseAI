@@ -703,6 +703,42 @@ CHARACTERS["chimera_of_drowned_aviary"] = boss_mass(
      "tendril": "#6b5c3a", "glow": "#c9e854"},
 )
 
+# --- District 3: Klong Toey Canals ---------------------------------------
+CHARACTERS["canal_crocodile"] = quadruped(
+    {"body": "#4a5c3a", "accent": "#8a9a54"}, size="large", ridged=True, eye_color="#e8c23a",
+)
+
+CHARACTERS["canal_eel"] = blob(
+    {"primary": "#1c2024", "secondary": "#3a4550", "shadow": "#0e1114", "eye": "#c9e854"},
+    shape="oval", eye=True,
+)
+
+CHARACTERS["drowned_dockworker"] = humanoid(
+    {"skin": "#8a9484", "primary": "#8a7a3a", "secondary": "#6b5e2e",
+     "shadow": "#3a3418", "trim": "#c9a23a", "boot": "#241f10", "eye": "#c9d43a"},
+    hood=False, robed=False, weapon=None,
+)
+
+CHARACTERS["rusted_stevedore"] = squat(
+    {"body": "#8a5a3a", "belly": "#c9843a", "eye": "#e85a2e"},
+)
+
+CHARACTERS["oil_slick_wisp"] = blob(
+    {"primary": "#4a3d5c", "secondary": "#7a5ba8", "shadow": "#241c30"}, shape="round",
+)
+
+CHARACTERS["sluice_ripper"] = humanoid(
+    {"skin": "#a8845c", "primary": "#3a3428", "secondary": "#c9a23a",
+     "shadow": "#241f18", "trim": "#1a1a1a", "boot": "#141414", "hair": "#1a1410",
+     "weapon": "#7a828a", "glow": "#e85a2e", "eye": "#e8c23a"},
+    hood=False, robed=False, weapon="axe", weapon_glow=True,
+)
+
+CHARACTERS["klong_toey_leviathan"] = boss_mass(
+    {"primary": "#1a1c14", "secondary": "#3a3424", "shadow": "#0d0e0a",
+     "tendril": "#2e2818", "glow": "#e85a2e"},
+)
+
 # ---------------------------------------------------------------------------
 # Render contact sheet for review
 # ---------------------------------------------------------------------------
@@ -743,6 +779,13 @@ CHARACTER_KIND.update({
     "talisman_husk": "monsters",
     "scale_merchant": "monsters",
     "chimera_of_drowned_aviary": "monsters",
+    "canal_crocodile": "monsters",
+    "canal_eel": "monsters",
+    "drowned_dockworker": "monsters",
+    "rusted_stevedore": "monsters",
+    "oil_slick_wisp": "monsters",
+    "sluice_ripper": "monsters",
+    "klong_toey_leviathan": "monsters",
 })
 
 GODOT_ASSET_ROOT = os.path.join(REPO_ROOT, "assets", "sprites")

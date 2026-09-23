@@ -8,9 +8,10 @@ extends Control
 ## district's overworld. "[DEV] Enter the Flood" is a developer shortcut
 ## straight into an isolated test battle, bypassing the overworld/class
 ## gating entirely, kept for quick combat-balance testing. "[DEV] Chatuchak
-## Ruins" is the same idea for district 2: there's no inter-district travel
-## engine yet (see GDD.md's roadmap), so this is the only way to reach it
-## in-game right now short of editing RunState directly.
+## Ruins" / "[DEV] Klong Toey Canals" are the same idea for districts 2/3:
+## there's no inter-district travel engine yet (see GDD.md's roadmap), so
+## these are the only way to reach them in-game right now short of editing
+## RunState directly.
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -73,6 +74,10 @@ func _ready() -> void:
 	chatuchak_button.pressed.connect(_on_chatuchak_pressed)
 	box.add_child(chatuchak_button)
 
+	var klong_toey_button := _make_menu_button("[DEV] Klong Toey Canals - Test District 3 (Apprentice Mage)")
+	klong_toey_button.pressed.connect(_on_klong_toey_pressed)
+	box.add_child(klong_toey_button)
+
 ## Godot's Button doesn't wrap its own text (same constraint combat.gd's
 ## tray buttons work around with a wrapped Label) - clip_text at least
 ## ellipsizes instead of silently rendering past the button's own bounds.
@@ -102,4 +107,9 @@ func _on_start_pressed() -> void:
 func _on_chatuchak_pressed() -> void:
 	RunState.begin_run("mage_f")
 	RunState.pending_district_id = "chatuchak_ruins"
+	get_tree().change_scene_to_file("res://scenes/overworld.tscn")
+
+func _on_klong_toey_pressed() -> void:
+	RunState.begin_run("mage_f")
+	RunState.pending_district_id = "klong_toey_canals"
 	get_tree().change_scene_to_file("res://scenes/overworld.tscn")

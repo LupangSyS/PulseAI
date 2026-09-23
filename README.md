@@ -28,7 +28,7 @@ currently exists:
   table for the full list. Every chain culminates in the character
   becoming a full avatar of the Thai myth it's anchored to (Naga, Yaksha,
   Erawan, Garuda, Hanuman, Kuman Thong, Rakshasa, and more).
-- **Two real, explorable districts**, each with grid movement, 6
+- **Three real, explorable districts**, each with grid movement, 6
   respawning monster spawns (5 species), a mini-boss and boss (with
   stage transitions) permanently removed once beaten, item pickups +
   monster loot, and a cluster of events built on the same
@@ -43,22 +43,29 @@ currently exists:
     puzzle (find a cursed weight, balance the scale, open the vault -
     each step fails cleanly if attempted out of order, so it can't
     softlock).
+  - **Klong Toey Canals**: mini-boss **The Sluice Ripper** (2 stages),
+    boss **Klong Toey Leviathan** (The Scum Matron, 3 stages), 7 events
+    including Commander Lek and the **Crane Sluice Alignment** puzzle
+    (align bridge alpha, then beta, then lock the crane).
 
   Walking into a monster transitions into a real combat encounter and
   back. There's no travel between districts yet, so each is its own
-  standalone run. 10 more districts, 10 dungeons, and 10 "beyond human
-  sense" dimensions are fully designed in GDD.md's World Map but not
-  yet built as data.
+  standalone run picked from a "[DEV] <district>" main-menu button. 9
+  more districts, 10 dungeons, and 10 "beyond human sense" dimensions
+  are fully designed in GDD.md's World Map but not yet built as data.
 - Monsters are now data-driven too (`data/monsters.json`) with weighted
   AI move lists and multi-stage boss/mini-boss transitions, using the
   same six card effects as the player (including the two newest,
   `dot`/`aoe_damage`/`execute`, all rank-gated D/B/S+).
-- Main menu has two entry points: "Start Exploring" begins a real run and
-  drops into Sukhumvit Shallows; "[DEV] Enter the Flood" is an isolated
-  combat-only shortcut for balance testing.
+- Main menu has two real entry points and two dev shortcuts: "Start
+  Exploring" begins a real run and drops into Sukhumvit Shallows;
+  "[DEV] Enter the Flood" is an isolated combat-only shortcut for
+  balance testing; "[DEV] Chatuchak Ruins" / "[DEV] Klong Toey Canals"
+  drop straight into districts 2/3 the same way, since there's no
+  in-fiction travel between districts yet.
 - **Real pixel art for all 105 classes** (not just the 15 F-rank
-  starters) and all 15 monsters that actually appear across both built
-  districts (`assets/sprites/`), true 64×64 RGBA with 2-frame idle animation.
+  starters) and all 22 monsters that actually appear across the three
+  built districts (`assets/sprites/`), true 64×64 RGBA with 2-frame idle animation.
   E-through-S ranks aren't 90 hand-painted palettes — each family
   defines one base look (hair + a weapon or wraps, so no one's bald or
   empty-handed), and a rank-tier system (`tools/gen_sprites.py`)
@@ -68,8 +75,8 @@ currently exists:
   floating companion orbs, so the final evolution reads as a real apex
   tier. Uses each family's own accent color throughout so it stays
   family-distinct. Falls back to the original placeholder look for any
-  monster beyond those 15.
-- **Both built districts render as real tile-based maps with a
+  monster beyond those 22.
+- **All three built districts render as real tile-based maps with a
   scrolling camera**, not a flat colored grid: an original 64×64
   tileset (`tools/gen_tiles.py`, `assets/tiles/`) themed to our own
   flooded-Bangkok setting, plus a rebuilt HUD — a district
@@ -128,10 +135,11 @@ currently exists:
   don't exist yet, so the menu doesn't pretend to have them.
 - No class-selection UI, no inter-district travel/gating, no
   evolution-unlock engine yet. "Start Exploring" still only goes to
-  Sukhumvit Shallows; Chatuchak Ruins is reachable via its own
-  "[DEV] Chatuchak Ruins" main-menu shortcut (same pattern as "[DEV]
-  Enter the Flood"), not through real in-fiction travel between
-  districts. See GDD.md's roadmap section for the full, honest list.
+  Sukhumvit Shallows; Chatuchak Ruins and Klong Toey Canals are each
+  reachable via their own "[DEV] <district>" main-menu shortcut (same
+  pattern as "[DEV] Enter the Flood"), not through real in-fiction
+  travel between districts. See GDD.md's roadmap section for the full,
+  honest list.
 
 ## Opening the project
 
@@ -140,8 +148,9 @@ currently exists:
 2. Godot → Import → select this repo's `project.godot`.
 3. Run the project (F5). It opens on the main menu. "Start Exploring"
    drops you into Sukhumvit Shallows (arrow keys to move, walk into a
-   monster to fight it); "[DEV] Chatuchak Ruins" drops you into district
-   2 the same way; "[DEV] Enter the Flood" starts an isolated test
+   monster to fight it); "[DEV] Chatuchak Ruins" / "[DEV] Klong Toey
+   Canals" drop you into districts 2/3 the same way; "[DEV] Enter the
+   Flood" starts an isolated test
    battle as the Apprentice Mage.
 
 This project was scaffolded without access to the Godot editor, so a

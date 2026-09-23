@@ -71,22 +71,24 @@ Three tiers of location, roughly escalating in danger and strangeness:
   endgame content, and the tenth dimension is the literal source of the
   Release: the game's actual final destination.
 
-**Sukhumvit Shallows and Chatuchak Ruins** (districts 1-2) are fully
-built right now — real grids, real monsters, real mini-boss/boss with
-stage transitions, real items, NPCs, and puzzle events (see Exploration
-& Encounter System and Prototype status below). Everything else in this
-section is a content *plan*, following the exact same data shape
-(`DistrictData`/`MonsterData`), not yet written to `data/districts.json`.
-There is no inter-district travel yet — each is reachable only as its
-own standalone run, same as when Sukhumvit Shallows was the only one.
+**Sukhumvit Shallows, Chatuchak Ruins, and Klong Toey Canals** (districts
+1-3) are fully built right now — real grids, real monsters, real
+mini-boss/boss with stage transitions, real items, NPCs, and puzzle
+events (see Exploration & Encounter System and Prototype status below).
+Everything else in this section is a content *plan*, following the exact
+same data shape (`DistrictData`/`MonsterData`), not yet written to
+`data/districts.json`. There is no inter-district travel yet — each is
+reachable only as its own standalone run (a "[DEV] <district>" main-menu
+button per built district), same as when Sukhumvit Shallows was the
+only one.
 
-### Districts (2 built, 10 designed)
+### Districts (3 built, 9 designed)
 
 | # | District | Tier | Ecosystem / hook |
 |---|---|---|---|
 | 1 | **Sukhumvit Shallows** *(built)* | F | Flood rats, leeches, drowned strays, toads, wisps; mini-boss/boss are the "source" that bred the rest — see Prototype status |
 | 2 | **Chatuchak Ruins** *(built)* | F-E | Collapsed weekend market turned scavenger maze — market-dogs, stall-wraiths, trickster imps, caged songbirds, talisman husks |
-| 3 | Klong Toey Canals | E | The Hunter's territory — crocodilians, canal eels, drowned dockworkers (Crocodile Warden's discovery site) |
+| 3 | **Klong Toey Canals** *(built)* | E | The Hunter's territory — crocodilians, canal eels, drowned dockworkers, rusted stevedores, oil-slick wisps (Crocodile Warden's discovery site) |
 | 4 | Wat Hualamphong Depths | E | The Necromancer's flooded temple basement — restless dead, bone-creatures, drowned monks (Bone Tide Necromancer's site) |
 | 5 | Ratchaprasong Intersection | E-D | The Tank's shrine — stone-guardian remnants, riot-echo constructs, crowd-crush phantoms (Erawan Guardian's site) |
 | 6 | Thonburi Drowned Temples | D | Guardian statues and spirit houses — temple spirits, vengeful stonework, Kuman Thong (Yaksha Blade + Kuman Thong Warden's shared site) |
@@ -134,7 +136,7 @@ dimension names/order match exactly, so this is the canonical narrative
 layer for every location. Everything here is **designed content**, not
 built: no NPC-dialogue, puzzle, or multi-phase-boss engine exists yet (see
 Roadmap) except where a district is already implemented in code, noted
-inline below. Four reconciliation notes before the content itself:*
+inline below. Five reconciliation notes before the content itself:*
 
 1. **Timeline** — adopted as canonical; the World section above now reads
    October 2025 Inundation / immediate aftermath, not the earlier "2035,
@@ -174,6 +176,18 @@ inline below. Four reconciliation notes before the content itself:*
    is a real 3-step sequential gate (corpse weight -> scale -> vault
    door) built on the same `requires_flag`/`sets_flag` event mechanic
    note 2 describes. See `data/districts.json`'s `chatuchak_ruins` entry.
+5. **District 3 (Klong Toey Canals) is now built**, same pattern again:
+   the mini-boss is `sluice_ripper` ("The Sluice Ripper," 1 stage) and
+   the boss is `klong_toey_leviathan` ("Klong Toey Leviathan / The Scum
+   Matron," 2 stages), both new ids with their own sprites - 5 new
+   regular species (canal crocodiles, canal eels, drowned dockworkers,
+   rusted stevedores, oil-slick wisps). Commander Lek is a revisitable
+   NPC event, Stack-City Core and Drydock 4 are landmark flavor events,
+   Lek's militia logs are the narrative beat (the Ratchaprasong-elites-
+   trading-children reveal this bible names), and the Crane Sluice
+   Alignment puzzle is a real 3-step sequential gate (bridge alpha ->
+   bridge beta -> crane lock) on the same event mechanic. See
+   `data/districts.json`'s `klong_toey_canals` entry.
 
 ### Prologue: The Inundation
 
@@ -229,7 +243,7 @@ animal-syndicate boss. Narrative beat: trade manifests show biological
 samples arriving from deep ocean trenches under the river days before the
 first fissure broke.
 
-**3. Klong Toey Canals** *(the Hunter's discovery site — Crocodile
+**3. Klong Toey Canals** *(built)* *(the Hunter's discovery site — Crocodile
 Warden)* — Oil-slicked, caustic water choked with shipping containers;
 the poorest turned monstrous first. NPC: **Commander Lek**, one-eyed
 militia leader running F-rank scavengers as expendable mine-clearers.
@@ -782,16 +796,17 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   class codex now shows a count ("X of 105 known classes are still
   unresolved rumors") rather than one "???" line per class, since one
   line each stopped being readable at this roster size.
-- **Two fully playable districts** (`scenes/overworld.tscn` /
-  `scripts/overworld/overworld.gd`): Sukhumvit Shallows and Chatuchak
-  Ruins, each with grid movement, 6 regular monster spawns (5 species)
-  that respawn on a timer, a mini-boss and boss (with stage transitions)
-  that are permanently removed once beaten, item pickups + monster loot
-  drops feeding a simple inventory with usable items, and a cluster of
-  NPC/landmark/narrative events plus a sequential flag-gated puzzle
-  (Breaker Pump Protocol / Amulet Scale) apiece. No travel between them
-  yet - each is its own standalone run, picked by `RunState`. Walking into
-  a live monster transitions into...
+- **Three fully playable districts** (`scenes/overworld.tscn` /
+  `scripts/overworld/overworld.gd`): Sukhumvit Shallows, Chatuchak
+  Ruins, and Klong Toey Canals, each with grid movement, 6 regular
+  monster spawns (5 species) that respawn on a timer, a mini-boss and
+  boss (with stage transitions) that are permanently removed once
+  beaten, item pickups + monster loot drops feeding a simple inventory
+  with usable items, and a cluster of NPC/landmark/narrative events plus
+  a sequential flag-gated puzzle (Breaker Pump Protocol / Amulet Scale /
+  Crane Sluice Alignment) apiece. No travel between them yet - each is
+  its own standalone run, picked by `RunState` via a "[DEV] <district>"
+  main-menu button. Walking into a live monster transitions into...
 - **Combat** (`scenes/combat.tscn` / `scripts/combat/combat.gd`): the
   deck/hand/discard loop, resource costs, block, healing, empower-next,
   combo multiplier, plus monster AI (weighted move lists) and multi-stage
@@ -924,8 +939,8 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   real `change_scene_to_file` transitions (menu-style start → overworld →
   walk into a monster → real scene change to combat → win → real scene
   change back → the fresh overworld correctly shows the spawn on cooldown).
-- **Real pixel art for all 105 classes and all 15 monsters across
-  Sukhumvit Shallows and Chatuchak Ruins.** Every class in the roster — not just the 15 F-rank
+- **Real pixel art for all 105 classes and all 22 monsters across
+  Sukhumvit Shallows, Chatuchak Ruins, and Klong Toey Canals.** Every class in the roster — not just the 15 F-rank
   starters — now has a true 64×64 RGBA sprite in `assets/sprites/`,
   every pixel an explicit color choice (region-fill generation, not an
   AI image model), so hard edges and real alpha transparency are
@@ -971,7 +986,7 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   real roster data. `SpriteLoader` renders them as `AnimatedSprite2D` in
   the overworld and as animated portraits in combat, and **falls back
   to the original colored-rectangle/text-only look for any id without
-  art** — now down to just monsters beyond those 15. Adding
+  art** — now down to just monsters beyond those 22. Adding
   a class's art is one `humanoid(...)` config entry in
   `tools/gen_sprites.py` — no other code changes needed; `SpriteLoader`
   picks it up by filename
@@ -1086,12 +1101,14 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   is fully linear, one path F straight through to S; the original brief's
   "don't know how, maybe multiple paths" idea for branching evolutions
   isn't built).
-- Art for everything outside the 2 built districts: monster/item icons
-  for the other 30 planned districts/dungeons/dimensions, a real tileset
-  for their overworld ground (Sukhumvit Shallows and Chatuchak Ruins
-  both use the generated flood-city tileset already; everywhere else
-  still falls back to plain `ColorRect`s), named-building/landmark art
-  beyond flavor text, and general UI skinning.
+- Art for everything outside the 3 built districts: monster/item icons
+  for the other 29 planned districts/dungeons/dimensions, a real tileset
+  for their overworld ground (Sukhumvit Shallows, Chatuchak Ruins, and
+  Klong Toey Canals all use the generated flood-city tileset already;
+  everywhere else still falls back to plain `ColorRect`s), named-
+  building/landmark art beyond flavor text, and general UI skinning
+  (partially addressed by `UITheme` - see the dark-theme note above,
+  though it's palette/panels, not bespoke per-district art).
 - Meta-progression / save system between runs — right now all state
   (`RunState`) lives in memory only and is lost when the game closes.
 - Class-specific mechanical hooks beyond the shared combo system (e.g. the

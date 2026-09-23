@@ -94,5 +94,53 @@
     "rarity": "unique",
     "effect": "",
     "value": 0
+  },
+  {
+    "id": "crocodile_scale",
+    "display_name": "Crocodile Scale",
+    "description": "Thicker than it should be, and warm on the underside.",
+    "rarity": "common",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "dockworker_badge",
+    "display_name": "Dockworker Badge",
+    "description": "Laminate long gone. The name underneath is still legible, if you want to know it.",
+    "rarity": "common",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "crane_control_chip",
+    "display_name": "Crane Control Chip",
+    "description": "Salvaged from the sluice crane's console. Still holds a charge.",
+    "rarity": "uncommon",
+    "effect": "restore_resource",
+    "value": 9
+  },
+  {
+    "id": "leks_militia_logs",
+    "display_name": "Lek's Militia Logs",
+    "description": "Handwritten shipping ledgers. Ratchaprasong elites, trading food for children - fuel or sacrifice, the entries don't say which.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "sluice_rippers_blade_shard",
+    "display_name": "Sluice Ripper's Blade Shard",
+    "description": "Still humming faintly with residual hydraulic pressure.",
+    "rarity": "uncommon",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "leviathan_tar_heart",
+    "display_name": "Leviathan Tar Heart",
+    "description": "Dense, black, and warm. It beats, slowly, if you hold it long enough to notice.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
   }
 ]

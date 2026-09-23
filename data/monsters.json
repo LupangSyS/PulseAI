@@ -298,5 +298,148 @@
       {"item_id": "chimera_feather", "chance": 1.0},
       {"item_id": "scale_merchants_ledger", "chance": 0.4}
     ]
+  },
+  {
+    "id": "canal_crocodile",
+    "display_name": "Canal Crocodile",
+    "description": "Bigger than anything native to this canal should be, with an oily sheen that isn't just water.",
+    "rank": "E",
+    "max_hp": 22,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Death Roll", "description": "Drags whatever it's bitten under.", "effect": "damage", "value": 7, "weight": 3},
+      {"name": "Submerge", "description": "Vanishes beneath the slick.", "effect": "block", "value": 6, "weight": 2}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "crocodile_scale", "chance": 0.3}]
+  },
+  {
+    "id": "canal_eel",
+    "display_name": "Canal Eel",
+    "description": "Grown fat on runoff nobody wanted to trace back to its source.",
+    "rank": "E",
+    "max_hp": 16,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Electric Lash", "description": "A jolt that shouldn't be biologically possible down here.", "effect": "damage", "value": 6, "weight": 2},
+      {"name": "Caustic Bite", "description": "The wound keeps burning long after the bite lets go.", "effect": "dot", "value": 4, "weight": 2}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "crocodile_scale", "chance": 0.15}]
+  },
+  {
+    "id": "drowned_dockworker",
+    "display_name": "Drowned Dockworker",
+    "description": "Still wearing a hi-vis vest, faded past reading. Still swinging a cargo hook nobody's paying him to swing.",
+    "rank": "E",
+    "max_hp": 18,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Cargo Hook Swing", "description": "Decades of muscle memory, aimed at you now.", "effect": "damage", "value": 6, "weight": 3},
+      {"name": "Rusted Grip", "description": "Tightens a grip that never really let go of the job.", "effect": "empower_next", "value": 3, "weight": 1}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "dockworker_badge", "chance": 0.25}]
+  },
+  {
+    "id": "rusted_stevedore",
+    "display_name": "Rusted Stevedore",
+    "description": "Fused to a corroded loading frame that's more of it now than the man ever was.",
+    "rank": "E",
+    "max_hp": 26,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Scrap Slam", "description": "The whole rusted frame, thrown forward.", "effect": "damage", "value": 8, "weight": 2},
+      {"name": "Rust Plating", "description": "What's left of the frame locks into place.", "effect": "block", "value": 7, "weight": 2}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "dockworker_badge", "chance": 0.15}]
+  },
+  {
+    "id": "oil_slick_wisp",
+    "display_name": "Oil-Slick Wisp",
+    "description": "A sheen on the water that moves against the current, toward you specifically.",
+    "rank": "E",
+    "max_hp": 14,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {"name": "Caustic Sheen", "description": "Coats whatever it touches in something that keeps eating.", "effect": "dot", "value": 4, "weight": 3},
+      {"name": "Slick Dodge", "description": "Spreads too thin to hit cleanly.", "effect": "block", "value": 4, "weight": 1}
+    ],
+    "stages": [],
+    "drop_table": [{"item_id": "crocodile_scale", "chance": 0.1}]
+  },
+  {
+    "id": "sluice_ripper",
+    "display_name": "The Sluice Ripper",
+    "description": "A harbor worker grafted to hydraulic forklift blades that never got the shutdown signal.",
+    "rank": "E",
+    "max_hp": 55,
+    "is_miniboss": true,
+    "is_boss": false,
+    "moves": [
+      {"name": "Hydraulic Cleave", "description": "The blades don't need him to aim them anymore.", "effect": "damage", "value": 9, "weight": 3},
+      {"name": "Blade Whir", "description": "Spins up defensively between strikes.", "effect": "block", "value": 6, "weight": 2}
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.5,
+        "display_name": "The Sluice Ripper (Overclocked)",
+        "transition_text": "Something in the hydraulics redlines. The blades don't slow down anymore.",
+        "moves": [
+          {"name": "Overclocked Cleave", "description": "Faster than the frame was ever rated for.", "effect": "damage", "value": 12, "weight": 3},
+          {"name": "Rending Frenzy", "description": "A wound that keeps opening under its own momentum.", "effect": "dot", "value": 5, "weight": 2},
+          {"name": "Pressure Surge", "description": "The hydraulics build toward something worse.", "effect": "empower_next", "value": 4, "weight": 1}
+        ]
+      }
+    ],
+    "drop_table": [
+      {"item_id": "sluice_rippers_blade_shard", "chance": 0.6},
+      {"item_id": "crane_control_chip", "chance": 0.25}
+    ]
+  },
+  {
+    "id": "klong_toey_leviathan",
+    "display_name": "Klong Toey Leviathan (The Scum Matron)",
+    "description": "An amorphous mass of oil, hair, and sewage that erupted through the floor grates and never went back down.",
+    "rank": "E",
+    "max_hp": 85,
+    "is_miniboss": false,
+    "is_boss": true,
+    "moves": [
+      {"name": "Grate Eruption", "description": "More of her than should fit through a floor grate, all at once.", "effect": "damage", "value": 9, "weight": 3},
+      {"name": "Amorphous Recoil", "description": "Absorbs the hit by simply not having a fixed shape.", "effect": "block", "value": 7, "weight": 2}
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.66,
+        "display_name": "The Scum Matron (Rising Through the Grates)",
+        "transition_text": "More of her pushes up through the floor grates than the canal should ever have been able to hold.",
+        "moves": [
+          {"name": "Sewage Surge", "description": "A wave of everything the canal never let go of.", "effect": "damage", "value": 11, "weight": 3},
+          {"name": "Caustic Bloom", "description": "Something in her keeps burning after it lands.", "effect": "dot", "value": 5, "weight": 2},
+          {"name": "Hair-Choked Guard", "description": "A tangled mass thick enough to stop a blade in it.", "effect": "block", "value": 9, "weight": 1}
+        ]
+      },
+      {
+        "trigger_hp_pct": 0.33,
+        "display_name": "The Scum Matron (Carapace Ablaze)",
+        "transition_text": "She hardens into an oily carapace right as it catches - the whole canal surface ignites around her.",
+        "moves": [
+          {"name": "Burning Carapace Slam", "description": "Everything she's hardened into, on fire, thrown at you.", "effect": "damage", "value": 15, "weight": 3},
+          {"name": "Ignition Wave", "description": "The burning oil doesn't care how much of you is already gone.", "effect": "execute", "value": 10, "weight": 2},
+          {"name": "Molten Shell", "description": "One last hardening, glowing at the seams.", "effect": "block", "value": 11, "weight": 1}
+        ]
+      }
+    ],
+    "drop_table": [
+      {"item_id": "leviathan_tar_heart", "chance": 1.0},
+      {"item_id": "sluice_rippers_blade_shard", "chance": 0.4}
+    ]
   }
 ]
