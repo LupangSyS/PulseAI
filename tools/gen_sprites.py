@@ -53,6 +53,50 @@ def lighten(hex_color, amt=0.45):
     return "#%02x%02x%02x" % (r, g, b)
 
 
+def boost_color(hex_color, sat_boost=0.0, val_boost=0.0):
+    """HSV saturate+brighten - the mechanism behind the rank power
+    progression below (F plain -> S radiant), without hand-tuning a new
+    palette per rank."""
+    import colorsys
+    r, g, b = (int(hex_color[i:i + 2], 16) / 255.0 for i in (1, 3, 5))
+    h, s, v = colorsys.rgb_to_hsv(r, g, b)
+    s = min(1.0, s + sat_boost)
+    v = min(1.0, v + val_boost)
+    r, g, b = colorsys.hsv_to_rgb(h, s, v)
+    return "#%02x%02x%02x" % (int(r * 255), int(g * 255), int(b * 255))
+
+
+def boost_colors(colors, sat_boost, val_boost, keys=("primary", "secondary", "trim", "weapon", "glow")):
+    out = dict(colors)
+    for k in keys:
+        if k in out:
+            out[k] = boost_color(out[k], sat_boost, val_boost)
+    return out
+
+
+def add_aura(grid, aura_color, thickness=1):
+    """Dilates a colored ring of `thickness` pixels around the character's
+    current silhouette (into currently-empty cells only) - a cheap, always-
+    correct "power glow" that works on any finished shape/weapon regardless
+    of body plan, used for the C-through-S rank progression."""
+    g = [row[:] for row in grid]
+    filled = [[grid[r][c] is not None for c in range(N)] for r in range(N)]
+    for _ in range(thickness):
+        newly = []
+        for r in range(N):
+            for c in range(N):
+                if filled[r][c] or g[r][c] is not None:
+                    continue
+                neighbors = [(r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)]
+                if any(0 <= nr < N and 0 <= nc < N and filled[nr][nc] for nr, nc in neighbors):
+                    newly.append((r, c))
+        for r, c in newly:
+            g[r][c] = aura_color
+        for r, c in newly:
+            filled[r][c] = True
+    return g
+
+
 def to_image(grid, scale=1):
     img = Image.new("RGBA", (N * scale, N * scale), (0, 0, 0, 0))
     px = img.load()
@@ -79,7 +123,8 @@ def bob(grid):
 # ---------------------------------------------------------------------------
 # Humanoid (player classes, upright monsters)
 # ---------------------------------------------------------------------------
-def humanoid(colors, hood=False, robed=False, weapon=None, weapon_glow=False, weapon_side="right"):
+def humanoid(colors, hood=False, robed=False, weapon=None, weapon_glow=False, weapon_side="right",
+             aura=None, aura_thickness=0, mark=False, eye_override=None):
     g = blank()
     skin = colors["skin"]
     primary = colors["primary"]
@@ -149,6 +194,20 @@ def humanoid(colors, hood=False, robed=False, weapon=None, weapon_glow=False, we
         fill(g, 24, 25, wc0, wc0 + 8, trim)
         fill(g, 47, 48, wc0, wc0 + 8, trim)
         fill(g, 33, 39, wc0 + 2, wc0 + 6, trim)
+
+    # --- Rank-tier power progression (C rank and up): a sak-yant-style
+    # forehead mark (works for any family/myth, not just ones with an
+    # obvious personal emblem) and a glowing aura outline dilated around
+    # the finished silhouette - see add_aura. S rank also overrides the
+    # eyes to a fully luminous color instead of just a glint.
+    if mark:
+        mark_color = lighten(trim, 0.55)
+        fill(g, 11, 12, 31, 32, mark_color)
+    if eye_override:
+        fill(g, 19, 22, 27, 30, eye_override)
+        fill(g, 19, 22, 36, 39, eye_override)
+    if aura and aura_thickness > 0:
+        g = add_aura(g, aura, aura_thickness)
     return g
 
 
@@ -277,102 +336,163 @@ def boss_mass(colors):
 # ---------------------------------------------------------------------------
 CHARACTERS = {}
 
-CHARACTERS["mage_f"] = humanoid(
-    {"skin": "#d9a066", "primary": "#2f6d64", "secondary": "#255a53",
-     "shadow": "#1d4740", "trim": "#c98a3a", "boot": "#16302c",
-     "weapon": "#8a7a63", "glow": "#f0b94d", "eye": "#241810"},
-    hood=True, robed=True, weapon="staff", weapon_glow=True,
-)
+# Each of the 15 class families' base look (F-rank) - the single source of
+# truth for that family's silhouette/palette. Every other rank (E-S) is
+# generated from this same config via RANK_TIERS below, not hand-authored
+# separately - see _generate_rank_chain.
+FAMILY_BASE = {
+    "mage": dict(
+        colors={"skin": "#d9a066", "primary": "#2f6d64", "secondary": "#255a53",
+                "shadow": "#1d4740", "trim": "#c98a3a", "boot": "#16302c",
+                "weapon": "#8a7a63", "glow": "#f0b94d", "eye": "#241810"},
+        hood=True, robed=True, weapon="staff", weapon_glow=True,
+    ),
+    "hunter": dict(
+        colors={"skin": "#c48958", "primary": "#5c5233", "secondary": "#7a6f47",
+                "shadow": "#3a3420", "trim": "#a85c2e", "boot": "#2e2a1c", "eye": "#2a1c10"},
+        hood=False, robed=False, weapon=None,
+    ),
+    "healer": dict(
+        colors={"skin": "#e0ab7a", "primary": "#d8d2c4", "secondary": "#c46a5e",
+                "shadow": "#8a8477", "trim": "#c46a5e", "boot": "#5c574c", "eye": "#3a2a1e"},
+        hood=False, robed=False, weapon=None,
+    ),
+    "necromancer": dict(
+        colors={"skin": "#a68f8a", "primary": "#3a2a45", "secondary": "#2e2038",
+                "shadow": "#1c1424", "trim": "#6b4a8a", "boot": "#180f1e",
+                "weapon": "#5c4a4a", "glow": "#7de08a", "eye": "#7de08a"},
+        hood=True, robed=True, weapon="staff", weapon_glow=True,
+    ),
+    "assassin": dict(
+        colors={"skin": "#b98a6a", "primary": "#2c2c34", "secondary": "#22222a",
+                "shadow": "#161619", "trim": "#5a1e1e", "boot": "#0e0e11", "eye": "#c9a23a"},
+        hood=True, robed=False, weapon=None,
+    ),
+    "tank": dict(
+        colors={"skin": "#c99566", "primary": "#3a4a5c", "secondary": "#2e3a48",
+                "shadow": "#1e2730", "trim": "#8a9aa8", "boot": "#1a2228",
+                "weapon": "#7a828a", "eye": "#1c1410"},
+        hood=False, robed=False, weapon="shield", weapon_side="left",
+    ),
+    "berserker": dict(
+        colors={"skin": "#b97a52", "primary": "#6b2620", "secondary": "#4a1c18",
+                "shadow": "#301210", "trim": "#c9622e", "boot": "#241010", "eye": "#e8c23a"},
+        hood=False, robed=False, weapon=None,
+    ),
+    "summoner": dict(
+        colors={"skin": "#d9a874", "primary": "#7a1e2e", "secondary": "#c9a23a",
+                "shadow": "#4a1420", "trim": "#e8c65a", "boot": "#3a1418", "eye": "#241810"},
+        hood=False, robed=True, weapon=None,
+    ),
+    "pyromancer": dict(
+        colors={"skin": "#c9855a", "primary": "#8a2e1e", "secondary": "#c94e26",
+                "shadow": "#4a1810", "trim": "#e8a23a", "boot": "#241008",
+                "weapon": "#4a3a30", "glow": "#f0782c", "eye": "#f0b23a"},
+        hood=True, robed=True, weapon="staff", weapon_glow=True, weapon_side="left",
+    ),
+    "ranger": dict(
+        colors={"skin": "#c48a5c", "primary": "#3d5c3a", "secondary": "#547a4e",
+                "shadow": "#263a24", "trim": "#7a8a4a", "boot": "#22301e", "eye": "#1c2418"},
+        hood=False, robed=False, weapon=None,
+    ),
+    "monk": dict(
+        colors={"skin": "#a8734a", "primary": "#8a1e1e", "secondary": "#c9a23a",
+                "shadow": "#4a1010", "trim": "#e8c65a", "boot": "#5c4028", "eye": "#241810"},
+        hood=False, robed=False, weapon=None,
+    ),
+    "alchemist": dict(
+        colors={"skin": "#cf9a68", "primary": "#5c6b2e", "secondary": "#8a9a3e",
+                "shadow": "#343d1a", "trim": "#c9d454", "boot": "#2a3014",
+                "weapon": "#5c6b6b", "glow": "#c9e854", "eye": "#241c10"},
+        hood=False, robed=False, weapon="staff", weapon_glow=True,
+    ),
+    "psychic": dict(
+        colors={"skin": "#c9a8b0", "primary": "#3a2c4a", "secondary": "#5c4a7a",
+                "shadow": "#241c30", "trim": "#9a7ac9", "boot": "#1c1624", "eye": "#c9e8f0"},
+        hood=False, robed=False, weapon=None,
+    ),
+    "exorcist": dict(
+        colors={"skin": "#e0b888", "primary": "#e8e0c8", "secondary": "#c9a23a",
+                "shadow": "#a89a6e", "trim": "#8a1e1e", "boot": "#6b5c3a", "eye": "#241810"},
+        hood=False, robed=True, weapon=None,
+    ),
+    "bard": dict(
+        colors={"skin": "#c9926a", "primary": "#2e5c5c", "secondary": "#4a8a8a",
+                "shadow": "#1c3a3a", "trim": "#7ac9c9", "boot": "#162e2e", "eye": "#c9f0e8"},
+        hood=False, robed=False, weapon=None,
+    ),
+}
 
-# --- Remaining 14 F-rank starting classes (one per family) ---------------
+# Rank power progression: F is the family's plain base look (no entry
+# needed - handled separately below); each tier after that layers on a
+# color-intensity boost, and from C rank up, a forehead mark + a glowing
+# aura outline that thickens with rank. S rank also gets fully luminous
+# eyes. Uniform across all 15 families - it's about *rank*, not myth-
+# specific iconography (which would need bespoke art per family to do
+# justice to; this is the sustainable alternative for 90 classes at once).
+RANK_TIERS = {
+    "E": dict(sat=0.05, val=0.03, aura=None, aura_t=0, mark=False, eye=False),
+    "D": dict(sat=0.10, val=0.06, aura=None, aura_t=0, mark=False, eye=False),
+    "C": dict(sat=0.15, val=0.10, aura="trim", aura_t=1, mark=True, eye=False),
+    "B": dict(sat=0.20, val=0.14, aura="trim", aura_t=1, mark=True, eye=False),
+    "A": dict(sat=0.25, val=0.18, aura="glow", aura_t=2, mark=True, eye=False),
+    "S": dict(sat=0.32, val=0.22, aura="glow", aura_t=2, mark=True, eye=True),
+}
 
-CHARACTERS["hunter_f"] = humanoid(
-    {"skin": "#c48958", "primary": "#5c5233", "secondary": "#7a6f47",
-     "shadow": "#3a3420", "trim": "#a85c2e", "boot": "#2e2a1c", "eye": "#2a1c10"},
-    hood=False, robed=False, weapon=None,
-)
 
-CHARACTERS["healer_f"] = humanoid(
-    {"skin": "#e0ab7a", "primary": "#d8d2c4", "secondary": "#c46a5e",
-     "shadow": "#8a8477", "trim": "#c46a5e", "boot": "#5c574c", "eye": "#3a2a1e"},
-    hood=False, robed=False, weapon=None,
-)
+def _generate_rank_chain(family: str, base: dict, chain_ids: list) -> None:
+    """chain_ids is [(rank, class_id), ...] from F to S, in order, read
+    straight from classes.json (see the bottom of this file) - ranks don't
+    follow a simple id naming pattern (E-rank especially), so this never
+    guesses ids, only uses what the real roster data says."""
+    for rank, class_id in chain_ids:
+        if rank == "F":
+            CHARACTERS[class_id] = humanoid(dict(base["colors"]), hood=base["hood"], robed=base["robed"],
+                                             weapon=base.get("weapon"), weapon_glow=base.get("weapon_glow", False),
+                                             weapon_side=base.get("weapon_side", "right"))
+            continue
+        tier = RANK_TIERS[rank]
+        colors = boost_colors(base["colors"], tier["sat"], tier["val"])
+        aura_color = None
+        if tier["aura"]:
+            aura_color = lighten(colors.get(tier["aura"], colors["primary"]), 0.4)
+        eye_override = None
+        if tier["eye"]:
+            eye_override = lighten(colors.get("glow", colors["eye"]), 0.55)
+        CHARACTERS[class_id] = humanoid(
+            colors, hood=base["hood"], robed=base["robed"],
+            weapon=base.get("weapon"), weapon_glow=base.get("weapon_glow", False) or bool(tier["aura"]),
+            weapon_side=base.get("weapon_side", "right"),
+            aura=aura_color, aura_thickness=tier["aura_t"], mark=tier["mark"], eye_override=eye_override,
+        )
 
-CHARACTERS["necromancer_f"] = humanoid(
-    {"skin": "#a68f8a", "primary": "#3a2a45", "secondary": "#2e2038",
-     "shadow": "#1c1424", "trim": "#6b4a8a", "boot": "#180f1e",
-     "weapon": "#5c4a4a", "glow": "#7de08a", "eye": "#7de08a"},
-    hood=True, robed=True, weapon="staff", weapon_glow=True,
-)
 
-CHARACTERS["assassin_f"] = humanoid(
-    {"skin": "#b98a6a", "primary": "#2c2c34", "secondary": "#22222a",
-     "shadow": "#161619", "trim": "#5a1e1e", "boot": "#0e0e11", "eye": "#c9a23a"},
-    hood=True, robed=False, weapon=None,
-)
+# --- Generate all 105 playable-class portraits (F through S, all 15
+# families) by walking each family's real evolves_to chain in
+# data/classes.json - never guessing rank->id naming (E-rank ids
+# especially don't follow "family_e", e.g. mage's E rank is
+# "naga_mage_e", not "mage_e").
+import json as _json
+_CLASSES_PATH = os.path.join(REPO_ROOT, "data", "classes.json")
+with open(_CLASSES_PATH) as _f:
+    _all_classes = _json.load(_f)
+_by_id = {c["id"]: c for c in _all_classes}
 
-CHARACTERS["tank_f"] = humanoid(
-    {"skin": "#c99566", "primary": "#3a4a5c", "secondary": "#2e3a48",
-     "shadow": "#1e2730", "trim": "#8a9aa8", "boot": "#1a2228",
-     "weapon": "#7a828a", "eye": "#1c1410"},
-    hood=False, robed=False, weapon="shield", weapon_side="left",
-)
-
-CHARACTERS["berserker_f"] = humanoid(
-    {"skin": "#b97a52", "primary": "#6b2620", "secondary": "#4a1c18",
-     "shadow": "#301210", "trim": "#c9622e", "boot": "#241010", "eye": "#e8c23a"},
-    hood=False, robed=False, weapon=None,
-)
-
-CHARACTERS["summoner_f"] = humanoid(
-    {"skin": "#d9a874", "primary": "#7a1e2e", "secondary": "#c9a23a",
-     "shadow": "#4a1420", "trim": "#e8c65a", "boot": "#3a1418", "eye": "#241810"},
-    hood=False, robed=True, weapon=None,
-)
-
-CHARACTERS["pyromancer_f"] = humanoid(
-    {"skin": "#c9855a", "primary": "#8a2e1e", "secondary": "#c94e26",
-     "shadow": "#4a1810", "trim": "#e8a23a", "boot": "#241008",
-     "weapon": "#4a3a30", "glow": "#f0782c", "eye": "#f0b23a"},
-    hood=True, robed=True, weapon="staff", weapon_glow=True, weapon_side="left",
-)
-
-CHARACTERS["ranger_f"] = humanoid(
-    {"skin": "#c48a5c", "primary": "#3d5c3a", "secondary": "#547a4e",
-     "shadow": "#263a24", "trim": "#7a8a4a", "boot": "#22301e", "eye": "#1c2418"},
-    hood=False, robed=False, weapon=None,
-)
-
-CHARACTERS["monk_f"] = humanoid(
-    {"skin": "#a8734a", "primary": "#8a1e1e", "secondary": "#c9a23a",
-     "shadow": "#4a1010", "trim": "#e8c65a", "boot": "#5c4028", "eye": "#241810"},
-    hood=False, robed=False, weapon=None,
-)
-
-CHARACTERS["alchemist_f"] = humanoid(
-    {"skin": "#cf9a68", "primary": "#5c6b2e", "secondary": "#8a9a3e",
-     "shadow": "#343d1a", "trim": "#c9d454", "boot": "#2a3014",
-     "weapon": "#5c6b6b", "glow": "#c9e854", "eye": "#241c10"},
-    hood=False, robed=False, weapon="staff", weapon_glow=True,
-)
-
-CHARACTERS["psychic_f"] = humanoid(
-    {"skin": "#c9a8b0", "primary": "#3a2c4a", "secondary": "#5c4a7a",
-     "shadow": "#241c30", "trim": "#9a7ac9", "boot": "#1c1624", "eye": "#c9e8f0"},
-    hood=False, robed=False, weapon=None,
-)
-
-CHARACTERS["exorcist_f"] = humanoid(
-    {"skin": "#e0b888", "primary": "#e8e0c8", "secondary": "#c9a23a",
-     "shadow": "#a89a6e", "trim": "#8a1e1e", "boot": "#6b5c3a", "eye": "#241810"},
-    hood=False, robed=True, weapon=None,
-)
-
-CHARACTERS["bard_f"] = humanoid(
-    {"skin": "#c9926a", "primary": "#2e5c5c", "secondary": "#4a8a8a",
-     "shadow": "#1c3a3a", "trim": "#7ac9c9", "boot": "#162e2e", "eye": "#c9f0e8"},
-    hood=False, robed=False, weapon=None,
-)
+for _family, _base in FAMILY_BASE.items():
+    _f_rank = _by_id.get("%s_f" % _family)
+    if _f_rank is None:
+        raise SystemExit("FAMILY_BASE has '%s' but no %s_f in classes.json" % (_family, _family))
+    _chain = [("F", _f_rank["id"])]
+    _cur = _f_rank
+    while _cur.get("evolves_to"):
+        _next_id = _cur["evolves_to"][0]
+        if _next_id not in _by_id:
+            break
+        _cur = _by_id[_next_id]
+        _chain.append((_cur["rank"], _cur["id"]))
+    if len(_chain) != 7:
+        raise SystemExit("expected a 7-rank chain (F-S) for '%s', got %d: %s" % (_family, len(_chain), _chain))
+    _generate_rank_chain(_family, _base, _chain)
 
 CHARACTERS["flooded_ghoul"] = humanoid(
     {"skin": "#7c9481", "primary": "#4a5a4d", "secondary": "#3d4a3f",
@@ -414,13 +534,15 @@ CHARACTERS["shallow_tide_mother"] = boss_mass(
 # Render contact sheet for review
 # ---------------------------------------------------------------------------
 names = list(CHARACTERS.keys())
-cols = 4
+# 7 columns = one row per family's full F->S chain, since CHARACTERS is
+# populated in that order (monsters trail off ragged at the bottom, fine).
+cols = 7
 rows = (len(names) + cols - 1) // cols
-cell_px = N * 3 + 16
+cell_px = N * 2 + 10
 sheet = Image.new("RGBA", (cols * cell_px, rows * cell_px), (18, 20, 26, 255))
 for i, name in enumerate(names):
     r, c = divmod(i, cols)
-    img = to_image(CHARACTERS[name], scale=3)
+    img = to_image(CHARACTERS[name], scale=2)
     sheet.paste(img, (c * cell_px + 8, r * cell_px + 8), img)
 sheet.save(os.path.join(OUT_DIR, "_contact_sheet.png"))
 print("wrote contact sheet with", len(names), "characters")
@@ -428,22 +550,11 @@ print("wrote contact sheet with", len(names), "characters")
 # ---------------------------------------------------------------------------
 # Final export: native 64x64 idle1 + idle2 (bob) frames per character
 # ---------------------------------------------------------------------------
-CHARACTER_KIND = {
-    "mage_f": "characters",
-    "hunter_f": "characters",
-    "healer_f": "characters",
-    "necromancer_f": "characters",
-    "assassin_f": "characters",
-    "tank_f": "characters",
-    "berserker_f": "characters",
-    "summoner_f": "characters",
-    "pyromancer_f": "characters",
-    "ranger_f": "characters",
-    "monk_f": "characters",
-    "alchemist_f": "characters",
-    "psychic_f": "characters",
-    "exorcist_f": "characters",
-    "bard_f": "characters",
+# Every class id from classes.json is a "characters" sprite; the fixed
+# set of monster ids below are "monsters". Built this way (not hardcoded
+# per class) so it can never drift out of sync with the 105-class roster.
+CHARACTER_KIND = {c["id"]: "characters" for c in _all_classes}
+CHARACTER_KIND.update({
     "flooded_ghoul": "monsters",
     "silt_rat": "monsters",
     "flood_leech": "monsters",
@@ -452,7 +563,7 @@ CHARACTER_KIND = {
     "bloated_toad": "monsters",
     "sukhumvit_stalker": "monsters",
     "shallow_tide_mother": "monsters",
-}
+})
 
 GODOT_ASSET_ROOT = os.path.join(REPO_ROOT, "assets", "sprites")
 

@@ -834,34 +834,47 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   real `change_scene_to_file` transitions (menu-style start → overworld →
   walk into a monster → real scene change to combat → win → real scene
   change back → the fresh overworld correctly shows the spawn on cooldown).
-- **Real pixel art for Sukhumvit Shallows' cast, plus all 15 F-rank
-  starting classes.** All 8 monsters that actually appear in the game
-  (Flooded Ghoul plus the district's 5 mobs, mini-boss, and boss) and
-  all 15 F-rank classes (one per family — the only ones actually
-  reachable without a real evolution-unlock engine yet, see below) have
-  true 64×64 RGBA sprites in `assets/sprites/` — every pixel is an
-  explicit color choice (region-fill generation, not an AI image
-  model), so hard edges and real alpha transparency are guaranteed, not
-  hoped for. Native resolution was bumped from an original 32×32 (real
-  added detail per `tools/gen_sprites.py` — eye highlights, fabric-fold
-  shading, finer weapon/shield shapes — not the old shapes just scaled
-  up 2x, which would look identical, only blockier) once 32×32 started
-  reading as too low-fidelity at the sizes players actually see it.
-  Combat and the status menu grew their portrait boxes (56px → 80px) to
-  show the extra detail off; the overworld's on-screen sprite size was
-  initially kept the same (scale constants shrunk to compensate) since
-  growing it would have overflowed the viewport — resolved by the
-  camera/scroll system below, after which `CELL_SIZE` grew to match and
-  the scale constants went back up near-native. Each has a 2-frame idle
-  animation.
-  `scripts/util/sprite_loader.gd` renders them as `AnimatedSprite2D` in
+- **Real pixel art for all 105 classes and Sukhumvit Shallows' 8
+  monsters.** Every class in the roster — not just the 15 F-rank
+  starters — now has a true 64×64 RGBA sprite in `assets/sprites/`,
+  every pixel an explicit color choice (region-fill generation, not an
+  AI image model), so hard edges and real alpha transparency are
+  guaranteed, not hoped for. Native resolution was bumped from an
+  original 32×32 (real added detail per `tools/gen_sprites.py` — eye
+  highlights, fabric-fold shading, finer weapon/shield shapes — not the
+  old shapes just scaled up 2x) once 32×32 started reading as too
+  low-fidelity at the sizes players actually see it. Combat and the
+  status menu grew their portrait boxes (56px → 80px) to show the extra
+  detail off; the overworld's on-screen sprite size is native-scale
+  again now that the camera/scroll system removed the old viewport
+  constraint. Each has a 2-frame idle animation.
+  **Rank power progression, not 90 hand-authored palettes**: each of
+  the 15 families defines one base look (`FAMILY_BASE` — the F-rank
+  config); `RANK_TIERS` in `tools/gen_sprites.py` derives E through S
+  from it via HSV saturation/brightness boosts (`boost_colors`), plus
+  from C rank up a forehead mark and a glowing aura outline dilated
+  around the finished silhouette (`add_aura`) that thickens with rank,
+  with S rank also getting fully luminous eyes. The aura's color is
+  drawn from each family's own trim/glow color, so it stays
+  family-distinct (the Necromancer's ghostly green glow, the Tank's
+  blue-gray shield glint) rather than a single generic "power-up"
+  effect. This is a deliberate scope trade against bespoke
+  myth-specific art (naga scales for the Mage chain, wings for Garuda,
+  etc.) for all 90 non-F-rank classes at once — uniform and honest
+  about being a rank indicator, not a claim of unique per-evolution
+  iconography. Real per-evolution art remains a future upgrade path per
+  family, not blocked by anything structural.
+  The generator reads `data/classes.json` directly to walk each
+  family's actual F→S `evolves_to` chain rather than guessing an
+  id-naming pattern — several E-rank ids don't follow `family_e` (e.g.
+  the Mage family's E rank is `naga_mage_e`), so this only ever uses
+  real roster data. `SpriteLoader` renders them as `AnimatedSprite2D` in
   the overworld and as animated portraits in combat, and **falls back
   to the original colored-rectangle/text-only look for any id without
-  art** — still the other 90 classes (E through S rank) and all but 8
-  monsters, so that fallback path remains the common case and must keep
-  working as more content is added. Adding a class's art is one
-  `humanoid(...)` config entry in `tools/gen_sprites.py` — no other
-  code changes needed; `SpriteLoader` picks it up by filename
+  art** — now down to just monsters beyond Sukhumvit Shallows' 8. Adding
+  a class's art is one `humanoid(...)` config entry in
+  `tools/gen_sprites.py` — no other code changes needed; `SpriteLoader`
+  picks it up by filename
   convention alone.
 - **Tile-based overworld rendering with a real camera, piloted on
   Sukhumvit Shallows.** `tools/gen_tiles.py` generates an original 64×64

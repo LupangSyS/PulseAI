@@ -42,14 +42,15 @@ currently exists:
 - Main menu has two entry points: "Start Exploring" begins a real run and
   drops into Sukhumvit Shallows; "[DEV] Enter the Flood" is an isolated
   combat-only shortcut for balance testing.
-- **Real pixel art for everything currently in the game**: all 15
-  F-rank starting classes (one per family) and all 8 monsters that
-  actually appear (`assets/sprites/`), true 64×64 RGBA (bumped up from
-  an original 32×32 with real added detail, not just an upscale) with
-  2-frame idle animation, rendered in both the overworld and combat
-  with an automatic fallback to the original placeholder look for the
-  other 90 classes (E through S rank) and every other monster that
-  doesn't have art yet.
+- **Real pixel art for all 105 classes** (not just the 15 F-rank
+  starters) and all 8 monsters that actually appear
+  (`assets/sprites/`), true 64×64 RGBA with 2-frame idle animation.
+  E-through-S ranks aren't 90 hand-painted palettes — each family
+  defines one base look, and a rank-tier system (`tools/gen_sprites.py`)
+  derives the rest via progressive color intensity plus a glowing aura
+  and forehead mark from C rank up, using each family's own accent
+  color so it stays family-distinct. Falls back to the original
+  placeholder look for any monster beyond Sukhumvit Shallows' 8.
 - **Sukhumvit Shallows now renders as a real tile-based map with a
   scrolling camera**, not a flat colored grid: an original 64×64
   tileset (`tools/gen_tiles.py`, `assets/tiles/`) themed to our own
