@@ -95,6 +95,22 @@ currently exists:
   (not `integer`), so the full screen always letterboxes to fit a real
   device window instead of getting cropped at the edge on smaller
   screens.
+- **Combat has a real dark theme now, not stock Godot widgets.** Every
+  panel (arena, log, card tray) is a bordered dark PanelContainer built
+  from one shared `Theme` resource in `combat.gd`, HP bars are colored
+  per side (cyan player, rose enemy) instead of default gray, and mana is
+  shown as filled/empty pips alongside the exact number. Damage/heal/
+  block now spawn a floating number over the affected portrait and a
+  brief screen-shake on hits — juice a static HP-bar tick alone doesn't
+  give. **Enemies telegraph their next move** (Slay the Spire-style
+  intent, icon + name + value) a full player turn in advance instead of
+  attacking blind, re-rolling immediately if a mini-boss/boss stage
+  transition swaps their move list mid-telegraph. Card borders are also
+  tinted per type (action/spell/power), matching the existing icon
+  tinting. Not ported: a real-time animated battle canvas (a different
+  rendering architecture entirely) and new action-economy mechanics like
+  a stagger gauge, a mana-generating basic attack, or a flee command —
+  those are game-design calls, not a reskin.
 - **Every card shows an icon for what it does**: seven small icons keyed
   to a card's effect (damage/heal/block/empower/lingering-damage/
   hits-everyone/execute), tinted red/blue/gold by its type

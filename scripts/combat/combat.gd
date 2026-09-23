@@ -64,6 +64,7 @@ var enemy_name_label: Label
 var player_hp_bar: ProgressBar
 var enemy_hp_bar: ProgressBar
 var player_stat_label: Label
+var mana_pip_row: HBoxContainer
 var log_label: RichTextLabel
 var menu_row: HBoxContainer
 var menu_cards_button: Button
@@ -73,6 +74,29 @@ var card_scroll: ScrollContainer
 var card_grid: GridContainer
 var end_turn_button: Button
 var continue_button: Button
+var arena_row: HBoxContainer
+var enemy_intent_icon: TextureRect
+var enemy_intent_label: Label
+
+## The monster's next move, pre-rolled and displayed a full player turn in
+## advance (Slay the Spire-style intent telegraph) rather than picked blind
+## when their turn arrives - see _enemy_turn. {} means "no intent yet"
+## (battle just started) or "enemy is dead", both of which hide the display.
+var enemy_intent: Dictionary = {}
+
+## Palette for the combat scene's theme/panels/accents - see _build_theme.
+## Kept as named constants rather than inlined so the "player=cyan,
+## enemy=rose, warning=amber" color language stays consistent across the
+## HP bars, name labels, and intent readout.
+const COL_BG := Color("#05070c")
+const COL_PANEL_BG := Color("#0d121c")
+const COL_PANEL_BORDER := Color("#1e293b")
+const COL_HAZARD_BORDER := Color("#7f1d1d")
+const COL_PLAYER := Color("#38bdf8")
+const COL_ENEMY := Color("#f43f5e")
+const COL_WARNING := Color("#f59e0b")
+const COL_TEXT := Color("#dbe4f0")
+const COL_TEXT_DIM := Color("#8b96ab")
 
 var player_portrait: TextureRect
 var enemy_portrait: TextureRect
@@ -112,6 +136,13 @@ func _process(delta: float) -> void:
 ## left, and an unbounded hand row could run past the right edge).
 func _build_ui() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	theme = _build_theme()
+
+	var backdrop := ColorRect.new()
+	backdrop.color = COL_BG
+	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(backdrop)
 
 	var margin := MarginContainer.new()
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -124,12 +155,17 @@ func _build_ui() -> void:
 	margin.add_child(root_box)
 
 	# --- Arena: player (left) vs. enemy (right), each with a portrait,
-	# name + HP readout, and a visual HP bar.
-	var arena_row := HBoxContainer.new()
+	# name + HP readout, and a visual HP bar. Wrapped in a dark bordered
+	# panel (the "stage") instead of sitting bare on the background.
+	var arena_panel := PanelContainer.new()
+	arena_panel.add_theme_stylebox_override("panel", _panel_style(COL_PANEL_BORDER))
+	root_box.add_child(arena_panel)
+
+	arena_row = HBoxContainer.new()
 	arena_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	arena_row.add_theme_constant_override("separation", 28)
 	arena_row.custom_minimum_size = Vector2(0, 150)
-	root_box.add_child(arena_row)
+	arena_panel.add_child(arena_row)
 
 	var player_panel := VBoxContainer.new()
 	player_panel.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -137,8 +173,9 @@ func _build_ui() -> void:
 	player_portrait = _make_portrait()
 	player_panel.add_child(player_portrait)
 	player_name_label = _make_centered_label(11)
+	player_name_label.add_theme_color_override("font_color", COL_PLAYER)
 	player_panel.add_child(player_name_label)
-	player_hp_bar = _make_hp_bar()
+	player_hp_bar = _make_hp_bar(COL_PLAYER)
 	player_panel.add_child(player_hp_bar)
 
 	var enemy_panel := VBoxContainer.new()
@@ -147,20 +184,53 @@ func _build_ui() -> void:
 	enemy_portrait = _make_portrait()
 	enemy_panel.add_child(enemy_portrait)
 	enemy_name_label = _make_centered_label(11)
+	enemy_name_label.add_theme_color_override("font_color", COL_ENEMY)
 	enemy_panel.add_child(enemy_name_label)
-	enemy_hp_bar = _make_hp_bar()
+	enemy_hp_bar = _make_hp_bar(COL_ENEMY)
 	enemy_panel.add_child(enemy_hp_bar)
 
-	# --- Compact resource/block readout beneath the arena.
+	# --- Intent telegraph: what the enemy is about to do, visible for the
+	# whole player turn so a hit can actually be planned around instead of
+	# just reacted to after the fact - see enemy_intent's doc comment.
+	var intent_row := HBoxContainer.new()
+	intent_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	intent_row.add_theme_constant_override("separation", 4)
+	enemy_panel.add_child(intent_row)
+
+	enemy_intent_icon = TextureRect.new()
+	enemy_intent_icon.custom_minimum_size = Vector2(14, 14)
+	enemy_intent_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	enemy_intent_icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	enemy_intent_icon.modulate = COL_WARNING
+	intent_row.add_child(enemy_intent_icon)
+
+	enemy_intent_label = Label.new()
+	enemy_intent_label.add_theme_font_size_override("font_size", 9)
+	enemy_intent_label.add_theme_color_override("font_color", COL_WARNING)
+	intent_row.add_child(enemy_intent_label)
+
+	# --- Compact resource/block readout beneath the arena, plus mana shown
+	# as pips (filled = available) for an at-a-glance read alongside the
+	# exact numbers in the text.
 	player_stat_label = _make_centered_label()
 	root_box.add_child(player_stat_label)
 
+	mana_pip_row = HBoxContainer.new()
+	mana_pip_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	mana_pip_row.add_theme_constant_override("separation", 3)
+	root_box.add_child(mana_pip_row)
+
 	# --- Battle log: fixed height, does not expand.
+	var log_panel := PanelContainer.new()
+	log_panel.add_theme_stylebox_override("panel", _panel_style(COL_PANEL_BORDER))
+	root_box.add_child(log_panel)
+
 	log_label = RichTextLabel.new()
 	log_label.custom_minimum_size = Vector2(0, 42)
 	log_label.bbcode_enabled = true
 	log_label.scroll_following = true
-	root_box.add_child(log_label)
+	log_label.add_theme_color_override("default_color", COL_TEXT)
+	log_panel.add_child(log_label)
 
 	# --- Action menu: Cards / Item / Guard (FF/Pokemon-style turn input).
 	menu_row = HBoxContainer.new()
@@ -189,11 +259,16 @@ func _build_ui() -> void:
 	# --- Card/item tray: a fixed-size scroll area holding a 2-column grid,
 	# so entries wrap to a new row instead of running off the right edge,
 	# and any overflow (more rows than fit) scrolls instead of pushing
-	# End Turn off-screen.
+	# End Turn off-screen. Wrapped in a hazard-bordered panel (the action
+	# zone) to distinguish it from the arena/log's neutral panels.
+	var tray_panel := PanelContainer.new()
+	tray_panel.add_theme_stylebox_override("panel", _panel_style(COL_HAZARD_BORDER))
+	root_box.add_child(tray_panel)
+
 	card_scroll = ScrollContainer.new()
 	card_scroll.custom_minimum_size = Vector2(0, 132)
 	card_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	root_box.add_child(card_scroll)
+	tray_panel.add_child(card_scroll)
 
 	card_grid = GridContainer.new()
 	card_grid.columns = 2
@@ -213,6 +288,47 @@ func _build_ui() -> void:
 	continue_button.pressed.connect(_on_continue_pressed)
 	root_box.add_child(continue_button)
 
+## Builds the dark, bordered "combat terminal" look shared by every panel
+## and button in this scene from one place, so a future palette tweak is a
+## one-function edit instead of hunting down N inline StyleBoxFlats. Applied
+## as this Control's own `theme` (see _build_ui), so every child Button/
+## Label/PanelContainer picks it up automatically, including ones created
+## later by _make_tray_button for cards/items.
+func _build_theme() -> Theme:
+	var t := Theme.new()
+
+	t.set_stylebox("panel", "PanelContainer", _panel_style(COL_PANEL_BORDER))
+
+	var btn_normal := _panel_style(COL_PANEL_BORDER, 4)
+	var btn_hover := _panel_style(COL_PLAYER, 4)
+	var btn_pressed := _panel_style(COL_PLAYER, 4)
+	btn_pressed.bg_color = Color("#182335")
+	var btn_disabled := _panel_style(Color("#232b3d"), 4)
+	btn_disabled.bg_color = Color("#0a0d14")
+
+	t.set_stylebox("normal", "Button", btn_normal)
+	t.set_stylebox("hover", "Button", btn_hover)
+	t.set_stylebox("pressed", "Button", btn_pressed)
+	t.set_stylebox("focus", "Button", btn_hover)
+	t.set_stylebox("disabled", "Button", btn_disabled)
+	t.set_color("font_color", "Button", COL_TEXT)
+	t.set_color("font_hover_color", "Button", Color.WHITE)
+	t.set_color("font_disabled_color", "Button", COL_TEXT_DIM)
+
+	t.set_color("font_color", "Label", COL_TEXT)
+	t.set_color("font_color", "RichTextLabel", COL_TEXT)
+
+	return t
+
+func _panel_style(border: Color, border_width: int = 2) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = COL_PANEL_BG
+	style.border_color = border
+	style.set_border_width_all(border_width)
+	style.set_corner_radius_all(6)
+	style.set_content_margin_all(8)
+	return style
+
 func _make_portrait() -> TextureRect:
 	var rect := TextureRect.new()
 	rect.custom_minimum_size = Vector2(80, 80)
@@ -229,12 +345,25 @@ func _make_centered_label(font_size: int = 0) -> Label:
 		label.add_theme_font_size_override("font_size", font_size)
 	return label
 
-func _make_hp_bar() -> ProgressBar:
+func _make_hp_bar(fill_color: Color) -> ProgressBar:
 	var bar := ProgressBar.new()
 	bar.custom_minimum_size = Vector2(110, 12)
 	bar.min_value = 0
 	bar.show_percentage = false
 	bar.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+
+	var bg := StyleBoxFlat.new()
+	bg.bg_color = Color("#0a0d14")
+	bg.border_color = COL_PANEL_BORDER
+	bg.set_border_width_all(1)
+	bg.set_corner_radius_all(3)
+	bar.add_theme_stylebox_override("background", bg)
+
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = fill_color
+	fill.set_corner_radius_all(3)
+	bar.add_theme_stylebox_override("fill", fill)
+
 	return bar
 
 ## A tray entry (hand card or item): a Button used purely as the click
@@ -257,6 +386,21 @@ func _make_tray_button(title: String, description: String, is_disabled: bool, ic
 	var btn := Button.new()
 	btn.custom_minimum_size = Vector2(228, 70)
 	btn.disabled = is_disabled
+
+	# Border tinted per card type (icon_tint is already TYPE_TINT-derived -
+	# see the icon block below) so a card's type reads at a glance, the
+	# same idea as the icon tinting, applied to the frame around it too.
+	if icon_tint != Color.WHITE:
+		var border := _panel_style(icon_tint, 2)
+		border.bg_color = COL_PANEL_BG
+		btn.add_theme_stylebox_override("normal", border)
+		var border_disabled := border.duplicate()
+		border_disabled.bg_color = Color("#0a0d14")
+		border_disabled.border_color = icon_tint.darkened(0.5)
+		btn.add_theme_stylebox_override("disabled", border_disabled)
+		var border_hover := border.duplicate()
+		border_hover.bg_color = Color("#182335")
+		btn.add_theme_stylebox_override("hover", border_hover)
 
 	var hb := HBoxContainer.new()
 	hb.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -333,6 +477,7 @@ func _start_battle(class_id: String, monster_id: String, existing_player: Combat
 	combo_count = 0
 	menu_state = "main"
 	continue_button.visible = false
+	enemy_intent = _pick_weighted_move(enemies[0].moves) if not enemies[0].moves.is_empty() else {}
 
 	_log("[b]%s[/b] squares off against [b]%s[/b]." % [player.display_name, enemies[0].display_name])
 	_draw_cards(STARTING_HAND_SIZE)
@@ -466,6 +611,8 @@ func _apply_card_effect(card: CardData) -> void:
 			var total: int = int(round(value * multiplier))
 			target.take_damage(total)
 			_log("%s uses [i]%s[/i] for %d damage. (combo x%d)" % [player.display_name, card.display_name, total, combo_count])
+			_spawn_floating_number(enemy_portrait, "-%d" % total, COL_ENEMY)
+			_screen_shake()
 		"aoe_damage":
 			var total: int = int(round(value * multiplier))
 			var hit_count := 0
@@ -474,6 +621,8 @@ func _apply_card_effect(card: CardData) -> void:
 					e.take_damage(total)
 					hit_count += 1
 			_log("%s unleashes [i]%s[/i] for %d damage to %d foe(s). (combo x%d)" % [player.display_name, card.display_name, total, hit_count, combo_count])
+			_spawn_floating_number(enemy_portrait, "-%d" % total, COL_ENEMY)
+			_screen_shake()
 		"dot":
 			var target := _first_alive_enemy()
 			if target == null:
@@ -481,6 +630,7 @@ func _apply_card_effect(card: CardData) -> void:
 			var stacks: int = int(round(value * multiplier))
 			target.apply_dot(stacks)
 			_log("%s brands the enemy with [i]%s[/i], a lingering power now dealing %d damage a turn. (combo x%d)" % [player.display_name, card.display_name, target.dot_stacks, combo_count])
+			_spawn_floating_number(enemy_portrait, "+%d dot" % stacks, COL_WARNING)
 		"execute":
 			var target := _first_alive_enemy()
 			if target == null:
@@ -495,13 +645,17 @@ func _apply_card_effect(card: CardData) -> void:
 				_log("%s unleashes [i]%s[/i] on the weakened foe for %d devastating damage! (combo x%d)" % [player.display_name, card.display_name, total, combo_count])
 			else:
 				_log("%s unleashes [i]%s[/i] for %d damage. (combo x%d)" % [player.display_name, card.display_name, total, combo_count])
+			_spawn_floating_number(enemy_portrait, "-%d" % total, Color("#facc15") if executed else COL_ENEMY)
+			_screen_shake()
 		"heal":
 			var total: int = int(round(value * multiplier))
 			player.heal(total)
 			_log("%s channels [i]%s[/i], healing %d." % [player.display_name, card.display_name, total])
+			_spawn_floating_number(player_portrait, "+%d" % total, Color("#4ade80"))
 		"block":
 			player.add_block(value)
 			_log("%s raises [i]%s[/i], gaining %d block." % [player.display_name, card.display_name, value])
+			_spawn_floating_number(player_portrait, "+%d block" % value, COL_PLAYER)
 		"empower_next":
 			player.pending_empower = value
 			_log("%s focuses with [i]%s[/i], empowering the next card by %d." % [player.display_name, card.display_name, value])
@@ -532,10 +686,23 @@ func _enemy_turn() -> void:
 			if not e.is_alive():
 				_log("[color=gold]%s succumbs to the lingering damage.[/color]" % e.display_name)
 				continue
+		var stages_before: int = e.stages.size()
 		_check_stage_transitions(e)
 		if not e.is_alive():
 			continue
-		_resolve_monster_turn(e)
+		# A stage transition swaps the active move list (see
+		# _check_stage_transitions), which can make the already-telegraphed
+		# intent stale - re-roll from the new list rather than resolve a
+		# move that phase may not even have. Also covers turn 1, where
+		# enemy_intent was pre-rolled in _start_battle from a possibly-
+		# different (base) move list if a stage already triggered above.
+		if enemy_intent.is_empty() or e.stages.size() != stages_before:
+			enemy_intent = _pick_weighted_move(e.moves)
+		_apply_monster_move(e, enemy_intent)
+		# Telegraph what's coming next turn immediately, so it's visible
+		# for the player's entire upcoming turn rather than appearing only
+		# once their turn starts.
+		enemy_intent = _pick_weighted_move(e.moves) if not e.moves.is_empty() else {}
 	if not player.is_alive():
 		_log("[color=red]%s is dragged beneath the flood. Defeat.[/color]" % player.display_name)
 
@@ -561,11 +728,6 @@ func _check_stage_transitions(e: Combatant) -> void:
 			transition_text = "%s enters a new phase!" % e.display_name
 		_log("[color=orange]%s[/color]" % transition_text)
 
-func _resolve_monster_turn(e: Combatant) -> void:
-	if e.moves.is_empty():
-		return
-	var move: Dictionary = _pick_weighted_move(e.moves)
-	_apply_monster_move(e, move)
 
 func _pick_weighted_move(moves: Array) -> Dictionary:
 	var total_weight: float = 0.0
@@ -591,9 +753,12 @@ func _apply_monster_move(e: Combatant, move: Dictionary) -> void:
 		"damage":
 			var dealt: int = player.take_damage(value)
 			_log("%s uses [i]%s[/i] for %d damage." % [e.display_name, move_name, dealt])
+			_spawn_floating_number(player_portrait, "-%d" % dealt, COL_ENEMY)
+			_screen_shake()
 		"dot":
 			player.apply_dot(value)
 			_log("%s uses [i]%s[/i], a lingering harm now dealing %d damage a turn." % [e.display_name, move_name, player.dot_stacks])
+			_spawn_floating_number(player_portrait, "+%d dot" % value, COL_WARNING)
 		"execute":
 			var total: int = value
 			var executed := false
@@ -605,12 +770,16 @@ func _apply_monster_move(e: Combatant, move: Dictionary) -> void:
 				_log("[color=red]%s uses [i]%s[/i] on you, weakened, for %d devastating damage![/color]" % [e.display_name, move_name, dealt])
 			else:
 				_log("%s uses [i]%s[/i] for %d damage." % [e.display_name, move_name, dealt])
+			_spawn_floating_number(player_portrait, "-%d" % dealt, Color("#facc15") if executed else COL_ENEMY)
+			_screen_shake()
 		"heal":
 			e.heal(value)
 			_log("%s uses [i]%s[/i], recovering %d HP." % [e.display_name, move_name, value])
+			_spawn_floating_number(enemy_portrait, "+%d" % value, Color("#4ade80"))
 		"block":
 			e.add_block(value)
 			_log("%s uses [i]%s[/i], gaining %d block." % [e.display_name, move_name, value])
+			_spawn_floating_number(enemy_portrait, "+%d block" % value, COL_ENEMY)
 		"empower_next":
 			e.pending_empower = value
 			_log("%s uses [i]%s[/i], readying a stronger blow." % [e.display_name, move_name])
@@ -631,6 +800,63 @@ func _start_player_turn() -> void:
 	menu_state = "main"
 	_draw_cards(STARTING_HAND_SIZE - hand.size())
 
+## Resource shown as filled/empty pips alongside the exact text in
+## player_stat_label, an at-a-glance read the same way the mockup's mana
+## crystals work. Capped so a high-max_resource class late-game doesn't
+## turn this into a wall of dots - the text above always has the real
+## number regardless.
+const MAX_DISPLAYED_PIPS := 12
+
+func _refresh_mana_pips() -> void:
+	for child in mana_pip_row.get_children():
+		mana_pip_row.remove_child(child)
+		child.queue_free()
+	if player.max_resource <= 0 or player.max_resource > MAX_DISPLAYED_PIPS:
+		return
+	for i in player.max_resource:
+		var pip := PanelContainer.new()
+		pip.custom_minimum_size = Vector2(10, 10)
+		var style := StyleBoxFlat.new()
+		style.set_corner_radius_all(5)
+		if i < player.resource:
+			style.bg_color = COL_PLAYER
+			style.border_color = Color.WHITE
+		else:
+			style.bg_color = Color("#0a0d14")
+			style.border_color = COL_PANEL_BORDER
+		style.set_border_width_all(1)
+		pip.add_theme_stylebox_override("panel", style)
+		mana_pip_row.add_child(pip)
+
+## Icon reused from the same effect-icon set cards use (tools/gen_card_icons.py)
+## so "what kind of threat is this" reads the same visual language as "what
+## kind of card is this" - no separate icon set to maintain.
+const INTENT_ICON_EFFECTS := ["damage", "heal", "block", "empower_next", "dot", "aoe_damage", "execute"]
+
+func _refresh_intent_display(enemy: Combatant) -> void:
+	if enemy == null or not enemy.is_alive() or enemy_intent.is_empty():
+		enemy_intent_icon.visible = false
+		enemy_intent_label.visible = false
+		return
+
+	var effect: String = enemy_intent.get("effect", "damage")
+	var move_name: String = enemy_intent.get("name", "???")
+	var value: int = int(enemy_intent.get("value", 0))
+
+	enemy_intent_label.visible = true
+	if effect in ["damage", "dot", "execute"]:
+		enemy_intent_label.text = "Next: %s (%d)" % [move_name, value]
+	else:
+		enemy_intent_label.text = "Next: %s" % move_name
+
+	enemy_intent_icon.visible = effect in INTENT_ICON_EFFECTS
+	if enemy_intent_icon.visible:
+		var icon_path := "res://assets/icons/effect_%s.png" % effect
+		if ResourceLoader.exists(icon_path):
+			enemy_intent_icon.texture = load(icon_path)
+		else:
+			enemy_intent_icon.visible = false
+
 func _refresh_ui() -> void:
 	player_name_label.text = "%s\nHP %d/%d" % [player.display_name, player.hp, player.max_hp]
 	player_hp_bar.max_value = player.max_hp
@@ -638,6 +864,7 @@ func _refresh_ui() -> void:
 	player_stat_label.text = "%s %d/%d  |  Block %d" % [
 		player.resource_name, player.resource, player.max_resource, player.block,
 	]
+	_refresh_mana_pips()
 
 	var enemy: Combatant = enemies[0] if enemies.size() > 0 else null
 	if enemy != null:
@@ -645,6 +872,7 @@ func _refresh_ui() -> void:
 		enemy_name_label.text = "%s\n%s" % [enemy.display_name, status_text]
 		enemy_hp_bar.max_value = enemy.max_hp
 		enemy_hp_bar.value = enemy.hp
+	_refresh_intent_display(enemy)
 
 	var battle_over: bool = not player.is_alive() or _all_enemies_dead()
 
@@ -721,3 +949,42 @@ func _roll_loot(monster: Combatant) -> Array:
 
 func _log(message: String) -> void:
 	log_label.append_text(message + "\n")
+
+## Rises and fades over `anchor` (a portrait) for ~0.8s, then frees itself -
+## the per-hit "juice" a plain HP-bar-tick alone doesn't give. Uses
+## global_position rather than the local `position` math the anchor's own
+## parent chain would require, since the label is added as this Control's
+## own direct child (arena_row nests portraits several levels deep, and
+## global_position sidesteps having to account for that depth by hand).
+func _spawn_floating_number(anchor: Control, text: String, color: Color) -> void:
+	if anchor == null:
+		return
+	var label := Label.new()
+	label.text = text
+	label.add_theme_font_size_override("font_size", 16)
+	label.add_theme_color_override("font_color", color)
+	label.add_theme_color_override("font_outline_color", Color.BLACK)
+	label.add_theme_constant_override("outline_size", 4)
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.z_index = 100
+	add_child(label)
+	label.global_position = anchor.get_global_rect().get_center() + Vector2(-18, -50)
+
+	var tween := create_tween()
+	tween.tween_property(label, "global_position:y", label.global_position.y - 34, 0.8).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(label, "modulate:a", 0.0, 0.8).set_delay(0.25)
+	tween.tween_callback(label.queue_free)
+
+## A brief jitter on the arena panel (the "stage") when a hit lands, same
+## idea as the mockup's screen-shake - cheap, and it's the single biggest
+## "does this attack actually feel like it landed" cue a static HP bar tick
+## can't give on its own.
+func _screen_shake() -> void:
+	if arena_row == null:
+		return
+	var original_pos: Vector2 = arena_row.position
+	var tween := create_tween()
+	for i in 4:
+		var offset := Vector2(randf_range(-4.0, 4.0), randf_range(-3.0, 3.0))
+		tween.tween_property(arena_row, "position", original_pos + offset, 0.035)
+	tween.tween_property(arena_row, "position", original_pos, 0.035)

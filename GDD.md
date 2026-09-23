@@ -838,6 +838,34 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   in the closed-menu, cards-open, and items-open states, with real
   pixel slack (not a zero-margin fit), including a stress case of
   more usable items than fit in one row.
+- **Real dark theme + enemy intent telegraph, not stock Godot widgets.**
+  `combat.gd`'s `_build_theme()` builds one shared `Theme` (dark bordered
+  `PanelContainer`s wrapping the arena/log/tray, per-side HP bar colors,
+  a consistent button/label palette) applied once to the scene root, so
+  every dynamically-created tray button picks it up automatically rather
+  than needing per-instance overrides. Cards also get a type-tinted
+  border, reusing the same `TYPE_TINT` the icon tinting already used.
+  **The bigger addition is a real intent telegraph**: `enemy_intent`
+  holds the monster's next move, pre-rolled a full player turn in
+  advance (`_start_battle` seeds it; `_enemy_turn` re-rolls it right
+  after resolving a move, and *also* whenever a stage transition swaps
+  the active move list, so a mid-telegraph phase change can't show a
+  move that phase doesn't have) and rendered near the enemy portrait as
+  an icon (the same effect icons cards use) plus name and, for
+  offensive moves, the exact value — matching Slay the Spire's "you can
+  see the hit coming" pattern rather than a monster that just acts blind
+  each turn. Damage/heal/block also spawn a floating number over the
+  affected portrait (`_spawn_floating_number`, a `Tween` that rises and
+  fades) and a brief positional-jitter screen-shake on hits
+  (`_screen_shake`) - juice a static HP-bar tick alone didn't give.
+  Headlessly verified with a real multi-turn fight against the Neon
+  Strangler (`sukhumvit_stalker`) through an actual stage transition,
+  confirming intent stays populated and gets re-rolled correctly across
+  the phase swap. Deliberately not attempted: a real-time animated
+  canvas battle scene (a different rendering architecture, not a UI
+  reskin) and new action-economy mechanics such as a stagger gauge, a
+  mana-generating basic attack, or a flee command, which are game-design
+  decisions rather than visual polish.
 - **Card art: one icon per effect, tinted per type.** `tools/gen_card_icons.py`
   generates seven small white-silhouette icons keyed to `CardData.effect`
   (damage/heal/block/empower_next/dot/aoe_damage/execute —
