@@ -13,6 +13,13 @@ extends Control
 ## blocked_cells regardless of which rendering path is active or what a
 ## cell's terrain character says - terrain is purely cosmetic.
 ##
+## Locked cells (DistrictData.locked_cells) are a second, distinct kind of
+## impassable cell: not in blocked_cells (so they render as normal walkable
+## terrain, marked only by a small amber locked_visuals marker), but
+## move_player refuses to cross until the player holds a key item or a
+## district flag is set - see _locked_entry/_lock_satisfied. Reuses the
+## same flags dict district puzzle events already write via sets_flag.
+##
 ## Camera/scroll: `grid_root` (all tiles/sprites, in pure grid-local
 ## pixel coordinates - _cell_to_pixel no longer adds any screen offset)
 ## lives inside `map_viewport`, a Control with clip_contents = true sized
@@ -68,6 +75,7 @@ var active_items: Dictionary = {} # spawn_key -> {item_id, cell}
 var monster_visuals: Dictionary = {} # spawn_key -> Node
 var item_visuals: Dictionary = {} # spawn_key -> Node
 var event_visuals: Dictionary = {} # spawn_key -> Node
+var locked_visuals: Dictionary = {} # spawn_key -> Node
 
 var grid_root: Node2D
 var player_visual: Node
@@ -279,6 +287,24 @@ func _is_blocked(cell: Vector2i) -> bool:
 			return true
 	return false
 
+## Returns the matching entry from district.locked_cells, or {} if `cell`
+## isn't a locked cell at all (the common case - most cells aren't).
+func _locked_entry(cell: Vector2i) -> Dictionary:
+	for lock in district.locked_cells:
+		if lock["cell"][0] == cell.x and lock["cell"][1] == cell.y:
+			return lock
+	return {}
+
+func _lock_satisfied(lock: Dictionary) -> bool:
+	var requires_item: String = lock.get("requires_item", "")
+	if requires_item != "":
+		return RunState.inventory.get(requires_item, 0) > 0
+	var requires_flag: String = lock.get("requires_flag", "")
+	if requires_flag != "":
+		var state: Dictionary = RunState.get_district_state(district_id)
+		return state["flags"].get(requires_flag, false)
+	return true # neither requirement set is a data bug - fail open, not soft-locked
+
 func _all_monster_entries() -> Array:
 	var entries: Array = []
 	for spawn in district.monster_spawns:
@@ -324,6 +350,13 @@ func _spawn_entities() -> void:
 		if state["fired_events"].has(key) and not event.get("repeatable", false):
 			continue
 		_create_event_visual(key, event)
+
+	for v in locked_visuals.values():
+		v.queue_free()
+	locked_visuals.clear()
+	for lock in district.locked_cells:
+		var key: String = _cell_key(lock["cell"])
+		_create_locked_visual(key, lock)
 
 	_refresh_minimap_markers()
 
@@ -382,6 +415,18 @@ func _create_event_visual(key: String, event: Dictionary) -> void:
 	grid_root.add_child(rect)
 	event_visuals[key] = rect
 
+## A small amber diamond-ish marker (distinct from the purple event dot)
+## so a locked cell reads as "something special here" even though it's
+## not in blocked_cells and otherwise renders as normal walkable terrain.
+## Stays visible even once unlocked - the door is still physically there.
+func _create_locked_visual(key: String, lock: Dictionary) -> void:
+	var rect := ColorRect.new()
+	rect.size = Vector2(10, 10)
+	rect.color = UITheme.COL_WARNING
+	rect.position = _cell_to_pixel(Vector2i(lock["cell"][0], lock["cell"][1])) + Vector2(CELL_SIZE - 14, 3)
+	grid_root.add_child(rect)
+	locked_visuals[key] = rect
+
 func _update_player_visual() -> void:
 	if player_visual != null:
 		_position_visual_at_cell(player_visual, player_cell)
@@ -432,13 +477,19 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Attempts to move the player one cell in `direction`. Returns a string
 ## describing what happened ("moved" | "blocked_bounds" | "blocked_wall" |
-## "encounter") so both the caller and tests can react to it.
+## "blocked_locked" | "encounter") so both the caller and tests can react
+## to it.
 func move_player(direction: Vector2i) -> String:
 	var new_cell: Vector2i = player_cell + direction
 	if new_cell.x < 0 or new_cell.x >= district.grid_width or new_cell.y < 0 or new_cell.y >= district.grid_height:
 		return "blocked_bounds"
 	if _is_blocked(new_cell):
 		return "blocked_wall"
+
+	var lock: Dictionary = _locked_entry(new_cell)
+	if not lock.is_empty() and not _lock_satisfied(lock):
+		_log_message(lock.get("locked_text", "Something's blocking the way - you don't have what you need to get through."))
+		return "blocked_locked"
 
 	var key: String = _cell_key(new_cell)
 	if active_monster_spawns.has(key):
