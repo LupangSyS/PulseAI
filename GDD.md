@@ -137,18 +137,23 @@ inline below. Three reconciliation notes before the content itself:*
 1. **Timeline** — adopted as canonical; the World section above now reads
    October 2025 Inundation / immediate aftermath, not the earlier "2035,
    nine years later" draft.
-2. **District 1 (Sukhumvit Shallows) is already built** with different
-   creature names than this bible originally used for it: the built
-   mini-boss is `sukhumvit_stalker` ("Sukhumvit Stalker"), not "The Neon
-   Strangler"; the built boss is `shallow_tide_mother` ("The Shallow Tide
-   Mother"), not "Phra Khanong Mother (Mae Nak Reflected)." Both already
-   fill the exact narrative *role* this bible describes — a district
-   guardian mini-boss, and an HP-threshold multi-stage "origin mother"
-   boss (`shallow_tide_mother` already has two real stage transitions in
-   `data/monsters.json`) — so no engineering change is needed, only
-   optional flavor-text polish to align the wording fully. Read "Neon
-   Strangler" and "Phra Khanong Mother" below as this bible's working
-   titles for those same two already-built encounters.
+2. **District 1 (Sukhumvit Shallows) is now aligned with this bible.**
+   The built mini-boss (`sukhumvit_stalker`) and boss (`shallow_tide_mother`)
+   keep their original ids (sprite/asset filenames and all district-data
+   references key off the id, not the display name), but their
+   `display_name`/`description`/move flavor text now read as "The Neon
+   Strangler" and "Phra Khanong Mother (Mae Nak Reflected)" respectively,
+   matching this bible exactly - effect/value/weight/HP untouched, this
+   was wording only. The district itself also now carries the rest of
+   this section's *(built)* content: both NPCs (Uncle Somchai, Sister Da)
+   as revisitable dialogue events, the Soi 11 Drowned Arcade and BTS Asok
+   Concourse Haven sub-map landmarks as flavor events, the emergency
+   broadcast narrative beat, and the Breaker Pump Protocol puzzle as a
+   real sequential 3-step gate (`requires_flag`/`sets_flag` on
+   `data/districts.json` events, resolved by `overworld.gd`'s
+   `_maybe_fire_event` - out-of-order attempts fail with their own text
+   and don't consume the step, so it can't softlock). See
+   `data/districts.json`'s `sukhumvit_shallows` entry for all of it.
 3. **The 10 dungeons' unlockable evolutions** used placeholder base-class
    names (Warrior, Fighter, Scout, Druid, Shaman, Acolyte) that aren't in
    the actual 15-family roster. Each is mapped below to the closest real

@@ -29,9 +29,14 @@ currently exists:
   becoming a full avatar of the Thai myth it's anchored to (Naga, Yaksha,
   Erawan, Garuda, Hanuman, Kuman Thong, Rakshasa, and more).
 - **A real, explorable district** — Sukhumvit Shallows: grid movement,
-  6 respawning monster spawns (5 species), a 2-stage mini-boss and a
-  3-stage boss that are permanently removed once beaten, item pickups +
-  monster loot, and an environmental event. Walking into a monster
+  6 respawning monster spawns (5 species), a 2-stage mini-boss (**The
+  Neon Strangler**) and a 3-stage boss (**Phra Khanong Mother**, Mae Nak
+  reflected) that are permanently removed once beaten, item pickups +
+  monster loot, and 9 events — two revisitable NPCs (Uncle Somchai,
+  Sister Da), two landmark flavor beats, a narrative reveal, and the
+  **Breaker Pump Protocol**: a real sequential 3-step puzzle (attempting
+  a step out of order fails it without consuming it, so it can't
+  softlock) that pays out a reward item on completion. Walking into a monster
   transitions into a real combat encounter and back. 11 more districts,
   10 dungeons, and 10 "beyond human sense" dimensions are fully designed
   in GDD.md's World Map but not yet built as data.

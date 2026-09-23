@@ -476,11 +476,28 @@ func _maybe_fire_event(cell_key: String) -> void:
 	if event.is_empty():
 		return
 	var state: Dictionary = RunState.get_district_state(district_id)
+
+	var requires_flag: String = event.get("requires_flag", "")
+	if requires_flag != "" and not state["flags"].get(requires_flag, false):
+		_log_message(event.get("fail_text", event.get("text", "")))
+		return
+
 	var already_fired: bool = state["fired_events"].has(cell_key)
 	if already_fired and not event.get("repeatable", false):
 		return
 	state["fired_events"][cell_key] = true
+
+	var sets_flag: String = event.get("sets_flag", "")
+	if sets_flag != "":
+		state["flags"][sets_flag] = true
+
 	_log_message(event.get("text", ""))
+
+	var reward_item: String = event.get("reward_item", "")
+	if reward_item != "" and not already_fired:
+		RunState.add_item(reward_item)
+		var item := GameData.get_item(reward_item)
+		_log_message("Picked up %s." % (item.display_name if item != null else reward_item))
 
 func _check_respawns() -> void:
 	var state: Dictionary = RunState.get_district_state(district_id)

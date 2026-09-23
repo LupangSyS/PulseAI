@@ -2,7 +2,7 @@
   {
     "id": "sukhumvit_shallows",
     "display_name": "Sukhumvit Shallows",
-    "description": "Knee-deep water over what used to be a downtown shopping street. The first foothold most survivors find - shallow enough to wade, populated by whatever bred fastest after the flood.",
+    "description": "Waist-deep brackish scum reflecting drowned neon signs; rooftops still have solar power while street level is a cemetery of submerged cars. The first foothold most survivors find - populated by whatever bred fastest after the flood.",
     "danger_tier": "F",
     "kind": "district",
     "grid_width": 10,
@@ -42,6 +42,55 @@
         "cell": [0, 0],
         "text": "A message is scratched into a half-submerged wall: \"THE SCHOOL FLOATS. FOLLOW THE BELLS.\" You don't know what that means yet.",
         "repeatable": false
+      },
+      {
+        "cell": [1, 1],
+        "text": "Soi 11 Drowned Arcade - signs for a submerged entertainment center still hum under the water, arcade cabinets glowing green through six feet of scum. Something down there is still keeping score.",
+        "repeatable": false
+      },
+      {
+        "cell": [8, 0],
+        "text": "The BTS Asok platform rises just above the waterline - the closest thing to solid, fortified ground left in the Shallows. Survivors camped here before most of them stopped camping anywhere.",
+        "repeatable": false
+      },
+      {
+        "cell": [1, 2],
+        "text": "Uncle Somchai's floating noodle-barge creaks against a submerged railing. His legs ended at the knee before the flood - what's below is salvaged hydro-turbine now. \"Buy, trade, or just stand there,\" he says, ladling something that used to be tom yum. \"Word is the transformer room under the old taxi depot still has juice in it, if somebody's fool enough to wade in and hook it back up. Three breakers. Do 'em in order or you'll fry yourself for nothing.\"",
+        "repeatable": true
+      },
+      {
+        "cell": [4, 3],
+        "text": "Sister Da used to be a nurse. Now she runs awakenings out of a gutted pharmacy stall - no sedation, no guarantee you walk out the same rank you walked in. \"Half the Hunters down here found their class on my table,\" she says, wiping down a scalpel that's seen too much. \"The other half didn't wake up at all. Your call.\"",
+        "repeatable": true
+      },
+      {
+        "cell": [8, 3],
+        "text": "A waterproofed radio, still looping on a dead frequency. Under the static: an emergency broadcast, timestamped weeks before the flood hit. Canal lock closures \"for scheduled maintenance\" - the same locks that kept this whole district from draining. They knew. They picked who'd drown first.",
+        "repeatable": false,
+        "reward_item": "emergency_broadcast_chip"
+      },
+      {
+        "cell": [4, 6],
+        "text": "Feeder Alpha: a battery cell wedged into a corroded relay atop a sunken taxi roof. You force the contacts together - the relay catches with a jolt, and the water around your boots crackles.",
+        "repeatable": false,
+        "sets_flag": "pump_alpha"
+      },
+      {
+        "cell": [5, 7],
+        "text": "Feeder Beta: the second relay, one taxi roof over. With Alpha already live, the contacts bite clean on the first try. Two down.",
+        "fail_text": "Feeder Beta's contacts are dead cold - nothing feeding it yet. Whatever's upstream of this one needs to go first.",
+        "repeatable": false,
+        "requires_flag": "pump_alpha",
+        "sets_flag": "pump_beta"
+      },
+      {
+        "cell": [6, 7],
+        "text": "Feeder Gamma: the last relay, right at the transformer room's mouth. All three catch at once - the submerged room groans, drains, and something in the depths that was humming quietly goes suddenly, uneasily silent.",
+        "fail_text": "Feeder Gamma won't take a charge - the line's dead until Beta's carrying current.",
+        "repeatable": false,
+        "requires_flag": "pump_beta",
+        "sets_flag": "gate_drained",
+        "reward_item": "salvaged_battery_cell"
       }
     ]
   }

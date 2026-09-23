@@ -30,5 +30,21 @@
     "rarity": "unique",
     "effect": "",
     "value": 0
+  },
+  {
+    "id": "salvaged_battery_cell",
+    "display_name": "Salvaged Battery Cell",
+    "description": "Pulled hot from the transformer room the moment it drained. Still holds a charge.",
+    "rarity": "uncommon",
+    "effect": "restore_resource",
+    "value": 10
+  },
+  {
+    "id": "emergency_broadcast_chip",
+    "display_name": "Emergency Broadcast Chip",
+    "description": "A waterproofed recording, timestamped weeks before the flood. Proof the canal locks were sealed on purpose.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
   }
 ]

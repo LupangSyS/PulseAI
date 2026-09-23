@@ -24,6 +24,7 @@ var last_battle_loot: Array = []
 ##   "defeated_spawns": {spawn_key: respawn_at_msec}, # -1 = never respawns (mini-boss/boss)
 ##   "collected_items": {spawn_key: true},
 ##   "fired_events": {spawn_key: true},
+##   "flags": {flag_name: true}, # set by events with sets_flag, read by events with requires_flag
 ## }
 var district_states: Dictionary = {}
 
@@ -40,6 +41,7 @@ func get_district_state(district_id: String) -> Dictionary:
 			"defeated_spawns": {},
 			"collected_items": {},
 			"fired_events": {},
+			"flags": {},
 		}
 	return district_states[district_id]
 

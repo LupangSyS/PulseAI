@@ -22,7 +22,15 @@ var monster_spawns: Array # Array[Dictionary] {monster_id, cell:[x,y], respawn_s
 var miniboss_spawn: Dictionary # {monster_id, cell:[x,y]} or {} if none
 var boss_spawn: Dictionary # {monster_id, cell:[x,y]} or {} if none
 var item_spawns: Array # Array[Dictionary] {item_id, cell:[x,y]}
-var events: Array # Array[Dictionary] {cell:[x,y], text, repeatable}
+## {cell:[x,y], text, repeatable}. Optional gating/reward fields turn a
+## plain flavor event into a chained puzzle step (see overworld.gd's
+## _maybe_fire_event): requires_flag (only fires once that district flag
+## is set elsewhere, otherwise logs fail_text instead and never marks
+## itself fired, so it can be retried), sets_flag (marks a district flag
+## true when this event fires, for a later event's requires_flag to read),
+## reward_item (an item id granted via RunState.add_item the first time
+## this event successfully fires).
+var events: Array # Array[Dictionary]
 
 ## Optional visual terrain: one string per row (top to bottom), one
 ## legend character per column - see overworld.gd's TERRAIN_LEGEND. Purely
