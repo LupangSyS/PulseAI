@@ -204,27 +204,49 @@ stealers, karmic parasites, conceptual abominations that feed on regret.
 
 ### Part I: The Districts (grounded descent — gritty survival, body horror)
 
-**1. Sukhumvit Shallows** *(built)* — Waist-deep brackish scum reflecting
-drowned neon signs; rooftops still have solar power while street level is
-a cemetery of submerged cars. NPCs: **Uncle Somchai** (Rank D veteran,
-legs replaced with salvaged hydro-turbines, runs a floating noodle-barge
-weapons trade) and **Sister Da** (ex-nurse performing unsedated illicit
-Hunter awakenings). Sub-maps: Soi 11 Drowned Arcade (submerged
-entertainment center, signs still humming underwater), BTS Asok Concourse
-Haven (the fortified survivor camp on the train platforms). Puzzle — *The
+**1. Sukhumvit Shallows** *(built, flagship depth pass)* — Waist-deep
+brackish scum reflecting drowned neon signs; rooftops still have solar
+power while street level is a cemetery of submerged cars. Now a real
+28×20-cell map (up from an original 10×8 pilot), procedurally laid out
+with guaranteed full connectivity (`tools/gen_district_layout.py`'s
+carve-and-BFS-verify generator) and then hand-zoned: a canal grind zone
+around the entrance, a transformer zone hosting the Breaker Pump
+Protocol, Soi 11 Drowned Arcade in the north, BTS Asok Concourse Haven
+sealed behind a real locked gate in the northeast, a walled-off Deep
+Flood Zone in the south gated behind the Breaker Pump Protocol's payoff,
+and a secret vault in the southwest gated behind a mini-boss drop — see
+"Locked doors/gates" below for how the gating actually works in-engine.
+NPCs: **Uncle Somchai** (Rank D veteran, legs replaced with salvaged
+hydro-turbines, runs a floating noodle-barge weapons trade) and **Sister
+Da** (ex-nurse performing unsedated illicit Hunter awakenings). Sub-maps,
+now real rather than flavor-only: **Soi 11 Drowned Arcade** hosts a
+second puzzle, *the High Score Relay* (three arcade cabinets solved in
+order — Skee Ball, then Dance Revolution, then the ticket booth — the
+same chained requires_flag/sets_flag pattern as the Breaker Pump
+Protocol), rewarding the BTS staff keycard; **BTS Asok Concourse Haven**
+is a keycard-gated safe room with loot and no monsters. Puzzle — *The
 Breaker Pump Protocol*: route battery cells across floating car roofs to
 drain a submerged transformer room, matching three electrical frequencies
-before the rising tide electrocutes the floor. Mini-boss — *The Neon
-Strangler*: a drowned tourist fused with high-voltage neon wiring and
-fiber-optic cable; plunges the room into darkness, attacks telegraphed via
-buzzing cracked-tube hum. Boss — *Phra Khanong Mother (Mae Nak
-Reflected)*: **Phase 1** a weeping silhouette atop a sunken taxi depot,
-hurling shipping containers and ultrasonic wails that scramble the UI;
-**Phase 2** her limbs stretch through the water beneath the player — step
-only on floating debris, or get dragged into a chokehold. Narrative beat:
-an emergency broadcast recording proves the government knew the flood was
+before the rising tide electrocutes the floor — solving it now actually
+opens the floodgate into the Deep Flood Zone, not just a flavor text
+reward. Mini-boss — *The Neon Strangler*: a drowned tourist fused with
+high-voltage neon wiring and fiber-optic cable, toughened for the bigger
+map (58 HP, a new desperate third phase — *Raw Nerve* — once it drops
+below 20%); plunges the room into darkness, attacks telegraphed via
+buzzing cracked-tube hum; always drops the corroded vault key. Boss —
+*Phra Khanong Mother (Mae Nak Reflected)*: also toughened (92 HP).
+**Phase 1** a weeping silhouette atop a sunken taxi depot, hurling
+shipping containers and ultrasonic wails that scramble the UI; **Phase
+2** her limbs stretch through the water beneath the player — step only
+on floating debris, or get dragged into a chokehold. Two new regular
+species patrol the Deep Flood Zone — **Current Dragger** (a harbor tug
+wreck, hits hard) and **Voltaic Current-Eel** (poisons with leaked
+transformer current) — alongside the original five. Narrative beat: an
+emergency broadcast recording (now found deep in the Deep Flood Zone
+rather than near the entrance) proves the government knew the flood was
 coming months early, and deliberately sealed canal locks to drown the
-lower-income districts first.
+lower-income districts first. The secret vault holds the district's best
+loot, the Drowned Queen's Signet.
 
 **2. Chatuchak Ruins** *(built)* — Mudflats and collapsed market stalls forming a
 labyrinth; the weekend market is a graveyard of exotic animals that
@@ -780,7 +802,23 @@ Sukhumvit Shallows as the vertical slice.
 - **Events** are just a cell + text (+ `repeatable` flag) that logs a
   line when stepped on — no dialogue system, just environmental
   storytelling for now (Sukhumvit Shallows has one: a wall message
-  hinting at the mage school).
+  hinting at the mage school). Optional `requires_flag`/`sets_flag`/
+  `fail_text`/`reward_item` turn a plain event into a chained puzzle step
+  (Breaker Pump Protocol, Amulet Scale, Crane Sluice Alignment, and now
+  Sukhumvit Shallows' second puzzle, the arcade's High Score Relay).
+- **Locked doors/gates** (`DistrictData.locked_cells`): a second, distinct
+  kind of impassable cell from `blocked_cells` — not a wall (it still
+  renders as normal walkable terrain, just marked with a small amber
+  marker), but `move_player` refuses to cross it until the player holds a
+  specific item (`requires_item`, checked against `RunState.inventory`,
+  a permanent unlock once found — not consumed) or a district flag is
+  set (`requires_flag`, the same flags puzzle events already write via
+  `sets_flag`). This is the primitive behind Sukhumvit Shallows' BTS Asok
+  Haven (keycard-gated), its secret vault (vault-key-gated, dropped by
+  the mini-boss), and its Deep Flood Zone gate (flag-gated by actually
+  finishing the Breaker Pump Protocol, not just a flavor reward anymore).
+  Distinct from an event's own `requires_flag`, which gates a one-time
+  text/reward, not passage.
 
 ## Prototype status (current build)
 
@@ -798,13 +836,18 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   line each stopped being readable at this roster size.
 - **Three fully playable districts** (`scenes/overworld.tscn` /
   `scripts/overworld/overworld.gd`): Sukhumvit Shallows, Chatuchak
-  Ruins, and Klong Toey Canals, each with grid movement, 6 regular
-  monster spawns (5 species) that respawn on a timer, a mini-boss and
+  Ruins, and Klong Toey Canals, each with grid movement, a mini-boss and
   boss (with stage transitions) that are permanently removed once
   beaten, item pickups + monster loot drops feeding a simple inventory
   with usable items, and a cluster of NPC/landmark/narrative events plus
   a sequential flag-gated puzzle (Breaker Pump Protocol / Amulet Scale /
-  Crane Sluice Alignment) apiece. No travel between them yet - each is
+  Crane Sluice Alignment) apiece. Chatuchak Ruins and Klong Toey Canals
+  are still the original 10×8 pilot shape (6 regular monster spawns, 5
+  species, one puzzle, no locked cells); Sukhumvit Shallows got a
+  flagship depth pass (see above) and is now 28×20 with 14 regular
+  spawns across 7 species, two puzzles, 3 locked gates, and a secret
+  vault — the same depth-pass treatment for districts 2/3 is designed
+  but not yet built (see Roadmap). No travel between them yet - each is
   its own standalone run, picked by `RunState` via a "[DEV] <district>"
   main-menu button. Walking into a live monster transitions into...
 - **A real save/load system, single slot** (`RunState.save_game`/
@@ -1039,14 +1082,30 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   Shallows *was* before this — is a special case of the same clamp, not
   a separate code path). This removed the "district must fit on one
   screen" constraint, so `CELL_SIZE` went 24→40→64 to finally match the
-  sprite/tile art's native resolution — Sukhumvit Shallows (10×8 cells =
-  640×512px) is now itself bigger than the visible window and genuinely
-  pans, which doubles as the camera system's own test case. Headlessly
-  verified: the tile-rendering path, the flat-grid fallback path, every
-  HUD element's on-screen bounds, camera clamping at all four map
-  corners plus a synthetic small-map centering case, and that
-  movement/encounters/item pickup are unaffected, on top of the
-  existing overworld↔combat end-to-end flow.
+  sprite/tile art's native resolution. Headlessly verified: the
+  tile-rendering path, the flat-grid fallback path, every HUD element's
+  on-screen bounds, camera clamping at all four map corners plus a
+  synthetic small-map centering case, and that movement/encounters/item
+  pickup are unaffected, on top of the existing overworld↔combat
+  end-to-end flow.
+  **Known visual issue (found during the Sukhumvit Shallows depth pass,
+  not fixed):** once the camera scrolls a few rows away from wherever it
+  started, the TileMap stops drawing tiles for the rest of the district
+  and the dark background shows through instead — reproducible with real
+  `move_player()` calls (not just a test-harness teleport), and present
+  on the small pre-existing districts too once you walk far enough from
+  the entrance, so it predates this depth pass rather than being caused
+  by it. Collision/spawns/events/locks are entirely data-driven and keep
+  working correctly underneath (headlessly verified independent of
+  rendering), so this is cosmetic, not a game-logic bug. Investigated at
+  length: not explained by terrain tile color, not fixed by disabling
+  `map_viewport.clip_contents`, and not fixed by replacing the plain
+  clipped `Control` with a real `SubViewport`/`SubViewportContainer`
+  (the standard Godot scrolling-2D pattern) — both architectures show
+  the identical cutoff, which points at something lower-level (possibly
+  specific to `llvmpipe` software rendering in this headless sandbox,
+  since it couldn't be tested against a real GPU here). Needs a fresh
+  look, ideally on real hardware, before the next district depth pass.
 - **Status/Items menu (Escape, from the overworld).**
   `scripts/menu/status_menu.gd` — a portrait, name, rank, HP/resource
   bars, and two tabs: Status (playstyle blurb + the full deck list with
@@ -1083,15 +1142,24 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
 
 ## Roadmap / Phase 2 ideas (not built)
 
-- **The other 31 zones.** Only Sukhumvit Shallows is real; the other 11
-  districts, all 10 dungeons, and all 10 dimensions are designed (World
-  Map above and the Story Bible section, with full atmosphere/NPC/
-  puzzle/boss detail for every one of them) but have zero entries in
-  `data/districts.json` / `data/monsters.json`. Filling these in is now
-  purely content work, following the exact pattern Sukhumvit Shallows
-  already proved out (content + `terrain` tile art) — the camera system
+- **The other 29 zones, plus the depth pass for districts 2-3.** Three
+  districts are real (Sukhumvit Shallows, Chatuchak Ruins, Klong Toey
+  Canals); the other 9 districts, all 10 dungeons, and all 10 dimensions
+  are designed (World Map above and the Story Bible section, with full
+  atmosphere/NPC/puzzle/boss detail for every one of them) but have zero
+  entries in `data/districts.json` / `data/monsters.json`. Chatuchak
+  Ruins and Klong Toey Canals are also still at the original 10×8 pilot
+  scale and would benefit from the same flagship depth pass Sukhumvit
+  Shallows just got (bigger procedurally-laid-out grid, a second puzzle,
+  locked sub-areas, tougher/more varied monsters) before being called
+  "done" rather than "playable." Filling in new zones is purely content
+  work, following the pattern Sukhumvit Shallows proved out (content +
+  `terrain` tile art, `tools/gen_district_layout.py` for a
+  connectivity-guaranteed base layout at any size) — the camera system
   means a district's size no longer has to fit on one screen, so this is
-  no longer blocked on anything structural. The full spawn-to-final-boss
+  no longer blocked on anything structural, only on the known tile-
+  rendering issue noted above being worth chasing down first. The full
+  spawn-to-final-boss
   order is: the 12 districts in tier order, then the 10 dimensions in
   their documented order ending at *The Source of the Release* (the
   literal final boss); the 10 dungeons are optional side content, not on

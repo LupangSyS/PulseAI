@@ -2,81 +2,768 @@
   {
     "id": "sukhumvit_shallows",
     "display_name": "Sukhumvit Shallows",
-    "description": "Waist-deep brackish scum reflecting drowned neon signs; rooftops still have solar power while street level is a cemetery of submerged cars. The first foothold most survivors find - populated by whatever bred fastest after the flood.",
-    "danger_tier": "F",
+    "description": "Waist-deep brackish scum reflecting drowned neon signs; rooftops still have solar power while street level is a cemetery of submerged cars. The first foothold most survivors find - populated by whatever bred fastest after the flood. Bigger than it looks from the entrance: the Soi 11 arcade still hums to the north, a locked BTS platform holds out to the east, and the canal only gets deeper - and meaner - the further south you wade.",
+    "danger_tier": "F-E",
     "kind": "district",
-    "grid_width": 10,
-    "grid_height": 8,
-    "entrance_cell": [0, 4],
+    "grid_width": 28,
+    "grid_height": 20,
+    "entrance_cell": [
+      0,
+      10
+    ],
     "blocked_cells": [
-      [3, 1], [3, 2], [3, 3],
-      [6, 5], [6, 6], [7, 6],
-      [5, 0]
+      [
+        0,
+        16
+      ],
+      [
+        1,
+        16
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        3,
+        11
+      ],
+      [
+        3,
+        12
+      ],
+      [
+        3,
+        17
+      ],
+      [
+        3,
+        19
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        4,
+        18
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        5,
+        4
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        6,
+        3
+      ],
+      [
+        6,
+        4
+      ],
+      [
+        6,
+        5
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        7,
+        14
+      ],
+      [
+        7,
+        15
+      ],
+      [
+        7,
+        16
+      ],
+      [
+        7,
+        17
+      ],
+      [
+        7,
+        18
+      ],
+      [
+        7,
+        19
+      ],
+      [
+        8,
+        13
+      ],
+      [
+        9,
+        2
+      ],
+      [
+        9,
+        3
+      ],
+      [
+        9,
+        13
+      ],
+      [
+        10,
+        2
+      ],
+      [
+        10,
+        3
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        10,
+        13
+      ],
+      [
+        10,
+        19
+      ],
+      [
+        11,
+        2
+      ],
+      [
+        11,
+        3
+      ],
+      [
+        11,
+        5
+      ],
+      [
+        11,
+        6
+      ],
+      [
+        11,
+        11
+      ],
+      [
+        11,
+        13
+      ],
+      [
+        11,
+        16
+      ],
+      [
+        12,
+        1
+      ],
+      [
+        12,
+        11
+      ],
+      [
+        12,
+        12
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        12,
+        14
+      ],
+      [
+        12,
+        16
+      ],
+      [
+        13,
+        4
+      ],
+      [
+        13,
+        5
+      ],
+      [
+        13,
+        6
+      ],
+      [
+        13,
+        13
+      ],
+      [
+        14,
+        13
+      ],
+      [
+        14,
+        18
+      ],
+      [
+        15,
+        1
+      ],
+      [
+        15,
+        2
+      ],
+      [
+        15,
+        3
+      ],
+      [
+        15,
+        10
+      ],
+      [
+        15,
+        11
+      ],
+      [
+        15,
+        13
+      ],
+      [
+        15,
+        16
+      ],
+      [
+        16,
+        1
+      ],
+      [
+        16,
+        2
+      ],
+      [
+        16,
+        3
+      ],
+      [
+        16,
+        6
+      ],
+      [
+        16,
+        16
+      ],
+      [
+        17,
+        2
+      ],
+      [
+        17,
+        6
+      ],
+      [
+        17,
+        13
+      ],
+      [
+        17,
+        18
+      ],
+      [
+        18,
+        9
+      ],
+      [
+        18,
+        12
+      ],
+      [
+        18,
+        13
+      ],
+      [
+        18,
+        15
+      ],
+      [
+        18,
+        16
+      ],
+      [
+        19,
+        6
+      ],
+      [
+        19,
+        9
+      ],
+      [
+        19,
+        13
+      ],
+      [
+        19,
+        16
+      ],
+      [
+        19,
+        19
+      ],
+      [
+        20,
+        6
+      ],
+      [
+        20,
+        7
+      ],
+      [
+        20,
+        13
+      ],
+      [
+        21,
+        6
+      ],
+      [
+        21,
+        7
+      ],
+      [
+        21,
+        13
+      ],
+      [
+        22,
+        13
+      ],
+      [
+        22,
+        15
+      ],
+      [
+        23,
+        0
+      ],
+      [
+        23,
+        1
+      ],
+      [
+        23,
+        3
+      ],
+      [
+        23,
+        13
+      ],
+      [
+        23,
+        15
+      ],
+      [
+        24,
+        4
+      ],
+      [
+        24,
+        13
+      ],
+      [
+        25,
+        4
+      ],
+      [
+        25,
+        13
+      ],
+      [
+        25,
+        14
+      ],
+      [
+        25,
+        16
+      ],
+      [
+        26,
+        4
+      ],
+      [
+        26,
+        13
+      ],
+      [
+        26,
+        19
+      ],
+      [
+        27,
+        4
+      ],
+      [
+        27,
+        13
+      ],
+      [
+        27,
+        16
+      ]
     ],
     "terrain": [
-      "ppsssrssss",
-      "ppsrsspsss",
-      "ppsrssssss",
-      "pssrsssssw",
-      "ppssssssww",
-      "psssssrsww",
-      "ssssssrrww",
-      "sssssswwww"
+      "rppprrrprpprpprrprrprrpppppp",
+      "rrrrrrrrrrrrrppppppprrrppppp",
+      "prprrrrrrrppppprrprrrrpppppp",
+      "rprrppprrrprrrrrprrrprprpppp",
+      "rprrprrprrrrppprrrpprrprprrp",
+      "rrprrprrpprrrrppprppprprrppr",
+      "pprrrrrpprrrrrrprprpprrpprrr",
+      "spsssssssrsrssssrrrrrrpprrrr",
+      "pssssspsssrrsrssrrrrprprrppr",
+      "pssspssssssrssssrprprrppprpr",
+      "ssssssspssrsssssrpprrrrrpppr",
+      "ssssspssssrsssssprprrrrprprr",
+      "sssssspsssssssssrprprpprrprr",
+      "sssspssssssrssssrpprrpprrrrr",
+      "ssrsssssswssswwsswssswwwwssw",
+      "sssssssrsswswsswwsssssssssss",
+      "ssssssssssswwwwwswwsswssswss",
+      "rrrssrsssssssswwswwsswswswws",
+      "prpsrsssswsswwwsswssssswwwws",
+      "rrrssssrsswwwsswswsswssswssw"
+    ],
+    "locked_cells": [
+      {
+        "cell": [
+          24,
+          2
+        ],
+        "requires_item": "bts_keycard",
+        "locked_text": "The BTS Asok platform gate needs a working staff keycard - this one hasn't budged in months."
+      },
+      {
+        "cell": [
+          2,
+          18
+        ],
+        "requires_item": "corroded_vault_key",
+        "locked_text": "Whatever's sealed in here wants a key, not brute force."
+      },
+      {
+        "cell": [
+          16,
+          14
+        ],
+        "requires_flag": "gate_drained",
+        "locked_text": "The floodgate ahead is still sealed - the transformer room needs to finish draining before the current lets up enough to pass."
+      }
     ],
     "monster_spawns": [
-      {"monster_id": "silt_rat", "cell": [2, 2], "respawn_seconds": 20},
-      {"monster_id": "silt_rat", "cell": [4, 5], "respawn_seconds": 20},
-      {"monster_id": "flood_leech", "cell": [1, 6], "respawn_seconds": 25},
-      {"monster_id": "drowned_stray", "cell": [5, 2], "respawn_seconds": 30},
-      {"monster_id": "bloated_toad", "cell": [7, 3], "respawn_seconds": 35},
-      {"monster_id": "waterlogged_wisp", "cell": [8, 1], "respawn_seconds": 25}
+      {
+        "monster_id": "silt_rat",
+        "cell": [
+          2,
+          8
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "flood_leech",
+        "cell": [
+          5,
+          9
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "drowned_stray",
+        "cell": [
+          6,
+          12
+        ],
+        "respawn_seconds": 30
+      },
+      {
+        "monster_id": "bloated_toad",
+        "cell": [
+          10,
+          8
+        ],
+        "respawn_seconds": 35
+      },
+      {
+        "monster_id": "drowned_stray",
+        "cell": [
+          13,
+          11
+        ],
+        "respawn_seconds": 30
+      },
+      {
+        "monster_id": "waterlogged_wisp",
+        "cell": [
+          6,
+          1
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "waterlogged_wisp",
+        "cell": [
+          18,
+          4
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "bloated_toad",
+        "cell": [
+          20,
+          2
+        ],
+        "respawn_seconds": 35
+      },
+      {
+        "monster_id": "flood_leech",
+        "cell": [
+          5,
+          16
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "current_dragger",
+        "cell": [
+          10,
+          15
+        ],
+        "respawn_seconds": 40
+      },
+      {
+        "monster_id": "current_dragger",
+        "cell": [
+          14,
+          17
+        ],
+        "respawn_seconds": 40
+      },
+      {
+        "monster_id": "current_dragger",
+        "cell": [
+          20,
+          15
+        ],
+        "respawn_seconds": 40
+      },
+      {
+        "monster_id": "voltaic_current_eel",
+        "cell": [
+          12,
+          18
+        ],
+        "respawn_seconds": 35
+      },
+      {
+        "monster_id": "voltaic_current_eel",
+        "cell": [
+          18,
+          17
+        ],
+        "respawn_seconds": 35
+      }
     ],
-    "miniboss_spawn": {"monster_id": "sukhumvit_stalker", "cell": [8, 6]},
-    "boss_spawn": {"monster_id": "shallow_tide_mother", "cell": [9, 7]},
+    "miniboss_spawn": {
+      "monster_id": "sukhumvit_stalker",
+      "cell": [
+        22,
+        16
+      ]
+    },
+    "boss_spawn": {
+      "monster_id": "shallow_tide_mother",
+      "cell": [
+        26,
+        18
+      ]
+    },
     "item_spawns": [
-      {"item_id": "silt_filtered_water", "cell": [3, 5]},
-      {"item_id": "rat_bone_charm", "cell": [6, 1]}
+      {
+        "item_id": "silt_filtered_water",
+        "cell": [
+          3,
+          9
+        ]
+      },
+      {
+        "item_id": "rat_bone_charm",
+        "cell": [
+          9,
+          5
+        ]
+      },
+      {
+        "item_id": "stabilized_iv_drip",
+        "cell": [
+          26,
+          2
+        ]
+      },
+      {
+        "item_id": "salvaged_battery_cell",
+        "cell": [
+          27,
+          0
+        ]
+      },
+      {
+        "item_id": "stabilized_iv_drip",
+        "cell": [
+          9,
+          17
+        ]
+      },
+      {
+        "item_id": "drowned_queens_signet",
+        "cell": [
+          1,
+          18
+        ]
+      }
     ],
     "events": [
       {
-        "cell": [0, 0],
+        "cell": [
+          1,
+          7
+        ],
         "text": "A message is scratched into a half-submerged wall: \"THE SCHOOL FLOATS. FOLLOW THE BELLS.\" You don't know what that means yet.",
         "repeatable": false
       },
       {
-        "cell": [1, 1],
-        "text": "Soi 11 Drowned Arcade - signs for a submerged entertainment center still hum under the water, arcade cabinets glowing green through six feet of scum. Something down there is still keeping score.",
-        "repeatable": false
-      },
-      {
-        "cell": [8, 0],
-        "text": "The BTS Asok platform rises just above the waterline - the closest thing to solid, fortified ground left in the Shallows. Survivors camped here before most of them stopped camping anywhere.",
-        "repeatable": false
-      },
-      {
-        "cell": [1, 2],
-        "text": "Uncle Somchai's floating noodle-barge creaks against a submerged railing. His legs ended at the knee before the flood - what's below is salvaged hydro-turbine now. \"Buy, trade, or just stand there,\" he says, ladling something that used to be tom yum. \"Word is the transformer room under the old taxi depot still has juice in it, if somebody's fool enough to wade in and hook it back up. Three breakers. Do 'em in order or you'll fry yourself for nothing.\"",
+        "cell": [
+          2,
+          11
+        ],
+        "text": "Uncle Somchai's floating noodle-barge creaks against a submerged railing. His legs ended at the knee before the flood - what's below is salvaged hydro-turbine now. \"Buy, trade, or just stand there,\" he says, ladling something that used to be tom yum. \"Word is the transformer room north of here still has juice in it, if somebody's fool enough to wade in and hook it back up. Three breakers. Do 'em in order or you'll fry yourself for nothing - and I hear the current gate south of it won't open for anything less.\"",
         "repeatable": true
       },
       {
-        "cell": [4, 3],
+        "cell": [
+          6,
+          8
+        ],
         "text": "Sister Da used to be a nurse. Now she runs awakenings out of a gutted pharmacy stall - no sedation, no guarantee you walk out the same rank you walked in. \"Half the Hunters down here found their class on my table,\" she says, wiping down a scalpel that's seen too much. \"The other half didn't wake up at all. Your call.\"",
         "repeatable": true
       },
       {
-        "cell": [8, 3],
-        "text": "A waterproofed radio, still looping on a dead frequency. Under the static: an emergency broadcast, timestamped weeks before the flood hit. Canal lock closures \"for scheduled maintenance\" - the same locks that kept this whole district from draining. They knew. They picked who'd drown first.",
-        "repeatable": false,
-        "reward_item": "emergency_broadcast_chip"
+        "cell": [
+          3,
+          5
+        ],
+        "text": "Soi 11 Drowned Arcade - signs for a submerged entertainment center still hum under the water, arcade cabinets glowing green through six feet of scum. Something down there is still keeping score.",
+        "repeatable": false
       },
       {
-        "cell": [4, 6],
+        "cell": [
+          21,
+          2
+        ],
+        "text": "The BTS Asok platform rises just above the waterline through a locked gate to the east - the closest thing to solid, fortified ground left in the Shallows. Survivors camped here before most of them stopped camping anywhere. You'd need a keycard to get past the turnstile.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          8,
+          2
+        ],
+        "text": "Cracked Cabinet - SKEE BALL: the screen still lights up when you wade past it. On a whim, you slap the coin return. It coughs up a token that shouldn't still work, and the machine chimes a tinny, ancient jingle.",
+        "repeatable": false,
+        "sets_flag": "arcade_1"
+      },
+      {
+        "cell": [
+          14,
+          4
+        ],
+        "text": "Cabinet: DANCE REVOLUTION - the token from Skee Ball fits the slot dead center. The arrows scroll, half-submerged, and you stomp through them anyway. High score achieved by absolutely nobody who's checking.",
+        "fail_text": "This cabinet's coin slot is corroded shut - it wants the same kind of token the Skee Ball machine spat out, and you don't have one yet.",
+        "repeatable": false,
+        "requires_flag": "arcade_1",
+        "sets_flag": "arcade_2"
+      },
+      {
+        "cell": [
+          19,
+          1
+        ],
+        "text": "Ticket Booth: with two machines' worth of tickets jammed into the redemption slot, the booth's old prize case pops open with a wet crack. Inside, laminated and somehow still legible: a staff keycard for the BTS platform gate.",
+        "fail_text": "The ticket booth's redemption slot stays dark - you haven't fed it enough machines yet.",
+        "repeatable": false,
+        "requires_flag": "arcade_2",
+        "sets_flag": "arcade_3",
+        "reward_item": "bts_keycard"
+      },
+      {
+        "cell": [
+          25,
+          1
+        ],
+        "text": "The Asok survivor camp is long abandoned, but whoever left took only what they could carry - bedrolls, ration tins, a hand-crank radio still folded open to a dead station. Whoever they were, they left in a hurry, not a fight.",
+        "repeatable": true
+      },
+      {
+        "cell": [
+          9,
+          10
+        ],
         "text": "Feeder Alpha: a battery cell wedged into a corroded relay atop a sunken taxi roof. You force the contacts together - the relay catches with a jolt, and the water around your boots crackles.",
         "repeatable": false,
         "sets_flag": "pump_alpha"
       },
       {
-        "cell": [5, 7],
+        "cell": [
+          12,
+          9
+        ],
         "text": "Feeder Beta: the second relay, one taxi roof over. With Alpha already live, the contacts bite clean on the first try. Two down.",
         "fail_text": "Feeder Beta's contacts are dead cold - nothing feeding it yet. Whatever's upstream of this one needs to go first.",
         "repeatable": false,
@@ -84,13 +771,49 @@
         "sets_flag": "pump_beta"
       },
       {
-        "cell": [6, 7],
-        "text": "Feeder Gamma: the last relay, right at the transformer room's mouth. All three catch at once - the submerged room groans, drains, and something in the depths that was humming quietly goes suddenly, uneasily silent.",
+        "cell": [
+          14,
+          11
+        ],
+        "text": "Feeder Gamma: the last relay, right at the transformer room's mouth. All three catch at once - the submerged room groans and drains, and somewhere south you hear the deep-water floodgate grind open.",
         "fail_text": "Feeder Gamma won't take a charge - the line's dead until Beta's carrying current.",
         "repeatable": false,
         "requires_flag": "pump_beta",
         "sets_flag": "gate_drained",
         "reward_item": "salvaged_battery_cell"
+      },
+      {
+        "cell": [
+          2,
+          15
+        ],
+        "text": "A half-sunk stairwell drops even further down, into water that's gone perfectly still. Something about the stillness feels less like calm and more like waiting.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          24,
+          15
+        ],
+        "text": "A waterproofed radio, still looping on a dead frequency. Under the static: an emergency broadcast, timestamped weeks before the flood hit. Canal lock closures \"for scheduled maintenance\" - the same locks that kept this whole district from draining. They knew. They picked who'd drown first.",
+        "repeatable": false,
+        "reward_item": "emergency_broadcast_chip"
+      },
+      {
+        "cell": [
+          11,
+          19
+        ],
+        "text": "The water is well over your head here if you stop moving - only momentum and shallow footing on submerged wreckage keep you above it. Whatever the Neon Strangler and the Mother in the deep water feed on, it isn't oxygen.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          0,
+          18
+        ],
+        "text": "Someone built a shrine down here before the flood - joss sticks long dissolved, a brass bowl gone green. Someone else looted it, almost completely. They missed one thing, wedged behind the altar.",
+        "repeatable": false
       }
     ]
   },
@@ -102,11 +825,83 @@
     "kind": "district",
     "grid_width": 10,
     "grid_height": 8,
-    "entrance_cell": [0, 3],
+    "entrance_cell": [
+      0,
+      3
+    ],
     "blocked_cells": [
-      [1, 1], [2, 1], [3, 1], [5, 1], [6, 1], [7, 1],
-      [2, 3], [3, 3], [4, 3], [6, 3], [7, 3], [8, 3],
-      [1, 5], [2, 5], [4, 5], [5, 5], [7, 5], [8, 5]
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        7,
+        1
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        6,
+        3
+      ],
+      [
+        7,
+        3
+      ],
+      [
+        8,
+        3
+      ],
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        8,
+        5
+      ]
     ],
     "terrain": [
       "ppprrpppsp",
@@ -119,49 +914,133 @@
       "ppppssppsw"
     ],
     "monster_spawns": [
-      {"monster_id": "market_dog", "cell": [2, 2], "respawn_seconds": 20},
-      {"monster_id": "market_dog", "cell": [5, 6], "respawn_seconds": 20},
-      {"monster_id": "stall_wraith", "cell": [8, 1], "respawn_seconds": 25},
-      {"monster_id": "trickster_imp", "cell": [1, 6], "respawn_seconds": 20},
-      {"monster_id": "caged_songbird", "cell": [4, 2], "respawn_seconds": 25},
-      {"monster_id": "talisman_husk", "cell": [7, 2], "respawn_seconds": 30}
+      {
+        "monster_id": "market_dog",
+        "cell": [
+          2,
+          2
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "market_dog",
+        "cell": [
+          5,
+          6
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "stall_wraith",
+        "cell": [
+          8,
+          1
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "trickster_imp",
+        "cell": [
+          1,
+          6
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "caged_songbird",
+        "cell": [
+          4,
+          2
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "talisman_husk",
+        "cell": [
+          7,
+          2
+        ],
+        "respawn_seconds": 30
+      }
     ],
-    "miniboss_spawn": {"monster_id": "scale_merchant", "cell": [8, 6]},
-    "boss_spawn": {"monster_id": "chimera_of_drowned_aviary", "cell": [9, 7]},
+    "miniboss_spawn": {
+      "monster_id": "scale_merchant",
+      "cell": [
+        8,
+        6
+      ]
+    },
+    "boss_spawn": {
+      "monster_id": "chimera_of_drowned_aviary",
+      "cell": [
+        9,
+        7
+      ]
+    },
     "item_spawns": [
-      {"item_id": "waterlogged_watch", "cell": [3, 5]},
-      {"item_id": "market_tag", "cell": [6, 2]}
+      {
+        "item_id": "waterlogged_watch",
+        "cell": [
+          3,
+          5
+        ]
+      },
+      {
+        "item_id": "market_tag",
+        "cell": [
+          6,
+          2
+        ]
+      }
     ],
     "events": [
       {
-        "cell": [1, 2],
+        "cell": [
+          1,
+          2
+        ],
         "text": "Section 7 - the Amulet Vault. Heat-pulsing clay talismans are still stacked on their shelves in neat rows, like whoever priced them expects to come back.",
         "repeatable": false
       },
       {
-        "cell": [8, 0],
+        "cell": [
+          8,
+          0
+        ],
         "text": "The Vivarium Drains - ruptured exotic-wildlife holding cells, bars bent outward, not in. Whatever was in here didn't escape. It got out.",
         "repeatable": false
       },
       {
-        "cell": [1, 4],
+        "cell": [
+          1,
+          4
+        ],
         "text": "Kru Viroj hunches over a folding table of waterlogged watches, obsessively winding ones that will never tick again. \"I can hear the flood's pulse,\" he says, not looking up. \"It has a rhythm, like a heartbeat that forgot how to stop. Section 7's vault only opens for a balanced scale - a real amulet against a cursed weight. Get either wrong and it stays shut forever.\"",
         "repeatable": true
       },
       {
-        "cell": [9, 3],
+        "cell": [
+          9,
+          3
+        ],
         "text": "A waterlogged shipping crate, forced open. Trade manifests inside list \"biological samples\" arriving from a trench off the coast - dated days before the first fissure broke the riverbed. Somebody was expecting this.",
         "repeatable": false,
         "reward_item": "trade_manifest"
       },
       {
-        "cell": [3, 6],
+        "cell": [
+          3,
+          6
+        ],
         "text": "A corpse slumped against a collapsed stall, pockets still full. You pull a cursed lead weight from where a heart used to be. It's heavier than it should be.",
         "repeatable": false,
         "sets_flag": "has_lead_weight"
       },
       {
-        "cell": [5, 7],
+        "cell": [
+          5,
+          7
+        ],
         "text": "A brass scale bolted to Section 7's shelving. You set the lead weight on one side and a shelf amulet on the other. The arm tips, settles, and holds - this one's genuine.",
         "fail_text": "The scale's empty on one side. You'll need something with real weight to test an amulet against.",
         "repeatable": false,
@@ -169,7 +1048,10 @@
         "sets_flag": "amulet_balanced"
       },
       {
-        "cell": [6, 7],
+        "cell": [
+          6,
+          7
+        ],
         "text": "The vault door reads the balanced scale through a slot in the frame and grinds open, stacks of clay talismans humming in unison.",
         "fail_text": "The vault door won't budge - it's still waiting on a balanced scale, not just a weight.",
         "repeatable": false,
@@ -187,12 +1069,87 @@
     "kind": "district",
     "grid_width": 10,
     "grid_height": 8,
-    "entrance_cell": [0, 4],
+    "entrance_cell": [
+      0,
+      4
+    ],
     "blocked_cells": [
-      [2, 0], [2, 2], [3, 2], [4, 2],
-      [5, 0], [5, 1], [6, 1], [7, 1],
-      [1, 4], [2, 4], [3, 4], [5, 4], [6, 4],
-      [2, 6], [3, 6], [4, 6], [6, 6], [7, 6], [8, 6]
+      [
+        2,
+        0
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        7,
+        1
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        5,
+        4
+      ],
+      [
+        6,
+        4
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        6,
+        6
+      ],
+      [
+        7,
+        6
+      ],
+      [
+        8,
+        6
+      ]
     ],
     "terrain": [
       "pprrpprrws",
@@ -205,49 +1162,133 @@
       "psswwwssrw"
     ],
     "monster_spawns": [
-      {"monster_id": "canal_crocodile", "cell": [4, 1], "respawn_seconds": 25},
-      {"monster_id": "canal_crocodile", "cell": [7, 3], "respawn_seconds": 25},
-      {"monster_id": "canal_eel", "cell": [1, 2], "respawn_seconds": 20},
-      {"monster_id": "drowned_dockworker", "cell": [4, 3], "respawn_seconds": 25},
-      {"monster_id": "rusted_stevedore", "cell": [8, 2], "respawn_seconds": 30},
-      {"monster_id": "oil_slick_wisp", "cell": [1, 6], "respawn_seconds": 20}
+      {
+        "monster_id": "canal_crocodile",
+        "cell": [
+          4,
+          1
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "canal_crocodile",
+        "cell": [
+          7,
+          3
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "canal_eel",
+        "cell": [
+          1,
+          2
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "drowned_dockworker",
+        "cell": [
+          4,
+          3
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "rusted_stevedore",
+        "cell": [
+          8,
+          2
+        ],
+        "respawn_seconds": 30
+      },
+      {
+        "monster_id": "oil_slick_wisp",
+        "cell": [
+          1,
+          6
+        ],
+        "respawn_seconds": 20
+      }
     ],
-    "miniboss_spawn": {"monster_id": "sluice_ripper", "cell": [8, 5]},
-    "boss_spawn": {"monster_id": "klong_toey_leviathan", "cell": [9, 7]},
+    "miniboss_spawn": {
+      "monster_id": "sluice_ripper",
+      "cell": [
+        8,
+        5
+      ]
+    },
+    "boss_spawn": {
+      "monster_id": "klong_toey_leviathan",
+      "cell": [
+        9,
+        7
+      ]
+    },
     "item_spawns": [
-      {"item_id": "dockworker_badge", "cell": [3, 3]},
-      {"item_id": "crocodile_scale", "cell": [6, 3]}
+      {
+        "item_id": "dockworker_badge",
+        "cell": [
+          3,
+          3
+        ]
+      },
+      {
+        "item_id": "crocodile_scale",
+        "cell": [
+          6,
+          3
+        ]
+      }
     ],
     "events": [
       {
-        "cell": [1, 1],
+        "cell": [
+          1,
+          1
+        ],
         "text": "Stack-City Core - a ten-story tower of rusted shipping containers, stacked and welded into something between a fortress and a grave. Rope ladders still sway between the upper tiers.",
         "repeatable": false
       },
       {
-        "cell": [8, 0],
+        "cell": [
+          8,
+          0
+        ],
         "text": "Drydock 4. An oil tanker, wedged sideways in the mud, hull split open like it was trying to give birth to something. Whatever it was already left.",
         "repeatable": false
       },
       {
-        "cell": [1, 5],
+        "cell": [
+          1,
+          5
+        ],
         "text": "Commander Lek stands watch with one working eye and a rifle held like it's still useful. His F-rank scavengers work the mud around him, unbothered - or too scared to be. \"Crane's still standing over at the sluice gate,\" he says, not looking at you. \"Align the container bridges to it and you can cross without swimming. Do it in order - alpha bridge, beta bridge, then the crane lock - or the whole rig drops you in the sludge.\"",
         "repeatable": true
       },
       {
-        "cell": [9, 2],
+        "cell": [
+          9,
+          2
+        ],
         "text": "A waterlogged strongbox, Lek's own handwriting on the ledgers inside. Shipping manifests routed through Ratchaprasong - food, going out, children coming back. The entries don't say what for. They don't have to.",
         "repeatable": false,
         "reward_item": "leks_militia_logs"
       },
       {
-        "cell": [4, 5],
+        "cell": [
+          4,
+          5
+        ],
         "text": "Bridge Alpha: you wedge a container flush against the crane's arm. It groans, but holds. One aligned.",
         "repeatable": false,
         "sets_flag": "bridge_alpha"
       },
       {
-        "cell": [5, 6],
+        "cell": [
+          5,
+          6
+        ],
         "text": "Bridge Beta: with Alpha holding steady, this one slots into place clean. Two down.",
         "fail_text": "Bridge Beta swings loose - nothing's anchoring it yet. Alpha needs to go first.",
         "repeatable": false,
@@ -255,7 +1296,10 @@
         "sets_flag": "bridge_beta"
       },
       {
-        "cell": [5, 7],
+        "cell": [
+          5,
+          7
+        ],
         "text": "The crane lock catches both bridges at once and grinds to a stop, finally aligned. The sluice gate path is clear.",
         "fail_text": "The crane lock won't catch - it needs both bridges seated first.",
         "repeatable": false,

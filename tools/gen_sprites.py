@@ -667,6 +667,15 @@ CHARACTERS["shallow_tide_mother"] = boss_mass(
      "tendril": "#3a5c5c", "glow": "#e8a23d"},
 )
 
+CHARACTERS["current_dragger"] = quadruped(
+    {"body": "#3a4a52", "accent": "#6b8a8a"}, size="large", ridged=True, eye_color="#e85a2e",
+)
+
+CHARACTERS["voltaic_current_eel"] = blob(
+    {"primary": "#1a3a4a", "secondary": "#3ad4e8", "shadow": "#0e2028", "eye": "#e8f43a"},
+    shape="oval", eye=True,
+)
+
 # --- District 2: Chatuchak Ruins ---------------------------------------
 CHARACTERS["market_dog"] = quadruped(
     {"body": "#8a6b4a", "accent": "#c9622e"}, size="medium", eye_color="#e8c23a",
@@ -772,6 +781,8 @@ CHARACTER_KIND.update({
     "bloated_toad": "monsters",
     "sukhumvit_stalker": "monsters",
     "shallow_tide_mother": "monsters",
+    "current_dragger": "monsters",
+    "voltaic_current_eel": "monsters",
     "market_dog": "monsters",
     "stall_wraith": "monsters",
     "trickster_imp": "monsters",

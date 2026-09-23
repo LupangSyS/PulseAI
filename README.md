@@ -28,15 +28,21 @@ currently exists:
   table for the full list. Every chain culminates in the character
   becoming a full avatar of the Thai myth it's anchored to (Naga, Yaksha,
   Erawan, Garuda, Hanuman, Kuman Thong, Rakshasa, and more).
-- **Three real, explorable districts**, each with grid movement, 6
-  respawning monster spawns (5 species), a mini-boss and boss (with
-  stage transitions) permanently removed once beaten, item pickups +
-  monster loot, and a cluster of events built on the same
-  `requires_flag`/`sets_flag` puzzle mechanic:
-  - **Sukhumvit Shallows**: mini-boss **The Neon Strangler** (2 stages),
-    boss **Phra Khanong Mother** (Mae Nak reflected, 3 stages), 9
-    events including two revisitable NPCs (Uncle Somchai, Sister Da)
-    and the **Breaker Pump Protocol** puzzle.
+- **Three real, explorable districts**, each with grid movement, a
+  mini-boss and boss (with stage transitions) permanently removed once
+  beaten, item pickups + monster loot, and a cluster of events built on
+  the same `requires_flag`/`sets_flag` puzzle mechanic:
+  - **Sukhumvit Shallows** *(flagship depth pass — see below)*: a real
+    28×20-cell map (up from the original 10×8), 14 regular monster
+    spawns across 7 species, mini-boss **The Neon Strangler** (now 58
+    HP, 2 stages) and boss **Phra Khanong Mother** (now 92 HP, 3
+    stages), 16 events including two revisitable NPCs (Uncle Somchai,
+    Sister Da), two chained puzzles (the **Breaker Pump Protocol** and
+    the arcade's **High Score Relay**), and 3 locked areas (a
+    keycard-gated survivor haven, a flag-gated deep-water zone the
+    Breaker Pump Protocol actually unlocks, and a mini-boss-key-gated
+    secret vault) — see "Bigger, harder Sukhumvit Shallows" below for
+    the full rundown.
   - **Chatuchak Ruins**: mini-boss **The Scale Merchant** (2 stages),
     boss **The Chimera of the Drowned Aviary** (3 stages), 7 events
     including the Watchmaker (Kru Viroj) and the **Amulet Scale**
@@ -63,6 +69,32 @@ currently exists:
   events, puzzle flags) - to `user://saves/slot1.json`. "Continue" on
   the main menu appears once a save exists and resumes at the exact
   saved district and cell.
+- **Locked doors/gates**: a cell can require a specific item in
+  inventory (a permanent key, not consumed) or a district flag (the same
+  flag a puzzle event sets) before the player can cross it, distinct
+  from a plain wall - it still renders as normal walkable ground, just
+  refuses passage until the requirement's met. Powers Sukhumvit
+  Shallows' keycard-gated survivor haven, its Breaker-Pump-Protocol-
+  gated deep zone, and its mini-boss-key-gated secret vault.
+- **Bigger, harder Sukhumvit Shallows** (the flagship depth pass): the
+  district grew from a 10×8 pilot to a real 28×20 map, procedurally laid
+  out with guaranteed full connectivity
+  (`tools/gen_district_layout.py`'s carve-one-obstacle-at-a-time-and-
+  BFS-verify generator, plus a room-carving helper for walled sub-areas
+  with exactly one door) and then hand-zoned into a canal grind area, a
+  transformer zone, the Soi 11 Drowned Arcade (now with its own second
+  puzzle, the High Score Relay), the keycard-gated BTS Asok Haven, a
+  walled-off Deep Flood Zone gated behind actually finishing the Breaker
+  Pump Protocol, and a secret vault gated behind a mini-boss drop. Two
+  new tougher monster species (Current Dragger, Voltaic Current-Eel)
+  patrol the deep zone, and both the mini-boss and boss got real stat
+  and phase increases rather than just more square footage. **Known
+  issue**: scrolling far enough from a district's entrance can show a
+  dark background instead of tiles - a pre-existing tile-rendering bug
+  this depth pass made much easier to trigger (it also reproduces on the
+  small original districts if you walk far enough), investigated at
+  length but not yet root-caused; collision/spawns/events/locks are
+  unaffected since they never depended on the visual tile layer.
 - Main menu has two real entry points and two dev shortcuts: "Start
   Exploring" begins a real run and drops into Sukhumvit Shallows;
   "[DEV] Enter the Flood" is an isolated combat-only shortcut for
@@ -70,7 +102,7 @@ currently exists:
   drop straight into districts 2/3 the same way, since there's no
   in-fiction travel between districts yet.
 - **Real pixel art for all 105 classes** (not just the 15 F-rank
-  starters) and all 22 monsters that actually appear across the three
+  starters) and all 24 monsters that actually appear across the three
   built districts (`assets/sprites/`), true 64×64 RGBA with 2-frame idle animation.
   E-through-S ranks aren't 90 hand-painted palettes — each family
   defines one base look (hair + a weapon or wraps, so no one's bald or
