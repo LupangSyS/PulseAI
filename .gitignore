@@ -15,3 +15,10 @@ mono_crash.*.json
 # System/tooling files
 .DS_Store
 Thumbs.db
+
+# tools/gen_sprites.py build artifacts - a Python bytecode cache and a
+# scratch contact-sheet PNG it regenerates every run for visual review,
+# never a real game asset (those live under assets/sprites/).
+tools/__pycache__/
+tools/_contact_sheet.png
+tools/_contact_sheet.png.import

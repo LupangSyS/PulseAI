@@ -8,7 +8,13 @@
     "is_miniboss": false,
     "is_boss": false,
     "moves": [
-      {"name": "Claw", "description": "Claws at whatever's closest.", "effect": "damage", "value": 6, "weight": 1}
+      {
+        "name": "Claw",
+        "description": "Claws at whatever's closest.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 1
+      }
     ],
     "stages": [],
     "drop_table": []
@@ -22,11 +28,28 @@
     "is_miniboss": false,
     "is_boss": false,
     "moves": [
-      {"name": "Bite", "description": "A quick, opportunistic bite.", "effect": "damage", "value": 3, "weight": 3},
-      {"name": "Scurry", "description": "Darts out of easy reach.", "effect": "block", "value": 2, "weight": 1}
+      {
+        "name": "Bite",
+        "description": "A quick, opportunistic bite.",
+        "effect": "damage",
+        "value": 3,
+        "weight": 3
+      },
+      {
+        "name": "Scurry",
+        "description": "Darts out of easy reach.",
+        "effect": "block",
+        "value": 2,
+        "weight": 1
+      }
     ],
     "stages": [],
-    "drop_table": [{"item_id": "silt_filtered_water", "chance": 0.3}]
+    "drop_table": [
+      {
+        "item_id": "silt_filtered_water",
+        "chance": 0.3
+      }
+    ]
   },
   {
     "id": "flood_leech",
@@ -37,11 +60,28 @@
     "is_miniboss": false,
     "is_boss": false,
     "moves": [
-      {"name": "Latch", "description": "Fastens onto the nearest warm thing.", "effect": "damage", "value": 3, "weight": 2},
-      {"name": "Drain", "description": "A slow, patient draw of blood.", "effect": "dot", "value": 2, "weight": 2}
+      {
+        "name": "Latch",
+        "description": "Fastens onto the nearest warm thing.",
+        "effect": "damage",
+        "value": 3,
+        "weight": 2
+      },
+      {
+        "name": "Drain",
+        "description": "A slow, patient draw of blood.",
+        "effect": "dot",
+        "value": 2,
+        "weight": 2
+      }
     ],
     "stages": [],
-    "drop_table": [{"item_id": "silt_filtered_water", "chance": 0.2}]
+    "drop_table": [
+      {
+        "item_id": "silt_filtered_water",
+        "chance": 0.2
+      }
+    ]
   },
   {
     "id": "drowned_stray",
@@ -52,11 +92,28 @@
     "is_miniboss": false,
     "is_boss": false,
     "moves": [
-      {"name": "Snap", "description": "A fast, snapping bite.", "effect": "damage", "value": 5, "weight": 3},
-      {"name": "Snarl", "description": "A growl that promises the next bite will be worse.", "effect": "empower_next", "value": 2, "weight": 1}
+      {
+        "name": "Snap",
+        "description": "A fast, snapping bite.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 3
+      },
+      {
+        "name": "Snarl",
+        "description": "A growl that promises the next bite will be worse.",
+        "effect": "empower_next",
+        "value": 2,
+        "weight": 1
+      }
     ],
     "stages": [],
-    "drop_table": [{"item_id": "rat_bone_charm", "chance": 0.15}]
+    "drop_table": [
+      {
+        "item_id": "rat_bone_charm",
+        "chance": 0.15
+      }
+    ]
   },
   {
     "id": "bloated_toad",
@@ -67,11 +124,28 @@
     "is_miniboss": false,
     "is_boss": false,
     "moves": [
-      {"name": "Croak Slam", "description": "Its whole bulk, thrown forward.", "effect": "damage", "value": 4, "weight": 2},
-      {"name": "Puff Up", "description": "Swells to twice its size.", "effect": "block", "value": 5, "weight": 2}
+      {
+        "name": "Croak Slam",
+        "description": "Its whole bulk, thrown forward.",
+        "effect": "damage",
+        "value": 4,
+        "weight": 2
+      },
+      {
+        "name": "Puff Up",
+        "description": "Swells to twice its size.",
+        "effect": "block",
+        "value": 5,
+        "weight": 2
+      }
     ],
     "stages": [],
-    "drop_table": [{"item_id": "silt_filtered_water", "chance": 0.25}]
+    "drop_table": [
+      {
+        "item_id": "silt_filtered_water",
+        "chance": 0.25
+      }
+    ]
   },
   {
     "id": "waterlogged_wisp",
@@ -82,78 +156,1599 @@
     "is_miniboss": false,
     "is_boss": false,
     "moves": [
-      {"name": "Clinging Damp", "description": "A cold that settles in and doesn't leave.", "effect": "dot", "value": 3, "weight": 3},
-      {"name": "Flicker", "description": "Dims to almost nothing.", "effect": "block", "value": 3, "weight": 1}
+      {
+        "name": "Clinging Damp",
+        "description": "A cold that settles in and doesn't leave.",
+        "effect": "dot",
+        "value": 3,
+        "weight": 3
+      },
+      {
+        "name": "Flicker",
+        "description": "Dims to almost nothing.",
+        "effect": "block",
+        "value": 3,
+        "weight": 1
+      }
     ],
     "stages": [],
-    "drop_table": [{"item_id": "rat_bone_charm", "chance": 0.1}]
+    "drop_table": [
+      {
+        "item_id": "rat_bone_charm",
+        "chance": 0.1
+      }
+    ]
   },
   {
     "id": "sukhumvit_stalker",
-    "display_name": "Sukhumvit Stalker",
-    "description": "Bigger than the strays that run from it, and smarter than anything down here has any right to be.",
+    "display_name": "The Neon Strangler",
+    "description": "A drowned tourist, fused at the throat and wrists with high-voltage neon wiring and fiber-optic cable. It still remembers being lost, and it still wants company.",
     "rank": "E",
-    "max_hp": 45,
+    "max_hp": 58,
     "is_miniboss": true,
     "is_boss": false,
     "moves": [
-      {"name": "Ambush Bite", "description": "Strikes from wherever you weren't looking.", "effect": "damage", "value": 7, "weight": 3},
-      {"name": "Circle", "description": "Doesn't retreat so much as reposition.", "effect": "block", "value": 4, "weight": 2}
+      {
+        "name": "Strangling Cable",
+        "description": "A fiber-optic line lashes out of the dark, humming with current.",
+        "effect": "damage",
+        "value": 8,
+        "weight": 3
+      },
+      {
+        "name": "Cracked-Tube Hum",
+        "description": "A buzzing warning, coiling tighter before it strikes.",
+        "effect": "block",
+        "value": 4,
+        "weight": 2
+      }
     ],
     "stages": [
       {
         "trigger_hp_pct": 0.5,
-        "display_name": "Sukhumvit Stalker (Wounded)",
-        "transition_text": "Wounded and cornered, the Stalker stops circling and starts committing.",
+        "display_name": "The Neon Strangler (Blackout)",
+        "transition_text": "The last working bulb shatters. The room goes fully dark, and something wraps tighter around your throat.",
         "moves": [
-          {"name": "Frenzied Bite", "description": "No more patience left for circling.", "effect": "damage", "value": 9, "weight": 3},
-          {"name": "Desperate Snarl", "description": "A warning that isn't one anymore.", "effect": "empower_next", "value": 4, "weight": 2},
-          {"name": "Cornered Lunge", "description": "Nothing left to lose.", "effect": "damage", "value": 6, "weight": 2}
+          {
+            "name": "Blackout Choke",
+            "description": "No more patience left for circling in the dark.",
+            "effect": "damage",
+            "value": 9,
+            "weight": 3
+          },
+          {
+            "name": "Surge Through the Cable",
+            "description": "The wiring flares white-hot along its whole length.",
+            "effect": "empower_next",
+            "value": 4,
+            "weight": 2
+          },
+          {
+            "name": "Final Wire Whip",
+            "description": "Nothing left to lose, and nothing left to see it coming.",
+            "effect": "damage",
+            "value": 6,
+            "weight": 2
+          },
+          {
+            "name": "Coil and Choke",
+            "description": "It wraps a second cable around before you can cut the first.",
+            "effect": "block",
+            "value": 6,
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "trigger_hp_pct": 0.2,
+        "display_name": "The Neon Strangler (Raw Nerve)",
+        "transition_text": "Every working bulb on it flares at once and dies. What's left doesn't need light to find your throat anymore.",
+        "moves": [
+          {
+            "name": "Raw Nerve Lash",
+            "description": "Nothing left to conserve.",
+            "effect": "damage",
+            "value": 11,
+            "weight": 3
+          },
+          {
+            "name": "Feedback Loop",
+            "description": "The cable bites and keeps biting.",
+            "effect": "dot",
+            "value": 5,
+            "weight": 2
+          },
+          {
+            "name": "Last Current",
+            "description": "Everything it has left, through your chest.",
+            "effect": "execute",
+            "value": 8,
+            "weight": 1
+          }
         ]
       }
     ],
     "drop_table": [
-      {"item_id": "rat_bone_charm", "chance": 0.6},
-      {"item_id": "stalker_fang", "chance": 0.4}
+      {
+        "item_id": "rat_bone_charm",
+        "chance": 0.6
+      },
+      {
+        "item_id": "stalker_fang",
+        "chance": 0.4
+      },
+      {
+        "item_id": "corroded_vault_key",
+        "chance": 1.0
+      }
     ]
   },
   {
     "id": "shallow_tide_mother",
-    "display_name": "The Shallow Tide Mother",
-    "description": "Everything else down here came from somewhere. This is where.",
+    "display_name": "Phra Khanong Mother (Mae Nak Reflected)",
+    "description": "A weeping silhouette perched atop a sunken taxi depot. She was a mother once. The flood remembered that before it remembered anything else.",
     "rank": "E",
-    "max_hp": 70,
+    "max_hp": 60,
     "is_miniboss": false,
     "is_boss": true,
     "moves": [
-      {"name": "Spawnwave Lash", "description": "A lash that carries the current with it.", "effect": "damage", "value": 8, "weight": 3},
-      {"name": "Brooding Shell", "description": "Hardens around what she's still growing.", "effect": "block", "value": 6, "weight": 2}
+      {
+        "name": "Hurled Container",
+        "description": "A shipping container arcs out of the dark water toward you.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 3
+      },
+      {
+        "name": "Weeping Silence",
+        "description": "She goes still, and the water holds its breath with her.",
+        "effect": "block",
+        "value": 6,
+        "weight": 2
+      }
     ],
     "stages": [
       {
         "trigger_hp_pct": 0.66,
-        "display_name": "The Shallow Tide Mother (Roused)",
-        "transition_text": "The water around her churns. She's stopped tolerating you.",
+        "display_name": "Phra Khanong Mother (Ultrasonic Wail)",
+        "transition_text": "Her weeping sharpens into an ultrasonic wail that scrambles everything you thought you knew about this fight.",
         "moves": [
-          {"name": "Roused Lash", "description": "The current itself seems to aim this one.", "effect": "damage", "value": 10, "weight": 3},
-          {"name": "Summon Echo", "description": "Calls something that isn't fully there yet.", "effect": "dot", "value": 4, "weight": 2},
-          {"name": "Shell Regrowth", "description": "What cracks, she regrows.", "effect": "block", "value": 8, "weight": 1}
+          {
+            "name": "Container Barrage",
+            "description": "The current itself seems to aim this one.",
+            "effect": "damage",
+            "value": 7,
+            "weight": 3
+          },
+          {
+            "name": "Ultrasonic Wail",
+            "description": "A scream pitched to unravel you slowly.",
+            "effect": "dot",
+            "value": 3,
+            "weight": 2
+          },
+          {
+            "name": "Grieving Hush",
+            "description": "What cracks, she regrows.",
+            "effect": "block",
+            "value": 8,
+            "weight": 1
+          }
         ]
       },
       {
         "trigger_hp_pct": 0.33,
-        "display_name": "The Shallow Tide Mother (Final Brood)",
-        "transition_text": "This is the last of her strength, and she means to spend all of it.",
+        "display_name": "Phra Khanong Mother (Reaching Depths)",
+        "transition_text": "Her limbs stretch impossibly long, sliding beneath the water toward your feet. Whatever's still floating is the only safe ground left.",
         "moves": [
-          {"name": "Final Brood Lash", "description": "Everything she has left, in one motion.", "effect": "damage", "value": 13, "weight": 3},
-          {"name": "Drowning Grasp", "description": "She doesn't need much strength left to finish something already drowning.", "effect": "execute", "value": 9, "weight": 2},
-          {"name": "Last Shell", "description": "One final hardening, more instinct than strategy now.", "effect": "block", "value": 10, "weight": 1}
+          {
+            "name": "Reaching Limbs",
+            "description": "Everything she has left, in one motion.",
+            "effect": "damage",
+            "value": 10,
+            "weight": 3
+          },
+          {
+            "name": "Chokehold From Below",
+            "description": "She doesn't need to see you to find your throat.",
+            "effect": "execute",
+            "value": 7,
+            "weight": 2
+          },
+          {
+            "name": "Last Embrace",
+            "description": "One final hardening, more instinct than strategy now.",
+            "effect": "block",
+            "value": 10,
+            "weight": 1
+          },
+          {
+            "name": "Undertow Grasp",
+            "description": "She's not letting either of you leave this one.",
+            "effect": "dot",
+            "value": 3,
+            "weight": 2
+          }
         ]
       }
     ],
     "drop_table": [
-      {"item_id": "tide_mothers_scale", "chance": 1.0},
-      {"item_id": "stalker_fang", "chance": 0.5}
+      {
+        "item_id": "tide_mothers_scale",
+        "chance": 1.0
+      },
+      {
+        "item_id": "stalker_fang",
+        "chance": 0.5
+      }
+    ]
+  },
+  {
+    "id": "market_dog",
+    "display_name": "Market Dog",
+    "description": "A mutated stray that never left the stall it used to guard. It still remembers its post, and it still thinks you're trespassing.",
+    "rank": "F",
+    "max_hp": 18,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Guard Bite",
+        "description": "A fast, territorial snap.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 3
+      },
+      {
+        "name": "Territorial Snarl",
+        "description": "This stall has an owner, and it isn't you.",
+        "effect": "empower_next",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "stages": [],
+    "drop_table": [
+      {
+        "item_id": "market_tag",
+        "chance": 0.25
+      }
+    ]
+  },
+  {
+    "id": "stall_wraith",
+    "display_name": "Stall Wraith",
+    "description": "A collapsed market stall's tarp, still billowing like it's got customers to flag down. Nobody's buying anymore.",
+    "rank": "F",
+    "max_hp": 14,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Tarp Snare",
+        "description": "Wraps around whatever's closest.",
+        "effect": "damage",
+        "value": 4,
+        "weight": 2
+      },
+      {
+        "name": "Haunted Billow",
+        "description": "A cold, mildewed gust that clings.",
+        "effect": "dot",
+        "value": 3,
+        "weight": 2
+      }
+    ],
+    "stages": [],
+    "drop_table": [
+      {
+        "item_id": "market_tag",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": "trickster_imp",
+    "display_name": "Trickster Imp",
+    "description": "Small, fast, and delighted by how much it can steal before you notice.",
+    "rank": "F",
+    "max_hp": 12,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Snatch",
+        "description": "A quick grab at whatever's loose.",
+        "effect": "damage",
+        "value": 4,
+        "weight": 3
+      },
+      {
+        "name": "Vanish",
+        "description": "Gone before the counter-swing lands.",
+        "effect": "block",
+        "value": 4,
+        "weight": 1
+      }
+    ],
+    "stages": [],
+    "drop_table": [
+      {
+        "item_id": "market_tag",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": "caged_songbird",
+    "display_name": "Caged Songbird",
+    "description": "Something that used to sing for tourists outside a pet stall. It hasn't stopped, but the song isn't music anymore.",
+    "rank": "F",
+    "max_hp": 11,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Discordant Shriek",
+        "description": "A pitch that settles under the skin and stays.",
+        "effect": "dot",
+        "value": 3,
+        "weight": 2
+      },
+      {
+        "name": "Panicked Peck",
+        "description": "Frantic, without much behind it.",
+        "effect": "damage",
+        "value": 3,
+        "weight": 2
+      }
+    ],
+    "stages": [],
+    "drop_table": [
+      {
+        "item_id": "market_tag",
+        "chance": 0.15
+      }
+    ]
+  },
+  {
+    "id": "talisman_husk",
+    "display_name": "Talisman Husk",
+    "description": "A clay guardian from Section 7, animated by whatever's still pulsing in the amulets stacked around it.",
+    "rank": "E",
+    "max_hp": 20,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Clay Fist",
+        "description": "Slow, heavy, and hard to take twice.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 2
+      },
+      {
+        "name": "Amulet Pulse",
+        "description": "The talismans around it flare, and the clay hardens.",
+        "effect": "block",
+        "value": 5,
+        "weight": 2
+      }
+    ],
+    "stages": [],
+    "drop_table": [
+      {
+        "item_id": "genuine_amulet",
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": "scale_merchant",
+    "display_name": "The Scale Merchant",
+    "description": "Four-armed, fused at the shoulders to a rack of cages holding mutated fighting fish. It still haggles - you just can't understand the price anymore.",
+    "rank": "E",
+    "max_hp": 55,
+    "is_miniboss": true,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Caustic Spit",
+        "description": "One of the caged fish, aimed at you.",
+        "effect": "damage",
+        "value": 8,
+        "weight": 3
+      },
+      {
+        "name": "Cage Rattle",
+        "description": "The whole rack shakes - a warning, not an attack.",
+        "effect": "block",
+        "value": 5,
+        "weight": 2
+      }
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.5,
+        "display_name": "The Scale Merchant (Cages Cracking)",
+        "transition_text": "The cages crack. What's inside starts spitting on its own, wherever it wants.",
+        "moves": [
+          {
+            "name": "Twin Cage Spit",
+            "description": "Two cages at once, no more haggling.",
+            "effect": "damage",
+            "value": 8,
+            "weight": 3
+          },
+          {
+            "name": "Bile Frenzy",
+            "description": "Caustic spray that keeps burning after it lands.",
+            "effect": "dot",
+            "value": 3,
+            "weight": 2
+          },
+          {
+            "name": "Desperate Weighing",
+            "description": "It tips its own scale, betting everything on the next strike.",
+            "effect": "empower_next",
+            "value": 3,
+            "weight": 1
+          },
+          {
+            "name": "Fourth Arm Grab",
+            "description": "It never needed all four for haggling.",
+            "effect": "block",
+            "value": 6,
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "trigger_hp_pct": 0.2,
+        "display_name": "The Scale Merchant (Every Cage at Once)",
+        "transition_text": "Every cage shatters at once. There's no more haggling left in it, just teeth.",
+        "moves": [
+          {
+            "name": "Full Rack Spit",
+            "description": "Nothing held back anymore.",
+            "effect": "damage",
+            "value": 10,
+            "weight": 3
+          },
+          {
+            "name": "Caustic Flood",
+            "description": "The rack empties everything it has, all over you.",
+            "effect": "dot",
+            "value": 4,
+            "weight": 2
+          },
+          {
+            "name": "Last Appraisal",
+            "description": "It weighs your life against nothing.",
+            "effect": "execute",
+            "value": 7,
+            "weight": 1
+          }
+        ]
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "scale_merchants_ledger",
+        "chance": 0.6
+      },
+      {
+        "item_id": "genuine_amulet",
+        "chance": 0.3
+      },
+      {
+        "item_id": "brass_stall_key",
+        "chance": 1.0
+      }
+    ]
+  },
+  {
+    "id": "chimera_of_drowned_aviary",
+    "display_name": "The Chimera of the Drowned Aviary",
+    "description": "Hundreds of mutated birds from the market's exotic-pet stalls, moving as one shifting avian titan.",
+    "rank": "E",
+    "max_hp": 65,
+    "is_miniboss": false,
+    "is_boss": true,
+    "moves": [
+      {
+        "name": "Wing Battering",
+        "description": "A hundred wingbeats landing as one.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 3
+      },
+      {
+        "name": "Feathered Ward",
+        "description": "The flock tightens into a shield.",
+        "effect": "block",
+        "value": 6,
+        "weight": 2
+      }
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.66,
+        "display_name": "The Chimera (Scattering Flock)",
+        "transition_text": "The titan shudders and scatters into a hundred smaller strikes at once - there's no single wingbeat left to predict.",
+        "moves": [
+          {
+            "name": "Scattering Strikes",
+            "description": "It isn't one attack anymore. It's all of them.",
+            "effect": "damage",
+            "value": 7,
+            "weight": 3
+          },
+          {
+            "name": "Panicked Shrieking",
+            "description": "A hundred throats, none of them happy about this.",
+            "effect": "dot",
+            "value": 3,
+            "weight": 2
+          },
+          {
+            "name": "Regroup",
+            "description": "The flock pulls back into formation.",
+            "effect": "block",
+            "value": 8,
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "trigger_hp_pct": 0.33,
+        "display_name": "The Chimera (The Weeping Boss)",
+        "transition_text": "The flock collapses inward into one emaciated vulture-beast. Something blind and weeping is curled in its open chest cavity, still counting its old profits.",
+        "moves": [
+          {
+            "name": "Vulture Dive",
+            "description": "Everything left, thrown at once.",
+            "effect": "damage",
+            "value": 11,
+            "weight": 3
+          },
+          {
+            "name": "The Boss's Final Count",
+            "description": "It doesn't need to see you to know the tally's about to close.",
+            "effect": "execute",
+            "value": 7,
+            "weight": 2
+          },
+          {
+            "name": "Last Roost",
+            "description": "One final huddle, more instinct than strategy now.",
+            "effect": "block",
+            "value": 10,
+            "weight": 1
+          },
+          {
+            "name": "Circling Shriek",
+            "description": "It's not done with you just because it's dying.",
+            "effect": "dot",
+            "value": 4,
+            "weight": 2
+          }
+        ]
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "chimera_feather",
+        "chance": 1.0
+      },
+      {
+        "item_id": "scale_merchants_ledger",
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "canal_crocodile",
+    "display_name": "Canal Crocodile",
+    "description": "Bigger than anything native to this canal should be, with an oily sheen that isn't just water.",
+    "rank": "E",
+    "max_hp": 22,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Death Roll",
+        "description": "Drags whatever it's bitten under.",
+        "effect": "damage",
+        "value": 7,
+        "weight": 3
+      },
+      {
+        "name": "Submerge",
+        "description": "Vanishes beneath the slick.",
+        "effect": "block",
+        "value": 6,
+        "weight": 2
+      }
+    ],
+    "stages": [],
+    "drop_table": [
+      {
+        "item_id": "crocodile_scale",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": "canal_eel",
+    "display_name": "Canal Eel",
+    "description": "Grown fat on runoff nobody wanted to trace back to its source.",
+    "rank": "E",
+    "max_hp": 16,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Electric Lash",
+        "description": "A jolt that shouldn't be biologically possible down here.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 2
+      },
+      {
+        "name": "Caustic Bite",
+        "description": "The wound keeps burning long after the bite lets go.",
+        "effect": "dot",
+        "value": 4,
+        "weight": 2
+      }
+    ],
+    "stages": [],
+    "drop_table": [
+      {
+        "item_id": "crocodile_scale",
+        "chance": 0.15
+      }
+    ]
+  },
+  {
+    "id": "drowned_dockworker",
+    "display_name": "Drowned Dockworker",
+    "description": "Still wearing a hi-vis vest, faded past reading. Still swinging a cargo hook nobody's paying him to swing.",
+    "rank": "E",
+    "max_hp": 18,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Cargo Hook Swing",
+        "description": "Decades of muscle memory, aimed at you now.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 3
+      },
+      {
+        "name": "Rusted Grip",
+        "description": "Tightens a grip that never really let go of the job.",
+        "effect": "empower_next",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "stages": [],
+    "drop_table": [
+      {
+        "item_id": "dockworker_badge",
+        "chance": 0.25
+      }
+    ]
+  },
+  {
+    "id": "rusted_stevedore",
+    "display_name": "Rusted Stevedore",
+    "description": "Fused to a corroded loading frame that's more of it now than the man ever was.",
+    "rank": "E",
+    "max_hp": 26,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Scrap Slam",
+        "description": "The whole rusted frame, thrown forward.",
+        "effect": "damage",
+        "value": 8,
+        "weight": 2
+      },
+      {
+        "name": "Rust Plating",
+        "description": "What's left of the frame locks into place.",
+        "effect": "block",
+        "value": 7,
+        "weight": 2
+      }
+    ],
+    "stages": [],
+    "drop_table": [
+      {
+        "item_id": "dockworker_badge",
+        "chance": 0.15
+      }
+    ]
+  },
+  {
+    "id": "oil_slick_wisp",
+    "display_name": "Oil-Slick Wisp",
+    "description": "A sheen on the water that moves against the current, toward you specifically.",
+    "rank": "E",
+    "max_hp": 14,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Caustic Sheen",
+        "description": "Coats whatever it touches in something that keeps eating.",
+        "effect": "dot",
+        "value": 4,
+        "weight": 3
+      },
+      {
+        "name": "Slick Dodge",
+        "description": "Spreads too thin to hit cleanly.",
+        "effect": "block",
+        "value": 4,
+        "weight": 1
+      }
+    ],
+    "stages": [],
+    "drop_table": [
+      {
+        "item_id": "crocodile_scale",
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": "sluice_ripper",
+    "display_name": "The Sluice Ripper",
+    "description": "A harbor worker grafted to hydraulic forklift blades that never got the shutdown signal.",
+    "rank": "E",
+    "max_hp": 57,
+    "is_miniboss": true,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Hydraulic Cleave",
+        "description": "The blades don't need him to aim them anymore.",
+        "effect": "damage",
+        "value": 7,
+        "weight": 3
+      },
+      {
+        "name": "Blade Whir",
+        "description": "Spins up defensively between strikes.",
+        "effect": "block",
+        "value": 6,
+        "weight": 2
+      }
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.5,
+        "display_name": "The Sluice Ripper (Overclocked)",
+        "transition_text": "Something in the hydraulics redlines. The blades don't slow down anymore.",
+        "moves": [
+          {
+            "name": "Overclocked Cleave",
+            "description": "Faster than the frame was ever rated for.",
+            "effect": "damage",
+            "value": 9,
+            "weight": 3
+          },
+          {
+            "name": "Rending Frenzy",
+            "description": "A wound that keeps opening under its own momentum.",
+            "effect": "dot",
+            "value": 4,
+            "weight": 2
+          },
+          {
+            "name": "Pressure Surge",
+            "description": "The hydraulics build toward something worse.",
+            "effect": "empower_next",
+            "value": 4,
+            "weight": 1
+          },
+          {
+            "name": "Blade Lockdown",
+            "description": "It seizes mid-spin, guarding what's left.",
+            "effect": "block",
+            "value": 7,
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "trigger_hp_pct": 0.2,
+        "display_name": "The Sluice Ripper (Redline Failure)",
+        "transition_text": "The hydraulics scream past every safety limit they were ever built with. It's not going to stop on its own anymore.",
+        "moves": [
+          {
+            "name": "Redline Cleave",
+            "description": "The frame's about to fail. It doesn't care.",
+            "effect": "damage",
+            "value": 9,
+            "weight": 3
+          },
+          {
+            "name": "Shrapnel Spray",
+            "description": "Pieces of the housing go with every swing now.",
+            "effect": "dot",
+            "value": 4,
+            "weight": 2
+          },
+          {
+            "name": "Final Overclock",
+            "description": "Everything the blades have left, at once.",
+            "effect": "execute",
+            "value": 7,
+            "weight": 1
+          }
+        ]
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "sluice_rippers_blade_shard",
+        "chance": 0.6
+      },
+      {
+        "item_id": "crane_control_chip",
+        "chance": 0.25
+      },
+      {
+        "item_id": "riggers_master_key",
+        "chance": 1.0
+      }
+    ]
+  },
+  {
+    "id": "klong_toey_leviathan",
+    "display_name": "Klong Toey Leviathan (The Scum Matron)",
+    "description": "An amorphous mass of oil, hair, and sewage that erupted through the floor grates and never went back down.",
+    "rank": "E",
+    "max_hp": 59,
+    "is_miniboss": false,
+    "is_boss": true,
+    "moves": [
+      {
+        "name": "Grate Eruption",
+        "description": "More of her than should fit through a floor grate, all at once.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 3
+      },
+      {
+        "name": "Amorphous Recoil",
+        "description": "Absorbs the hit by simply not having a fixed shape.",
+        "effect": "block",
+        "value": 7,
+        "weight": 2
+      }
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.66,
+        "display_name": "The Scum Matron (Rising Through the Grates)",
+        "transition_text": "More of her pushes up through the floor grates than the canal should ever have been able to hold.",
+        "moves": [
+          {
+            "name": "Sewage Surge",
+            "description": "A wave of everything the canal never let go of.",
+            "effect": "damage",
+            "value": 6,
+            "weight": 3
+          },
+          {
+            "name": "Caustic Bloom",
+            "description": "Something in her keeps burning after it lands.",
+            "effect": "dot",
+            "value": 3,
+            "weight": 2
+          },
+          {
+            "name": "Hair-Choked Guard",
+            "description": "A tangled mass thick enough to stop a blade in it.",
+            "effect": "block",
+            "value": 9,
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "trigger_hp_pct": 0.33,
+        "display_name": "The Scum Matron (Carapace Ablaze)",
+        "transition_text": "She hardens into an oily carapace right as it catches - the whole canal surface ignites around her.",
+        "moves": [
+          {
+            "name": "Burning Carapace Slam",
+            "description": "Everything she's hardened into, on fire, thrown at you.",
+            "effect": "damage",
+            "value": 10,
+            "weight": 3
+          },
+          {
+            "name": "Ignition Wave",
+            "description": "The burning oil doesn't care how much of you is already gone.",
+            "effect": "execute",
+            "value": 6,
+            "weight": 2
+          },
+          {
+            "name": "Molten Shell",
+            "description": "One last hardening, glowing at the seams.",
+            "effect": "block",
+            "value": 11,
+            "weight": 1
+          },
+          {
+            "name": "Smoldering Wake",
+            "description": "The fire doesn't go out just because she's losing.",
+            "effect": "dot",
+            "value": 4,
+            "weight": 2
+          }
+        ]
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "leviathan_tar_heart",
+        "chance": 1.0
+      },
+      {
+        "item_id": "sluice_rippers_blade_shard",
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "current_dragger",
+    "display_name": "Current Dragger",
+    "description": "What's left of a harbor tug, animated by nothing anyone wants to name. It doesn't hunt so much as insist you come with it.",
+    "rank": "E",
+    "max_hp": 26,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Undertow Grab",
+        "description": "A rope of black water hauls at your ankles.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 3
+      },
+      {
+        "name": "Backwash Slam",
+        "description": "The full weight of the current, all at once.",
+        "effect": "damage",
+        "value": 8,
+        "weight": 2
+      },
+      {
+        "name": "Brace Against the Flow",
+        "description": "It digs in and holds.",
+        "effect": "block",
+        "value": 5,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "salvaged_battery_cell",
+        "chance": 0.25
+      },
+      {
+        "item_id": "stabilized_iv_drip",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": "voltaic_current_eel",
+    "display_name": "Voltaic Current-Eel",
+    "description": "Bred fast and hungry in water thick with leaked transformer current. It doesn't need to bite to hurt you.",
+    "rank": "E",
+    "max_hp": 20,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Live Wire Coil",
+        "description": "It wraps close and just... conducts.",
+        "effect": "dot",
+        "value": 3,
+        "weight": 3
+      },
+      {
+        "name": "Discharge",
+        "description": "A single, ugly pulse.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 2
+      },
+      {
+        "name": "Recoil Guard",
+        "description": "It curls away from its own current.",
+        "effect": "block",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "stabilized_iv_drip",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": "feral_mannequin",
+    "display_name": "Feral Mannequin",
+    "description": "A display-window mannequin, animated by whatever the market's cult worships now. It never blinks because it can't, and it never stops because it doesn't need to.",
+    "rank": "E",
+    "max_hp": 27,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Painted Smile Backhand",
+        "description": "The plastic never chips, even against bone.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 3
+      },
+      {
+        "name": "Display Case Slam",
+        "description": "It hits like something that's never felt the impact.",
+        "effect": "damage",
+        "value": 9,
+        "weight": 2
+      },
+      {
+        "name": "Freeze in Place",
+        "description": "Stillness, and then it isn't still at all.",
+        "effect": "block",
+        "value": 5,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "market_tag",
+        "chance": 0.3
+      },
+      {
+        "item_id": "preserved_antivenom",
+        "chance": 0.15
+      }
+    ]
+  },
+  {
+    "id": "vivarium_stalker",
+    "display_name": "Vivarium Stalker",
+    "description": "One of the exotic-pet stall's escapees, bred faster and hungrier by whatever's in the water down here. It remembers the cage. It isn't going back.",
+    "rank": "E",
+    "max_hp": 21,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Venomous Snap",
+        "description": "Quick, low, and it doesn't let go clean.",
+        "effect": "dot",
+        "value": 4,
+        "weight": 3
+      },
+      {
+        "name": "Pounce",
+        "description": "It's been waiting in the mud for this.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 2
+      },
+      {
+        "name": "Coil Low",
+        "description": "It draws back into striking distance.",
+        "effect": "block",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "preserved_antivenom",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": "sunken_foreman",
+    "display_name": "Sunken Foreman",
+    "description": "A dockworker who never left his post, promoted by the flood to something that doesn't clock out. The chain in his hands still has a rusted crane hook on the end.",
+    "rank": "E",
+    "max_hp": 28,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Hooked Chain Swing",
+        "description": "It's still got the reach of a real crane.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 3
+      },
+      {
+        "name": "Overhead Drop",
+        "description": "Everything he used to lift for a living, now aimed at you.",
+        "effect": "damage",
+        "value": 9,
+        "weight": 2
+      },
+      {
+        "name": "Brace the Line",
+        "description": "He plants his boots and holds.",
+        "effect": "block",
+        "value": 5,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "dockworker_badge",
+        "chance": 0.3
+      },
+      {
+        "item_id": "sealed_ration_tin",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": "slick_crawler",
+    "display_name": "Slick Crawler",
+    "description": "A skin of oil and canal filth that learned to move on its own. It doesn't bite so much as soak in.",
+    "rank": "E",
+    "max_hp": 22,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Caustic Soak",
+        "description": "It clings, and the burning starts a moment later.",
+        "effect": "dot",
+        "value": 4,
+        "weight": 3
+      },
+      {
+        "name": "Slick Lash",
+        "description": "A whip-crack of oil-slick muscle.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 2
+      },
+      {
+        "name": "Thin Itself Out",
+        "description": "It spreads flat, harder to land a real hit on.",
+        "effect": "block",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "sealed_ration_tin",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": "petrified_chanter",
+    "display_name": "Petrified Chanter",
+    "description": "A monk who died mid-prayer, stone from the throat down. The chant never finished, and it still isn't done trying.",
+    "rank": "F",
+    "max_hp": 16,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Cognitive Hemorrhage Chant",
+        "description": "The wrong words, in the wrong order, on purpose.",
+        "effect": "dot",
+        "value": 3,
+        "weight": 3
+      },
+      {
+        "name": "Stone Grip",
+        "description": "Fingers that haven't bent in years, closing anyway.",
+        "effect": "damage",
+        "value": 4,
+        "weight": 2
+      },
+      {
+        "name": "Petrify Stillness",
+        "description": "It holds its pose. That's the whole defense.",
+        "effect": "block",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "blessed_temple_water",
+        "chance": 0.25
+      }
+    ]
+  },
+  {
+    "id": "tunnel_wraith",
+    "display_name": "Tunnel Wraith",
+    "description": "A commuter who never found the exit. It still thinks it's rushing for a train.",
+    "rank": "F",
+    "max_hp": 14,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Lost Platform Wail",
+        "description": "A scream meant for a train that already left.",
+        "effect": "damage",
+        "value": 3,
+        "weight": 3
+      },
+      {
+        "name": "Fade Through",
+        "description": "It isn't fully here to begin with.",
+        "effect": "block",
+        "value": 4,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "flickering_platform_lantern",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": "coffin_crawler",
+    "display_name": "Coffin Crawler",
+    "description": "Something that made a home in an unclaimed coffin and doesn't appreciate visitors.",
+    "rank": "F",
+    "max_hp": 18,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Splintered Lid Claw",
+        "description": "The lid was never meant to open this way.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 3
+      },
+      {
+        "name": "Burrow Guard",
+        "description": "It pulls back into the box.",
+        "effect": "block",
+        "value": 4,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "flickering_platform_lantern",
+        "chance": 0.25
+      }
+    ]
+  },
+  {
+    "id": "ash_moth_swarm",
+    "display_name": "Ash Moth Swarm",
+    "description": "Crematorium ash that never settled, thick enough now to bite.",
+    "rank": "F",
+    "max_hp": 13,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Ash Lung Bite",
+        "description": "It gets into everything, including you.",
+        "effect": "dot",
+        "value": 3,
+        "weight": 3
+      },
+      {
+        "name": "Scatter",
+        "description": "It disperses rather than take a hit.",
+        "effect": "block",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "blessed_temple_water",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": "flooded_conductor",
+    "display_name": "Flooded Conductor",
+    "description": "Still checking tickets nobody's holding, in water that's been rising for years.",
+    "rank": "E",
+    "max_hp": 20,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Rusted Whistle Slash",
+        "description": "The whistle's gone quiet. The blade hasn't.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 3
+      },
+      {
+        "name": "Signal Flare Snarl",
+        "description": "An old emergency flare, held wrong on purpose.",
+        "effect": "empower_next",
+        "value": 2,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "flickering_platform_lantern",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": "bone_tide_drifter",
+    "display_name": "Bone Tide Drifter",
+    "description": "Bleached remains held together by current and habit, drawn by whatever's calling from the undercroft.",
+    "rank": "E",
+    "max_hp": 27,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Necrotic Tide Grasp",
+        "description": "Cold hands, colder grip.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 3
+      },
+      {
+        "name": "Bone Lattice Slam",
+        "description": "It doesn't feel this one landing wrong.",
+        "effect": "damage",
+        "value": 9,
+        "weight": 2
+      },
+      {
+        "name": "Calcify",
+        "description": "It hardens mid-strike.",
+        "effect": "block",
+        "value": 5,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "blessed_temple_water",
+        "chance": 0.2
+      },
+      {
+        "item_id": "phra_praserts_prayer_beads",
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": "hollow_novice",
+    "display_name": "Hollow Novice",
+    "description": "A young monk, hollowed out from the inside by whatever prays alongside the living ones now.",
+    "rank": "E",
+    "max_hp": 21,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Hollow Chant",
+        "description": "The words are right. Nothing behind them is.",
+        "effect": "dot",
+        "value": 4,
+        "weight": 3
+      },
+      {
+        "name": "Empty Prayer Strike",
+        "description": "A gesture of devotion, weaponized.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 2
+      },
+      {
+        "name": "Kneel and Guard",
+        "description": "Prostration, as a defense.",
+        "effect": "block",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "blessed_temple_water",
+        "chance": 0.25
+      }
+    ]
+  },
+  {
+    "id": "undertaker_of_wat_hua",
+    "display_name": "The Undertaker of Wat Hua",
+    "description": "Shrouded head to foot, carrying an incense cauldron that never stops smoking. It's been burying people for the flood since the first week.",
+    "rank": "E",
+    "max_hp": 56,
+    "is_miniboss": true,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Cauldron Swing",
+        "description": "Burning coals, swung like a censer at a funeral.",
+        "effect": "damage",
+        "value": 8,
+        "weight": 3
+      },
+      {
+        "name": "Incense Haze",
+        "description": "Smoke thick enough to hide behind.",
+        "effect": "block",
+        "value": 5,
+        "weight": 2
+      }
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.5,
+        "display_name": "The Undertaker of Wat Hua (Blind-Rage Gas)",
+        "transition_text": "The cauldron cracks open and the smoke turns red. Whatever patience it had for burying you properly is gone.",
+        "moves": [
+          {
+            "name": "Rageful Cauldron Burst",
+            "description": "The whole censer, thrown at once.",
+            "effect": "damage",
+            "value": 9,
+            "weight": 3
+          },
+          {
+            "name": "Choking Fumes",
+            "description": "The gas settles into your lungs and stays.",
+            "effect": "dot",
+            "value": 4,
+            "weight": 2
+          },
+          {
+            "name": "Cauldron Ward",
+            "description": "It hides behind its own smoke.",
+            "effect": "block",
+            "value": 6,
+            "weight": 1
+          }
+        ]
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "reliquary_key",
+        "chance": 1.0
+      },
+      {
+        "item_id": "phra_praserts_prayer_beads",
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "hungry_ghost_of_hua_lamphong",
+    "display_name": "The Hungry Ghost of Hua Lamphong (Preta Titan)",
+    "description": "Fifteen meters of emaciated, pinhole-mouthed hunger, folded into MRT tunnels that were never built to hold it.",
+    "rank": "E",
+    "max_hp": 51,
+    "is_miniboss": false,
+    "is_boss": true,
+    "moves": [
+      {
+        "name": "Starvation Beam",
+        "description": "A sound like every empty stomach at once.",
+        "effect": "damage",
+        "value": 7,
+        "weight": 3
+      },
+      {
+        "name": "Gnawing Void",
+        "description": "It folds inward, absorbing the hit.",
+        "effect": "block",
+        "value": 6,
+        "weight": 2
+      }
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.66,
+        "display_name": "The Hungry Ghost (Sonic Hunger)",
+        "transition_text": "The starvation beam sharpens into something that pierces rather than just hurts.",
+        "moves": [
+          {
+            "name": "Piercing Starvation Beam",
+            "description": "A hunger old enough to cut.",
+            "effect": "damage",
+            "value": 8,
+            "weight": 3
+          },
+          {
+            "name": "Wailing Emptiness",
+            "description": "A sound that keeps hollowing you out after it fades.",
+            "effect": "dot",
+            "value": 3,
+            "weight": 2
+          },
+          {
+            "name": "Recoil",
+            "description": "It pulls back into itself.",
+            "effect": "block",
+            "value": 8,
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "trigger_hp_pct": 0.33,
+        "display_name": "The Hungry Ghost (Stomach-Mouth Opens)",
+        "transition_text": "Its ribs tear open into a second, gravity-pulling mouth in its stomach. There's nowhere left to stand that isn't being pulled toward it.",
+        "moves": [
+          {
+            "name": "Gravity Maw Pull",
+            "description": "Everything nearby, drawn toward the hunger at once.",
+            "effect": "damage",
+            "value": 11,
+            "weight": 3
+          },
+          {
+            "name": "Devouring Silence",
+            "description": "It doesn't need you whole to finish this.",
+            "effect": "execute",
+            "value": 6,
+            "weight": 2
+          },
+          {
+            "name": "Ribcage Shell",
+            "description": "The torn ribs close, one last time.",
+            "effect": "block",
+            "value": 10,
+            "weight": 1
+          }
+        ]
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "preta_titans_ash_core",
+        "chance": 1.0
+      },
+      {
+        "item_id": "phra_praserts_prayer_beads",
+        "chance": 0.4
+      }
     ]
   }
 ]

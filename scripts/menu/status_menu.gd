@@ -8,10 +8,13 @@ extends Control
 ## and your class/deck (Status tab - portrait, name, rank, HP/resource,
 ## and the full card list, which isn't shown anywhere else in the game).
 ##
-## Deliberately does NOT have Equipment/Formation/Config/Save commands
-## like the FF-style reference menu - none of those systems exist yet
-## (no equipment slots, no party, no settings, no save/load), and a menu
-## button that does nothing is worse than no button.
+## Also the exit point for the bottom row's two real commands: Save Game
+## (RunState.save_game, needs overworld_ref for the current district/cell)
+## and World Map (leaves the district entirely - see
+## scripts/world_map/world_map.gd). Still deliberately has no Equipment/
+## Formation/Config beyond that - none of those systems exist yet (no
+## equipment slots, no party, no settings), and a menu button that does
+## nothing is worse than no button.
 
 const VIEWPORT_WIDTH := 480
 const VIEWPORT_HEIGHT := 460
@@ -32,6 +35,14 @@ var tab_items_button: Button
 var content_scroll: ScrollContainer
 var content_list: VBoxContainer
 var close_button: Button
+var save_button: Button
+var world_map_button: Button
+
+## Set by Overworld right after instantiating this menu - lets the Save
+## button capture exactly where the player currently is (district_id +
+## player_cell), which RunState.save_game needs but has no way to know on
+## its own since it doesn't track overworld position.
+var overworld_ref: Control = null
 
 func _ready() -> void:
 	visible = false
@@ -52,16 +63,28 @@ func _process(delta: float) -> void:
 func open() -> void:
 	visible = true
 	tab_state = "status"
+	save_button.text = "Save Game"
 	_load_portrait()
 	refresh()
 
 func close() -> void:
 	visible = false
 
+func _on_save_pressed() -> void:
+	if overworld_ref == null:
+		return
+	RunState.save_game(overworld_ref.district_id, overworld_ref.player_cell)
+	save_button.text = "Saved!"
+
+func _on_world_map_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/world_map.tscn")
+
 func _build_ui() -> void:
+	theme = UITheme.build()
+
 	panel_bg = ColorRect.new()
 	panel_bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	panel_bg.color = Color(0.05, 0.06, 0.08, 0.94)
+	panel_bg.color = Color(UITheme.COL_BG.r, UITheme.COL_BG.g, UITheme.COL_BG.b, 0.94)
 	add_child(panel_bg)
 
 	var margin := MarginContainer.new()
@@ -76,11 +99,11 @@ func _build_ui() -> void:
 
 	var header := HBoxContainer.new()
 	header.add_theme_constant_override("separation", 12)
-	header.custom_minimum_size = Vector2(0, 64)
+	header.custom_minimum_size = Vector2(0, 88)
 	root_box.add_child(header)
 
 	portrait = TextureRect.new()
-	portrait.custom_minimum_size = Vector2(56, 56)
+	portrait.custom_minimum_size = Vector2(80, 80)
 	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	header.add_child(portrait)
@@ -91,16 +114,19 @@ func _build_ui() -> void:
 
 	title_label = Label.new()
 	title_label.add_theme_font_size_override("font_size", 13)
+	title_label.add_theme_color_override("font_color", UITheme.COL_WARNING)
 	header_text.add_child(title_label)
 
 	hp_bar = ProgressBar.new()
 	hp_bar.custom_minimum_size = Vector2(0, 12)
 	hp_bar.show_percentage = false
+	UITheme.style_bar(hp_bar, UITheme.COL_PLAYER)
 	header_text.add_child(hp_bar)
 
 	resource_bar = ProgressBar.new()
 	resource_bar.custom_minimum_size = Vector2(0, 12)
 	resource_bar.show_percentage = false
+	UITheme.style_bar(resource_bar, UITheme.COL_RESOURCE)
 	header_text.add_child(resource_bar)
 
 	var tab_row := HBoxContainer.new()
@@ -127,10 +153,27 @@ func _build_ui() -> void:
 	content_list.add_theme_constant_override("separation", 4)
 	content_scroll.add_child(content_list)
 
+	var bottom_row := HBoxContainer.new()
+	bottom_row.add_theme_constant_override("separation", 8)
+	root_box.add_child(bottom_row)
+
+	save_button = Button.new()
+	save_button.text = "Save Game"
+	save_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	save_button.pressed.connect(_on_save_pressed)
+	bottom_row.add_child(save_button)
+
+	world_map_button = Button.new()
+	world_map_button.text = "World Map"
+	world_map_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	world_map_button.pressed.connect(_on_world_map_pressed)
+	bottom_row.add_child(world_map_button)
+
 	close_button = Button.new()
 	close_button.text = "Close (Esc)"
+	close_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	close_button.pressed.connect(close)
-	root_box.add_child(close_button)
+	bottom_row.add_child(close_button)
 
 func _load_portrait() -> void:
 	portrait_frames = SpriteLoader.load_frames(RunState.player_class_id, "character")

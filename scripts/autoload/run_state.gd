@@ -19,11 +19,37 @@ var pending_spawn_key: String = ""
 var last_battle_outcome: String = "" # "victory" | "defeat" | ""
 var last_battle_loot: Array = []
 
+## Tier order the built districts unlock in - matches the numeric
+## District 1/2/3 ordering used throughout the docs. Defeating a
+## district's boss unlocks the next entry (see unlock_next_district);
+## the first entry is always unlocked from begin_run(). A district not
+## yet built as data (see GDD.md's World Map) simply never appears here.
+const DISTRICT_ORDER := ["sukhumvit_shallows", "chatuchak_ruins", "klong_toey_canals", "wat_hualamphong_depths"]
+
+## district_id -> true for every district the player has access to via
+## the World Map. Persisted across save/load; reset to just the first
+## district in DISTRICT_ORDER on a fresh begin_run().
+var unlocked_districts: Dictionary = {}
+
+func is_district_unlocked(district_id: String) -> bool:
+	return unlocked_districts.get(district_id, false)
+
+## Called once a district's *boss* (not mini-boss) is confirmed defeated -
+## see Overworld._process_battle_result(), which checks the killed spawn's
+## cell against district.boss_spawn before calling this. No-op past the
+## last built district.
+func unlock_next_district(cleared_district_id: String) -> void:
+	var idx: int = DISTRICT_ORDER.find(cleared_district_id)
+	if idx == -1 or idx + 1 >= DISTRICT_ORDER.size():
+		return
+	unlocked_districts[DISTRICT_ORDER[idx + 1]] = true
+
 ## Persistent per-district exploration state, keyed by district_id, each:
 ## {
 ##   "defeated_spawns": {spawn_key: respawn_at_msec}, # -1 = never respawns (mini-boss/boss)
 ##   "collected_items": {spawn_key: true},
 ##   "fired_events": {spawn_key: true},
+##   "flags": {flag_name: true}, # set by events with sets_flag, read by events with requires_flag
 ## }
 var district_states: Dictionary = {}
 
@@ -40,6 +66,7 @@ func get_district_state(district_id: String) -> Dictionary:
 			"defeated_spawns": {},
 			"collected_items": {},
 			"fired_events": {},
+			"flags": {},
 		}
 	return district_states[district_id]
 
@@ -52,3 +79,104 @@ func begin_run(class_id: String) -> void:
 	player = Combatant.new(cls.display_name, cls.max_hp, cls.max_resource, cls.resource_name)
 	district_states.clear()
 	inventory.clear()
+	unlocked_districts = {DISTRICT_ORDER[0]: true}
+
+# ---------------------------------------------------------------------------
+# Save / load (single slot, user://saves/slot1.json)
+# ---------------------------------------------------------------------------
+## Consumed once by Overworld._ready() after a load, to resume at the exact
+## saved cell instead of the district's entrance_cell. (-1, -1) means "no
+## override" - a fresh "Start Exploring"/"[DEV] ..." run leaves this unset.
+var pending_player_cell: Vector2i = Vector2i(-1, -1)
+
+const SAVE_DIR := "user://saves"
+const SAVE_PATH := "user://saves/slot1.json"
+
+func has_save() -> bool:
+	return FileAccess.file_exists(SAVE_PATH)
+
+## Called from the overworld (the only place a save makes sense - mid-combat
+## or mid-menu isn't a resumable moment) with where the player currently is.
+func save_game(district_id: String, player_cell: Vector2i) -> void:
+	DirAccess.make_dir_absolute(SAVE_DIR)
+	var data := {
+		"player_class_id": player_class_id,
+		"player_hp": player.hp,
+		"player_resource": player.resource,
+		"inventory": inventory,
+		"district_id": district_id,
+		"player_cell": [player_cell.x, player_cell.y],
+		"district_states": _serialize_district_states(),
+		"unlocked_districts": unlocked_districts,
+	}
+	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	f.store_string(JSON.stringify(data))
+	f.close()
+
+## defeated_spawns' respawn_at is an *absolute* Time.get_ticks_msec() value,
+## which resets to ~0 every process start - saving it raw and reloading in a
+## later session would make every timed-out spawn respawn instantly (or at
+## some arbitrary wrong time). Store the *remaining* milliseconds instead
+## (converted back to an absolute value against the new process's tick
+## clock in load_game), so "this spawn had 12s left on its timer" survives
+## the save/load boundary regardless of real-world time elapsed. -1 (never
+## respawns - a defeated mini-boss/boss) passes through unchanged.
+func _serialize_district_states() -> Dictionary:
+	var out := {}
+	var now: int = Time.get_ticks_msec()
+	for did in district_states.keys():
+		var state: Dictionary = district_states[did]
+		var defeated_out := {}
+		for key in state["defeated_spawns"].keys():
+			var respawn_at = state["defeated_spawns"][key]
+			defeated_out[key] = -1 if respawn_at == -1 else max(0, respawn_at - now)
+		out[did] = {
+			"defeated_spawns": defeated_out,
+			"collected_items": state["collected_items"],
+			"fired_events": state["fired_events"],
+			"flags": state["flags"],
+		}
+	return out
+
+## Returns {} on any failure (no save file, corrupt JSON), else
+## {"district_id": String, "player_cell": Vector2i} for the caller to act
+## on - loading itself doesn't change scenes, matching begin_run's existing
+## "just sets state" contract.
+func load_game() -> Dictionary:
+	if not has_save():
+		return {}
+	var f := FileAccess.open(SAVE_PATH, FileAccess.READ)
+	var text: String = f.get_as_text()
+	f.close()
+	var data = JSON.parse_string(text)
+	if data == null or typeof(data) != TYPE_DICTIONARY:
+		return {}
+
+	begin_run(String(data.get("player_class_id", "mage_f")))
+	player.hp = int(data.get("player_hp", player.hp))
+	player.resource = int(data.get("player_resource", player.resource))
+	inventory = data.get("inventory", {})
+	unlocked_districts = data.get("unlocked_districts", {DISTRICT_ORDER[0]: true})
+
+	var now: int = Time.get_ticks_msec()
+	var loaded_states: Dictionary = data.get("district_states", {})
+	district_states.clear()
+	for did in loaded_states.keys():
+		var s: Dictionary = loaded_states[did]
+		var defeated_in: Dictionary = s.get("defeated_spawns", {})
+		var defeated_out := {}
+		for key in defeated_in.keys():
+			var v = defeated_in[key]
+			defeated_out[key] = -1 if int(v) == -1 else now + int(v)
+		district_states[did] = {
+			"defeated_spawns": defeated_out,
+			"collected_items": s.get("collected_items", {}),
+			"fired_events": s.get("fired_events", {}),
+			"flags": s.get("flags", {}),
+		}
+
+	var cell_arr: Array = data.get("player_cell", [0, 0])
+	return {
+		"district_id": String(data.get("district_id", "sukhumvit_shallows")),
+		"player_cell": Vector2i(int(cell_arr[0]), int(cell_arr[1])),
+	}

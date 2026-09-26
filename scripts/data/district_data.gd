@@ -22,7 +22,26 @@ var monster_spawns: Array # Array[Dictionary] {monster_id, cell:[x,y], respawn_s
 var miniboss_spawn: Dictionary # {monster_id, cell:[x,y]} or {} if none
 var boss_spawn: Dictionary # {monster_id, cell:[x,y]} or {} if none
 var item_spawns: Array # Array[Dictionary] {item_id, cell:[x,y]}
-var events: Array # Array[Dictionary] {cell:[x,y], text, repeatable}
+## {cell:[x,y], requires_item OR requires_flag, locked_text}. A cell that
+## looks walkable (it's not in blocked_cells, so terrain/tile rendering
+## treats it normally) but overworld.gd's move_player refuses to cross
+## until the player holds `requires_item` (RunState.inventory count > 0)
+## or the district has `requires_flag` set (same flags puzzle events set
+## via sets_flag) - exactly one of the two per entry, not both. Doesn't
+## consume the key item; possessing it is a permanent unlock, matching
+## "you found the key" rather than "you used up the key". The generic
+## navigation-gating primitive behind locked doors/gates, distinct from
+## events' requires_flag (which gates a one-time text/reward, not passage).
+var locked_cells: Array # Array[Dictionary]
+## {cell:[x,y], text, repeatable}. Optional gating/reward fields turn a
+## plain flavor event into a chained puzzle step (see overworld.gd's
+## _maybe_fire_event): requires_flag (only fires once that district flag
+## is set elsewhere, otherwise logs fail_text instead and never marks
+## itself fired, so it can be retried), sets_flag (marks a district flag
+## true when this event fires, for a later event's requires_flag to read),
+## reward_item (an item id granted via RunState.add_item the first time
+## this event successfully fires).
+var events: Array # Array[Dictionary]
 
 ## Optional visual terrain: one string per row (top to bottom), one
 ## legend character per column - see overworld.gd's TERRAIN_LEGEND. Purely
@@ -59,6 +78,10 @@ static func from_dict(data: Dictionary) -> DistrictData:
 	d.item_spawns = []
 	for spawn in data.get("item_spawns", []):
 		d.item_spawns.append(spawn)
+
+	d.locked_cells = []
+	for lock in data.get("locked_cells", []):
+		d.locked_cells.append(lock)
 
 	d.events = []
 	for event in data.get("events", []):

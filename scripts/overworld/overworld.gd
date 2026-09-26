@@ -13,10 +13,22 @@ extends Control
 ## blocked_cells regardless of which rendering path is active or what a
 ## cell's terrain character says - terrain is purely cosmetic.
 ##
-## Known limitation: there's no camera/scroll system yet, so a district
-## much bigger than the viewport (480x460 minus the HUD bands) will run
-## off the edges. Sukhumvit Shallows (10x8) fits; this needs solving
-## before bigger districts get tile art. Flagged in GDD.md's roadmap.
+## Locked cells (DistrictData.locked_cells) are a second, distinct kind of
+## impassable cell: not in blocked_cells (so they render as normal walkable
+## terrain, marked only by a small amber locked_visuals marker), but
+## move_player refuses to cross until the player holds a key item or a
+## district flag is set - see _locked_entry/_lock_satisfied. Reuses the
+## same flags dict district puzzle events already write via sets_flag.
+##
+## Camera/scroll: `grid_root` (all tiles/sprites, in pure grid-local
+## pixel coordinates - _cell_to_pixel no longer adds any screen offset)
+## lives inside `map_viewport`, a Control with clip_contents = true sized
+## to the play area between the HUD bands. `_update_camera` recomputes
+## `camera_offset` (player-centered, clamped to the map's edges, or
+## exactly centering the map if it's smaller than the viewport - the
+## small-map case renders identically to before) and applies it as
+## grid_root.position each time the player moves, so a district bigger
+## than one screen now pans instead of running off the edges.
 ##
 ## All state that needs to survive the Overworld <-> Combat scene
 ## transition (change_scene_to_file destroys this scene entirely) lives on
@@ -30,15 +42,15 @@ extends Control
 ## can be driven directly from a test script exactly like combat.gd's
 ## _on_card_pressed, without needing to simulate real input events.
 
-const CELL_SIZE := 40
+const CELL_SIZE := 64 # matches the 64x64 sprite/tile native resolution - see gen_sprites.py/gen_tiles.py
 const TOP_HUD_HEIGHT := 46
 const BOTTOM_HUD_HEIGHT := 80
 const VIEWPORT_WIDTH := 480
 const VIEWPORT_HEIGHT := 460
 const DEFAULT_DISTRICT_ID := "sukhumvit_shallows"
 const DEFAULT_CLASS_ID := "mage_f"
-const PLAYER_SPRITE_SCALE := 1.1 # native sprites are 32px; ~35px in a 40px cell
-const MONSTER_SPRITE_SCALE := 1.05
+const PLAYER_SPRITE_SCALE := 0.9 # native sprites are 64px; ~58px on-screen in a 64px cell
+const MONSTER_SPRITE_SCALE := 0.85
 
 ## Purely cosmetic terrain legend -> TileLoader tile name. Any character
 ## not in this map (or a district with no `terrain` at all) falls back to
@@ -54,7 +66,8 @@ const TERRAIN_LEGEND := {
 var district_id: String
 var district: DistrictData
 var player_cell: Vector2i
-var grid_offset: Vector2
+var camera_offset: Vector2
+var map_viewport: Control
 
 var active_monster_spawns: Dictionary = {} # spawn_key -> {monster_id, cell, respawn_seconds, is_unique}
 var active_items: Dictionary = {} # spawn_key -> {item_id, cell}
@@ -62,6 +75,7 @@ var active_items: Dictionary = {} # spawn_key -> {item_id, cell}
 var monster_visuals: Dictionary = {} # spawn_key -> Node
 var item_visuals: Dictionary = {} # spawn_key -> Node
 var event_visuals: Dictionary = {} # spawn_key -> Node
+var locked_visuals: Dictionary = {} # spawn_key -> Node
 
 var grid_root: Node2D
 var player_visual: Node
@@ -85,10 +99,12 @@ func _ready() -> void:
 	RunState.pending_district_id = district_id
 	district = GameData.get_district(district_id)
 	player_cell = Vector2i(district.entrance_cell[0], district.entrance_cell[1])
-	grid_offset = Vector2(
-		(VIEWPORT_WIDTH - district.grid_width * CELL_SIZE) / 2.0,
-		TOP_HUD_HEIGHT,
-	)
+
+	# A loaded save resumes at the exact saved cell instead of the
+	# district's entrance - consumed once, same pattern as pending_district_id.
+	if RunState.pending_player_cell != Vector2i(-1, -1):
+		player_cell = RunState.pending_player_cell
+		RunState.pending_player_cell = Vector2i(-1, -1)
 
 	_build_ui()
 
@@ -106,20 +122,55 @@ func _process(_delta: float) -> void:
 
 func _build_ui() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	theme = UITheme.build()
+
+	var backdrop := ColorRect.new()
+	backdrop.color = UITheme.COL_BG
+	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(backdrop)
+
+	# Flat panel fills (not PanelContainer) behind the top/bottom HUD bands -
+	# both bands position their children with raw pixel coordinates rather
+	# than container layout rules, so wrapping them in a PanelContainer
+	# would fight that positioning; a plain colored rect behind them gets
+	# the same "boxed panel" read without touching how anything inside is
+	# placed.
+	var top_panel_bg := ColorRect.new()
+	top_panel_bg.color = UITheme.COL_PANEL_BG
+	top_panel_bg.position = Vector2.ZERO
+	top_panel_bg.size = Vector2(VIEWPORT_WIDTH, TOP_HUD_HEIGHT)
+	top_panel_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(top_panel_bg)
+
+	var bottom_panel_bg := ColorRect.new()
+	bottom_panel_bg.color = UITheme.COL_PANEL_BG
+	bottom_panel_bg.position = Vector2(0, VIEWPORT_HEIGHT - BOTTOM_HUD_HEIGHT)
+	bottom_panel_bg.size = Vector2(VIEWPORT_WIDTH, BOTTOM_HUD_HEIGHT)
+	bottom_panel_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(bottom_panel_bg)
+
+	map_viewport = Control.new()
+	map_viewport.position = Vector2(0, TOP_HUD_HEIGHT)
+	map_viewport.size = Vector2(VIEWPORT_WIDTH, VIEWPORT_HEIGHT - TOP_HUD_HEIGHT - BOTTOM_HUD_HEIGHT)
+	map_viewport.clip_contents = true
+	add_child(map_viewport)
 
 	grid_root = Node2D.new()
-	add_child(grid_root)
+	map_viewport.add_child(grid_root)
 
 	# --- Top band: district name/description banner (left) + minimap (right).
 	name_label = Label.new()
 	name_label.position = Vector2(8, 2)
 	name_label.add_theme_font_size_override("font_size", 14)
+	name_label.add_theme_color_override("font_color", UITheme.COL_WARNING)
 	add_child(name_label)
 
 	desc_label = Label.new()
 	desc_label.position = Vector2(8, 20)
 	desc_label.size = Vector2(340, 18)
 	desc_label.add_theme_font_size_override("font_size", 9)
+	desc_label.add_theme_color_override("font_color", UITheme.COL_TEXT_DIM)
 	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	desc_label.clip_text = true
 	add_child(desc_label)
@@ -153,16 +204,19 @@ func _build_ui() -> void:
 	hp_bar = ProgressBar.new()
 	hp_bar.custom_minimum_size = Vector2(220, 10)
 	hp_bar.show_percentage = false
+	UITheme.style_bar(hp_bar, UITheme.COL_PLAYER)
 	bars_row.add_child(hp_bar)
 	resource_bar = ProgressBar.new()
 	resource_bar.custom_minimum_size = Vector2(120, 10)
 	resource_bar.show_percentage = false
+	UITheme.style_bar(resource_bar, UITheme.COL_RESOURCE)
 	bars_row.add_child(resource_bar)
 
 	log_label = RichTextLabel.new()
 	log_label.custom_minimum_size = Vector2(0, 18)
 	log_label.bbcode_enabled = true
 	log_label.add_theme_font_size_override("normal_font_size", 10)
+	log_label.add_theme_color_override("default_color", UITheme.COL_TEXT)
 	bottom.add_child(log_label)
 
 	inventory_container = HBoxContainer.new()
@@ -170,6 +224,7 @@ func _build_ui() -> void:
 	bottom.add_child(inventory_container)
 
 	status_menu = StatusMenu.new()
+	status_menu.overworld_ref = self
 	add_child(status_menu)
 
 func _build_grid() -> void:
@@ -197,7 +252,6 @@ func _tile_name_for_cell(cell: Vector2i) -> String:
 
 func _build_tile_grid() -> void:
 	var tile_map := TileMap.new()
-	tile_map.position = grid_offset
 	tile_map.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	tile_map.tile_set = TileLoader.build_tileset()
 	for y in district.grid_height:
@@ -213,7 +267,7 @@ func _build_flat_grid() -> void:
 			var cell := Vector2i(x, y)
 			var rect := ColorRect.new()
 			rect.size = Vector2(CELL_SIZE - 1, CELL_SIZE - 1)
-			rect.position = grid_offset + Vector2(x * CELL_SIZE, y * CELL_SIZE)
+			rect.position = Vector2(x * CELL_SIZE, y * CELL_SIZE)
 			rect.color = Color(0.15, 0.2, 0.3) if _is_blocked(cell) else Color(0.2, 0.35, 0.45)
 			grid_root.add_child(rect)
 
@@ -222,14 +276,34 @@ func _cell_key(cell) -> String:
 		return "%d_%d" % [cell.x, cell.y]
 	return "%d_%d" % [cell[0], cell[1]]
 
+## Pure grid-local pixel coordinates - no screen offset. The camera
+## (grid_root.position, see _update_camera) supplies the screen offset.
 func _cell_to_pixel(cell: Vector2i) -> Vector2:
-	return grid_offset + Vector2(cell.x * CELL_SIZE, cell.y * CELL_SIZE)
+	return Vector2(cell.x * CELL_SIZE, cell.y * CELL_SIZE)
 
 func _is_blocked(cell: Vector2i) -> bool:
 	for b in district.blocked_cells:
 		if b[0] == cell.x and b[1] == cell.y:
 			return true
 	return false
+
+## Returns the matching entry from district.locked_cells, or {} if `cell`
+## isn't a locked cell at all (the common case - most cells aren't).
+func _locked_entry(cell: Vector2i) -> Dictionary:
+	for lock in district.locked_cells:
+		if lock["cell"][0] == cell.x and lock["cell"][1] == cell.y:
+			return lock
+	return {}
+
+func _lock_satisfied(lock: Dictionary) -> bool:
+	var requires_item: String = lock.get("requires_item", "")
+	if requires_item != "":
+		return RunState.inventory.get(requires_item, 0) > 0
+	var requires_flag: String = lock.get("requires_flag", "")
+	if requires_flag != "":
+		var state: Dictionary = RunState.get_district_state(district_id)
+		return state["flags"].get(requires_flag, false)
+	return true # neither requirement set is a data bug - fail open, not soft-locked
 
 func _all_monster_entries() -> Array:
 	var entries: Array = []
@@ -276,6 +350,13 @@ func _spawn_entities() -> void:
 		if state["fired_events"].has(key) and not event.get("repeatable", false):
 			continue
 		_create_event_visual(key, event)
+
+	for v in locked_visuals.values():
+		v.queue_free()
+	locked_visuals.clear()
+	for lock in district.locked_cells:
+		var key: String = _cell_key(lock["cell"])
+		_create_locked_visual(key, lock)
 
 	_refresh_minimap_markers()
 
@@ -334,11 +415,47 @@ func _create_event_visual(key: String, event: Dictionary) -> void:
 	grid_root.add_child(rect)
 	event_visuals[key] = rect
 
+## A small amber diamond-ish marker (distinct from the purple event dot)
+## so a locked cell reads as "something special here" even though it's
+## not in blocked_cells and otherwise renders as normal walkable terrain.
+## Stays visible even once unlocked - the door is still physically there.
+func _create_locked_visual(key: String, lock: Dictionary) -> void:
+	var rect := ColorRect.new()
+	rect.size = Vector2(10, 10)
+	rect.color = UITheme.COL_WARNING
+	rect.position = _cell_to_pixel(Vector2i(lock["cell"][0], lock["cell"][1])) + Vector2(CELL_SIZE - 14, 3)
+	grid_root.add_child(rect)
+	locked_visuals[key] = rect
+
 func _update_player_visual() -> void:
 	if player_visual != null:
 		_position_visual_at_cell(player_visual, player_cell)
 	if minimap != null:
 		minimap.update_player(player_cell)
+	_update_camera()
+
+## Centers the camera on the player, clamped so it never scrolls past the
+## map's edges; if the map is smaller than the viewport in a dimension,
+## centers the whole map in that dimension instead (matches the old
+## always-fits-on-screen behavior for small districts like Sukhumvit
+## Shallows exactly, since it never actually needs to pan).
+func _update_camera() -> void:
+	var map_w: float = district.grid_width * CELL_SIZE
+	var map_h: float = district.grid_height * CELL_SIZE
+	var view_w: float = map_viewport.size.x
+	var view_h: float = map_viewport.size.y
+	var player_center: Vector2 = (Vector2(player_cell) + Vector2(0.5, 0.5)) * CELL_SIZE
+
+	var target := player_center - Vector2(view_w, view_h) / 2.0
+	target.x = clamp(target.x, 0.0, max(0.0, map_w - view_w))
+	target.y = clamp(target.y, 0.0, max(0.0, map_h - view_h))
+	if map_w < view_w:
+		target.x = (map_w - view_w) / 2.0
+	if map_h < view_h:
+		target.y = (map_h - view_h) / 2.0
+
+	camera_offset = target
+	grid_root.position = -camera_offset
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -360,13 +477,19 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Attempts to move the player one cell in `direction`. Returns a string
 ## describing what happened ("moved" | "blocked_bounds" | "blocked_wall" |
-## "encounter") so both the caller and tests can react to it.
+## "blocked_locked" | "encounter") so both the caller and tests can react
+## to it.
 func move_player(direction: Vector2i) -> String:
 	var new_cell: Vector2i = player_cell + direction
 	if new_cell.x < 0 or new_cell.x >= district.grid_width or new_cell.y < 0 or new_cell.y >= district.grid_height:
 		return "blocked_bounds"
 	if _is_blocked(new_cell):
 		return "blocked_wall"
+
+	var lock: Dictionary = _locked_entry(new_cell)
+	if not lock.is_empty() and not _lock_satisfied(lock):
+		_log_message(lock.get("locked_text", "Something's blocking the way - you don't have what you need to get through."))
+		return "blocked_locked"
 
 	var key: String = _cell_key(new_cell)
 	if active_monster_spawns.has(key):
@@ -403,6 +526,9 @@ func _process_battle_result() -> void:
 		if entry.get("is_unique", false):
 			state["defeated_spawns"][spawn_key] = -1
 			_log_message("The threat is gone for good.")
+			if not district.boss_spawn.is_empty() and spawn_key == _cell_key(district.boss_spawn["cell"]):
+				RunState.unlock_next_district(district_id)
+				_log_message("A new path opens on the world map.")
 		else:
 			var respawn_seconds: float = entry.get("respawn_seconds", 30)
 			state["defeated_spawns"][spawn_key] = Time.get_ticks_msec() + int(respawn_seconds * 1000)
@@ -443,11 +569,28 @@ func _maybe_fire_event(cell_key: String) -> void:
 	if event.is_empty():
 		return
 	var state: Dictionary = RunState.get_district_state(district_id)
+
+	var requires_flag: String = event.get("requires_flag", "")
+	if requires_flag != "" and not state["flags"].get(requires_flag, false):
+		_log_message(event.get("fail_text", event.get("text", "")))
+		return
+
 	var already_fired: bool = state["fired_events"].has(cell_key)
 	if already_fired and not event.get("repeatable", false):
 		return
 	state["fired_events"][cell_key] = true
+
+	var sets_flag: String = event.get("sets_flag", "")
+	if sets_flag != "":
+		state["flags"][sets_flag] = true
+
 	_log_message(event.get("text", ""))
+
+	var reward_item: String = event.get("reward_item", "")
+	if reward_item != "" and not already_fired:
+		RunState.add_item(reward_item)
+		var item := GameData.get_item(reward_item)
+		_log_message("Picked up %s." % (item.display_name if item != null else reward_item))
 
 func _check_respawns() -> void:
 	var state: Dictionary = RunState.get_district_state(district_id)

@@ -30,5 +30,277 @@
     "rarity": "unique",
     "effect": "",
     "value": 0
+  },
+  {
+    "id": "salvaged_battery_cell",
+    "display_name": "Salvaged Battery Cell",
+    "description": "Pulled hot from the transformer room the moment it drained. Still holds a charge.",
+    "rarity": "uncommon",
+    "effect": "restore_resource",
+    "value": 10
+  },
+  {
+    "id": "emergency_broadcast_chip",
+    "display_name": "Emergency Broadcast Chip",
+    "description": "A waterproofed recording, timestamped weeks before the flood. Proof the canal locks were sealed on purpose.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "market_tag",
+    "display_name": "Market Tag",
+    "description": "A torn tag, still readable: STALL 7B - EXOTIC IMPORTS.",
+    "rarity": "common",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "waterlogged_watch",
+    "display_name": "Waterlogged Watch",
+    "description": "Still ticking, somehow. Kru Viroj would want this back.",
+    "rarity": "common",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "genuine_amulet",
+    "display_name": "Genuine Amulet",
+    "description": "Warm to the touch. Actually blessed, unlike most of what's sold here.",
+    "rarity": "uncommon",
+    "effect": "restore_resource",
+    "value": 8
+  },
+  {
+    "id": "trade_manifest",
+    "display_name": "Trade Manifest",
+    "description": "Shipping records for \"biological samples,\" routed from a trench off the coast, dated days before the first fissure broke.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "scale_merchants_ledger",
+    "display_name": "Scale Merchant's Ledger",
+    "description": "Prices in a currency nobody uses anymore, for goods that were never for sale.",
+    "rarity": "uncommon",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "chimera_feather",
+    "display_name": "Chimera Feather",
+    "description": "Still warm. Still faintly singing, off-key.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "crocodile_scale",
+    "display_name": "Crocodile Scale",
+    "description": "Thicker than it should be, and warm on the underside.",
+    "rarity": "common",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "dockworker_badge",
+    "display_name": "Dockworker Badge",
+    "description": "Laminate long gone. The name underneath is still legible, if you want to know it.",
+    "rarity": "common",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "crane_control_chip",
+    "display_name": "Crane Control Chip",
+    "description": "Salvaged from the sluice crane's console. Still holds a charge.",
+    "rarity": "uncommon",
+    "effect": "restore_resource",
+    "value": 9
+  },
+  {
+    "id": "leks_militia_logs",
+    "display_name": "Lek's Militia Logs",
+    "description": "Handwritten shipping ledgers. Ratchaprasong elites, trading food for children - fuel or sacrifice, the entries don't say which.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "sluice_rippers_blade_shard",
+    "display_name": "Sluice Ripper's Blade Shard",
+    "description": "Still humming faintly with residual hydraulic pressure.",
+    "rarity": "uncommon",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "leviathan_tar_heart",
+    "display_name": "Leviathan Tar Heart",
+    "description": "Dense, black, and warm. It beats, slowly, if you hold it long enough to notice.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "bts_keycard",
+    "display_name": "BTS Staff Keycard",
+    "description": "Laminated, waterlogged, still humming faintly when it's near a working reader. Someone's lanyard, once.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "corroded_vault_key",
+    "display_name": "Corroded Vault Key",
+    "description": "Pulled off something that used to have hands. The teeth are half rusted through, but it still turns.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "drowned_queens_signet",
+    "display_name": "Drowned Queen's Signet",
+    "description": "Too heavy for its size, and it never quite dries. Whatever wore this ring outranked the flood itself.",
+    "rarity": "unique",
+    "effect": "restore_resource",
+    "value": 20
+  },
+  {
+    "id": "stabilized_iv_drip",
+    "display_name": "Stabilized IV Drip",
+    "description": "Salvaged medical kit, somehow still sterile. Whoever packed it wanted someone to survive.",
+    "rarity": "uncommon",
+    "effect": "heal",
+    "value": 14
+  },
+  {
+    "id": "vivarium_cage_key",
+    "display_name": "Vivarium Cage Key",
+    "description": "Small, brass, still warm - like it was just made rather than found.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "brass_stall_key",
+    "display_name": "Brass Stall Key",
+    "description": "Stamped with a stall number that doesn't match anything on the market map anymore.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "mannequin_queens_glass_eye",
+    "display_name": "Mannequin Queen's Glass Eye",
+    "description": "It tracks you around the room even packed away in a bag. Worth a fortune to the cult, which is exactly why you're taking it.",
+    "rarity": "unique",
+    "effect": "restore_resource",
+    "value": 20
+  },
+  {
+    "id": "preserved_antivenom",
+    "display_name": "Preserved Antivenom",
+    "description": "Salvaged from the Vivarium's medical stock, somehow still viable. Whatever it was made for, it works on you too.",
+    "rarity": "uncommon",
+    "effect": "heal",
+    "value": 14
+  },
+  {
+    "id": "tower_access_card",
+    "display_name": "Tower Access Card",
+    "description": "Weatherproofed and still magnetic-striped. Somebody cared enough about Stack-City to laminate this.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "riggers_master_key",
+    "display_name": "Rigger's Master Key",
+    "description": "Heavier than a key needs to be, stamped with a shipping line's logo nobody's used in years.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "leviathans_barnacle_crown",
+    "display_name": "Leviathan's Barnacle Crown",
+    "description": "Fused shell and rust in a rough circle. It was never meant to be worn, and it doesn't care.",
+    "rarity": "unique",
+    "effect": "restore_resource",
+    "value": 20
+  },
+  {
+    "id": "sealed_ration_tin",
+    "display_name": "Sealed Ration Tin",
+    "description": "The seal held. Whatever's inside is decades past its date and still better than nothing.",
+    "rarity": "uncommon",
+    "effect": "heal",
+    "value": 14
+  },
+  {
+    "id": "platform_access_card",
+    "display_name": "Platform Access Card",
+    "description": "Laminated MRT staff card, badge photo long faded past recognition.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "reliquary_key",
+    "display_name": "Reliquary Key",
+    "description": "Older than the MRT line running past the door it opens.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "preta_titans_hunger_stone",
+    "display_name": "Preta Titan's Hunger Stone",
+    "description": "It's cold no matter how long you hold it, like it's still trying to eat the warmth.",
+    "rarity": "unique",
+    "effect": "restore_resource",
+    "value": 20
+  },
+  {
+    "id": "blessed_temple_water",
+    "display_name": "Blessed Temple Water",
+    "description": "Somehow still consecrated, even down here.",
+    "rarity": "uncommon",
+    "effect": "heal",
+    "value": 14
+  },
+  {
+    "id": "flickering_platform_lantern",
+    "display_name": "Flickering Platform Lantern",
+    "description": "Battery's nearly gone. It's outlasted everyone who used to maintain it.",
+    "rarity": "common",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "temple_scripture_fragment",
+    "display_name": "Temple Scripture Fragment",
+    "description": "Water-warped, but legible: the flood recurs every 500 years, once collective human debt outgrows what the soil can bear.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "preta_titans_ash_core",
+    "display_name": "Preta Titan's Ash Core",
+    "description": "Packed dense as bone. Whatever it used to be hungry for, it isn't anymore.",
+    "rarity": "unique",
+    "effect": "heal",
+    "value": 18
+  },
+  {
+    "id": "phra_praserts_prayer_beads",
+    "display_name": "Phra Maha Prasert's Prayer Beads",
+    "description": "Worn smooth by a blind man's hands. He never asked for them back.",
+    "rarity": "uncommon",
+    "effect": "",
+    "value": 0
   }
 ]

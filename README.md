@@ -1,11 +1,13 @@
 # Deluge Chronicles (working title)
 
 A turn-based card RPG built in [Godot 4](https://godotengine.org/) (4.3+).
-Set in Bangkok, 2035 — nine years after a mega-flood drowned the surface
-and released mystic power and monsters sealed since before history.
-Players take on hidden, evolvable RPG classes (F-rank to S-rank) discovered
-through exploration and quests rather than picked from a menu, exploring a
-world of districts, dungeons, and dimensions toward a save-the-world climax.
+Set in Bangkok, October 2025 onward — the immediate aftermath of a
+mega-flood that drowned the surface and released mystic power and
+monsters sealed since before history. Players take on hidden, evolvable
+RPG classes (F-rank to S-rank) discovered through exploration and quests
+rather than picked from a menu, exploring a world of districts, dungeons,
+and dimensions toward a save-the-world climax. Full story bible in
+GDD.md.
 
 This repo previously hosted a different, unrelated project (a news/stocks
 dashboard). That project has been retired; everything here now is the game.
@@ -26,34 +28,153 @@ currently exists:
   table for the full list. Every chain culminates in the character
   becoming a full avatar of the Thai myth it's anchored to (Naga, Yaksha,
   Erawan, Garuda, Hanuman, Kuman Thong, Rakshasa, and more).
-- **A real, explorable district** — Sukhumvit Shallows: grid movement,
-  6 respawning monster spawns (5 species), a 2-stage mini-boss and a
-  3-stage boss that are permanently removed once beaten, item pickups +
-  monster loot, and an environmental event. Walking into a monster
-  transitions into a real combat encounter and back. 11 more districts,
-  10 dungeons, and 10 "beyond human sense" dimensions are fully designed
-  in GDD.md's World Map but not yet built as data.
+- **Four real, explorable districts**, each with grid movement, a
+  mini-boss and boss (with stage transitions) permanently removed once
+  beaten, item pickups + monster loot, and a cluster of events built on
+  the same `requires_flag`/`sets_flag` puzzle mechanic:
+  - **Sukhumvit Shallows** *(flagship depth pass — see below)*: a real
+    28×20-cell map (up from the original 10×8), 14 regular monster
+    spawns across 7 species, mini-boss **The Neon Strangler** (now 58
+    HP, 2 stages) and boss **Phra Khanong Mother** (now 60 HP, 3
+    stages), 16 events including two revisitable NPCs (Uncle Somchai,
+    Sister Da), two chained puzzles (the **Breaker Pump Protocol** and
+    the arcade's **High Score Relay**), and 3 locked areas (a
+    keycard-gated survivor haven, a flag-gated deep-water zone the
+    Breaker Pump Protocol actually unlocks, and a mini-boss-key-gated
+    secret vault) — see "Bigger, harder Sukhumvit Shallows" below for
+    the full rundown.
+  - **Chatuchak Ruins** *(depth pass)*: also grown to a real 28×20 map,
+    14 regular monster spawns across 7 species, mini-boss **The Scale
+    Merchant** (now 55 HP, 2 stages) and boss **The Chimera of the
+    Drowned Aviary** (now 65 HP, 3 stages), 15 events including the
+    Watchmaker (Kru Viroj) and two chained puzzles (the **Amulet Scale**
+    - find a cursed weight, balance the scale, open the vault, each
+    step fails cleanly out of order so it can't softlock - and the
+    Mannequin Shrine's **Three Offerings**), and 3 locked areas (the
+    cage-key-gated Vivarium Drains, a flag-gated Vault Depths the
+    Amulet Scale actually unlocks, and a mini-boss-key-gated secret
+    alley).
+  - **Klong Toey Canals** *(depth pass)*: also grown to a real 28×20
+    map, 14 regular monster spawns across 7 species, mini-boss **The
+    Sluice Ripper** (now 57 HP, 2 stages) and boss **Klong Toey
+    Leviathan** (The Scum Matron, now 59 HP, 3 stages), 15 events
+    including Commander Lek and two chained puzzles (the **Crane
+    Sluice Alignment** - align bridge alpha, then beta, then lock the
+    crane - and Stack-City Core's **Ladder Ascent**), and 3 locked
+    areas (the card-gated Drydock 4, a flag-gated Sluice Depths the
+    Crane Sluice Alignment actually unlocks, and a mini-boss-key-gated
+    secret hold).
+  - **Wat Hualamphong Depths** *(4th district, built at full scale from
+    day one)*: flooded temple crematoriums merged with MRT tunnels, a
+    real 28×20 map, 14 regular monster spawns across 7 new species
+    (Petrified Chanter, Tunnel Wraith, Coffin Crawler, Ash Moth Swarm,
+    Flooded Conductor, Bone Tide Drifter, Hollow Novice), mini-boss
+    **The Undertaker of Wat Hua** (56 HP, one desperate phase) and boss
+    **The Hungry Ghost of Hua Lamphong** (Preta Titan, 51 HP, 3 phases),
+    14 events including the blind monk Phra Maha Prasert and two chained
+    puzzles (the **Chanting Tuning-Forks** - three bells struck in order
+    to shatter an acoustic seal - and the Hall of Unclaimed Coffins'
+    **Synchronized Knocking**), and 3 locked areas (the card-gated MRT
+    Platform 2, a flag-gated Undercroft the bells actually unlock, and a
+    mini-boss-key-gated Reliquary Vault). Its mini-boss/boss balance was
+    bot-sim-verified *before* being finalized, unlike the other three
+    (see below).
+
+  All four districts are at the same 28×20 depth-pass scale -
+  up from the original 10×8/6-spawn/one-puzzle pilot shape the first
+  three districts shipped with initially. Every mini-boss/boss's HP and
+  move damage is empirically verified, not just eyeballed: a
+  bot-plays-combat headless check (fresh full-HP Apprentice Mage,
+  reasonable-not-optimal card play, 30-80 simulated fights per fight)
+  caught all three original bosses at a 0% win rate - a pre-existing
+  issue the depth pass's first-draft toughening made worse, not one it
+  introduced - and the numbers above are the result of rescaling each
+  fight until it lands in a genuinely winnable-but-hard range. See
+  GDD.md's Prototype status section for the exact methodology and the
+  full before/after win-rate table.
+
+  Walking into a monster transitions into a real combat encounter and
+  back. 8 more districts, 10 dungeons, and 10 "beyond human sense"
+  dimensions are fully designed in GDD.md's World Map but not yet built
+  as data.
+- **Real inter-district travel**: a World Map screen
+  (`scenes/world_map.tscn`) lists the built districts in tier order.
+  Only Sukhumvit Shallows starts unlocked; defeating a district's boss
+  (specifically its boss, not any mini-boss/unique kill) unlocks the
+  next one. Reached from "Start Exploring" on the main menu or a
+  "World Map" button in the status menu; the "[DEV] <district>"
+  shortcuts still exist too, bypassing the unlock gating entirely for
+  quick testing.
 - Monsters are now data-driven too (`data/monsters.json`) with weighted
   AI move lists and multi-stage boss/mini-boss transitions, using the
   same six card effects as the player (including the two newest,
   `dot`/`aoe_damage`/`execute`, all rank-gated D/B/S+).
-- Main menu has two entry points: "Start Exploring" begins a real run and
-  drops into Sukhumvit Shallows; "[DEV] Enter the Flood" is an isolated
-  combat-only shortcut for balance testing.
-- **Real pixel art for everything currently in the game**: all 15
-  F-rank starting classes (one per family) and all 8 monsters that
-  actually appear (`assets/sprites/`), true 32×32 RGBA with 2-frame
-  idle animation, rendered in both the overworld and combat with an
-  automatic fallback to the original placeholder look for the other 90
-  classes (E through S rank) and every other monster that doesn't have
-  art yet.
-- **Sukhumvit Shallows now renders as a real tile-based map**, not a
-  flat colored grid: an original 40×40 tileset (`tools/gen_tiles.py`,
-  `assets/tiles/`) themed to our own flooded-Bangkok setting, plus a
-  rebuilt HUD — a district name/description banner, a live minimap, HP/
-  resource bars, deck count, and message log. Any district without
-  authored tile art (everything else right now) falls back to the
-  original flat-grid look automatically.
+- **Real save/load** (single slot): "Save Game" in the status menu
+  (Escape from the overworld) writes everything - class, HP, resource,
+  inventory, every district's exploration progress (spawns, items,
+  events, puzzle flags), and which districts are unlocked - to
+  `user://saves/slot1.json`. "Continue" on the main menu appears once a
+  save exists and resumes at the exact saved district and cell.
+- **Locked doors/gates**: a cell can require a specific item in
+  inventory (a permanent key, not consumed) or a district flag (the same
+  flag a puzzle event sets) before the player can cross it, distinct
+  from a plain wall - it still renders as normal walkable ground, just
+  refuses passage until the requirement's met. Powers Sukhumvit
+  Shallows' keycard-gated survivor haven, its Breaker-Pump-Protocol-
+  gated deep zone, and its mini-boss-key-gated secret vault.
+- **Bigger, harder Sukhumvit Shallows** (the flagship depth pass): the
+  district grew from a 10×8 pilot to a real 28×20 map, procedurally laid
+  out with guaranteed full connectivity
+  (`tools/gen_district_layout.py`'s carve-one-obstacle-at-a-time-and-
+  BFS-verify generator, plus a room-carving helper for walled sub-areas
+  with exactly one door) and then hand-zoned into a canal grind area, a
+  transformer zone, the Soi 11 Drowned Arcade (now with its own second
+  puzzle, the High Score Relay), the keycard-gated BTS Asok Haven, a
+  walled-off Deep Flood Zone gated behind actually finishing the Breaker
+  Pump Protocol, and a secret vault gated behind a mini-boss drop. Two
+  new tougher monster species (Current Dragger, Voltaic Current-Eel)
+  patrol the deep zone, and both the mini-boss and boss got real stat
+  and phase increases rather than just more square footage. **Known
+  issue**: scrolling far enough from a district's entrance can show a
+  dark background instead of tiles - a pre-existing tile-rendering bug
+  this depth pass made much easier to trigger (it also reproduces on the
+  small original districts if you walk far enough), investigated at
+  length but not yet root-caused; collision/spawns/events/locks are
+  unaffected since they never depended on the visual tile layer.
+- Main menu has two real entry points (Start Exploring -> World Map,
+  and Continue once a save exists) and four dev shortcuts: "[DEV] Enter
+  the Flood" is an isolated combat-only shortcut for balance testing;
+  "[DEV] Chatuchak Ruins" / "[DEV] Klong Toey Canals" / "[DEV] Wat
+  Hualamphong Depths" drop straight into districts 2/3/4, bypassing the
+  World Map's unlock gating, for quick testing without playing through
+  the earlier districts first.
+- **Real pixel art for all 105 classes** (not just the 15 F-rank
+  starters) and all 37 monsters that actually appear across the four
+  built districts (`assets/sprites/`), true 64×64 RGBA with 2-frame idle animation.
+  E-through-S ranks aren't 90 hand-painted palettes — each family
+  defines one base look (hair + a weapon or wraps, so no one's bald or
+  empty-handed), and a rank-tier system (`tools/gen_sprites.py`)
+  derives the rest via progressive color intensity, gear upgrades
+  (pauldrons at C, a cape at B, a circlet at S), a glowing aura and
+  forehead mark from C rank up, and — S rank only — a halo arc and two
+  floating companion orbs, so the final evolution reads as a real apex
+  tier. Uses each family's own accent color throughout so it stays
+  family-distinct. Falls back to the original placeholder look for any
+  monster beyond those 37.
+- **All four built districts render as real tile-based maps with a
+  scrolling camera**, not a flat colored grid: an original 64×64
+  tileset (`tools/gen_tiles.py`, `assets/tiles/`) themed to our own
+  flooded-Bangkok setting, plus a rebuilt HUD — a district
+  name/description banner, a live minimap, HP/resource bars, deck
+  count, and message log. The camera follows the player and clamps at
+  the map's edges (or centers a district smaller than the screen), so a
+  district is no longer limited to fitting on one screen. Any district
+  without authored tile art (everything else right now) falls back to
+  the original flat-grid look automatically.
+- **Full story bible in GDD.md**: atmosphere, NPCs, puzzles, mini-boss/
+  boss (with phases), and a narrative beat for every district and
+  dimension, the 3-phase final boss, and three mutually exclusive
+  endings.
 - **Combat uses a JRPG-style action menu** (Cards / Item / Guard —
   Final Fantasy/Pokémon-style), not an always-visible hand. Guard grants
   block for free; usable consumables can be used mid-fight from the Item
@@ -66,13 +187,43 @@ currently exists:
   (not `integer`), so the full screen always letterboxes to fit a real
   device window instead of getting cropped at the edge on smaller
   screens.
+- **The whole app has a real dark theme now, not stock Godot widgets** —
+  main menu, overworld HUD, the status/items menu, and combat all share
+  one `Theme` resource (`scripts/util/ui_theme.gd`'s `UITheme`, built
+  once and reused rather than each scene re-deriving its own): bordered
+  dark panels instead of flat default gray, HP bars colored per role
+  (cyan player, rose enemy/danger, violet resource/mana), consistent
+  button/label styling everywhere including nodes created at runtime
+  (tray buttons, inventory buttons). Combat layers its own additions on
+  top: every panel (arena, log, card tray) is a bordered dark
+  PanelContainer, and mana is shown as filled/empty pips alongside the
+  exact number. Damage/heal/
+  block now spawn a floating number over the affected portrait and a
+  brief screen-shake on hits — juice a static HP-bar tick alone doesn't
+  give. **Enemies telegraph their next move** (Slay the Spire-style
+  intent, icon + name + value) a full player turn in advance instead of
+  attacking blind, re-rolling immediately if a mini-boss/boss stage
+  transition swaps their move list mid-telegraph. Card borders are also
+  tinted per type (action/spell/power), matching the existing icon
+  tinting. Not ported: a real-time animated battle canvas (a different
+  rendering architecture entirely) and new action-economy mechanics like
+  a stagger gauge, a mana-generating basic attack, or a flee command —
+  those are game-design calls, not a reskin.
+- **Every card shows an icon for what it does**: seven small icons keyed
+  to a card's effect (damage/heal/block/empower/lingering-damage/
+  hits-everyone/execute), tinted red/blue/gold by its type
+  (action/spell/power). Covers all 417 cards automatically — no
+  per-card art needed (`tools/gen_card_icons.py`).
 - **Status/Items menu** (press Escape from the overworld): portrait,
   name, rank, HP/resource bars, your full deck list with descriptions,
-  and held items. No Equipment/Formation/Config/Save — those systems
+  and held items. No Equipment/Formation/Config — those systems
   don't exist yet, so the menu doesn't pretend to have them.
-- No class-selection UI, no inter-district travel/gating, no
-  evolution-unlock engine yet, no art beyond Sukhumvit Shallows' 9
-  sprites — see GDD.md's roadmap section for the full, honest list.
+- No class-selection UI, no rank-tier gating (an F-rank player can enter
+  any unlocked district regardless of its danger tier), no
+  evolution-unlock engine yet. Inter-district travel itself is real now
+  (see the World Map bullet above) - unlocking is purely "beat this
+  district's boss," not a rank check. See GDD.md's roadmap section for
+  the full, honest list.
 
 ## Opening the project
 
@@ -80,9 +231,13 @@ currently exists:
    the .NET/Mono build — this project doesn't use C#).
 2. Godot → Import → select this repo's `project.godot`.
 3. Run the project (F5). It opens on the main menu. "Start Exploring"
-   drops you into Sukhumvit Shallows (arrow keys to move, walk into a
-   monster to fight it); "[DEV] Enter the Flood" starts an isolated test
-   battle as the Apprentice Mage.
+   drops you into the World Map, where Sukhumvit Shallows is the only
+   unlocked entry at first (arrow keys to move once inside a district,
+   walk into a monster to fight it; defeat a district's boss to unlock
+   the next one on the map); "[DEV] Chatuchak Ruins" / "[DEV] Klong Toey
+   Canals" / "[DEV] Wat Hualamphong Depths" drop straight into districts
+   2/3/4 instead, bypassing the World Map's unlock gating; "[DEV] Enter
+   the Flood" starts an isolated test battle as the Apprentice Mage.
 
 This project was scaffolded without access to the Godot editor, so a
 headless Godot 4.3 binary was used to verify it (`--import` to catch
@@ -105,10 +260,11 @@ data/
   districts.json             # District/dungeon/dimension grid layouts + spawn tables
 assets/
   sprites/
-    characters/           # mage_f_idle1/2.png - real 32x32 RGBA pixel art
+    characters/           # mage_f_idle1/2.png - real 64x64 RGBA pixel art
     monsters/               # the 8 Sukhumvit Shallows monsters, same convention
 scenes/
   main_menu.tscn
+  world_map.tscn
   overworld.tscn
   combat.tscn
 scripts/
@@ -123,6 +279,8 @@ scripts/
     district_data.gd               # DistrictData model (grid layout, spawns)
   ui/
     main_menu.gd
+  world_map/
+    world_map.gd            # District unlock list + travel between them
   overworld/
     overworld.gd            # Grid movement, spawn/respawn, items, events
   combat/
