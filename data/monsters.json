@@ -1350,5 +1350,405 @@
         "chance": 0.3
       }
     ]
+  },
+  {
+    "id": "petrified_chanter",
+    "display_name": "Petrified Chanter",
+    "description": "A monk who died mid-prayer, stone from the throat down. The chant never finished, and it still isn't done trying.",
+    "rank": "F",
+    "max_hp": 16,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Cognitive Hemorrhage Chant",
+        "description": "The wrong words, in the wrong order, on purpose.",
+        "effect": "dot",
+        "value": 3,
+        "weight": 3
+      },
+      {
+        "name": "Stone Grip",
+        "description": "Fingers that haven't bent in years, closing anyway.",
+        "effect": "damage",
+        "value": 4,
+        "weight": 2
+      },
+      {
+        "name": "Petrify Stillness",
+        "description": "It holds its pose. That's the whole defense.",
+        "effect": "block",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "blessed_temple_water",
+        "chance": 0.25
+      }
+    ]
+  },
+  {
+    "id": "tunnel_wraith",
+    "display_name": "Tunnel Wraith",
+    "description": "A commuter who never found the exit. It still thinks it's rushing for a train.",
+    "rank": "F",
+    "max_hp": 14,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Lost Platform Wail",
+        "description": "A scream meant for a train that already left.",
+        "effect": "damage",
+        "value": 3,
+        "weight": 3
+      },
+      {
+        "name": "Fade Through",
+        "description": "It isn't fully here to begin with.",
+        "effect": "block",
+        "value": 4,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "flickering_platform_lantern",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": "coffin_crawler",
+    "display_name": "Coffin Crawler",
+    "description": "Something that made a home in an unclaimed coffin and doesn't appreciate visitors.",
+    "rank": "F",
+    "max_hp": 18,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Splintered Lid Claw",
+        "description": "The lid was never meant to open this way.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 3
+      },
+      {
+        "name": "Burrow Guard",
+        "description": "It pulls back into the box.",
+        "effect": "block",
+        "value": 4,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "flickering_platform_lantern",
+        "chance": 0.25
+      }
+    ]
+  },
+  {
+    "id": "ash_moth_swarm",
+    "display_name": "Ash Moth Swarm",
+    "description": "Crematorium ash that never settled, thick enough now to bite.",
+    "rank": "F",
+    "max_hp": 13,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Ash Lung Bite",
+        "description": "It gets into everything, including you.",
+        "effect": "dot",
+        "value": 3,
+        "weight": 3
+      },
+      {
+        "name": "Scatter",
+        "description": "It disperses rather than take a hit.",
+        "effect": "block",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "blessed_temple_water",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": "flooded_conductor",
+    "display_name": "Flooded Conductor",
+    "description": "Still checking tickets nobody's holding, in water that's been rising for years.",
+    "rank": "E",
+    "max_hp": 20,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Rusted Whistle Slash",
+        "description": "The whistle's gone quiet. The blade hasn't.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 3
+      },
+      {
+        "name": "Signal Flare Snarl",
+        "description": "An old emergency flare, held wrong on purpose.",
+        "effect": "empower_next",
+        "value": 2,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "flickering_platform_lantern",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": "bone_tide_drifter",
+    "display_name": "Bone Tide Drifter",
+    "description": "Bleached remains held together by current and habit, drawn by whatever's calling from the undercroft.",
+    "rank": "E",
+    "max_hp": 27,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Necrotic Tide Grasp",
+        "description": "Cold hands, colder grip.",
+        "effect": "damage",
+        "value": 6,
+        "weight": 3
+      },
+      {
+        "name": "Bone Lattice Slam",
+        "description": "It doesn't feel this one landing wrong.",
+        "effect": "damage",
+        "value": 9,
+        "weight": 2
+      },
+      {
+        "name": "Calcify",
+        "description": "It hardens mid-strike.",
+        "effect": "block",
+        "value": 5,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "blessed_temple_water",
+        "chance": 0.2
+      },
+      {
+        "item_id": "phra_praserts_prayer_beads",
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": "hollow_novice",
+    "display_name": "Hollow Novice",
+    "description": "A young monk, hollowed out from the inside by whatever prays alongside the living ones now.",
+    "rank": "E",
+    "max_hp": 21,
+    "is_miniboss": false,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Hollow Chant",
+        "description": "The words are right. Nothing behind them is.",
+        "effect": "dot",
+        "value": 4,
+        "weight": 3
+      },
+      {
+        "name": "Empty Prayer Strike",
+        "description": "A gesture of devotion, weaponized.",
+        "effect": "damage",
+        "value": 5,
+        "weight": 2
+      },
+      {
+        "name": "Kneel and Guard",
+        "description": "Prostration, as a defense.",
+        "effect": "block",
+        "value": 3,
+        "weight": 1
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "blessed_temple_water",
+        "chance": 0.25
+      }
+    ]
+  },
+  {
+    "id": "undertaker_of_wat_hua",
+    "display_name": "The Undertaker of Wat Hua",
+    "description": "Shrouded head to foot, carrying an incense cauldron that never stops smoking. It's been burying people for the flood since the first week.",
+    "rank": "E",
+    "max_hp": 56,
+    "is_miniboss": true,
+    "is_boss": false,
+    "moves": [
+      {
+        "name": "Cauldron Swing",
+        "description": "Burning coals, swung like a censer at a funeral.",
+        "effect": "damage",
+        "value": 8,
+        "weight": 3
+      },
+      {
+        "name": "Incense Haze",
+        "description": "Smoke thick enough to hide behind.",
+        "effect": "block",
+        "value": 5,
+        "weight": 2
+      }
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.5,
+        "display_name": "The Undertaker of Wat Hua (Blind-Rage Gas)",
+        "transition_text": "The cauldron cracks open and the smoke turns red. Whatever patience it had for burying you properly is gone.",
+        "moves": [
+          {
+            "name": "Rageful Cauldron Burst",
+            "description": "The whole censer, thrown at once.",
+            "effect": "damage",
+            "value": 9,
+            "weight": 3
+          },
+          {
+            "name": "Choking Fumes",
+            "description": "The gas settles into your lungs and stays.",
+            "effect": "dot",
+            "value": 4,
+            "weight": 2
+          },
+          {
+            "name": "Cauldron Ward",
+            "description": "It hides behind its own smoke.",
+            "effect": "block",
+            "value": 6,
+            "weight": 1
+          }
+        ]
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "reliquary_key",
+        "chance": 1.0
+      },
+      {
+        "item_id": "phra_praserts_prayer_beads",
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "hungry_ghost_of_hua_lamphong",
+    "display_name": "The Hungry Ghost of Hua Lamphong (Preta Titan)",
+    "description": "Fifteen meters of emaciated, pinhole-mouthed hunger, folded into MRT tunnels that were never built to hold it.",
+    "rank": "E",
+    "max_hp": 51,
+    "is_miniboss": false,
+    "is_boss": true,
+    "moves": [
+      {
+        "name": "Starvation Beam",
+        "description": "A sound like every empty stomach at once.",
+        "effect": "damage",
+        "value": 7,
+        "weight": 3
+      },
+      {
+        "name": "Gnawing Void",
+        "description": "It folds inward, absorbing the hit.",
+        "effect": "block",
+        "value": 6,
+        "weight": 2
+      }
+    ],
+    "stages": [
+      {
+        "trigger_hp_pct": 0.66,
+        "display_name": "The Hungry Ghost (Sonic Hunger)",
+        "transition_text": "The starvation beam sharpens into something that pierces rather than just hurts.",
+        "moves": [
+          {
+            "name": "Piercing Starvation Beam",
+            "description": "A hunger old enough to cut.",
+            "effect": "damage",
+            "value": 8,
+            "weight": 3
+          },
+          {
+            "name": "Wailing Emptiness",
+            "description": "A sound that keeps hollowing you out after it fades.",
+            "effect": "dot",
+            "value": 3,
+            "weight": 2
+          },
+          {
+            "name": "Recoil",
+            "description": "It pulls back into itself.",
+            "effect": "block",
+            "value": 8,
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "trigger_hp_pct": 0.33,
+        "display_name": "The Hungry Ghost (Stomach-Mouth Opens)",
+        "transition_text": "Its ribs tear open into a second, gravity-pulling mouth in its stomach. There's nowhere left to stand that isn't being pulled toward it.",
+        "moves": [
+          {
+            "name": "Gravity Maw Pull",
+            "description": "Everything nearby, drawn toward the hunger at once.",
+            "effect": "damage",
+            "value": 11,
+            "weight": 3
+          },
+          {
+            "name": "Devouring Silence",
+            "description": "It doesn't need you whole to finish this.",
+            "effect": "execute",
+            "value": 6,
+            "weight": 2
+          },
+          {
+            "name": "Ribcage Shell",
+            "description": "The torn ribs close, one last time.",
+            "effect": "block",
+            "value": 10,
+            "weight": 1
+          }
+        ]
+      }
+    ],
+    "drop_table": [
+      {
+        "item_id": "preta_titans_ash_core",
+        "chance": 1.0
+      },
+      {
+        "item_id": "phra_praserts_prayer_beads",
+        "chance": 0.4
+      }
+    ]
   }
 ]

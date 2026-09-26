@@ -14,10 +14,10 @@ extends Control
 ## RunState.pending_player_cell, consumed once by Overworld._ready().
 ##
 ## "[DEV] Enter the Flood" / "[DEV] Chatuchak Ruins" / "[DEV] Klong Toey
-## Canals" are developer shortcuts straight into an isolated test battle or
-## a specific district, bypassing both the World Map and its unlock gating
-## entirely - kept for quick balance testing, not part of the real
-## progression loop.
+## Canals" / "[DEV] Wat Hualamphong Depths" are developer shortcuts straight
+## into an isolated test battle or a specific district, bypassing both the
+## World Map and its unlock gating entirely - kept for quick balance
+## testing, not part of the real progression loop.
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -89,6 +89,10 @@ func _ready() -> void:
 	klong_toey_button.pressed.connect(_on_klong_toey_pressed)
 	box.add_child(klong_toey_button)
 
+	var wat_hua_button := _make_menu_button("[DEV] Wat Hualamphong Depths - Test District 4 (Apprentice Mage)")
+	wat_hua_button.pressed.connect(_on_wat_hualamphong_pressed)
+	box.add_child(wat_hua_button)
+
 ## Godot's Button doesn't wrap its own text (same constraint combat.gd's
 ## tray buttons work around with a wrapped Label) - clip_text at least
 ## ellipsizes instead of silently rendering past the button's own bounds.
@@ -130,4 +134,9 @@ func _on_chatuchak_pressed() -> void:
 func _on_klong_toey_pressed() -> void:
 	RunState.begin_run("mage_f")
 	RunState.pending_district_id = "klong_toey_canals"
+	get_tree().change_scene_to_file("res://scenes/overworld.tscn")
+
+func _on_wat_hualamphong_pressed() -> void:
+	RunState.begin_run("mage_f")
+	RunState.pending_district_id = "wat_hualamphong_depths"
 	get_tree().change_scene_to_file("res://scenes/overworld.tscn")

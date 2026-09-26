@@ -28,7 +28,7 @@ currently exists:
   table for the full list. Every chain culminates in the character
   becoming a full avatar of the Thai myth it's anchored to (Naga, Yaksha,
   Erawan, Garuda, Hanuman, Kuman Thong, Rakshasa, and more).
-- **Three real, explorable districts**, each with grid movement, a
+- **Four real, explorable districts**, each with grid movement, a
   mini-boss and boss (with stage transitions) permanently removed once
   beaten, item pickups + monster loot, and a cluster of events built on
   the same `requires_flag`/`sets_flag` puzzle mechanic:
@@ -64,22 +64,37 @@ currently exists:
     areas (the card-gated Drydock 4, a flag-gated Sluice Depths the
     Crane Sluice Alignment actually unlocks, and a mini-boss-key-gated
     secret hold).
+  - **Wat Hualamphong Depths** *(4th district, built at full scale from
+    day one)*: flooded temple crematoriums merged with MRT tunnels, a
+    real 28×20 map, 14 regular monster spawns across 7 new species
+    (Petrified Chanter, Tunnel Wraith, Coffin Crawler, Ash Moth Swarm,
+    Flooded Conductor, Bone Tide Drifter, Hollow Novice), mini-boss
+    **The Undertaker of Wat Hua** (56 HP, one desperate phase) and boss
+    **The Hungry Ghost of Hua Lamphong** (Preta Titan, 51 HP, 3 phases),
+    14 events including the blind monk Phra Maha Prasert and two chained
+    puzzles (the **Chanting Tuning-Forks** - three bells struck in order
+    to shatter an acoustic seal - and the Hall of Unclaimed Coffins'
+    **Synchronized Knocking**), and 3 locked areas (the card-gated MRT
+    Platform 2, a flag-gated Undercroft the bells actually unlock, and a
+    mini-boss-key-gated Reliquary Vault). Its mini-boss/boss balance was
+    bot-sim-verified *before* being finalized, unlike the other three
+    (see below).
 
-  All three districts are now at the same 28×20 depth-pass scale -
-  up from the original 10×8/6-spawn/one-puzzle pilot shape every
-  district shipped with initially. Every mini-boss/boss's HP and move
-  damage above is now empirically verified, not just eyeballed: a
+  All four districts are at the same 28×20 depth-pass scale -
+  up from the original 10×8/6-spawn/one-puzzle pilot shape the first
+  three districts shipped with initially. Every mini-boss/boss's HP and
+  move damage is empirically verified, not just eyeballed: a
   bot-plays-combat headless check (fresh full-HP Apprentice Mage,
-  reasonable-not-optimal card play, 30-50 simulated fights per fight)
+  reasonable-not-optimal card play, 30-80 simulated fights per fight)
   caught all three original bosses at a 0% win rate - a pre-existing
-  issue this depth pass's first-draft toughening made worse, not one it
+  issue the depth pass's first-draft toughening made worse, not one it
   introduced - and the numbers above are the result of rescaling each
   fight until it lands in a genuinely winnable-but-hard range. See
   GDD.md's Prototype status section for the exact methodology and the
   full before/after win-rate table.
 
   Walking into a monster transitions into a real combat encounter and
-  back. 9 more districts, 10 dungeons, and 10 "beyond human sense"
+  back. 8 more districts, 10 dungeons, and 10 "beyond human sense"
   dimensions are fully designed in GDD.md's World Map but not yet built
   as data.
 - **Real inter-district travel**: a World Map screen
@@ -126,14 +141,15 @@ currently exists:
   small original districts if you walk far enough), investigated at
   length but not yet root-caused; collision/spawns/events/locks are
   unaffected since they never depended on the visual tile layer.
-- Main menu has two real entry points and two dev shortcuts: "Start
-  Exploring" begins a real run and drops into Sukhumvit Shallows;
-  "[DEV] Enter the Flood" is an isolated combat-only shortcut for
-  balance testing; "[DEV] Chatuchak Ruins" / "[DEV] Klong Toey Canals"
-  drop straight into districts 2/3 the same way, since there's no
-  in-fiction travel between districts yet.
+- Main menu has two real entry points (Start Exploring -> World Map,
+  and Continue once a save exists) and four dev shortcuts: "[DEV] Enter
+  the Flood" is an isolated combat-only shortcut for balance testing;
+  "[DEV] Chatuchak Ruins" / "[DEV] Klong Toey Canals" / "[DEV] Wat
+  Hualamphong Depths" drop straight into districts 2/3/4, bypassing the
+  World Map's unlock gating, for quick testing without playing through
+  the earlier districts first.
 - **Real pixel art for all 105 classes** (not just the 15 F-rank
-  starters) and all 28 monsters that actually appear across the three
+  starters) and all 37 monsters that actually appear across the four
   built districts (`assets/sprites/`), true 64×64 RGBA with 2-frame idle animation.
   E-through-S ranks aren't 90 hand-painted palettes — each family
   defines one base look (hair + a weapon or wraps, so no one's bald or
@@ -144,8 +160,8 @@ currently exists:
   floating companion orbs, so the final evolution reads as a real apex
   tier. Uses each family's own accent color throughout so it stays
   family-distinct. Falls back to the original placeholder look for any
-  monster beyond those 22.
-- **All three built districts render as real tile-based maps with a
+  monster beyond those 37.
+- **All four built districts render as real tile-based maps with a
   scrolling camera**, not a flat colored grid: an original 64×64
   tileset (`tools/gen_tiles.py`, `assets/tiles/`) themed to our own
   flooded-Bangkok setting, plus a rebuilt HUD — a district
@@ -219,9 +235,9 @@ currently exists:
    unlocked entry at first (arrow keys to move once inside a district,
    walk into a monster to fight it; defeat a district's boss to unlock
    the next one on the map); "[DEV] Chatuchak Ruins" / "[DEV] Klong Toey
-   Canals" drop straight into districts 2/3 instead, bypassing the World
-   Map's unlock gating; "[DEV] Enter the Flood" starts an isolated test
-   battle as the Apprentice Mage.
+   Canals" / "[DEV] Wat Hualamphong Depths" drop straight into districts
+   2/3/4 instead, bypassing the World Map's unlock gating; "[DEV] Enter
+   the Flood" starts an isolated test battle as the Apprentice Mage.
 
 This project was scaffolded without access to the Godot editor, so a
 headless Godot 4.3 binary was used to verify it (`--import` to catch

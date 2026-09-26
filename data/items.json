@@ -238,5 +238,69 @@
     "rarity": "uncommon",
     "effect": "heal",
     "value": 14
+  },
+  {
+    "id": "platform_access_card",
+    "display_name": "Platform Access Card",
+    "description": "Laminated MRT staff card, badge photo long faded past recognition.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "reliquary_key",
+    "display_name": "Reliquary Key",
+    "description": "Older than the MRT line running past the door it opens.",
+    "rarity": "rare",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "preta_titans_hunger_stone",
+    "display_name": "Preta Titan's Hunger Stone",
+    "description": "It's cold no matter how long you hold it, like it's still trying to eat the warmth.",
+    "rarity": "unique",
+    "effect": "restore_resource",
+    "value": 20
+  },
+  {
+    "id": "blessed_temple_water",
+    "display_name": "Blessed Temple Water",
+    "description": "Somehow still consecrated, even down here.",
+    "rarity": "uncommon",
+    "effect": "heal",
+    "value": 14
+  },
+  {
+    "id": "flickering_platform_lantern",
+    "display_name": "Flickering Platform Lantern",
+    "description": "Battery's nearly gone. It's outlasted everyone who used to maintain it.",
+    "rarity": "common",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "temple_scripture_fragment",
+    "display_name": "Temple Scripture Fragment",
+    "description": "Water-warped, but legible: the flood recurs every 500 years, once collective human debt outgrows what the soil can bear.",
+    "rarity": "unique",
+    "effect": "",
+    "value": 0
+  },
+  {
+    "id": "preta_titans_ash_core",
+    "display_name": "Preta Titan's Ash Core",
+    "description": "Packed dense as bone. Whatever it used to be hungry for, it isn't anymore.",
+    "rarity": "unique",
+    "effect": "heal",
+    "value": 18
+  },
+  {
+    "id": "phra_praserts_prayer_beads",
+    "display_name": "Phra Maha Prasert's Prayer Beads",
+    "description": "Worn smooth by a blind man's hands. He never asked for them back.",
+    "rarity": "uncommon",
+    "effect": "",
+    "value": 0
   }
 ]

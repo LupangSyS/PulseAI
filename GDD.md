@@ -82,14 +82,14 @@ reachable only as its own standalone run (a "[DEV] <district>" main-menu
 button per built district), same as when Sukhumvit Shallows was the
 only one.
 
-### Districts (3 built, 9 designed)
+### Districts (4 built, 8 designed)
 
 | # | District | Tier | Ecosystem / hook |
 |---|---|---|---|
 | 1 | **Sukhumvit Shallows** *(built)* | F | Flood rats, leeches, drowned strays, toads, wisps; mini-boss/boss are the "source" that bred the rest — see Prototype status |
 | 2 | **Chatuchak Ruins** *(built)* | F-E | Collapsed weekend market turned scavenger maze — market-dogs, stall-wraiths, trickster imps, caged songbirds, talisman husks |
 | 3 | **Klong Toey Canals** *(built)* | E | The Hunter's territory — crocodilians, canal eels, drowned dockworkers, rusted stevedores, oil-slick wisps (Crocodile Warden's discovery site) |
-| 4 | Wat Hualamphong Depths | E | The Necromancer's flooded temple basement — restless dead, bone-creatures, drowned monks (Bone Tide Necromancer's site) |
+| 4 | **Wat Hualamphong Depths** *(built)* | E-D | The Necromancer's flooded temple basement — restless dead, bone-creatures, drowned monks (Bone Tide Necromancer's site) |
 | 5 | Ratchaprasong Intersection | E-D | The Tank's shrine — stone-guardian remnants, riot-echo constructs, crowd-crush phantoms (Erawan Guardian's site) |
 | 6 | Thonburi Drowned Temples | D | Guardian statues and spirit houses — temple spirits, vengeful stonework, Kuman Thong (Yaksha Blade + Kuman Thong Warden's shared site) |
 | 7 | Rama IV Fuel Depots | D | The Pyromancer's origin — fire-touched mutants, combustion elementals (Garuda Ember Knight's site) |
@@ -306,22 +306,41 @@ children, allegedly as fuel or sacrifice to keep the central grid alive.
 The secret hold holds the Leviathan's Barnacle Crown, the district's
 best loot.
 
-**4. Wat Hualamphong Depths** *(the Necromancer's site — Bone Tide
-Necromancer)* — Flooded temple crematoriums merged with MRT tunnels;
+**4. Wat Hualamphong Depths** *(built)* *(the Necromancer's site — Bone
+Tide Necromancer)* — Flooded temple crematoriums merged with MRT tunnels;
 monks who died mid-chant are petrified statues whose voices cause
-cognitive hemorrhage. NPC: **Phra Maha Prasert**, a monk who gouged out
-his own eyes rather than see "the skinless things that pray beside the
-novices." Sub-maps: the Hall of Unclaimed Coffins (knocking in
+cognitive hemorrhage. Built at the full 28×20 depth-pass scale from the
+start (the same procedurally-generated, connectivity-guaranteed layout
+approach as districts 1-3): an MRT-tunnel grind zone around the entrance,
+the Hall of Unclaimed Coffins hosting a second puzzle (*Synchronized
+Knocking* - three coffins knocked in order, rewarding an MRT access
+card), a chanting-bell zone in the north with the primary puzzle, the
+card-gated MRT Platform 2 in the northeast, a walled-off Undercroft in
+the south gated behind actually shattering the acoustic seal, and a
+Reliquary Vault gated behind the mini-boss's guaranteed key drop. NPC:
+**Phra Maha Prasert**, a monk who gouged out his own eyes rather than see
+"the skinless things that pray beside the novices," gives hints for both
+puzzles. Sub-maps: the Hall of Unclaimed Coffins (knocking in
 synchronized rhythm), MRT Platform 2 (submerged, lights still flickering
 in dead train cars). Puzzle — *The Chanting Tuning-Forks*: strike three
 brass bells to match the petrified monks' pitch and shatter an acoustic
-seal. Mini-boss — *The Undertaker of Wat Hua*: shrouded, carries an
-incense cauldron emitting blind-rage gas. Boss — *The Hungry Ghost of Hua
-Lamphong (Preta Titan)*: **Phase 1** a 15m emaciated pinhole-mouthed
-humanoid firing starvation sonic beams; **Phase 2** its ribs tear open
-into a gravity-pulling stomach-mouth. Narrative beat: temple scripture
-says the flood recurs every 500 years once collective human debt outgrows
-what the soil can bear.
+seal - completing it now actually opens the Undercroft, not just a
+flavor reward. Mini-boss — *The Undertaker of Wat Hua*: shrouded, carries
+an incense cauldron emitting blind-rage gas (56 HP, one desperate
+phase). Boss — *The Hungry Ghost of Hua Lamphong (Preta Titan)*: **Phase
+1** a 15m emaciated pinhole-mouthed humanoid firing starvation sonic
+beams; **Phase 2** a sharpened sonic-hunger phase; **Phase 3** its ribs
+tear open into a gravity-pulling stomach-mouth (51 HP total). Seven new
+regular species patrol the district - Petrified Chanter, Tunnel Wraith,
+Coffin Crawler, Ash Moth Swarm, and Flooded Conductor near the surface,
+Bone Tide Drifter and Hollow Novice in the deeper Undercroft. Balance
+(mini-boss/boss HP and moves) was bot-sim-verified *before* being
+finalized this time, not toughened by feel and fixed afterward like
+districts 1-3 needed - see the Prototype status section's balance note.
+Narrative beat: temple scripture says the flood recurs every 500 years
+once collective human debt outgrows what the soil can bear (found as a
+scripture fragment, the Chanting Tuning-Forks' reward). The Reliquary
+Vault holds the Preta Titan's Hunger Stone, the district's best loot.
 
 **5. Ratchaprasong Intersection** *(the Tank's shrine — Erawan Guardian)*
 — Mirror-black water around ruined luxury malls; wealthy shelter-in-place
@@ -883,23 +902,24 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   class codex now shows a count ("X of 105 known classes are still
   unresolved rumors") rather than one "???" line per class, since one
   line each stopped being readable at this roster size.
-- **Three fully playable districts** (`scenes/overworld.tscn` /
+- **Four fully playable districts** (`scenes/overworld.tscn` /
   `scripts/overworld/overworld.gd`): Sukhumvit Shallows, Chatuchak
-  Ruins, and Klong Toey Canals, each with grid movement, a mini-boss and
-  boss (with stage transitions) that are permanently removed once
-  beaten, item pickups + monster loot drops feeding a simple inventory
-  with usable items, and a cluster of NPC/landmark/narrative events plus
-  a sequential flag-gated puzzle (Breaker Pump Protocol / Amulet Scale /
-  Crane Sluice Alignment) apiece. All three now got the same depth pass
-  (see above) and are 28×20 with 14 regular spawns across 7 species, two
-  puzzles, 3 locked gates, and a secret vault apiece — up from the
-  original 10×8/6-spawn/one-puzzle/no-locks pilot shape every district
-  shipped with initially. Real in-fiction travel between them now exists
-  via the World Map (see below) - the "[DEV] <district>" main-menu
-  buttons still work too, as unlock-gate-bypassing shortcuts. Walking
-  into a live monster transitions into...
+  Ruins, Klong Toey Canals, and Wat Hualamphong Depths, each with grid
+  movement, a mini-boss and boss (with stage transitions) that are
+  permanently removed once beaten, item pickups + monster loot drops
+  feeding a simple inventory with usable items, and a cluster of
+  NPC/landmark/narrative events plus a sequential flag-gated puzzle
+  (Breaker Pump Protocol / Amulet Scale / Crane Sluice Alignment /
+  Chanting Tuning-Forks) apiece. All four are 28×20 with 14 regular
+  spawns across 7 species, two puzzles, 3 locked gates, and a secret
+  vault apiece — Wat Hualamphong Depths was built at this scale from
+  the start, the other three grew into it via the depth pass described
+  above. Real in-fiction travel between them now exists via the World
+  Map (see below) - the "[DEV] <district>" main-menu buttons still
+  work too, as unlock-gate-bypassing shortcuts. Walking into a live
+  monster transitions into...
 - **World Map / inter-district travel** (`scenes/world_map.tscn`): lists
-  the 3 built districts in tier order, unlocked ones enterable, locked
+  all 4 built districts in tier order, unlocked ones enterable, locked
   ones grayed out with a reason - see the Exploration & Encounter System
   section above for the full mechanic. Reached from "Start Exploring" on
   the main menu or "World Map" in the status menu.
@@ -1178,7 +1198,12 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   regular encounters) should run harder than these numbers suggest, not
   easier. Final confirmed win rates: Neon Strangler 70%, Phra Khanong
   Mother 55%, Scale Merchant 75%, Chimera of the Drowned Aviary 40%,
-  Sluice Ripper 70%, Klong Toey Leviathan 70%. This is exactly the kind
+  Sluice Ripper 70%, Klong Toey Leviathan 70%. Wat Hualamphong Depths (a
+  brand-new 4th district, not a depth-pass retrofit) applied the lesson
+  from the start instead of learning it again: its mini-boss and boss
+  stats were bot-sim-tuned *before* being finalized, landing at 70% (The
+  Undertaker of Wat Hua) and 66% (The Hungry Ghost of Hua Lamphong) at
+  n=80 without ever shipping a broken number. This is exactly the kind
   of check the project should run on any future monster-stat change
   before shipping it, not just for new content.
 - **Status/Items menu (Escape, from the overworld).**
@@ -1217,12 +1242,12 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
 
 ## Roadmap / Phase 2 ideas (not built)
 
-- **The other 29 zones.** Three districts are real (Sukhumvit Shallows,
-  Chatuchak Ruins, Klong Toey Canals), all three now at the same
-  28×20 depth-pass scale; the other 9 districts, all 10 dungeons, and
-  all 10 dimensions are designed (World Map above and the Story Bible
-  section, with full atmosphere/NPC/puzzle/boss detail for every one of
-  them) but have zero entries in `data/districts.json` /
+- **The other 28 zones.** Four districts are real (Sukhumvit Shallows,
+  Chatuchak Ruins, Klong Toey Canals, Wat Hualamphong Depths), all four
+  at the same 28×20 depth-pass scale; the other 8 districts, all 10
+  dungeons, and all 10 dimensions are designed (World Map above and the
+  Story Bible section, with full atmosphere/NPC/puzzle/boss detail for
+  every one of them) but have zero entries in `data/districts.json` /
   `data/monsters.json`. Filling in new zones is purely content
   work, following the pattern Sukhumvit Shallows proved out (content +
   `terrain` tile art, `tools/gen_district_layout.py` for a
@@ -1235,9 +1260,9 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   their documented order ending at *The Source of the Release* (the
   literal final boss); the 10 dungeons are optional side content, not on
   the critical path.
-- **Inter-zone progression/gating for the other 29 zones.** Built for the
-  3 real districts (see "World Map / inter-district travel" above);
-  extending `RunState.DISTRICT_ORDER` to the other 9 designed-but-unbuilt
+- **Inter-zone progression/gating for the other 28 zones.** Built for the
+  4 real districts (see "World Map / inter-district travel" above);
+  extending `RunState.DISTRICT_ORDER` to the other 8 designed-but-unbuilt
   districts is mechanical once they exist as data, but there's still no
   rank-tier gate stopping an F-rank player from walking into a B-rank
   district (rank progression itself isn't tracked yet - see the unlock-
@@ -1260,11 +1285,11 @@ What exists right now, in `scenes/`, `scripts/`, and `data/`:
   is fully linear, one path F straight through to S; the original brief's
   "don't know how, maybe multiple paths" idea for branching evolutions
   isn't built).
-- Art for everything outside the 3 built districts: monster/item icons
-  for the other 29 planned districts/dungeons/dimensions, a real tileset
-  for their overworld ground (Sukhumvit Shallows, Chatuchak Ruins, and
-  Klong Toey Canals all use the generated flood-city tileset already;
-  everywhere else still falls back to plain `ColorRect`s), named-
+- Art for everything outside the 4 built districts: monster/item icons
+  for the other 28 planned districts/dungeons/dimensions, a real tileset
+  for their overworld ground (all 4 built districts use the generated
+  flood-city tileset already; everywhere else still falls back to plain
+  `ColorRect`s), named-
   building/landmark art beyond flavor text, and general UI skinning
   (partially addressed by `UITheme` - see the dark-theme note above,
   though it's palette/panels, not bespoke per-district art).

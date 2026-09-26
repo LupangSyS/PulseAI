@@ -24,7 +24,7 @@ var last_battle_loot: Array = []
 ## district's boss unlocks the next entry (see unlock_next_district);
 ## the first entry is always unlocked from begin_run(). A district not
 ## yet built as data (see GDD.md's World Map) simply never appears here.
-const DISTRICT_ORDER := ["sukhumvit_shallows", "chatuchak_ruins", "klong_toey_canals"]
+const DISTRICT_ORDER := ["sukhumvit_shallows", "chatuchak_ruins", "klong_toey_canals", "wat_hualamphong_depths"]
 
 ## district_id -> true for every district the player has access to via
 ## the World Map. Persisted across save/load; reset to just the first

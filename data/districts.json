@@ -2437,5 +2437,778 @@
         "repeatable": false
       }
     ]
+  },
+  {
+    "id": "wat_hualamphong_depths",
+    "display_name": "Wat Hualamphong Depths",
+    "description": "Flooded temple crematoriums merged with MRT tunnels; monks who died mid-chant are petrified statues whose voices cause cognitive hemorrhage. A 28x20 sprawl from the first day: the Hall of Unclaimed Coffins holds a synchronized-knocking puzzle in the east, three brass bells wait in the north to shatter an acoustic seal, MRT Platform 2 sits locked behind a card reader in the northeast, and something ancient waits in the undercroft beneath the temple floor.",
+    "danger_tier": "E-D",
+    "kind": "district",
+    "grid_width": 28,
+    "grid_height": 20,
+    "entrance_cell": [
+      0,
+      10
+    ],
+    "blocked_cells": [
+      [
+        0,
+        16
+      ],
+      [
+        1,
+        16
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        16
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        3,
+        12
+      ],
+      [
+        3,
+        17
+      ],
+      [
+        3,
+        19
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        5,
+        11
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        7,
+        1
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        7,
+        6
+      ],
+      [
+        7,
+        7
+      ],
+      [
+        7,
+        14
+      ],
+      [
+        7,
+        15
+      ],
+      [
+        7,
+        16
+      ],
+      [
+        7,
+        17
+      ],
+      [
+        7,
+        18
+      ],
+      [
+        7,
+        19
+      ],
+      [
+        8,
+        3
+      ],
+      [
+        8,
+        5
+      ],
+      [
+        8,
+        6
+      ],
+      [
+        8,
+        7
+      ],
+      [
+        8,
+        13
+      ],
+      [
+        9,
+        3
+      ],
+      [
+        9,
+        6
+      ],
+      [
+        9,
+        8
+      ],
+      [
+        9,
+        9
+      ],
+      [
+        9,
+        13
+      ],
+      [
+        9,
+        18
+      ],
+      [
+        10,
+        2
+      ],
+      [
+        10,
+        3
+      ],
+      [
+        10,
+        13
+      ],
+      [
+        10,
+        19
+      ],
+      [
+        11,
+        2
+      ],
+      [
+        11,
+        3
+      ],
+      [
+        11,
+        9
+      ],
+      [
+        11,
+        10
+      ],
+      [
+        11,
+        13
+      ],
+      [
+        11,
+        15
+      ],
+      [
+        12,
+        9
+      ],
+      [
+        12,
+        10
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        12,
+        19
+      ],
+      [
+        13,
+        13
+      ],
+      [
+        13,
+        15
+      ],
+      [
+        14,
+        13
+      ],
+      [
+        14,
+        16
+      ],
+      [
+        15,
+        12
+      ],
+      [
+        15,
+        13
+      ],
+      [
+        15,
+        17
+      ],
+      [
+        16,
+        5
+      ],
+      [
+        16,
+        6
+      ],
+      [
+        16,
+        7
+      ],
+      [
+        16,
+        8
+      ],
+      [
+        16,
+        16
+      ],
+      [
+        16,
+        19
+      ],
+      [
+        17,
+        5
+      ],
+      [
+        17,
+        6
+      ],
+      [
+        17,
+        13
+      ],
+      [
+        17,
+        14
+      ],
+      [
+        18,
+        3
+      ],
+      [
+        18,
+        4
+      ],
+      [
+        18,
+        13
+      ],
+      [
+        19,
+        3
+      ],
+      [
+        19,
+        4
+      ],
+      [
+        19,
+        13
+      ],
+      [
+        19,
+        17
+      ],
+      [
+        19,
+        18
+      ],
+      [
+        20,
+        4
+      ],
+      [
+        20,
+        11
+      ],
+      [
+        20,
+        13
+      ],
+      [
+        21,
+        11
+      ],
+      [
+        21,
+        13
+      ],
+      [
+        21,
+        18
+      ],
+      [
+        22,
+        0
+      ],
+      [
+        22,
+        1
+      ],
+      [
+        22,
+        3
+      ],
+      [
+        22,
+        4
+      ],
+      [
+        22,
+        11
+      ],
+      [
+        22,
+        13
+      ],
+      [
+        23,
+        5
+      ],
+      [
+        23,
+        13
+      ],
+      [
+        24,
+        5
+      ],
+      [
+        24,
+        13
+      ],
+      [
+        24,
+        16
+      ],
+      [
+        25,
+        5
+      ],
+      [
+        25,
+        6
+      ],
+      [
+        25,
+        13
+      ],
+      [
+        25,
+        18
+      ],
+      [
+        26,
+        5
+      ],
+      [
+        26,
+        13
+      ],
+      [
+        26,
+        17
+      ],
+      [
+        27,
+        5
+      ],
+      [
+        27,
+        11
+      ],
+      [
+        27,
+        13
+      ],
+      [
+        27,
+        14
+      ],
+      [
+        27,
+        17
+      ]
+    ],
+    "terrain": [
+      "rrrrrrrrrrprrrrrrprpprrppppp",
+      "rprpprprrrrprpprrprrrprrpppp",
+      "rrprrprrrrrrrrprrpprrrrpprpr",
+      "rrrprprprppprrrrrrppprrpprpp",
+      "prrrrrrrrpprrrrrrrrprrpppppp",
+      "prrrrpprrprrprprprrrrprprrrr",
+      "rrrprprrrrrprpppprrrrrrrrrpr",
+      "ppppsspsrsrrrrrsrrrrrprrrppr",
+      "pppssspsssrrsrsrpprrrprrrrpr",
+      "ppsppsssrsrssrrsrrrrrrrrrppr",
+      "spppppsprrrrrrsrprpprrrprprp",
+      "ppppppppsrrrrrsrrrrpprrprrpr",
+      "pssssssprrrsrsrspprrprrrpprp",
+      "sppspppprrrrrsssrrrrrrrrpppr",
+      "rsrsrsrrrrsrrsrsrsrsssrsssrs",
+      "ssrssssrrrrsrrrrssrsrssrsrsr",
+      "srssssrsssrsrrrrrrrrsrrrrssr",
+      "rrrrssssrsrsrsrrsrrsrsrrrrss",
+      "rrrsssssrrrsssrrsrsssrssrsrr",
+      "pprrssrsrrrrsrsrsrsrsssrssrr"
+    ],
+    "locked_cells": [
+      {
+        "cell": [
+          23,
+          2
+        ],
+        "requires_item": "platform_access_card",
+        "locked_text": "MRT Platform 2's turnstile still wants a valid access card - the flood didn't kill the reader, just everyone who used to carry one."
+      },
+      {
+        "cell": [
+          2,
+          18
+        ],
+        "requires_item": "reliquary_key",
+        "locked_text": "The reliquary door reads a specific key, not a crowbar."
+      },
+      {
+        "cell": [
+          16,
+          14
+        ],
+        "requires_flag": "seal_broken",
+        "locked_text": "The acoustic seal over the undercroft stairs is still intact - the bells haven't found the right pitch yet."
+      }
+    ],
+    "monster_spawns": [
+      {
+        "monster_id": "petrified_chanter",
+        "cell": [
+          2,
+          8
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "tunnel_wraith",
+        "cell": [
+          5,
+          9
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "flooded_conductor",
+        "cell": [
+          6,
+          12
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "coffin_crawler",
+        "cell": [
+          9,
+          10
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "ash_moth_swarm",
+        "cell": [
+          12,
+          11
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "petrified_chanter",
+        "cell": [
+          6,
+          2
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "flooded_conductor",
+        "cell": [
+          18,
+          5
+        ],
+        "respawn_seconds": 25
+      },
+      {
+        "monster_id": "tunnel_wraith",
+        "cell": [
+          20,
+          2
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "ash_moth_swarm",
+        "cell": [
+          5,
+          16
+        ],
+        "respawn_seconds": 20
+      },
+      {
+        "monster_id": "bone_tide_drifter",
+        "cell": [
+          10,
+          15
+        ],
+        "respawn_seconds": 40
+      },
+      {
+        "monster_id": "bone_tide_drifter",
+        "cell": [
+          14,
+          17
+        ],
+        "respawn_seconds": 40
+      },
+      {
+        "monster_id": "bone_tide_drifter",
+        "cell": [
+          20,
+          15
+        ],
+        "respawn_seconds": 40
+      },
+      {
+        "monster_id": "hollow_novice",
+        "cell": [
+          12,
+          18
+        ],
+        "respawn_seconds": 35
+      },
+      {
+        "monster_id": "hollow_novice",
+        "cell": [
+          18,
+          17
+        ],
+        "respawn_seconds": 35
+      }
+    ],
+    "miniboss_spawn": {
+      "monster_id": "undertaker_of_wat_hua",
+      "cell": [
+        22,
+        16
+      ]
+    },
+    "boss_spawn": {
+      "monster_id": "hungry_ghost_of_hua_lamphong",
+      "cell": [
+        26,
+        18
+      ]
+    },
+    "item_spawns": [
+      {
+        "item_id": "blessed_temple_water",
+        "cell": [
+          3,
+          9
+        ]
+      },
+      {
+        "item_id": "blessed_temple_water",
+        "cell": [
+          9,
+          5
+        ]
+      },
+      {
+        "item_id": "blessed_temple_water",
+        "cell": [
+          26,
+          2
+        ]
+      },
+      {
+        "item_id": "flickering_platform_lantern",
+        "cell": [
+          27,
+          0
+        ]
+      },
+      {
+        "item_id": "blessed_temple_water",
+        "cell": [
+          9,
+          17
+        ]
+      },
+      {
+        "item_id": "preta_titans_hunger_stone",
+        "cell": [
+          1,
+          18
+        ]
+      }
+    ],
+    "events": [
+      {
+        "cell": [
+          1,
+          9
+        ],
+        "text": "Phra Maha Prasert kneels where the tunnel meets the temple stairs, empty sockets turned toward you anyway. \"I put them out myself,\" he says, \"rather than watch the skinless things that pray beside the novices now. The Hall of Unclaimed Coffins knows a rhythm - three knocks, in order, or whatever answers won't be who you knocked for. The bells upstairs want the same discipline. Get either wrong and something worse than silence answers.\"",
+        "repeatable": true
+      },
+      {
+        "cell": [
+          6,
+          8
+        ],
+        "text": "The MRT tunnel swallows the flashlight beam past a certain point. Dead train cars line the dark, doors still trying to open for passengers who stopped needing platforms.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          3,
+          5
+        ],
+        "text": "The Hall of Unclaimed Coffins - hundreds of them, stacked floor to flooded ceiling, waiting on families that drowned before they could claim anyone. Something down the row is keeping time.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          21,
+          2
+        ],
+        "text": "Through a maintenance grate you can see MRT Platform 2, lights still flickering over water that never drained. A card reader blinks red at the turnstile - still waiting for a swipe that's never coming from anyone still breathing.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          9,
+          7
+        ],
+        "text": "First Knock: you rap twice on the nearest unclaimed coffin, the way the old funeral rite demands. Something inside knocks back, once, right on time.",
+        "repeatable": false,
+        "sets_flag": "knock_1"
+      },
+      {
+        "cell": [
+          12,
+          8
+        ],
+        "text": "Second Knock: the rhythm carries down the row on its own now. You just have to match it.",
+        "fail_text": "Nothing answers this coffin yet - the first one in the rite hasn't been knocked.",
+        "repeatable": false,
+        "requires_flag": "knock_1",
+        "sets_flag": "knock_2"
+      },
+      {
+        "cell": [
+          14,
+          11
+        ],
+        "text": "Third Knock: the rite completes, and a hidden panel among the stacked coffins clicks open on a laminated access card - MRT staff, badge photo long faded.",
+        "fail_text": "The rite isn't finished - the second knock hasn't been answered.",
+        "repeatable": false,
+        "requires_flag": "knock_2",
+        "sets_flag": "knock_3",
+        "reward_item": "platform_access_card"
+      },
+      {
+        "cell": [
+          8,
+          2
+        ],
+        "text": "First Bell: a brass tuning fork, still bolted to its temple frame. You strike it, and the note hangs in the flooded air longer than it should.",
+        "repeatable": false,
+        "sets_flag": "bell_1"
+      },
+      {
+        "cell": [
+          14,
+          4
+        ],
+        "text": "Second Bell: struck a half-tone above the first, matching a pitch you can feel in your teeth more than hear.",
+        "fail_text": "This bell won't ring true yet - the first one hasn't set the base pitch.",
+        "repeatable": false,
+        "requires_flag": "bell_1",
+        "sets_flag": "bell_2"
+      },
+      {
+        "cell": [
+          19,
+          1
+        ],
+        "text": "Third Bell: all three tones lock together at once, and somewhere below the temple floor an acoustic seal cracks and lets go. The petrified monks nearby seem, just for a moment, to relax.",
+        "fail_text": "The third bell stays silent - the second tone hasn't been struck.",
+        "repeatable": false,
+        "requires_flag": "bell_2",
+        "sets_flag": "seal_broken",
+        "reward_item": "temple_scripture_fragment"
+      },
+      {
+        "cell": [
+          25,
+          1
+        ],
+        "text": "MRT Platform 2. The destination board still cycles through stations that don't exist anymore, lit by a battery bank someone wired decades ago and never came back to check.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          2,
+          15
+        ],
+        "text": "A reliquary door, sealed since before the flood, older than the MRT line running past it. Whatever's kept safe inside was never meant for tunnel traffic.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          11,
+          19
+        ],
+        "text": "The undercroft floor is uneven with old cremation ash, packed so dense underfoot it barely stirs even where the water should be disturbing it.",
+        "repeatable": false
+      },
+      {
+        "cell": [
+          0,
+          18
+        ],
+        "text": "Whatever the reliquary was built to hold, it's still watching you from the dark the second the door gives.",
+        "repeatable": false
+      }
+    ]
   }
 ]

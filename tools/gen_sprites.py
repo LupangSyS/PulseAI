@@ -770,6 +770,54 @@ CHARACTERS["slick_crawler"] = blob(
     shape="oval", eye=True,
 )
 
+# --- District 4: Wat Hualamphong Depths ---------------------------------
+CHARACTERS["petrified_chanter"] = humanoid(
+    {"skin": "#8a8478", "primary": "#5c5648", "secondary": "#3a362c",
+     "shadow": "#1f1c16", "trim": "#8a7a4a", "boot": "#2a271f", "eye": "#c9e854"},
+    hood=True, robed=True, weapon=None,
+)
+
+CHARACTERS["tunnel_wraith"] = blob(
+    {"primary": "#2e3440", "secondary": "#4a5568", "shadow": "#181c24"}, shape="round",
+)
+
+CHARACTERS["coffin_crawler"] = quadruped(
+    {"body": "#4a3e30", "accent": "#6b5a44"}, size="small", eye_color="#c9622e",
+)
+
+CHARACTERS["ash_moth_swarm"] = blob(
+    {"primary": "#4a4640", "secondary": "#6b665c", "shadow": "#28251f", "eye": "#e8843a"},
+    shape="oval", eye=True,
+)
+
+CHARACTERS["flooded_conductor"] = humanoid(
+    {"skin": "#7a8478", "primary": "#2e3a2e", "secondary": "#8a3e2e",
+     "shadow": "#1a221a", "trim": "#c9a23a", "boot": "#141a14", "eye": "#e8c23a"},
+    hood=False, robed=False, weapon="dagger",
+)
+
+CHARACTERS["bone_tide_drifter"] = quadruped(
+    {"body": "#c9c2b0", "accent": "#8a8474"}, size="large", ridged=True, eye_color="#3a5c6e",
+)
+
+CHARACTERS["hollow_novice"] = humanoid(
+    {"skin": "#6b7268", "primary": "#8a3e2e", "secondary": "#6b2e20",
+     "shadow": "#2a1a14", "trim": "#3a3428", "boot": "#1a1610", "eye": "#1a1a1a"},
+    hood=True, robed=True, weapon=None,
+)
+
+CHARACTERS["undertaker_of_wat_hua"] = humanoid(
+    {"skin": "#3a3630", "primary": "#241f1a", "secondary": "#4a3020",
+     "shadow": "#120f0c", "trim": "#6b4a2e", "boot": "#0d0b09",
+     "weapon": "#8a5a2e", "glow": "#e8843a", "eye": "#e85a2e"},
+    hood=True, robed=True, weapon="orb", weapon_glow=True,
+)
+
+CHARACTERS["hungry_ghost_of_hua_lamphong"] = boss_mass(
+    {"primary": "#3a2e34", "secondary": "#5c4a54", "shadow": "#221a20",
+     "tendril": "#4a3a42", "glow": "#c9622e"},
+)
+
 # ---------------------------------------------------------------------------
 # Render contact sheet for review
 # ---------------------------------------------------------------------------
@@ -809,6 +857,15 @@ CHARACTER_KIND.update({
     "vivarium_stalker": "monsters",
     "sunken_foreman": "monsters",
     "slick_crawler": "monsters",
+    "petrified_chanter": "monsters",
+    "tunnel_wraith": "monsters",
+    "coffin_crawler": "monsters",
+    "ash_moth_swarm": "monsters",
+    "flooded_conductor": "monsters",
+    "bone_tide_drifter": "monsters",
+    "hollow_novice": "monsters",
+    "undertaker_of_wat_hua": "monsters",
+    "hungry_ghost_of_hua_lamphong": "monsters",
     "market_dog": "monsters",
     "stall_wraith": "monsters",
     "trickster_imp": "monsters",
